@@ -1,0 +1,271 @@
+[
+
+   {
+      "id":"view-sidemenu-maps",
+      "label":{
+         "EN":"Maps",
+         "IT":"Mappe"
+      },
+      "datatab":"maps",
+      "link" : "maps",
+      "children":[
+         {
+            "id":"view-sidemenu-maps-1",
+            "label":{
+               "EN":"Map One",
+               "IT":"Mappa Uno"
+            },
+            "datatab":"map-1",
+            "link" : "map-1",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-maps-2",
+            "label":{
+               "EN":"Map Two",
+               "IT":"Mappa Due"
+            },
+            "datatab":"map-2",
+            "link":"map-2",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-maps-3",
+            "label":{
+               "EN":"Map Three",
+               "IT":"Mappa Tree"
+            },
+            "datatab":"map-3",
+            "link" : "map-3",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-maps-4",
+            "label":{
+               "EN":"Map Four",
+               "IT":"Mappa Quattro"
+            },
+            "datatab":"map-4",
+            "link" : "map-4",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-maps-5",
+            "label":{
+               "EN":"Map Five",
+               "IT":"Mappa Cinque"
+            },
+            "datatab":"map-5",
+            "link" : "map-5",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         }
+      ],
+      "icon":"icon-map-marker"
+   },
+   {
+      "id":"view-sidemenu-charts",
+      "label":{
+         "EN":"Charts",
+         "IT":"Grafici"
+      },
+      "datatab":"charts",
+      "link":"charts",
+      "children":[
+         {
+            "id":"view-sidemenu-charts-1",
+            "label":{
+               "EN":"Chart One",
+               "IT":"Grafico Uno"
+            },
+            "datatab":"chart-1",
+            "link":"chart-1",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-charts-2",
+            "label":{
+               "EN":"Chart Two",
+               "IT":"Grafico Due"
+            },
+            "datatab":"chart-2",
+            "link":"chart-2",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-charts-3",
+            "label":{
+               "EN":"Chart Three",
+               "IT":"Grafico Tre"
+            },
+            "datatab":"chart-3",
+            "link":"chart-3",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-charts-4",
+            "label":{
+               "EN":"Chart Four",
+               "IT":"Grafico Quattro"
+            },
+            "datatab":"chart-4",
+            "link":"chart-4",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-charts-5",
+            "label":{
+               "EN":"Chart Five",
+               "IT":"Grafico Cinque"
+            },
+            "datatab":"chart-5",
+            "link":"chart-5",
+            "children":[ ],
+            "icon":"icon-tasks"
+         }
+      ],
+      "icon":"icon-tasks"
+   },
+   {
+      "id":"view-sidemenu-tables",
+      "label":{
+         "EN":"Tables",
+         "IT":"Tabelle"
+      },
+      "datatab":"tables",
+      "link":"tables",
+      "children":[
+         {
+            "id":"view-sidemenu-tables-1",
+            "label":{
+               "EN":"Table One",
+               "IT":"Tabella Uno"
+            },
+            "datatab":"table-1",
+            "link":"table-1",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-tables-2",
+            "label":{
+               "EN":"Table Two",
+               "IT":"Tabella Due"
+            },
+            "datatab":"table-2",
+            "link":"table-2",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-tables-1",
+            "label":{
+               "EN":"Table Three",
+               "IT":"Tabella Tree"
+            },
+            "datatab":"table-3",
+            "link":"table-3",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+          {
+            "id":"view-sidemenu-tables-4",
+            "label":{
+               "EN":"Table Frour",
+               "IT":"Tabella Quattro"
+            },
+            "datatab":"table-4",
+            "link":"table-4",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-tables-5",
+            "label":{
+               "EN":"Table Five",
+               "IT":"Tabella Cinque"
+            },
+            "datatab":"table-5",
+            "link":"table-5",
+            "children":[ ],
+            "icon":"icon-th"
+         }
+      ],
+      "icon":"icon-th"
+   },
+   {
+      "id":"view-sidemenu-interactions",
+      "label":{
+         "EN":"Interactions",
+         "IT":"Interazioni"
+      },
+      "datatab":"interactions",
+      "link":"interactions",
+      "children":[
+         {
+            "id":"view-sidemenu-interactions-1",
+            "label":{
+               "EN":"Interaction One",
+               "IT":"Interazione Uno"
+            },
+            "datatab":"interaction-1",
+            "link":"interaction-1",
+            "children":[ ],
+            "icon":"icon-retweet"
+         },
+         {
+            "id":"view-sidemenu-interactions-2",
+            "label":{
+               "EN":"Interaction Two",
+               "IT":"Interazione Due"
+            },
+            "datatab":"interaction-2",
+            "link":"interaction-2",
+            "children":[ ],
+            "icon":"icon-retweet"
+         },
+         {
+            "id":"view-sidemenu-interactions-3",
+            "label":{
+               "EN":"Interaction Three",
+               "IT":"Interazione Tree"
+            },
+            "datatab":"interaction-3",
+            "link":"interaction-3",
+            "children":[ ],
+            "icon":"icon-retweet"
+         },
+         {
+            "id":"view-sidemenu-interactions-4",
+            "label":{
+               "EN":"Interaction Frour",
+               "IT":"Interazione Quattro"
+            },
+            "datatab":"interaction-4",
+            "link":"interaction-4",
+            "children":[ ],
+            "icon":"icon-retweet"
+         },
+         {
+            "id":"view-sidemenu-interactions-5",
+            "label":{
+               "EN":"Interaction Five",
+               "IT":"Interazione cinque"
+            },
+            "datatab":"interaction-5",
+            "link":"interaction-5",
+            "children":[ ],
+            "icon":"icon-retweet"
+         }
+      ],
+      "icon":"icon-retweet"
+   }
+]

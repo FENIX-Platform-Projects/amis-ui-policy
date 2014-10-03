@@ -1,0 +1,32 @@
+{ "header":
+   {  "maps" :   { 
+            "EN" : "html/pages/view/header/maps-en.html",
+            "IT" : "html/pages/view/header/maps-it.html" },
+      "tables" : {
+            "EN" : "html/pages/view/header/tables-en.html",
+            "IT" : "html/pages/view/header/tables-it.html"},
+      "charts" : {
+            "EN" : "html/pages/view/header/charts-en.html",
+            "IT" : "html/pages/view/header/charts-it.html"},
+      "interactions" : {
+         "EN" : "html/pages/view/header/interactions-en.html",
+         "IT" : "html/pages/view/header/interactions-it.html"}
+   },
+ "content" : {  
+      "maps" :   {
+            "EN" : "html/pages/view/content/maps-en.html",
+            "IT" : "html/pages/view/content/maps-it.html" },
+      "tables" : {
+            "EN" : "html/pages/view/content/tables-en.html",
+            "IT" : "html/pages/view/content/tables-it.html"},
+      "charts" : {
+            "EN" : "html/pages/view/content/charts-en.html",
+            "IT" : "html/pages/view/content/charts-it.html"},
+      "interactions" : {
+            "EN" : "html/pages/view/content/interactions-en.html",
+            "IT" : "html/pages/view/content/interactions-it.html"}
+   },
+   "footer" : { 
+            "EN" : "html/pages/footer/footer-en.html",
+            "IT" : "html/pages/footer/footer-it.html" }
+}

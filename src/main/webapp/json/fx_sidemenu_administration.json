@@ -1,0 +1,92 @@
+[
+   {
+      "id":"view-sidemenu-1",
+      "label":{
+         "EN":"Account",
+         "IT":"Account"
+      },
+      "datatab":"account",
+      "link" : "account",
+      "children":[
+         {
+            "id":"view-sidemenu-1-1",
+            "label":{
+               "EN":"Personal Information",
+               "IT":"Informazioni Personali"
+            },
+            "datatab":"personalinformation",
+            "link" : "personalinformation",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-1-2",
+            "label":{
+               "EN":"Security",
+               "IT":"Sicurezza"
+            },
+            "datatab":"security",
+            "link":"security",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         }
+      ],
+      "icon":"icon-map-marker"
+   },
+   {
+      "id":"view-sidemenu-2",
+      "label":{
+         "EN":"Node Status",
+         "IT":"Grafici"
+      },
+      "datatab":"nodestatus",
+      "link":"nodestatus",
+      "children":[
+         {
+            "id":"view-sidemenu-2-1",
+            "label":{
+               "EN":"Server STATS",
+               "IT":"Grafico Uno"
+            },
+            "datatab":"serverstats",
+            "link":"serverstats",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-2-2",
+            "label":{
+               "EN":"Running Apps",
+               "IT":"Grafico Due"
+            },
+            "datatab":"runningapps",
+            "link":"runningapps",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-2-3",
+            "label":{
+               "EN":"Running Services",
+               "IT":"Grafico Tre"
+            },
+            "datatab":"runningservices",
+            "link":"runningservices",
+            "children":[ ],
+            "icon":"icon-tasks"
+         },
+         {
+            "id":"view-sidemenu-2-4",
+            "label":{
+               "EN":"Logs",
+               "IT":"Grafico Quattro"
+            },
+            "datatab":"logs",
+            "link":"logs",
+            "children":[ ],
+            "icon":"icon-tasks"
+         }
+         ],
+      "icon":"icon-tasks"
+   }
+]

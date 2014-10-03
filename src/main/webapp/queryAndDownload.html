@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Query And Download Component</title>
+    <meta name="author" content="Barbara Cintoli <barbara.cintoli[at]fao.org>">
+    <link rel="stylesheet" href="css/bootstrap-theme.3.2.0.min.css">
+    <link rel="stylesheet" href="css/bootstrap.3.2.0.min.css">
+    <!-- JQwidgets  -->
+    <link rel="stylesheet" href='js/libs/jqwidgets-ver3.4.0/jqwidgets/styles/jqx.base.css'/>
+    <!--Jquery-ui-->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <!--Policy Structure Css for Policy Web Site-->
+    <link rel="stylesheet" href="css/policy_grid_style.css">
+    <!--Qd Generic Component Css-->
+    <link rel="stylesheet" href="css/qd_component.css">
+    <!--jQAllRangeSliders-->
+    <link rel="stylesheet" href="css/iThing_Modified.css">
+    <!--Pnotify-->
+    <!--<link rel="stylesheet" href="css/pnotify.custom.min.css">-->
+    <link href="css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!--Nprogress-->
+    <link rel='stylesheet' href='css/nprogress.css'/>
+    <!--Webix-->
+    <link href="css/webix.css" media="all" rel="stylesheet" type="text/css" />
+
+    <link href='http://glyphicons.com/' rel='stylesheet' type='text/css'>
+    <link href="css/ap_queryAndDownload.css" rel="stylesheet" type="text/css">
+    <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
+    <link href="css/amis-sass.css" rel="stylesheet" type="text/css">
+
+    <!--Feedback System-->
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+
+    <style>
+        /*applied to the columns.*/
+        .jqx-grid-column-header, .jqx-grid-columngroup-header {
+            border-style: solid;
+            border-width: 0px 1px 0px 0px;
+            border-color: transparent;
+            white-space: normal;
+            border-style: solid;
+            font-weight: normal;
+            overflow: hidden;
+            text-align: left;
+            padding: 0px;
+            margin: 0px;
+        }
+        /*.jqx-grid-cell {*/
+        /*border-style: solid;*/
+        /*border-width: 0px 1px 1px 0px;*/
+        /*margin-right: 1px;*/
+        /*margin-bottom: 1px;*/
+        /*border-color: transparent;*/
+        /*background: #fff;*/
+        /*white-space: nowrap;*/
+        /*font-weight: normal;*/
+        /*font-size: 12px;*/
+        /*overflow: hidden;*/
+        /*position: absolute !important;*/
+        /*height: 100%;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<!-- Sign in modal -->
+<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">FENIX Login in</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input id="modal-mail" type="email" autofocus="" required="" placeholder="Email address"
+                           class="form-control">
+                    <input type="password" required="" placeholder="Password" class="form-control">
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="sign-in-btn" type="submit" class="btn btn-lg btn-default btn-block">Sign in</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Header-->
+<div class="container amis-header">
+    <div class="amis-tag pull-left"></div>
+
+    <div class="pull-right banner-links"><a href="#" target='_self'> Send by email </a> | <a href="#"
+                                                                                             target='_self'>Print
+        this page</a></div>
+</div>
+
+<!-- Top menu-->
+<div class="container amis-menu">
+    <!-- Main menu-->
+    <nav class="navbar navbar-left">
+        <ul class="nav navbar-nav">
+            <li><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
+            <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
+            <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
+            <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
+            <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
+            <li class="dropdown protected">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../policy-management#cpls">CPL</a></li>
+                    <li><a href="../policy-management#policies">Policy</a></li>
+                    <li><a href="../policy-management#commodities">Commodity</a></li>
+                    <li><a href="../policy-management#sharedgroups">Shared Group</a></li>
+                </ul>
+            </li>
+            <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
+        </ul>
+    </nav>
+    <nav class="navbar navbar-right">
+        <ul class="nav navbar-nav">
+            <li><a href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a></li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Page Title -->
+<div class="container">
+    <div class="row">
+        <div id="header" class="fx-header col-lg-12">
+            <div>
+                <!--<a class="pull-left" href='../policy/index.html' target='_self'>-->
+                <!--<img src="img/homePage2.jpg" alt="Browse Data" class="img-responsive">-->
+                <!--</a>-->
+                <!--<h1 class='fx_header_title fx_p_ico'>Analysis <small>Analysis Brief Description </small></h1>-->
+                <h1 class='fx_header_title fx_p_ico'>Query And Download</h1>
+                <h4>Select, view and download subsets of the AMIS policy database. The Bulk Download tab allows for downloading the entire database or predefined sets of the database.<br><br>To better understand the information in the downloaded files, have a look at the explanatory documents that are posted on the <a href="../policy/statisticalNotes.html">Statistical Notes</a> page.<br><br> The organizational diagram illustrates how policies are classified in the AMIS policy database (include the organogram icon with link to png – maybe first put the icon and then the text, depends on what looks better).</h4>
+                <hr class='fx-hr'>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+<div class='row amis_download_holder'>
+    <div class='col-xs-12'>
+        <div class='note-tabs'><ul class='nav nav-tabs'><li class='active'><a href='#panel_standard_download' data-toggle='tab' class='fx_header_title_small'>Interactive Download</a></li>
+            <li><a href='#panel_bulk_download' data-toggle='tab' class='fx_header_title_small'>Bulk Download</a></li>
+            </ul>
+        <div class='tab-content'>
+            <div id='panel_standard_download' class='tab-pane active'>
+                <div >
+                    <div id="qd_component"></div>
+                    <div class='row'>
+                        <div class='col-xs-12'>
+                            <div class='note-tabs'>
+                                <ul id='test' class='nav nav-tabs'>
+                                    <li class='active'><a href='#pane1' id ='pane1' data-toggle='tab' class='fx_header_title_small'>Preview</a></li>
+                                    <!--<li><a href='#pane2' id ='pane2' data-toggle='tab' class='fx_header_title_small'>Pivot Preview</a></li>-->
+                                </ul>
+                                <div class='tab-content'>
+                                    <div id='standard_preview' class='tab-pane active'>
+                                        <div id="standard_preview_jqxgrid"></div>
+                                    </div>
+                                    <!--<div id='pivot_preview' class='tab-pane'>-->
+                                    <!--</div>-->
+                                </div><!-- /.tab-content -->
+                            </div><!-- /.tabbable -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <div id='panel_bulk_download' class='tab-pane'>
+                <div id='bulk_download_container'>
+                   <br>
+                    <div class='row'>
+                        <div class='col-xs-12 col-sm-12 col-md-8 col-lg-8'><div class="amis-step-title-text">Available downloads:</div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-xs-2 col-sm-2 col-md-4 col-lg-4'></div>
+                        <div class='col-xs-10 col-sm-10 col-md-8 col-lg-8'>
+                        <div style='margin-top: 10px;' id='allData_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_AllData.zip'>All data</a></div>
+                        <div style='margin-top: 10px;' id='biofuelData_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_BiofuelData.zip'>Biofuel data</a></div>
+                        <div style='margin-top: 10px;' id='agriculturalData_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_AgricultureData.zip'>Agricultural data</a></div>
+                        <div style='margin-top: 10px;' id='biofuelTrade_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_BiofuelData_trade.zip'>Biofuel trade</a></div>
+                        <div style='margin-top: 10px;' id='bioufuelDomestic_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_BiofuelData_domestic.zip'>Biofuel domestic</a></div>
+                        <div style='margin-top: 10px;' id='agriculturalIm_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_AgricultureData_ImportMeasures.zip'>Agricultural import measures</a></div>
+                        <div style='margin-top: 10px;' id='agriculturalEx_radioButton'><a target='_blank' href='../policy/doc/query_download/Bulk_AgricultureData_ExportMeasures.zip'>Agricultural export measures</a></div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div><!-- /.tab-content -->
+        </div><!-- /.tab table -->
+    </div>
+</div>
+
+</div>
+
+
+<div id="shared_group_window">
+    <div id="shared_group_windowHeader">
+    </div>
+    <div style="overflow: auto;" id="shared_group_windowContent">
+        <div id="shared_group_grid"></div>
+    </div>
+</div>
+
+<div id="additional_info_window">
+    <div id="additional_info_windowHeader">
+    </div>
+    <div style="overflow: auto;" id="additional_info_windowContent">
+        <div id="additional_info_container"></div>
+    </div>
+</div>
+
+<div id="metadata_fullscreen" style='background-color: #FFFFFF; display: none;'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-10 col-lg-10'>
+            &nbsp
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-1 col-lg-1'>
+            <div id = "close_metadata_fullscreen_button_container">
+                <div><button id ='close_metadata_fullscreen_button'>Close</button></div>
+            </div>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-1 col-lg-1'>
+            &nbsp;
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div style='background-color:#FFFFFF;' id='metadata_fullScreenContent'></div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<!-- Footer -->
+<div class="container">
+    <div class="row amis-footer">
+        <div class="col-xs-2 amis-footer-sides">
+            <a href='#' class='amis-contact-us'>CONTACT US</a>
+        </div>
+        <div class="col-xs-8 amis-footer-menu">
+            <!--AMIS HOME | POLICY HOME | POLICIES AT A GLANCE |  QUERY AND DOWNLOAD  | ANALYSES  |  STATISTICAL NOTES-->
+            <!--<a href="http://www.amis-outlook.org/home/en/" target='_self' style="color:white">AMIS HOME</a> | <a href='../policy/index.html' target='_self' style="color:white">POLICY HOME</a> | <a href='../policy/policiesAtaGlance.html' target='_self' style="color:white">POLICIES AT A GLANCE</a> |  <a href='../policy/queryAndDownload.html' target='_self' style="color:white">QUERY AND DOWNLOAD</a>  | <a href='../policy/analysis.html' target='_self' style="color:white">ANALYSES</a>  |  <a href='../policy/statisticalNotes.html' target='_self' style="color:white">STATISTICAL NOTES</a>-->
+            <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a class="amis-footer-menu" href='../policy/index.html' target='_self' >POLICY HOME</a> | <a class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a> |  <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self' >QUERY AND DOWNLOAD</a>  | <a class="amis-footer-menu" href='../policy/analysis.html' target='_self' >ANALYSIS</a>  |  <a class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
+        </div>
+        <div class="col-xs-2 amis-footer-sides">
+            <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe" href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
+                <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
+                <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://168.202.28.26:8090/wds/rest/policyservice/streamexcel' target='_self'>-->
+    <form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://statistics.amis-outlook.org:80/wds/rest/policyservice/streamexcel' target='_self'>
+    <div><input type='text' value='faostat' name='cssFilename_WQ' id='cssFilename_WQ'/></div>
+    <div><input type='text' value='' name='datasource_WQ' id='datasource_WQ'/></div>
+    <div><input type='text' value='2' name='decimalNumbers_WQ' id='decimalNumbers_WQ'/></div>
+    <div><input type='text' value='.' name='decimalSeparator_WQ' id='decimalSeparator_WQ'/></div>
+    <div><input type='text' value=',' name='thousandSeparator_WQ' id='thousandSeparator_WQ'/></div>
+    <div><input type='text' value='6' name='valueIndex_WQ' id='valueIndex_WQ'/></div>
+    <div><input type='text' value='' name='json_WQ' id='json_WQ'/></div>
+    <div><input type='text' value='' name='quote_WQ' id='quote_WQ'/></div>
+    <div><input type='text' value='' name='title_WQ' id='title_WQ'/></div>
+    <div><input type='text' value='' name='subtitle_WQ' id='subtitle_WQ'/></div>
+</form>
+
+<!--<form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://168.202.28.26:8090/wds/rest/policyservice/streamexcel2' target='_self'>-->
+    <form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://statistics.amis-outlook.org:80/wds/rest/policyservice/streamexcel2' target='_self'>
+    <div><input type='text' value='faostat' name='cssFilename_WQ2' id='cssFilename_WQ2'/></div>
+    <div><input type='text' value='' name='datasource_WQ2' id='datasource_WQ2'/></div>
+    <div><input type='text' value='2' name='decimalNumbers_WQ2' id='decimalNumbers_WQ2'/></div>
+    <div><input type='text' value='.' name='decimalSeparator_WQ2' id='decimalSeparator_WQ2'/></div>
+    <div><input type='text' value=',' name='thousandSeparator_WQ2' id='thousandSeparator_WQ2'/></div>
+    <div><input type='text' value='6' name='valueIndex_WQ2' id='valueIndex_WQ2'/></div>
+    <div><input type='text' value='' name='json_WQ2' id='json_WQ2'/></div>
+    <div><input type='text' value='' name='quote_WQ2' id='quote_WQ2'/></div>
+    <div><input type='text' value='' name='title_WQ2' id='title_WQ2'/></div>
+    <div><input type='text' value='' name='subtitle_WQ2' id='subtitle_WQ2'/></div>
+</form>
+<!-- jQuery CDN -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!--Feedback System-->
+<script type='text/javascript' src='http://faostat3.fao.org/faostat-download-js/js/fanzybox/lib/jquery.mousewheel-3.0.6.pack.js'></script>
+<script type='text/javascript' src='http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.js?v=2.1.4'></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+<script type="text/javascript">
+    // A $( document ).ready() block.
+    $( document ).ready(function() {
+        $(".feedback-system-icon").fancybox();
+    });
+</script>
+
+<script data-main="js/controllers/main.js" src="js/libs/require.min.2.1.14.js"></script>
+
+</body>
+</html>

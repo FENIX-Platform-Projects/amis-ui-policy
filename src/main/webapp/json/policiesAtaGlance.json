@@ -1,0 +1,62 @@
+{ "header":
+   {  "browseData0" : {
+            "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_biofuelPolicyTypes-en.html",
+            "IT" : "html/pages/view/header/maps-it.html" },
+       "browseData1" : {
+           "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_biofuelPolicyMeasures-en.html",
+           "IT" : "html/pages/view/header/maps-it.html" },
+       "browseData2" : {
+           "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_exportRestrictions-en.html",
+           "IT" : "html/pages/view/header/maps-it.html" },
+       "browseData3" : {
+           "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_exportSubsidies-en.html",
+           "IT" : "html/pages/view/header/maps-it.html" },
+       "browseData4" : {
+           "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_importTariffsQuotas-en.html",
+           "IT" : "html/pages/view/header/maps-it.html" },
+       "browseData5" : {
+           "EN" : "html/pages/policiesAtaGlance/header/policiesAtaGlance_policyByCommodities-en.html",
+           "IT" : "html/pages/view/header/maps-it.html" }
+   },
+ "content" : {
+     "browseData0" : {
+         "html" : {
+             "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_biofuelPolicyTypes-en.html",
+             "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu0()"
+     },
+     "browseData1" : {
+         "html" : {
+         "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_biofuelPolicyMeasures-en.html",
+         "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu1()"
+     },
+     "browseData2" : {
+         "html" : {
+             "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportRestrictions-en.html",
+             "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu2()"
+     },
+     "browseData3" : {
+         "html" : {
+             "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportSubsidies-en.html",
+             "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu3()"
+     },
+     "browseData4" : {
+         "html" : {
+             "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_importTariffsQuotas-en.html",
+             "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu4()"
+     },
+     "browseData5" : {
+         "html" : {
+             "EN" : "html/pages/policiesAtaGlance/content/policiesAtaGlance_policyByCommodities-en.html",
+             "IT" : "html/pages/view/content/maps-it.html" },
+         "callback" : "browseData_sideMenu5()"
+     }
+   },
+   "footer" : { 
+            "EN" : "html/pages/footer/footer-en.html",
+            "IT" : "html/pages/footer/footer-it.html" }
+}

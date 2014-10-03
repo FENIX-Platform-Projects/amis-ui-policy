@@ -1,0 +1,111 @@
+/* Key scaffolding
+-------------------------------------------------- */
+html{  height: 100%; }
+
+body {
+    background-color: #f9f7f3;
+    position: relative; /* For scrollyspy */
+    color: #666666 !important;
+    font-family: 'Roboto', sans-serif !important;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+em {font-style: normal;}
+
+* { -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+    color: #154179;
+}
+
+.well{
+    background-color: #FFFFFF;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color:  #265797;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px rgba(0, 122, 255, 0.5);
+    outline: 0 none;
+}
+
+.fx_btn_submit{
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: #265797;
+    height: 30px;
+    width: 130px;
+    text-align: center;
+    color:#FFFFFF;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 16px;
+    cursor: pointer;
+    padding-top: 4px
+}
+
+.fx_btn_submit:disabled{
+    /* background-color: #B2B2CC; */
+}
+
+.fx-hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #CCCCCC !important;
+    border-image: none;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    margin-top: 0px;
+}
+
+.fx-hr-home {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #CCCCCC !important;
+    border-image: none;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+}
+
+/* Common to Macroareas
+-------------------------------------------------- */
+.fx-macroarea-header {
+    padding-top: 20px;
+    /*display: inline-block;*/
+}
+
+.fx-macroarea-header-text{
+    max-width: 730px;
+}
+
+.fx-macroarea-header-title{
+    color: #265797 !important;
+    font-size: 24px;
+    padding-right: 30px;
+    margin-left: -5px;
+}
+
+.btn-primary {
+    background-color: #FFFFFF;
+
+}
+
+.amis-header {
+    background-image: url("img/banner/title.png");  /* Change with the real path */
+    background-repeat: no-repeat;
+    height: 86px;
+}
+
+

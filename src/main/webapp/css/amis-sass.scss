@@ -1,0 +1,109 @@
+/* Amis */
+@import 'mixin';
+
+
+/* Vertical Align */
+
+.va-holder {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+.va-child {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.va-child-align-left {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+
+}
+
+/* Reset jqwidget boxes */
+
+.jqx-tabs-header {
+  border-color: transparent;
+}
+
+
+.amis_download_holder{
+  overflow-x: hidden;
+}
+
+/* To be copied in FAOSTAT */
+.jqx-tabs {
+  border: none;
+}
+
+.fx_selector_7_slider {
+  border: 1px solid #c7c7c7;
+  padding: 55px 25px 30px 25px ;
+  @include border-radius(3px);
+}
+
+.amis-step-number{
+  display: inline-block;
+  height: 20px;
+  width:20px;
+  background-color: #2a5d9f;
+  @include border-radius(20px);
+  color: white;
+  text-align: center;
+  font-family: 'Open Sans Condensed',sans-serif;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+
+.amis-step-title {
+  margin-bottom: 15px;
+}
+
+.amis-step-title-text{
+  font-family: 'Open Sans Condensed',sans-serif;
+  font-size: 16px;
+  color: #2a5d9f;
+}
+
+.amis-step-subtitle-text{
+  font-family: 'Open Sans Condensed',sans-serif;
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 5px;
+
+}
+
+.jqx-tabs-titleContentWrapper{
+  font-family: 'Open Sans Condensed',sans-serif;
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 5px;
+
+
+}
+
+.fx_selector_content{
+  padding: 0 25px;
+}
+
+.fx_selector_shadow{
+  /*@include box-shadow(0, 2px, 3px, rgba(0, 0, 0, 0.1), $inset: false);*/
+  padding-bottom: 20px;
+
+}
+
+.jqx-radiobutton {
+  display: inline-block;
+  padding-right: 35px;
+}
+
+
+/* Table */
+
+.jqx-grid-column-header {
+  background-color: red;
+}

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AMIS Policy - Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Policy Admin Panel">
+    <meta name="author" content="Barbara Cintoli <Barbara.Cintoli[at]fao.org>">
+
+    <!-- Bootstrap CDN -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <!-- Amis policy -->
+    <link href="css/amispolicy.css" rel="stylesheet" type="text/css">
+    <link href="css/ap_homepage.css" rel="stylesheet" type="text/css">
+
+    <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
+    <link href="css/amis_mediaq.css" rel="stylesheet" type="text/css">
+    <!--<link href="css/ap_homepage.css" media="all" rel="stylesheet" type="text/css">-->
+
+    <!--<script type="text/javascript" charset="utf-8" src="download_btn_edgePreload.js"></script>-->
+    <!--<style>-->
+    <!--.edgeLoad-dowload_data_btn { visibility:hidden; }-->
+    <!--</style>-->
+    <!--<link href="css/fenix.css" media="all" rel="stylesheet" type="text/css">-->
+
+
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+
+
+
+</head>
+<body>
+
+<!-- Sign in modal -->
+<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">FENIX Login in</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input id="modal-mail" type="email" autofocus="" required="" placeholder="Email address"
+                           class="form-control">
+                    <input type="password" required="" placeholder="Password" class="form-control">
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="sign-in-btn" type="submit" class="btn btn-lg btn-default btn-block">Sign in</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Header-->
+<div class="container amis-header">
+    <div class="amis-tag pull-left"></div>
+
+    <div class="pull-right banner-links"><a href="#" target='_self'> Send by email </a> | <a href="#"
+                                                                                             target='_self'>Print
+        this page</a></div>
+</div>
+
+<!-- Top menu-->
+<div class="container amis-menu">
+    <!-- Main menu-->
+    <nav class="navbar navbar-left">
+        <ul class="nav navbar-nav">
+            <li><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
+            <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
+            <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
+            <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
+            <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
+            <li class="dropdown protected">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../policy-management#cpls">CPL</a></li>
+                    <li><a href="../policy-management#policies">Policy</a></li>
+                    <li><a href="../policy-management#commodities">Commodity</a></li>
+                    <li><a href="../policy-management#sharedgroups">Shared Group</a></li>
+                </ul>
+            </li>
+            <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
+        </ul>
+    </nav>
+    <nav class="navbar navbar-right">
+        <ul class="nav navbar-nav">
+            <li><a href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a></li>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 class='fx_header_title'>WELCOME TO THE AMIS POLICY DATABASE</h1>
+            <p>The AMIS policy database gathers information on trade measures and domestic measures related to the four AMIS crops (wheat, maize, rice, and soybeans) as well as biofuels. The design of this database allows comparisons across countries, across commodities and across policies for selected periods of time. </p>
+
+            <!--<p>Top relevant data by  <a href='#' target='_self' class='amis-bold-link' >data exchange</a> </p>-->
+            <br>
+            <div class="row">
+                <div class="col-md-4 home-chart-holder">
+                    <span class="amis-number-circle">1</span> <span class="amis-homecharts-title">Biofuels</span>
+                    <p class="amis-homecharts-description">Number of AMIS countries with mandatory blending requirements for biofuels</p>
+                    <div class="home-chart-container" id='grafico1'> Loading </div>
+                </div>
+                <div class="col-md-4 home-chart-holder central-chart">
+                    <span class="amis-number-circle">2</span> <span class="amis-homecharts-title">Export subsidies</span>
+                    <p class="amis-homecharts-description">Number of AMIS countries with quantity commitments</p>
+                    <div class="home-chart-container" id='grafico2'> Loading </div>
+                </div>
+                <div class="col-md-4 home-chart-holder">
+                    <span class="amis-number-circle">3</span> <span class="amis-homecharts-title">Tariff quotas</span>
+                    <p class="amis-homecharts-description">Number of countries having notified imports under tariff quotas</p>
+                    <div class="home-chart-container" id='grafico3'> Loading </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-lg-3">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                    <h2 class="amis-sidebar-title">RESOURCES</h2>
+                    <ul class="amis-bullet">
+                        <li>Organization</li>
+                        <li><a href='../policy/img/homePage/PolicyDiagram.png' target='_self'>Policy Diagram</a></li>
+                        <li>Policy Diagram II</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                    <h2 class="amis-sidebar-title">COMMUNICATION MATERIAL</h2>
+                    <ul class="amis-bullet">
+                        <li>Brochure</li>
+                        <li>Concept Note</li>
+                        <li>Classifications and Standards</li>
+                        <li>Tutorials</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br> <br>
+
+    <div class="row">
+
+        <a href='../policy/policiesAtaGlance.html' target='_self'>
+            <div class="col-sm-3 home-btn-box">
+                <h2 class="text-center"> Policies at a glance </h2>
+                <img src="img/btn-glance.png" class="img-responsive" alt="Policies at a glance">
+                <p class="text-center">Get a snapshot of the contents and potential of the policy database. Browse the pre-defined sets of interactive graphs that display different aspects of the database.</p>
+            </div>
+        </a>
+
+        <a href='../policy/queryAndDownload.html' target='_self'>
+            <div class="col-sm-3 home-btn-box">
+                <h2 class="text-center"> Query and download </h2>
+                <img src="img/btn-download.png" class="img-responsive" alt="Policies at a glance">
+                <p class="text-center">Select, view and download subsets of the database. A value inspection tool allows for viewing, sorting and filtering the data.</p>
+            </div>
+        </a>
+
+        <a href='../policy/analysis.html' target='_self'>
+            <div class="col-sm-3 home-btn-box">
+                <h2 class="text-center"> Analysis </h2>
+                <img src="img/btn-analyses.png" class="img-responsive" alt="Policies at a glance">
+                <p class="text-center">Compare policy information with market information. Graphic tools offer contextual information to visually examine the possible relationship between selected policies and other variables such as production, trade and prices.</p>
+            </div>
+        </a>
+
+        <a href='../policy/statisticalNotes.html' target='_self'>
+            <div class="col-sm-3 home-btn-box">
+                <h2 class="text-center"> Statistical notes </h2>
+                <img src="img/btn-notes.png" class="img-responsive" alt="Policies at a glance">
+                <p class="text-center">Look up how variables are defined and classified. Explanatory documents, diagrams and links provide background information on the organization and contents of the database.</p>
+            </div>
+        </a>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h2> PARTNERS </h2>
+            <img class="img-responsive" src="img/partners.jpg">
+        </div>
+    </div>
+
+    <div class="row amis-footer">
+        <div class="col-xs-2 amis-footer-sides">
+            <a href='#' class='amis-contact-us'>CONTACT US</a>
+        </div>
+        <div class="col-xs-8 amis-footer-menu">
+            <!--AMIS HOME | POLICY HOME | POLICIES AT A GLANCE |  QUERY AND DOWNLOAD  | ANALYSES  |  STATISTICAL NOTES-->
+            <!--<a href="http://www.amis-outlook.org/home/en/" target='_self' style="color:white">AMIS HOME</a> | <a href='../policy/index.html' target='_self' style="color:white">POLICY HOME</a> | <a href='../policy/policiesAtaGlance.html' target='_self' style="color:white">POLICIES AT A GLANCE</a> |  <a href='../policy/queryAndDownload.html' target='_self' style="color:white">QUERY AND DOWNLOAD</a>  | <a href='../policy/analysis.html' target='_self' style="color:white">ANALYSES</a>  |  <a href='../policy/statisticalNotes.html' target='_self' style="color:white">STATISTICAL NOTES</a>-->
+            <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a class="amis-footer-menu" href='../policy/index.html' target='_self' >POLICY HOME</a> | <a class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a> |  <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self' >QUERY AND DOWNLOAD</a>  | <a class="amis-footer-menu" href='../policy/analysis.html' target='_self' >ANALYSIS</a>  |  <a class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
+        </div>
+        <div class="col-xs-2 amis-footer-sides">
+            <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe" href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
+                <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
+                <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Start -->
+
+
+<!-- End -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- JQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- Bootstrap CDN -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<!--script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script--->
+<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js'></script>
+<!-- <script type="text/javascript" src="js/jquery.history.js"></script>   -->
+<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jquery/1.0.9/jquery.i18n.properties-min.js'></script>
+
+<!-- Jqwidgets  -->
+<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all.js'></script>
+<!-- highcharts -->
+<script src=" http://code.highcharts.com/highcharts.js"></script>
+<script src="js/highcharts/modules/exporting.js"></script>
+<!-- AMIS Policy Widgets Js
+<script type="text/javascript" src="js/commons.js"></script>
+<script type="text/javascript" src="js/controllers/ap_homepage.js"></script>
+-->
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9] -->
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type='text/javascript' src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.js?v=2.1.4"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+
+
+<script src="js/amis-homecharts.js"></script>
+<script>
+    //Fake login
+    $(".protected").hide();
+    $('#sign-in-btn').on('click', function(){
+        $('#signInModal').modal('hide');
+        $(".protected").show();
+    });
+    $(".feedback-system-icon").fancybox()
+</script>
+
+</body>
+</html>

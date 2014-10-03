@@ -1,0 +1,60 @@
+{ "fns" : { 	
+	"mngtemplate" : { 
+		"html" : "mngtemplate",
+		"panel" : true,
+		"init" : "mngtemplate",
+		"callback" : "not used if panel:true"},
+	"addrow" : { 
+		"html" : "not used if panel:false",
+		"panel" : false,
+		"init" : "not used if panel:false",
+		"callback" : "addrow"},
+	"deleterow" : { 
+		"html" : "not used if panel:false",
+		"panel" : false,
+		"init" : "not used if panel:false",
+		"callback" : "deleterow"},
+	"exportjson" : { 
+		"html" : "not used if panel:false",
+		"panel" : false,
+		"init" : "not used if panel:false",
+		"callback" : "exportjson"}
+	},
+ "listboxdata" : {
+	"semantics" : [
+		{ "label" : "Grographical", "value": "geo"},
+		{ "label" : "Date", "value": "date"},		
+		{ "label" : "Numerical", "value": "number"},
+		{ "label" : "Year", "value": "year"},
+		{ "label" : "Code List", "value": "codelist"}
+		],
+	"types" : [
+		{ "label" : "Freetext", "value": "freetext"},
+		{ "label" : "Date", "value": "date"},
+		{ "label" : "Numerical", "value": "number"},
+		{ "label" : "Year", "value": "year"},
+		{ "label" : "Code List", "value": "codelist"}
+		],
+	"languages" : [
+		{ "label" : "English", "value": "en"},
+		{ "label" : "Italiano", "value": "it"},
+		{ "label" : "Español", "value": "es"},
+		{ "label" : "François", "value": "fr"}
+		],
+	"years" : [
+		{"label" : 2000, "value" : 2000},
+		{"label" : 2001, "value" : 2001},
+		{"label" : 2002, "value" : 2002},
+		{"label" : 2003, "value" : 2003},
+		{"label" : 2004, "value" : 2004}]
+ 	},
+ 	"defaultcolumn" : {
+ 		"dataType" : "number",
+ 		"dimension" : { "name" : "number"},
+ 		"description" : { "en" : "Default column is store in JSON file", "it" : "Descrizione di default."},
+ 		"title" : { "en" : "Value", "it" : "Valori"},
+ 		"supplemental" : {"en" : "Default column to store values", "it" : "Colonna di default per salvare i valori"},
+ 		"text" : "Value",
+ 		"value" : "Default column"
+ 	}
+}

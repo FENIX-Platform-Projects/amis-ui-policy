@@ -1,0 +1,78 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+@media(max-width:767px){
+
+.banner-links 			{position: absolute; right: 0px;}
+
+.amis-sidebar-title		{margin-top: 20px;}
+	
+.amis-header 			{background-image: none; }
+
+.home-chart-holder		{height: 250px; margin-bottom: 60px;}
+
+.central-chart::before	{height: 0;}
+
+.central-chart::after	{height: 0;}
+
+.home-btn-box 			{height: 230px;}
+
+}
+
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px) {
+ 
+
+.amis-header 			{background-image: none; }
+
+.amis-sidebar-title		{margin-top: 40px;}
+
+.home-chart-holder		{height: 300px; margin-bottom: 60px;}
+
+.central-chart::before	{height: 0;}
+
+.central-chart::after	{height: 0;}
+
+.home-btn-box 			{height: 300px;}
+
+}
+
+
+
+/* Medium devices (desktops, 992px and up) */
+@media	(min-width:992px){ 
+
+.amis-header 			{background-image: url("../img/banner/calder-Amis.jpg"); }
+
+.amis-sidebar-title		{margin-top: 40px;}
+
+.home-chart-holder		{height: 200px; margin-bottom: 40px; }
+
+.central-chart::before	{height: 250px;}
+
+.central-chart::after	{height: 250px;}
+
+.home-btn-box 			{height: 250px;}
+    
+}
+
+
+
+/* Large devices (large desktops, 1200px and up) */
+@media	(min-width:1200px){ 
+	
+.amis-header 			{background-image: url("../img/banner/calder-Amis.jpg");  background-position: right 45px top;}
+
+.amis-sidebar-title		{margin-top: 20px;}
+
+.home-chart-holder		{height: 160px; margin-bottom: 60px; padding: 0 20px 0 20px;}
+
+.central-chart::before	{height: 200px;}
+
+.central-chart::after	{height: 200px;}
+
+.home-btn-box 			{height: 230px;}
+
+}

@@ -1,0 +1,54 @@
+/*New Download*/
+.fx_master_table_render {
+    margin-left: 4px;
+    margin-top: 9px;
+    float: left;
+}
+
+.fx_master_table_row_details {
+    margin: 10px;
+}
+
+.fx_policy_table_link_datafield {
+    margin-left: 4px;
+    margin-top: 5px;
+    float: left;
+}
+
+.fx_policy_table_link_datafield_button {
+    margin-left: 8px;
+    margin-top: 5px;
+    float: left;
+}
+
+.fx_fullscreen_content_container {
+    margin: 5px;
+}
+
+.fx_fullscreen_content_left_column {
+    margin: 20px;
+    float: left;
+    width: 97%;
+}
+
+.fx_fullscreen_content_element {
+    margin: 10px;
+}
+
+.fx_additional_info_content_container {
+    margin: 5px;
+}
+
+.fx_additional_info_content_left_column {
+    float: left;
+    width: 45%;
+}
+
+.fx_additional_info_content_element {
+    margin: 10px;
+}
+
+.fx_shared_group_table_render {
+    text-align: center;
+    margin: 1px;
+}

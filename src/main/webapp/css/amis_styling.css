@@ -1,0 +1,263 @@
+.container {
+    background-color: white;
+}
+
+/* Header */
+
+.banner-links {
+    background-color: #FFFFFF;
+    height: 27px;
+    padding-left: 5px;
+    width: 198px;
+}
+
+.amis-header {
+    background-color: #FFFFFF;
+    background-image: url("../img/banner/calder-Amis.jpg");  /* Change with the real path */
+    background-repeat: no-repeat;
+    background-position:right;
+    height: 90px;
+    position: relative;
+}
+
+.amis-tag {
+    background-color: #FFFFFF;
+    background-image: url("../img/banner/banner-tag.jpg");
+    background-repeat: no-repeat;
+    background-position:left;
+    height: 90px;
+    width: 270px;
+}
+
+/* Menu */
+
+.navbar{
+    margin-bottom: 0px;
+    min-height: 30px;
+    border: 0;
+    border-radius: 0;
+}
+
+.amis-menu{
+    background-color: #dd3118;
+}
+
+.navbar-nav > li > a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: verdana;
+    color: #FFFFFF;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: #EEEEEE;
+    text-decoration: none;
+    color: #333;
+}
+
+.amis-sidebar-title{
+    border-bottom: 1px solid #2a5d9f;
+}
+
+.amis-bullet > li {
+    font-family: arial;
+    font-size: 12px;
+    color: #333333;
+}
+
+.amis-bullet {
+    padding-left: 11px;
+}
+
+
+.amis-log-btn {
+    background-color: #2A5D9F;
+    color: #ffffff;
+}
+
+/* Typography */
+
+body {
+    font-family: arial !important;
+    color: #333;
+    font-size: 12px;
+}
+
+h1 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 24px;
+    color: #2a5d9f;
+}
+
+h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    color: #2a5d9f;
+}
+
+h3 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    color: #2a5d9f;
+}
+
+h4 {
+    font-family: arial, sans-serif;
+    font-size: 12px;
+    color: #666666;
+    font-weight: normal;
+}
+
+
+p {
+    font-family: arial;
+    color: #333;
+    font-size: 12px;
+}
+
+.amis-bold-link{
+    font-weight: bold;
+    color: #2a5d9f;
+    position: relative;
+}
+
+.amis-bold-link:hover{
+    text-decoration: none;
+}
+
+.amis-bold-link::after{
+    content:'';
+    position: absolute;
+    top:4px;
+    right: -16px;
+    width: 13px;
+    height: 7px;
+    background-image: url("../img/freccia-basso.png");
+}
+
+
+/*  Home charts  */
+
+
+
+.home-chart-container{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 70px;
+}
+
+.central-chart::before{
+    content:'';
+    position: absolute;
+    top:4px;
+    left: 0px;
+    width: 1px;
+    height: 200px;
+    background-color:#999999;
+}
+
+.central-chart::after{
+    content:'';
+    position: absolute;
+    top:4px;
+    right: 0px;
+    width: 1px;
+    height: 200px;
+    background-color:#999999;
+}
+
+
+.amis-number-circle {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: #2a5d9f;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.amis-homecharts-title {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    color: #2a5d9f;
+    position: relative;
+    top: 1px;
+}
+
+.amis-homecharts-description {
+    margin-top: 5px;
+}
+
+
+/*  Home Box */
+
+.home-btn-box {
+    background-color: #ededed;
+    border-right: 15px solid #FFFFFF;
+    border-left: 15px solid #FFFFFF;
+}
+
+
+/* FOOTER */
+
+.amis-footer {
+    height: 50px;
+    background-color: #173e7a;
+    color: #FFFFFF;
+}
+
+.amis-footer-menu {
+    padding-top: 18px;
+    color: #FFFFFF;
+}
+
+.amis-footer-sides {
+    background-color: #0b2957;
+    height: 50px;
+}
+
+.amis-contact-us{
+    margin-top: 14px;
+    color: #FFFFFF;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+    display: block;
+}
+
+.amis-contact-us:hover{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.feedback-system-icon{
+    background-image: url(../img/amis-megaphone.png);
+    cursor: pointer;
+    padding: 1px 5px 3px 9px;
+    background-position: 87px 3px;
+    background-repeat: no-repeat;
+    margin-top: 8px; margin-left: 27px;
+}
+
+.feedback-system-icon p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFF;
+    font-style: italic;
+    font-size: 9px;
+    margin-bottom: 0;
+}
+
+
+/* Override */
+
+#bd0_submenu0_row_option, #bd1_submenu0_row_option, #bd2_submenu0_row_option, #bd3_submenu0_row_option, #bd4_submenu0_row_option, #bd5_submenu0_row_option{
+    overflow: hidden;
+}
+
+#placeholder_container{
+    padding-left: 0;
+}
+

@@ -1,0 +1,7 @@
+{  "footer" : { 
+            "EN" : "html/pages/footer/footer-en.html",
+            "IT" : "html/pages/footer/footer-it.html" },
+   "header" : { 
+            "EN" : "html/pages/analysis/header/header-en.html",
+            "IT" : "html/pages/analysis/header/header-it.html" }
+}

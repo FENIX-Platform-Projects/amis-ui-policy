@@ -1,0 +1,159 @@
+[ 
+   {
+      "id":"view-sidemenu-0",
+      "label":{
+         "EN":"Biofuels policies",
+         "IT":""
+      },
+      "datatab":"browseData0",
+      "link":"browseData0",
+      "children":[
+      {
+          "id":"view-sidemenu-0-1",
+          "label":{
+              "EN":"Frequency graph",
+              "IT":""
+          },
+          "datatab":"bd0_submenu1",
+          "link":"bd0_submenu1",
+          "children":[ ],
+          "icon":"icon-th"
+      },
+      {
+          "id":"view-sidemenu-0-3",
+          "label":{
+              "EN":"Time series",
+              "IT":""
+          },
+          "datatab":"bd0_submenu3",
+          "link":"bd0_submenu3",
+          "children":[ ],
+          "icon":"icon-th"
+      }],
+      "icon":"icon-tasks"
+   },
+    {
+        "id":"view-sidemenu-1",
+        "label":{
+            "EN":"Biofuels policies-detailed",
+            "IT":""
+        },
+        "datatab":"browseData1",
+        "link":"browseData1",
+        "children":[
+            {
+                "id":"view-sidemenu-1-2",
+                "label":{
+                    "EN":"Frequency graph",
+                    "IT":""
+                },
+                "datatab":"bd1_submenu2",
+                "link":"bd1_submenu2",
+                "children":[ ],
+                "icon":"icon-th"
+            },
+            {
+                "id":"view-sidemenu-1-3",
+                "label":{
+                    "EN":"Time series",
+                    "IT":""
+                },
+                "datatab":"bd1_submenu3",
+                "link":"bd1_submenu3",
+                "children":[ ],
+                "icon":"icon-th"
+            }],
+        "icon":"icon-tasks"
+    },
+    {
+        "id":"view-sidemenu-4",
+        "label":{
+            "EN":"Import tariffs",
+            "IT":""
+        },
+        "datatab":"browseData4",
+        "link" : "browseData4",
+        "children":[
+            {
+                "id":"view-sidemenu-4-1",
+                "label":{
+                    "EN":"Frequency graph MIN",
+                    "IT":""
+                },
+                "datatab":"bd4_submenu1",
+                "link":"bd4_submenu1",
+                "children":[ ],
+                "icon":"icon-th"
+            },
+            {
+                "id":"view-sidemenu-4-2",
+                "label":{
+                    "EN":"Frequency graph MAX",
+                    "IT":""
+                },
+                "datatab":"bd4_submenu2",
+                "link":"bd4_submenu2",
+                "children":[ ],
+                "icon":"icon-th"
+            }
+        ],
+        "icon":"icon-map-marker"
+    },
+    {
+        "id":"view-sidemenu-3",
+        "label":{
+            "EN":"Export subsidies",
+            "IT":""
+        },
+        "datatab":"browseData3",
+        "link":"browseData3",
+        "children":[
+            {
+                "id":"view-sidemenu-3-1",
+                "label":{
+                    "EN":"Frequency graph",
+                    "IT":""
+                },
+                "datatab":"bd3_submenu1",
+                "link":"bd3_submenu1",
+                "children":[ ],
+                "icon":"icon-th"
+            }
+        ],
+        "icon":"icon-th"
+    },
+   {
+      "id":"view-sidemenu-2",
+      "label":{
+         "EN":"Export restrictions",
+         "IT":""
+      },
+      "datatab":"browseData2",
+      "link":"browseData2",
+      "children":[
+         {
+            "id":"view-sidemenu-2-1",
+             "label":{
+                 "EN":"Frequency graph",
+                 "IT":""
+             },
+             "datatab":"bd2_submenu1",
+             "link":"bd2_submenu1",
+             "children":[ ],
+             "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-2-3",
+             "label":{
+                 "EN":"Time series",
+                 "IT":""
+             },
+             "datatab":"bd2_submenu3",
+             "link":"bd2_submenu3",
+             "children":[ ],
+             "icon":"icon-th"
+         }
+      ],
+      "icon":"icon-retweet"
+   }
+]

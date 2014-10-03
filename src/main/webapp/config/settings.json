@@ -1,0 +1,10 @@
+{
+	"datasource"    :   "faostat2",
+	"data"          :   "http://fenixapps.fao.org/d3sp/service/msd/dm",
+    "dataURL"       :   "http://fenixapps.fao.org/d3sp/service/msd/dm",
+	"codelists"     :   "http://fenixapps.fao.org/d3sp/service/msd/cl/system",
+    "contacts"      :   "http://fenixapps.fao.org/d3sp/service/msd/cm/contact/byFields?context=FAOSTAT",
+	"accordion"     :   "http://faostat3.fao.org/wds/rest/groupsanddomains/faostat2",
+    "save"          :   "http://fenixapps.fao.org/d3sp/service/msd/dm/dataset",
+    "uid_prefix"    :   "FAOSTAT_"
+}

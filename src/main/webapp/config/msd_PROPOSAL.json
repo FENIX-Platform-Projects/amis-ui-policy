@@ -1,0 +1,430 @@
+{
+    "TAB_1" : {
+        "E_LABEL" : "Statistical Presentation",
+        "title" : {
+            "TYPE" : "STRING",
+            "E_LABEL" : "Title",
+            "E_DESCRIPTION" : "Textual label used as identification of a statistical object.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "language" : {
+            "TYPE" : "SINGLECHOICE",
+            "E_LABEL" : "Language",
+            "E_DESCRIPTION" : "Dataset s non multilingual fields language.",
+            "MANDATORY" : false,
+            "REST" : "FAO_Languages/1.0",
+            "SYSTEMKEY" : null,
+            "SYSTEMVERSION" : null
+        },
+        "summary" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Data Description",
+            "E_DESCRIPTION" : "Main characteristics of the data set described in an easily understandable manner, referring to the data and indicators disseminated.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "otherDisseminatedData" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Disseminated Detail",
+            "E_DESCRIPTION" : "Disseminated domain, measure, and time period breakdowns of statistics in the dataset.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "supplemental" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Comment",
+            "E_DESCRIPTION" : "Supplementary descriptive text which can be attached to data or metadata.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "coverageSectors" : {
+            "TYPE" : "MULTIPLECHOICE",
+            "E_LABEL" : "Coverage - Sector",
+            "E_DESCRIPTION" : "Main economic or other sectors covered by the statistics.",
+            "MANDATORY" : false,
+            "REST" : "FAOSTAT_CoveregeSectors/1.0",
+            "SYSTEMKEY" : "FAOSTAT_CoveregeSectors",
+            "SYSTEMVERSION" : "1.0"
+        },
+        "coverageTime" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Coverage - Time",
+            "E_DESCRIPTION" : "The length of time for which data are available.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "classificationSystems" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Classification System",
+            "E_DESCRIPTION" : "Arrangement or division of objects into groups based on characteristics which the objects have in common.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "geographicExtent" : {
+            "TYPE" : "SINGLECHOICE",
+            "E_LABEL" : "Reference Area",
+            "E_DESCRIPTION" : "The country or geographic area to which the measured statistical phenomenon relates.",
+            "MANDATORY" : false,
+            "REST" : "FAOSTAT_Regions/1.0",
+            "SYSTEMKEY" : "FAOSTAT_Regions",
+            "SYSTEMVERSION" : "1.0"
+        },
+        "referencePeriodFrom" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Reference Period (From)",
+            "F_LABEL" : "Période de base à partir",
+            "S_LABEL" : "Período Base De",
+            "E_DESCRIPTION" : "The period of time or point in time to which the measured observation is intended to refer.",
+            "F_DESCRIPTION" : "",
+            "S_DESCRIPTION" : "",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "referencePeriodTo" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Reference Period (To)",
+            "F_LABEL" : "Période de base à",
+            "S_LABEL" : "Período de Base de",
+            "E_DESCRIPTION" : "The period of time or point in time to which the measured observation is intended to refer.",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "weightReferencePeriodFrom" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Reference Period - Weights (From)",
+            "F_LABEL" : "Période de base à partir",
+            "S_LABEL" : "Período Base De",
+            "E_DESCRIPTION" : "Dates or periods to which the observations used to compile the weights refer.",
+            "F_DESCRIPTION" : "",
+            "S_DESCRIPTION" : "",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "weightReferencePeriodTo" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Reference Period - Weights (To)",
+            "F_LABEL" : "Période de base à",
+            "S_LABEL" : "Período de Base de",
+            "E_DESCRIPTION" : "Dates or periods to which the observations used to compile the weights refer.",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "basePeriodFrom" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Base Period (From)",
+            "F_LABEL" : "Période de base à partir",
+            "S_LABEL" : "Período Base De",
+            "E_DESCRIPTION" : "The period of time used as the base of an index number, or to which a constant series refers.",
+            "F_DESCRIPTION" : "",
+            "S_DESCRIPTION" : "",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "basePeriodTo" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Base Period (To)",
+            "F_LABEL" : "Période de base à",
+            "S_LABEL" : "Período de Base de",
+            "E_DESCRIPTION" : "The period of time used as the base of an index number, or to which a constant series refers.",
+            "MANDATORY" : false,
+            "REST" : ""
+        },
+        "indexType" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Index Type",
+            "E_DESCRIPTION" : "The type of index number used in the statistical production process.",
+            "MANDATORY" : false,
+            "REST" : null
+        }
+    },
+    "TAB_2" : {
+        "E_LABEL" : "Dissemination",
+        "disseminationPeriodicity" : {
+            "TYPE" : "SINGLECHOICE",
+            "E_LABEL" : "Frequency of Dissemination",
+            "E_DESCRIPTION" : "The time interval at which the statistics are disseminated over a given time period.",
+            "MANDATORY" : false,
+            "REST" : "FAOSTAT_Periodicity/1.0",
+            "SYSTEMKEY" : "FAOSTAT_Periodicity",
+            "SYSTEMVERSION" : "1.0"
+        },
+        "updateDate" : {
+            "TYPE" : "DATE",
+            "E_LABEL" : "Data Update",
+            "E_DESCRIPTION" : "The date on which the data element was inserted or modified in the database.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "news" : {
+            "TYPE" : "NESTED",
+            "E_LABEL" : "Dissemination Format - News Release",
+            "E_DESCRIPTION" : "Regular or ad-hoc press releases linked to the data.",
+            "E_TAB_LABEL" : "News",
+            "MANDATORY" : false,
+            "REST" : "",
+            "SHOW_DATE_FIELD" : false,
+            "FIELDS" : {
+                "title" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Title",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "description" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Description",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "link" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Link",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "date" : {
+                    "TYPE" : "DATE",
+                    "E_LABEL" : "Date",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                }
+            }
+        },
+        "dataSources" : {
+            "TYPE" : "NESTED",
+            "E_LABEL" : "Dissemination Format - Online Database",
+            "E_DESCRIPTION" : "Information about on-line databases in which the disseminated data can be accessed.",
+            "MANDATORY" : false,
+            "REST" : "",
+            "SHOW_DATE_FIELD" : false,
+            "FIELDS" : {
+                "title" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Title",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "reference" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Reference",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "type" : {
+                    "TYPE" : "SINGLECHOICE",
+                    "E_LABEL" : "Type",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : "DatasourceTypes/1.0",
+                    "SYSTEMKEY" : "FAOSTAT_DatasourceTypes",
+                    "SYSTEMVERSION" : "1.0"
+                }
+            }
+        },
+        "disseminationFormat" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Dissemination Format - Other",
+            "E_DESCRIPTION" : "References to the most important other data dissemination done.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "publications" : {
+            "TYPE" : "NESTED",
+            "E_LABEL" : "Dissemination Format - Publications",
+            "E_DESCRIPTION" : "Regular or ad-hoc publications in which the data are made available to the public.",
+            "E_TAB_LABEL" : "Publication",
+            "MANDATORY" : false,
+            "REST" : "",
+            "SHOW_DATE_FIELD" : true,
+            "FIELDS" : {
+                "title" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Title",
+                    "E_DESCRIPTION" : "Title of the publication.",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "description" : {
+                    "TYPE" : "TEXTAREA",
+                    "E_LABEL" : "Description",
+                    "E_DESCRIPTION" : "Abstract of the publication.",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "link" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Link",
+                    "E_DESCRIPTION" : "Link to the publication.",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "date" : {
+                    "TYPE" : "DATE",
+                    "E_LABEL" : "Date",
+                    "E_DESCRIPTION" : "Date of the publication.",
+                    "MANDATORY" : false,
+                    "REST" : null
+                }
+            }
+        },
+        "accessibility" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Accessibility",
+            "F_LABEL" : "Accessibilité",
+            "S_LABEL" : "Accesibilidad",
+            "E_DESCRIPTION" : "The ease and the conditions under which statistical information can be obtained.",
+            "F_DESCRIPTION" : "",
+            "S_DESCRIPTION" : "",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "releasePolicy" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Release Policy",
+            "E_DESCRIPTION" : "Rules for disseminating statistical data to interested parties.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "provider" : {
+            "TYPE" : "CONTACT",
+            "E_LABEL" : "Data Dissemination Agency",
+            "E_DESCRIPTION" : "The organisation disseminating the data.",
+            "MANDATORY" : false,
+            "REST" : null
+        }
+    },
+    "TAB_3" : {
+        "E_LABEL" : "Statistical Processing",
+        "processMethodologyDocuments" : {
+            "TYPE" : "NESTED",
+            "E_LABEL" : "Documentation on Methodology",
+            "E_DESCRIPTION" : "Descriptive text and references to methodological documents available.",
+            "E_TAB_LABEL" : "Document",
+            "MANDATORY" : false,
+            "REST" : "",
+            "SHOW_DATE_FIELD" : true,
+            "FIELDS" : {
+                "title" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Title",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "description" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Description",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "link" : {
+                    "TYPE" : "STRING",
+                    "E_LABEL" : "Link",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                },
+                "date" : {
+                    "TYPE" : "DATE",
+                    "E_LABEL" : "Date",
+                    "E_DESCRIPTION" : "",
+                    "MANDATORY" : false,
+                    "REST" : null
+                }
+            }
+        },
+        "sourceType" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Source Data",
+            "E_DESCRIPTION" : "Characteristics and components of the raw statistical data used for compiling statistical aggregates.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "collectionPeriodicity" : {
+            "TYPE" : "SINGLECHOICE",
+            "E_LABEL" : "Frequency of Data Collection",
+            "E_DESCRIPTION" : "Frequency with which the source data are collected.",
+            "MANDATORY" : false,
+            "REST" : "FAOSTAT_Periodicity/1.0",
+            "SYSTEMKEY" : "FAOSTAT_Periodicity",
+            "SYSTEMVERSION" : "1.0"
+        },
+        "collectionProcessing" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Data Collection",
+            "E_DESCRIPTION" : "Systematic process of gathering data for official statistics.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "compilationProcessing" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Data Compilation",
+            "E_DESCRIPTION" : "Operations performed on data to derive new information according to a given set of rules.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "dataAdjustment" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Adjustment",
+            "E_DESCRIPTION" : "The set of procedures employed to modify statistical data to enable it to conform to national or international standards or to address data quality differences when compiling specific data sets.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "aggregationProcessing" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Recording Basis",
+            "E_DESCRIPTION" : "Processes and standards employed in calculating statistical aggregates.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "compiler" : {
+            "TYPE" : "CONTACT",
+            "E_LABEL" : "Compiling Agency",
+            "E_DESCRIPTION" : "The organisation compiling the data being reported.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "owner" : {
+            "TYPE" : "CONTACT",
+            "E_LABEL" : "Data Provider",
+            "E_DESCRIPTION" : "Organisation which produces data or metadata.",
+            "MANDATORY" : false,
+            "REST" : null
+        }
+    },
+    "TAB_4" : {
+        "E_LABEL" : "Confidentiality",
+        "confidentialityDataTreatment" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Confidentiality - Data Treatment",
+            "E_DESCRIPTION" : "Rules applied for treating the data set to ensure statistical confidentiality and prevent unauthorised disclosure.",
+            "MANDATORY" : false,
+            "REST" : null
+        },
+        "confidentialityPolicy" : {
+            "TYPE" : "TEXTAREA",
+            "E_LABEL" : "Confidentiality - Policy",
+            "E_DESCRIPTION" : "Legislative measures or other formal procedures which prevent unauthorised disclosure of data that identify a person or economic entity either directly or indirectly.",
+            "MANDATORY" : false,
+            "REST" : null
+        }
+    },
+    "TAB_5" : {
+        "E_LABEL" : "Contacts",
+        "contacts" : {
+            "TYPE" : "CONTACTLIST",
+            "E_LABEL" : "Contacts for the data or metadata.",
+            "E_DESCRIPTION" : "",
+            "MANDATORY" : false,
+            "REST" : null
+        }
+    }
+}

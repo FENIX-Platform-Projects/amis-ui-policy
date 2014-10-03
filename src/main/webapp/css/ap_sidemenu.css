@@ -1,0 +1,94 @@
+/* By default it's not affixed in mobile views, so undo that */
+.fx-sidebar.affix {
+  position: static;
+}
+
+/* First level of nav */
+.fx-sidenav {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top:    10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  border-radius: 5px;
+}
+
+/* All levels of nav */
+.fx-sidebar .nav > li > a {
+  display: block;
+  padding: 5px 20px;
+  color: #265797;
+}
+.fx-sidebar .nav > li > a:hover,
+.fx-sidebar .nav > li > a:focus {
+  text-decoration: none;
+  border-right: 1px solid #5A5A5A;
+}
+.fx-sidebar .nav > .active > a,
+.fx-sidebar .nav > .active:hover > a,
+.fx-sidebar .nav > .active:focus > a {
+  font-weight: bold;
+  color: #5A5A5A;
+  background-color: transparent;
+  border-right: 1px solid #5A5A5A;
+}
+
+/* Nav: second level (shown on .active) */
+.fx-sidebar .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  margin-bottom: 8px;
+}
+.fx-sidebar .nav .nav > li > a {
+  padding-top:    3px;
+  padding-bottom: 3px;
+  padding-left: 30px;
+  font-size: 90%;
+}
+
+
+
+/* Responsive variations
+-------------------------------------------------- */
+/* Tablets and up */
+@media screen and (min-width: 768px) {
+
+  /* Show the docs nav */
+  .fx-sidebar {
+    display: block;
+  }
+  /* Show the hidden subnavs when space allows it */
+  .fx-sidebar .nav > .active > ul {
+    display: block;
+  }
+}
+
+/* Tablets/desktops and up */
+@media screen and (min-width: 992px) {
+
+  /* Widen the fixed sidebar */
+  .fx-sidebar.affix,
+  .fx-sidebar.affix-bottom {
+    width: 213px;
+  }
+  .fx-sidebar.affix {
+    position: fixed; /* Undo the static from mobile-first approach */
+    top: 80px;
+  }
+  .fx-sidebar.affix-bottom {
+    position: absolute; /* Undo the static from mobile-first approach */
+  }
+  .fx-sidebar.affix-bottom .fx-sidenav,
+  .fx-sidebar.affix .fx-sidenav {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* Large desktops and up */
+@media screen and (min-width: 1200px) {
+  /* Widen the fixed sidebar again */
+  .fx-sidebar.affix-bottom,
+  .fx-sidebar.affix {
+    width: 270px;
+  }
+}

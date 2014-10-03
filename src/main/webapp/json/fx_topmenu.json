@@ -1,0 +1,59 @@
+[
+   { 
+      "id":"menu-item-view",
+      "label":
+         {
+            "EN":"View",
+            "IT":"Vetrina"
+         },
+      "target":"view.html",
+      "children":[
+      ]
+   },
+   {
+      "id":"menu-item-admin",
+      "label": 
+         {
+            "EN":"Administration",
+            "IT":"Amministrazione"
+         },
+      "target":"administration.html",
+      "children":[
+
+      ]
+   },
+   {
+      "id":"menu-item-mng",
+      "label":
+         {
+            "EN":"Data Management",
+            "IT":"Gestione dati"
+         },
+      "target":"management.html",
+      "children":[
+
+      ]
+   },
+   {
+      "id":"menu-item-my-anal",
+      "label":
+         {
+            "EN":"My Analysis",
+            "IT":"La mia Analisi"
+         },
+      "target":"analysis.html",
+      "children":[
+      ]
+   },
+   {
+      "id":"menu-item-them-mod",
+      "label":
+         {
+            "EN":"Thematic Modules",
+            "IT":"Moduli Tematici dei dati"
+         },
+      "target":"thematic.html",
+      "children":[
+      ]
+   }   
+]

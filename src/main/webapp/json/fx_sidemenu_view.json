@@ -1,0 +1,191 @@
+[ 
+   {
+      "id":"view-sidemenu-2",
+      "label":{
+         "EN":"NDVI Analysis",
+         "IT":"Grafici"
+      },
+      "datatab":"ndvi",
+      "link":"ndvi",
+      "children":[],
+      "icon":"icon-tasks"
+   },
+   {
+      "id":"view-sidemenu-4",
+      "label":{
+         "EN":"Prices",
+         "IT":"Interazioni"
+      },
+      "datatab":"prices",
+      "link":"prices",
+      "children":[
+         {
+            "id":"view-sidemenu-3-2",
+            "label":{
+               "EN":"Price Indices",
+               "IT":"Tabella Due"
+            },
+            "datatab":"igcpriceindices",
+            "link":"igcpriceindices",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-3-3",
+            "label":{
+               "EN":"International Commodity Prices",
+               "IT":"Tabella Due"
+            },
+            "datatab":"internationalwheatprices",
+            "link":"internationalwheatprices",
+            "children":[ ],
+            "icon":"icon-th"
+         },
+         {
+            "id":"view-sidemenu-3-4",
+            "label":{
+               "EN":"Commodity Futures Prices and Simple Moving Average",
+               "IT":"Tabella Due"
+            },
+            "datatab":"wheatfuturesprices",
+            "link":"wheatfuturesprices",
+            "children":[ ],
+            "icon":"icon-th"
+         }
+      ],
+      "icon":"icon-retweet"
+   },
+   {
+      "id":"view-sidemenu-3",
+      "label":{
+         "EN":"Markets",
+         "IT":"Tabelle"
+      },
+      "datatab":"markets",
+      "link":"markets",
+      "children":[ 
+      {
+         "id":"view-sidemenu-3-1",
+         "label":{
+            "EN":"Wheat Stocks",
+            "IT":"Tabella Uno"
+         },
+         "datatab":"wheatstocks",
+         "link":"wheatstocks",
+         "children":[ ],
+         "icon":"icon-th"
+      },
+      {
+         "id":"view-sidemenu-3-2",
+         "label":{
+            "EN":"Maize Stocks",
+            "IT":"Tabella Due"
+         },
+         "datatab":"maizestocks",
+         "link":"maizestocks",
+         "children":[ ],
+         "icon":"icon-th"
+      },
+      {
+         "id":"view-sidemenu-3-4",
+         "label":{
+            "EN":"Rice Stocks",
+            "IT":"Tabella Uno"
+         },
+         "datatab":"ricestocks",
+         "link":"ricestocks",
+         "children":[ ],
+         "icon":"icon-th"
+      },
+      {
+         "id":"view-sidemenu-3-2",
+         "label":{
+            "EN":"Soybeans Stocks",
+            "IT":"Tabella Due"
+         },
+         "datatab":"soybeansstocks",
+         "link":"soybeansstocks",
+         "children":[ ],
+         "icon":"icon-th"
+      }],
+      "icon":"icon-th"
+   },
+    {
+      "id":"view-sidemenu-1",
+      "label":{
+         "EN":"Food Security Status",
+         "IT":"Food Security Status"
+      },
+      "datatab":"foodsecuritystatus",
+      "link" : "foodsecuritystatus",
+      "children":[
+         {
+            "id":"view-sidemenu-1-1",
+            "label":{
+               "EN":"General Information",
+               "IT":"Mappa Uno"
+            },
+            "datatab":"generalinformation",
+            "link" : "generalinformation",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-1-2",
+            "label":{
+               "EN":"Food Security",
+               "IT":"Mappa Due"
+            },
+            "datatab":"foodsecurity",
+            "link":"foodsecurity",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-1-3",
+            "label":{
+               "EN":"Agricultural Production",
+               "IT":"Mappa Tree"
+            },
+            "datatab":"agriculturalproduction",
+            "link" : "agriculturalproduction",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-1-4",
+            "label":{
+               "EN":"Agricultural Exports",
+               "IT":"Mappa Quattro"
+            },
+            "datatab":"agriculturalexport",
+            "link" : "agriculturalexport",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         },
+         {
+            "id":"view-sidemenu-1-5",
+            "label":{
+               "EN":"Agricultural Imports",
+               "IT":"Mappa Cinque"
+            },
+            "datatab":"agriculturalimport",
+            "link" : "agriculturalimport",
+            "children":[ ],
+            "icon":"icon-map-marker"
+         }
+      ],
+      "icon":"icon-map-marker"
+   },
+   {
+      "id":"view-sidemenu-2",
+      "label":{
+         "EN":"Columns List",
+         "IT":"Grafici"
+      },
+      "datatab":"collist",
+      "link":"collist",
+      "children":[],
+      "icon":"icon-tasks"
+   }
+]

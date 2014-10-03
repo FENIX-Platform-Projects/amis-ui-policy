@@ -1,0 +1,105 @@
+<div class="row" xmlns="http://java.sun.com/jsf/html">
+    <div class="col-lg-6">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="field1" class="col-sm-2 control-label">Id</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field1" name='commodityId' placeholder="Id"
+                           value="<%= comm ? comm.get('commodityId') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field2" class="col-sm-2 control-label">Country</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field2" name='countryName' placeholder="countryName"
+                           value="<%= comm ? comm.get('countryName') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field3" class="col-sm-2 control-label">HS Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field3" name='hsCode' placeholder="hsCode"
+                           value="<%= comm ? comm.get('hsCode') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field4" class="col-sm-2 control-label">HS Suffix</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field4" name='hsSuffix' placeholder="hsSuffix"
+                           value="<%= comm ? comm.get('hsSuffix') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field5" class="col-sm-2 control-label">HS Version</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field5" name='hsVersion' placeholder="hsVersion"
+                           value="<%= comm ? comm.get('hsVersion') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field6" class="col-sm-2 control-label">Target Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field6" name='targetCode' placeholder="targetCode"
+                           value="<%= comm ? comm.get('targetCode') : '' %>">
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-lg-6">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="field7" class="col-sm-2 control-label">Description</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field7" name='description' placeholder="Id"
+                           value="<%= comm ? comm.get('description') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field8" class="col-sm-2 control-label">Short Description</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field8" name='shortDescription'
+                           placeholder="shortDescription"
+                           value="<%= comm ? comm.get('shortDescription') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field9" class="col-sm-2 control-label">Commodity Class Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field9" name='commodityClassName'
+                           placeholder="commodityClassName"
+                           value="<%= comm ? comm.get('commodityClassName') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field10" class="col-sm-2 control-label">Commodity Class Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field10" name='commodityClassCode'
+                           placeholder="commodityClassCode"
+                           value="<%= comm ? comm.get('commodityClassCode') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field11" class="col-sm-2 control-label">Shared Group Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field11" name='sharedGroupCode'
+                           placeholder="sharedGroupCode"
+                           value="<%= comm ? comm.get('sharedGroupCode') : '' %>">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

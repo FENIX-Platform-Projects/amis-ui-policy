@@ -1,0 +1,221 @@
+<div>
+  <div class='fx-widget'>
+    <ul class="nav nav-tabs">
+      <li>
+        <a data-toggle="tab" href="#metadata-REPLACE">
+          <span class="fx-icon fx-icon-metadata"></span>
+        </a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#map-REPLACE">
+          <span class="fx-icon fx-icon-map"></span>
+        </a>
+      </li>
+      <li class="active">
+        <a data-toggle="tab" href="#table-REPLACE">
+          <span class="fx-icon fx-icon-table"></span>
+        </a>
+      </li>
+      <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+          <span class="fx-icon fx-icon-chart"></span>  <b class="caret"></b>
+        </a>
+        <ul aria-labelledby="charts-drop" role="menu" class="dropdown-menu">
+          <li data-charttype='columns'><a data-toggle="tab" tabindex="-1" href="#columnchart-REPLACE">Columns Chart</a></li>
+          <li data-charttype='bars'><a data-toggle="tab" tabindex="-1" href="#barchart-REPLACE">Bars Chart</a></li>
+          <li data-charttype='lines'><a data-toggle="tab" tabindex="-1" href="#linechart-REPLACE">Lines Chart</a></li>
+          <li data-charttype='pie'><a data-toggle="tab" tabindex="-1" href="#piechart-REPLACE">Pie Chart</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a data-toggle="dropdown"><span class="fx-icon fx-icon-download"></span></a>
+        <ul aria-labelledby="download-drop" role="menu" class="dropdown-menu">
+          <li><a tabindex="-1">CSV</a></li>
+          <li><a tabindex="-1">JSON</a></li>
+          <li><a tabindex="-1">XML</a></li>
+        </ul>
+      </li>
+      <!-- <li class="pull-right"><a id='fx-viewwidget-btn-pin-REPLACE'><span class="glyphicon glyphicon-pushpin"></span></a></li> -->
+      <li class="pull-right"><a id='fx-viewwidget-btn-remove-REPLACE'><span class="fx-icon fx-icon-remove"></span></a></li>
+      <li class="pull-right"><a id='fx-viewwidget-btn-clone-REPLACE'><span class="fx-icon fx-icon-clone"></span></a></li>
+      <li class="pull-right"><a id='fx-viewwidget-btn-resize-REPLACE'><span class="fx-icon fx-icon-resize"></span></a></li>
+      <li class="pull-right"><a id='fx-viewwidget-btn-minimize-REPLACE'><span class="fx-icon fx-icon-movetosession"></span></a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="metadata-REPLACE" class="tab-pane fade in">
+        <p>Metadata</p>
+      </div>
+      <div id="map-REPLACE" class="tab-pane fade in">
+          <div id="fenix-map-REPLACE" style="overflow: hidden; height: 350px;"></div>
+      </div>
+      <div id="table-REPLACE" class="tab-pane fade in active">
+          <div id='fx-widget-table-content-REPLACE'></div>
+      </div>
+      <div id="columnchart-REPLACE" class="tab-pane fade">
+          <div id="columnchart-content" class='fx-widget-chart-container'></div>
+      </div>
+      <div id="barchart-REPLACE" class="tab-pane fade">
+          <div id="barchart-content" class='fx-widget-chart-container'></div>
+      </div>
+      <div id="linechart-REPLACE" class="tab-pane fade">
+        <div id="linechart-content" class='fx-widget-chart-container'></div>
+      </div>
+      <div id="piechart-REPLACE" class="tab-pane fade">
+          <div id="piechart-content" class='fx-widget-chart-container'></div>
+      </div>
+    </div>
+  </div>
+  <div id="metadatatab">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td>Quantité de production des cultures primaires</td>
+          </tr>
+          <tr>
+            <td>Geographic Extent</td>
+            <td>Nigeria</td>
+          </tr>
+          <tr>
+            <td>Coverage Sectors</td>
+            <td>Agriculture</td>
+          </tr>
+          <tr>
+            <td>System Key</td>
+            <td>FAOSTAT_CoveregeSectors</td>
+          </tr>
+          <tr>
+            <td>System Version</td>
+            <td>1.0</td>
+          </tr>
+          <tr>
+            <td>Unit Of Measurement</td>
+            <td>Tonnes (t)</td>
+          </tr>
+          <tr>
+            <td>Collection Periodicity</td>
+            <td>Horaire</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class='container'>
+        <!-- Button trigger modal -->
+        <button class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+          See extended Metadata
+        </button>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Dataset Metadata Information</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Title</td>
+                    <td>Quantité de production des cultures primaires</td>
+                  </tr>
+                  <tr>
+                    <td>Geographic Extent</td>
+                    <td>Nigeria</td>
+                  </tr>
+                  <tr>
+                    <td>Coverage Sectors</td>
+                    <td>Agriculture</td>
+                  </tr>
+                  <tr>
+                    <td>System Key</td>
+                    <td>FAOSTAT_CoveregeSectors</td>
+                  </tr>
+                  <tr>
+                    <td>System Version</td>
+                    <td>1.0</td>
+                  </tr>
+                  <tr>
+                    <td>Unit Of Measurement</td>
+                    <td>Tonnes (t)</td>
+                  </tr>
+                  <tr>
+                    <td>Collection Periodicity</td>
+                    <td>Horaire</td>
+                  </tr>
+
+                  <tr>
+                    <td>Process Concepts Documents</td>
+                    <td>Concepts et définitions de la FAO</td>
+                  </tr>
+                  <tr>
+                    <td>Link</td>
+                    <td><a href="#">http://countrystat.org/resources/metadata_fr.pdf</a></td>
+                  </tr>
+                  <tr>
+                    <td>Source Type</td>
+                    <td>Enquête Statistique Agricole (ESA)</td>
+                  </tr>
+                  <tr>
+                    <td>Data Sources</td>
+                    <td>Données sur Internet</td>
+                  </tr>
+                  <tr>
+                    <td>Reference</td>
+                    <td>FAO</td>
+                  </tr>
+                  <tr>
+                    <td>Provider id</td>
+                    <td>11_4128972</td>
+                  </tr>
+                  <tr>
+                    <td>Contact Name</td>
+                    <td>George</td>
+                  </tr>
+                  <tr>
+                    <td>Contact Surname</td>
+                    <td>OUNDEX</td>
+                  </tr>
+                  <tr>
+                    <td>Contact Phone</td>
+                    <td>(00229)</td>
+                  </tr>
+                  <tr>
+                    <td>Contact email</td>
+                    <td>mymail@fao.org</td>
+                  </tr>
+                  <tr>
+                    <td>Provider Context</td>
+                    <td>CountrySTAT</td>
+                  </tr>
+                  <tr>
+                    <td>Provider Context</td>
+                    <td>CountrySTAT</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+             <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+  </div>
+
+</div>

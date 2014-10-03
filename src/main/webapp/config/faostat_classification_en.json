@@ -1,0 +1,1852 @@
+ [
+        {
+            "value": "1",
+            "name": "Food Security and Nutrition Statistics",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "1.1",
+                    "name": "Food supply, utilization accounts and food balance sheets",
+                    "parent": "1",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "1.1.1",
+                            "name": "Commodity balance",
+                            "parent": "1.1",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "1.1.1.1",
+                                    "name": "Crops primary equivalent",
+                                    "parent": "1.1.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "1.1.1.1.1",
+                                            "name": "Stock variation of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.2",
+                                            "name": "Waste of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.3",
+                                            "name": "Processed of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.4",
+                                            "name": "Food of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.5",
+                                            "name": "Other utilization of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.6",
+                                            "name": "Domestic supply quantity of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.7",
+                                            "name": "Production quantity of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.8",
+                                            "name": "Feed of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.9",
+                                            "name": "Seed of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.10",
+                                            "name": "Import quantity of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.1.11",
+                                            "name": "Export quantity of primary equivalent",
+                                            "parent": "1.1.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "1.1.1.2",
+                                    "name": "Livestock and fish primary equivalent",
+                                    "parent": "1.1.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "1.1.1.2.1",
+                                            "name": "Stock variation of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.2",
+                                            "name": "Waste of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.3",
+                                            "name": "Processed of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.4",
+                                            "name": "Food of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.5",
+                                            "name": "Other utilization of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.6",
+                                            "name": "Domestic supply quantity of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.7",
+                                            "name": "Production quantity of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "1.1.1.2.8",
+                                            "name": "Feed of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "1.1.1.2.9",
+                                            "name": "Seed of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.1.2.10",
+                                            "name": "Import quantity of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "1.1.1.2.11",
+                                            "name": "Export quantity of primary equivalent",
+                                            "parent": "1.1.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "value": "1.1.2",
+                            "name": "Food Supply",
+                            "parent": "1.1",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "1.1.2.1",
+                                    "name": "Crops primary equivalent",
+                                    "parent": "1.1.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": [
+                                        {
+                                            "value": "1.1.2.1.1",
+                                            "name": "Quantity",
+                                            "parent": "1.1.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.2.1.2",
+                                            "name": "Nutritional values",
+                                            "parent": "1.1.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "1.1.2.2",
+                                    "name": "Livestock and fish primary equivalent",
+                                    "parent": "1.1.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "1.1.2.2.1",
+                                            "name": "Quantity",
+                                            "parent": "1.1.2.2",
+                                            "level": "level 4",
+                                            "data": [],
+                                            "isEnabled": true
+                                        },
+                                        {
+                                            "value": "1.1.2.2.2",
+                                            "name": "Nutritional values",
+                                            "parent": "1.1.2.2",
+                                            "level": "level 4",
+                                            "data": [],
+                                            "isEnabled": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "1.2",
+                    "name": "Undernourishment",
+                    "parent": "1",
+                    "level": "level 1",
+                    "data": [],
+                    "isEnabled": true
+                },
+                {
+                    "value": "1.3",
+                    "name": "Anthropometric data",
+                    "parent": "1",
+                    "level": "level 1",
+                    "data": [],
+                    "isEnabled": true
+                }
+            ]
+        },
+        {
+            "value": "2",
+            "name": "Demographic and Social Statistics",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "2.1",
+                    "name": "Population",
+                    "parent": "2",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "2.1.1",
+                            "name": "Total population",
+                            "parent": "2.1",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "2.1.1.1",
+                                    "name": "Total population, both female and male",
+                                    "parent": "2.1.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.1.2",
+                                    "name": "Total population, female",
+                                    "parent": "2.1.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.1.1",
+                                    "name": "Total population, male",
+                                    "parent": "2.1.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.1.2",
+                            "name": "Rural population",
+                            "parent": "2.1",
+                            "hasChildren": 1,
+                            "level": "level 1",
+                            "data": [
+                                {
+                                    "value": "2.1.2.1",
+                                    "name": "Total population, both female and male",
+                                    "parent": "2.1.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.2.2",
+                                    "name": "Total population, female",
+                                    "parent": "2.1.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.2.1",
+                                    "name": "Total population, male",
+                                    "parent": "2.1.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.1.3",
+                            "name": "Urban population",
+                            "parent": "2.1",
+                            "hasChildren": 1,
+                            "level": "level 1",
+                            "data": [
+                                {
+                                    "value": "2.1.3.1",
+                                    "name": "Total population, both female and male",
+                                    "parent": "2.1.3",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.3.2",
+                                    "name": "Total population, female",
+                                    "parent": "2.1.3",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.3.1",
+                                    "name": "Total population, male",
+                                    "parent": "2.1.3",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.1.4",
+                            "name": "Agricultural population",
+                            "parent": "2.1",
+                            "hasChildren": 1,
+                            "level": "level 1",
+                            "data": [
+                                {
+                                    "value": "2.1.4.1",
+                                    "name": "Total population, both female and male",
+                                    "parent": "2.1.4",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.4.2",
+                                    "name": "Total population, female",
+                                    "parent": "2.1.4",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.4.1",
+                                    "name": "Total population, male",
+                                    "parent": "2.1.4",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.1.5",
+                            "name": "Non-agricultural population",
+                            "parent": "2.1",
+                            "hasChildren": 1,
+                            "level": "level 1",
+                            "data": [
+                                {
+                                    "value": "2.1.5.1",
+                                    "name": "Total population, both female and male",
+                                    "parent": "2.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.5.2",
+                                    "name": "Total population, female",
+                                    "parent": "2.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.1.5.1",
+                                    "name": "Total population, male",
+                                    "parent": "2.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "2.2",
+                    "name": "Labour",
+                    "parent": "2",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "2.2.1",
+                            "name": "Total economically active population",
+                            "parent": "2.2",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "2.2.1.1",
+                                    "name": "Total economically active population, both female and male",
+                                    "parent": "2.2.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.2.1.2",
+                                    "name": "Total economically active population, female",
+                                    "parent": "2.2.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.2.1.1",
+                                    "name": "Total economically active population, male",
+                                    "parent": "2.2.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.2.2",
+                            "name": "Economically active population in agriculture",
+                            "parent": "2.2",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "2.2.2.1",
+                                    "name": "Total economically active population, both female and male",
+                                    "parent": "2.2.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.2.2.2",
+                                    "name": "Total economically active population, female",
+                                    "parent": "2.2.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "2.2.2.1",
+                                    "name": "Total economically active population, male",
+                                    "parent": "2.2.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "2.2.3",
+                            "name": "Total employment",
+                            "parent": "2.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "2.2.4",
+                            "name": "Employment in agriculture",
+                            "parent": "2.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "2.2.5",
+                            "name": "Employment in fishery",
+                            "parent": "2.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "2.2.6",
+                            "name": "Employment in forestry",
+                            "parent": "2.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "2.3",
+                    "name": "Education",
+                    "parent": "2",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "2.4",
+                    "name": "Health",
+                    "parent": "2",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                }
+            ]
+        },
+        {
+            "value": "3",
+            "name": "Economic Statistics",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "3.1",
+                    "name": "Macroeconomic statistics and economic accounts",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.1.1",
+                            "name": "Gross Domestic Product (GDP) and GDP per capita",
+                            "parent": "3.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.1.2",
+                            "name": "Gross National Income (GNI) and GNI per capita",
+                            "parent": "3.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.1.3",
+                            "name": "Gross Fixed Capital Formation (GFCF)",
+                            "parent": "3.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.1.4",
+                            "name": "Agriculture value added (% of GDP)",
+                            "parent": "3.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.1.5",
+                            "name": "Value of agriculture production",
+                            "parent": "3.1",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.1.5.1",
+                                    "name": "Gross production value",
+                                    "parent": "3.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.1.5.2",
+                                    "name": "Net production value",
+                                    "parent": "3.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.1.5.3",
+                                    "name": "Net per capita production index number",
+                                    "parent": "3.1.5",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "3.2",
+                    "name": "Agriculture production and trade",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.2.1",
+                            "name": "Agriculture production",
+                            "parent": "3.2",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": [
+                                {
+                                    "value": "3.2.1.1",
+                                    "name": "Crops",
+                                    "parent": "3.2.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": [
+                                        {
+                                            "value": "3.2.1.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.2.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.1.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.2.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.2.1.2",
+                                    "name": "Livestock",
+                                    "parent": "3.2.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": [
+                                        {
+                                            "value": "3.2.1.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.2.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.1.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.2.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.1.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.2.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.2.1.3",
+                                    "name": "Production Indices",
+                                    "parent": "3.2.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.2.2",
+                            "name": "Agriculture Trade",
+                            "parent": "3.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": [
+                                {
+                                    "value": "3.2.2.1",
+                                    "name": "Crops",
+                                    "parent": "3.2.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": [
+                                        {
+                                            "value": "3.2.2.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.2.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.2.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.2.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.2.2.2",
+                                    "name": "Livestock",
+                                    "parent": "3.2.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": [
+                                        {
+                                            "value": "3.2.2.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.2.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.2.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.2.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.2.2.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.2.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.2.2.3",
+                                    "name": "Trade Indices",
+                                    "parent": "3.2.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "3.3",
+                    "name": "Forestry production and trade",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.3.1",
+                            "name": "Forestry production",
+                            "parent": "3.3",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": [
+                                {
+                                    "value": "3.3.1.1",
+                                    "name": "Crops",
+                                    "parent": "3.3.1",
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.3.1.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.3.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.1.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.3.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.3.1.2",
+                                    "name": "Livestock",
+                                    "parent": "3.3.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.3.1.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.3.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.1.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.3.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.1.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.3.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.3.1.3",
+                                    "name": "Production Indices",
+                                    "parent": "3.3.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.3.2",
+                            "name": "Forestry trade",
+                            "parent": "3.3",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.3.2.1",
+                                    "name": "Crops",
+                                    "parent": "3.3.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.3.2.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.3.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.2.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.3.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.3.2.2",
+                                    "name": "Livestock",
+                                    "parent": "3.3.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.3.2.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.3.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.2.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.3.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.3.2.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.3.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.3.2.3",
+                                    "name": "Trade Indices",
+                                    "parent": "3.3.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "3.4",
+                    "name": "Fishery production and trade",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.4.1",
+                            "name": "Fishery production",
+                            "parent": "3.4",
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.4.1.1",
+                                    "name": "Crops",
+                                    "parent": "3.4.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.4.1.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.4.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.1.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.4.1.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.4.1.2",
+                                    "name": "Livestock",
+                                    "parent": "3.4.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.4.1.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.4.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.1.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.4.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.1.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.4.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.4.1.3",
+                                    "name": "Production Indices",
+                                    "parent": "3.4.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.4.2",
+                            "name": "Fishery trade",
+                            "parent": "3.4",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.4.2.1",
+                                    "name": "Crops",
+                                    "parent": "3.4.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.4.2.1.1",
+                                            "name": "Crops primary",
+                                            "parent": "3.4.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.2.1.2",
+                                            "name": "Crops processed",
+                                            "parent": "3.4.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.4.2.2",
+                                    "name": "Livestock",
+                                    "parent": "3.4.2",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.4.2.2.1",
+                                            "name": "Live animals",
+                                            "parent": "3.4.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.2.2.2",
+                                            "name": "Livestock primary",
+                                            "parent": "3.4.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.4.2.2.3",
+                                            "name": "Livestock processed",
+                                            "parent": "3.4.2.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.4.2.3",
+                                    "name": "Trade Indices",
+                                    "parent": "3.4.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "3.5",
+                    "name": "Fertilizers",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.5.1",
+                            "name": "Fertilizers",
+                            "parent": "3.5",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.5.1.1",
+                                    "name": "Production quantity",
+                                    "parent": "3.5.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.5.1.2",
+                                    "name": "Trade",
+                                    "parent": "3.5.1",
+                                    "hasChildren": 1,
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.5.1.2.1",
+                                            "name": "Quantity",
+                                            "parent": "3.5.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.5.1.2.2",
+                                            "name": "Value",
+                                            "parent": "3.5.1.2",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.5.1.3",
+                                    "name": "Consumption quantity",
+                                    "parent": "3.5.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.5.1.4",
+                                    "name": "Non-fertilizer use",
+                                    "parent": "3.5.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.5.2",
+                            "name": "Nutrients",
+                            "parent": "3.5",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.5.2.1",
+                                    "name": "Production",
+                                    "parent": "3.5.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.5.2.2",
+                                    "name": "Trade",
+                                    "parent": "3.5.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.5.2.3",
+                                    "name": "Consumption quantity",
+                                    "parent": "3.5.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.5.2.4",
+                                    "name": "Non-fertilizer use",
+                                    "parent": "3.5.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "value": "3.6",
+                    "name": "Pesticides",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.6.1",
+                            "name": "Trade",
+                            "parent": "3.6",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.6.1.1",
+                                    "name": "Quantity",
+                                    "parent": "3.6.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.6.1.2",
+                                    "name": "Value",
+                                    "parent": "3.6.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.6.2",
+                            "name": "Use",
+                            "parent": "3.6",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "3.7",
+                    "name": "Feed",
+                    "parent": "3",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "3.8",
+                    "name": "Seed",
+                    "parent": "3",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "3.9",
+                    "name": "Investment and capital stock  in agriculture",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.9.1",
+                            "name": "Capital stock",
+                            "parent": "3.9",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.9.1.1",
+                                    "name": "Gross capital stock",
+                                    "parent": "3.9.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.9.1.2",
+                                    "name": "Net capital stock",
+                                    "parent": "3.9.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.9.2",
+                            "name": "Machinery",
+                            "parent": "3.9",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.9.2.1",
+                                    "name": "Machinery - trade",
+                                    "parent": "3.9.2",
+                                    "level": "level 3",
+                                    "data": [
+                                        {
+                                            "value": "3.9.2.1.1",
+                                            "name": "Quantity",
+                                            "parent": "3.9.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        },
+                                        {
+                                            "value": "3.9.2.1.2",
+                                            "name": "Value",
+                                            "parent": "3.9.2.1",
+                                            "level": "level 4",
+                                            "isEnabled": true,
+                                            "data": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "3.9.2.2",
+                                    "name": "Machinery in use",
+                                    "parent": "3.9.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.9.3",
+                            "name": "External assistance to agriculture",
+                            "parent": "3.9",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "3.10",
+                    "name": "Cost of production",
+                    "parent": "3",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "3.11",
+                    "name": "Labour  cost",
+                    "parent": "3",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "3.12",
+                    "name": "Capital cost",
+                    "parent": "3",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "3.13",
+                    "name": "Industrial statistics (based on ISIC Rev.3 and Rev.4)",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.13.1",
+                            "name": "Manufacture of agricultural and forestry machinery",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.2",
+                            "name": "Manufacture of food products",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.3",
+                            "name": "Manufacture of beverages",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.4",
+                            "name": "Manufacture of tobacco products",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.5",
+                            "name": "Manufacture of textiles",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.6",
+                            "name": "Manufacture of leather and related products",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "3.13.7",
+                            "name": "Manufacture of wood and of products of wood and cork",
+                            "parent": "3.13",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "3.14",
+                    "name": "Price Statistics",
+                    "parent": "3",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "3.14.1",
+                            "name": "Producer prices",
+                            "parent": "3.14",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.14.1.1",
+                                    "name": "Indices",
+                                    "parent": "3.14.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.14.1.2",
+                                    "name": "Values",
+                                    "parent": "3.14.1",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.14.2",
+                            "name": "Consumer Prices",
+                            "parent": "3.14",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.14.2.1",
+                                    "name": "Indices",
+                                    "parent": "3.14.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                },
+                                {
+                                    "value": "3.14.2.2",
+                                    "name": "Values",
+                                    "parent": "3.14.2",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.14.3",
+                            "name": "Input Prices",
+                            "parent": "3.14",
+                            "hasChildren": 1,
+                            "level": "level 2",
+                            "data": [
+                                {
+                                    "value": "3.14.3.1",
+                                    "name": "Prices paid by farmers (Fertilizers Archive)",
+                                    "parent": "3.14.3",
+                                    "level": "level 3",
+                                    "isEnabled": true,
+                                    "data": []
+                                }
+                            ]
+                        },
+                        {
+                            "value": "3.14.4",
+                            "name": "Trade Prices",
+                            "parent": "3.14",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "value": "4",
+            "name": "Environment and Natural Resources Statistics",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "4.1",
+                    "name": "Land",
+                    "parent": "4",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "4.1.1",
+                            "name": "Land use",
+                            "parent": "4.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "4.1.2",
+                            "name": "Land cover",
+                            "parent": "4.1",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "4.2",
+                    "name": "Soil",
+                    "parent": "4",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "4.2.1",
+                            "name": "Soil",
+                            "parent": "4.2",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "4.3",
+                    "name": "Water",
+                    "parent": "4",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "4.3.1",
+                            "name": "Water resources",
+                            "parent": "4.3",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "4.3.2",
+                            "name": "Water use",
+                            "parent": "4.3",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "4.3.3",
+                            "name": "Irrigation",
+                            "parent": "4.3",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "4.3.4",
+                            "name": "Water Balance",
+                            "parent": "4.3",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "4.4",
+                    "name": "Air and climate change",
+                    "parent": "4",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "4.4.1",
+                            "name": "GHG emissions",
+                            "parent": "4.4",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "value": "4.5",
+                    "name": "Energy",
+                    "parent": "4",
+                    "hasChildren": 1,
+                    "level": "level 1",
+                    "data": [
+                        {
+                            "value": "4.5.1",
+                            "name": "Agriculture share of total energy consumption",
+                            "parent": "4.5",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        },
+                        {
+                            "value": "4.5.2",
+                            "name": "Bioenergy percentage of total renewable energy production",
+                            "parent": "4.5",
+                            "level": "level 2",
+                            "isEnabled": true,
+                            "data": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "value": "5",
+            "name": "Multi-Domain Statistics",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "5.1",
+                    "name": "Rural development",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "5.2",
+                    "name": "Living conditions and poverty",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "5.3",
+                    "name": "Gender",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "5.4",
+                    "name": "Sustainable development",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "5.5",
+                    "name": "Human development indicators",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "5.6",
+                    "name": "Millennium Development Goals indicators",
+                    "parent": "5",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                }
+            ]
+        },
+        {
+            "value": "6",
+            "name": "Census of Agriculture",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "6.1",
+                    "name": "Crops and livestock",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.2",
+                    "name": "Land use",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.3",
+                    "name": "Machinery",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.4",
+                    "name": "Irrigation",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.5",
+                    "name": "Gender",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.6",
+                    "name": "Legal status of the holder",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "6.7",
+                    "name": "Land tenure",
+                    "parent": "6",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                }
+            ]
+        },
+        {
+            "value": "7",
+            "name": "Microdata",
+            "parent": "",
+            "hasChildren": 1,
+            "level": "level 0",
+            "data": [
+                {
+                    "value": "7.1",
+                    "name": "Household surveys",
+                    "parent": "7",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                },
+                {
+                    "value": "7.2",
+                    "name": "Census of Agriculture",
+                    "parent": "7",
+                    "level": "level 1",
+                    "isEnabled": true,
+                    "data": []
+                }
+            ]
+        }
+    ]

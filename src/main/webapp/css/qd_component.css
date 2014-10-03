@@ -1,0 +1,9 @@
+/*For generic component start*/
+.policy-button{
+    display: none;
+}
+
+.policy-button-show{
+    display: inline;
+}
+/*For generic component end*/

@@ -1,0 +1,29 @@
+var ap_utilVariables = (function() {
+
+    var CONFIG ={
+//        base_ip_address    :  '168.202.28.56',
+//        base_ip_port    :  '8090',
+        base_ip_address    :  'statistics.amis-outlook.org',
+        base_ip_port    :  '80',
+        datasource      :   'POLICY',
+        biofuel_pt_url   :   '/wds/rest/policyservice/policyTypesFromDomain',
+        biofuelTimeSeries_url   :   '/wds/rest/policyservice/biofuelPoliciesTimeSeries',
+        biofuelPoliciesBarChart_url :   '/wds/rest/policyservice/biofuelPoliciesBarChart',
+        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
+        biofuel_commodity_domain_code   :  2,
+        biofuel_commodity_class_codes   :  "5,6,7"
+    };
+
+    function init(){
+
+    };
+
+
+    return {  CONFIG :CONFIG,
+        init : init,
+        lang : function(){ return lang; } }
+
+})();
+
+window.addEventListener('load', ap_utilVariables.init, false);
+

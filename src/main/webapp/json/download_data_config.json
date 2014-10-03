@@ -1,0 +1,10 @@
+[
+    ["ListBox0","Domain","1","usp_GetDomainList","3"],
+    ["ListBox1","Countries","1","usp_GetAreaList1","3"],
+    ["ListBox1","Regions","2","usp_GetAreaList2","3"],
+    ["ListBox1","Special Groups","3","usp_GetAreaList3","3"],
+    ["ListBox2","Items","1","usp_GetItemList1","2"],
+    ["ListBox2","Items Aggregated","2","usp_GetItemList2","2"],
+    ["ListBox3","Elements","1","usp_GetElementList","1"],
+    ["ListBox4","Years","1","usp_GetYearList","1"]
+]

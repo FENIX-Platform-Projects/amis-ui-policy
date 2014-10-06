@@ -109,6 +109,8 @@ define([
                         cpl_id_list_String += "'"+self.options.cpl_id_list[i]+"'";
                     }
 
+                    console.log("CPL_ID !!!!! "+cpl_id_list_String);
+
                     var forGetMasterData = host.options.host_policy_data_object.voObjectConstruction();
                     forGetMasterData.datasource = host.options.datasource;
                     forGetMasterData.cpl_id = cpl_id_list_String;
@@ -214,7 +216,7 @@ define([
                                 }
                                 mastertable_data[i] = row;
                             }
-                            self.master_grid_creation(mastertable_data, self);
+                            self.master_grid_creation(mastertable_data, self, host);
                         },
                         error : function(err,b,c) {
                             alert(err.status + ", " + b + ", " + c);
@@ -229,7 +231,7 @@ define([
         });
     }
 
-    HostPreview.prototype.master_grid_creation = function(data, host_preview)
+    HostPreview.prototype.master_grid_creation = function(data, host_preview, host)
     {
         var source =
         {
@@ -254,7 +256,7 @@ define([
 //        var employeesAdapter = new $.jqx.dataAdapter(source);
         // create nested grid.
         var initrowdetails = function (index, parentElement, gridElement, record) {
-            host_preview.build_policyTableGrid(index, parentElement, gridElement, record, host_preview);
+            host_preview.build_policyTableGrid(index, parentElement, gridElement, record, host_preview, host);
         }
 
         var renderer = function (row, column, value) {
@@ -300,7 +302,7 @@ define([
     };
 
 
-    HostPreview.prototype.build_policyTableGrid = function(index, parentElement, gridElement, record, host_preview)
+    HostPreview.prototype.build_policyTableGrid = function(index, parentElement, gridElement, record, host_preview, host)
     {
         var id = record.uid.toString();
 
@@ -387,6 +389,8 @@ define([
                     var row = {};
                     row["AdditionalInfoButton"] = "Show";
                     row["MetadataButton"] = "Show";
+                    row["EditButton"] = "Edit";
+                    row["DeleteButton"] = "Delete";
                     for (var j = 0; j < json[i].length; j++) {
                         if ((json[i][j] == null) || (typeof json[i][j] == 'undefined')) {
                             json[i][j] = "";
@@ -397,6 +401,7 @@ define([
                                 break;
                             case 1:
                                 policy_id[i] = json[i][j];
+                                row["Policy_id"]= policy_id[i];
                                 break;
                             case 2:
                                 cpl_id[i] = json[i][j];
@@ -559,7 +564,7 @@ define([
                     policytable_data[i]= row;
                 }
 
-                host_preview.policy_grid_creation(policytable_data, parentElement, host_preview);
+                host_preview.policy_grid_creation(policytable_data, parentElement, host_preview, host);
             },
             error : function(err,b,c) {
                 alert(err.status + ", " + b + ", " + c);
@@ -567,12 +572,12 @@ define([
         });
     };
 
-    HostPreview.prototype.policy_grid_creation = function(policytable_data, parentElement, host_preview)
+    HostPreview.prototype.policy_grid_creation = function(policytable_data, parentElement, host_preview, host)
     {
         //"HsVersion", "HsCode", "HsSuffix", "PolicyElement", "StartDate", "EndDate", "Unit", "Value", "ValueText", "Exemptions", "ShortDescription"
         var policy_source = "";
 
-        var info = host_preview.options.host_utility_instance.getPolicyTable_datafields(policytable_data);
+        var info = host_preview.options.host_utility_instance.getPolicyTable_datafields(policytable_data, host);
 
         policy_source =
         {
@@ -617,6 +622,20 @@ define([
                         $('#metadata_fullscreen').fullScreen(false);
                     });
 
+                }
+                else if(event.args.datafield=="EditButton"){
+                   alert("Edit Button");
+                    var properties = {};
+                    var policy_grid = $($(parentElement).children()[0]);
+                    var datarecord = policy_grid.jqxGrid('getrowdata', event.args.rowindex);
+                    console.log(datarecord);
+                    console.log("Policy_id ="+datarecord["Policy_id"]);
+                    $('body').trigger('EditSearchButton', properties);
+                }
+                else if(event.args.datafield=="DeleteButton"){
+                    alert("Delete Button");
+                    var properties = {};
+                    $('body').trigger('DeleteSearchButton', properties);
                 }
             });
         }

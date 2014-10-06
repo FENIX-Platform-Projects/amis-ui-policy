@@ -40,10 +40,10 @@ define([
         fx_selector_8_2 : 'fx_selector_8_2',
 
         //To WDS
-//        base_ip_address    :  '168.202.28.26',
-//        base_ip_port    :  '8090',
-        base_ip_address    :  'statistics.amis-outlook.org',
-        base_ip_port    :  '80',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '8090',
+//        base_ip_address    :  'statistics.amis-outlook.org',
+//        base_ip_port    :  '80',
         datasource      :   'POLICY',
         policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
         startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
@@ -97,7 +97,11 @@ define([
         //8=Wheat+Maize 9=Maize+Rice 10=Maize+Soybean 11=Wheat+Maize+Rice 12=Wheat+Rice
         commodity_children_codes : [['8','11','12'],['9','11','12'],['8','9','10','11'],['10']],
 
-        country_agricultural_domestic_codes : ['17','37','46','53','999000','116','126','202','132','162','204','249','254','259','227']
+        country_agricultural_domestic_codes : ['17','37','46','53','999000','116','126','202','132','162','204','249','254','259','227'],
+
+        //"preview" is Query and Download page, "search" is Input Data page
+//        button_preview_action_type : "preview"
+        button_preview_action_type : "search"
     }
 
     //text= Loads dependencies as plain text files.

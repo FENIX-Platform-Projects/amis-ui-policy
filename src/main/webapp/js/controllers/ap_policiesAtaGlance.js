@@ -379,7 +379,7 @@ var ap_policiesAtaGlance = (function() {
         obj.start_date_yy = '2010';
         obj.end_date_yy = '2013';
         ap_policiesAtaGlance_importTariffsQuotas_util.subMenu1(obj);
-        ap_policiesAtaGlance_importTariffsQuotas_util.subMenu2(obj);
+        //ap_policiesAtaGlance_importTariffsQuotas_util.subMenu2(obj);
       //  ap_policiesAtaGlance_importTariffsQuotas_util.subMenu2();
        // ap_policiesAtaGlance_importTariffsQuotas_util.subMenu3();
     }

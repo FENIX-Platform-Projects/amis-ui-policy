@@ -77,22 +77,11 @@
             {
                 "id":"view-sidemenu-4-1",
                 "label":{
-                    "EN":"Frequency graph MIN",
+                    "EN":"Frequency graph",
                     "IT":""
                 },
                 "datatab":"bd4_submenu1",
                 "link":"bd4_submenu1",
-                "children":[ ],
-                "icon":"icon-th"
-            },
-            {
-                "id":"view-sidemenu-4-2",
-                "label":{
-                    "EN":"Frequency graph MAX",
-                    "IT":""
-                },
-                "datatab":"bd4_submenu2",
-                "link":"bd4_submenu2",
                 "children":[ ],
                 "icon":"icon-th"
             }

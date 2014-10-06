@@ -240,7 +240,8 @@ define([
         }
     }
 
-    HostUtility.prototype.getPolicyTable_datafields = function(data, export_type) {
+//    HostUtility.prototype.getPolicyTable_datafields = function(data, export_type) {
+    HostUtility.prototype.getPolicyTable_datafields = function(data, host) {
         var info= new Object();
         var self = this;
 
@@ -387,10 +388,27 @@ define([
         obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
         columns.push(obj2);
 
+        if(host.options.button_preview_action_type == "search")
+        {
+            obj = { name: 'EditButton' };
+            datafields.push(obj);
+            obj2 = { text: 'Edit', datafield: 'EditButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+            columns.push(obj2);
+
+            obj = { name: 'DeleteButton' };
+            datafields.push(obj);
+            obj2 = { text: 'Delete', datafield: 'DeleteButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+            columns.push(obj2);
+        }
+
         //For the additional information window start
 //        "ValueType","LocalCondition","Notes","Link","Source","TitleOfNotice","LegalBasisName","DateOfPublication","ImposedEndDate","SecondGenerationSpecific","BenchmarkTax",
 //            "BenchmarkProduct","TaxRateBiofuel","TaxRateBenchmark","StartDateTax","BenchmarkLink","OriginalDataset","TypeOfChangeName","MeasureDescription",
 //            "ProductOriginalHs","ProductOriginalName","ImplementationProcedure","XsYearType","LinkPdf","BenchmarkLinkPdf","ShortDescription","SharedGroupCode"
+        obj = { name: 'CplId'};
+        datafields.push(obj);
+        obj = { name: 'Policy_id'};
+        datafields.push(obj);
         obj = { name: 'ValueType'};
         datafields.push(obj);
         obj = { name: 'LocalCondition'};

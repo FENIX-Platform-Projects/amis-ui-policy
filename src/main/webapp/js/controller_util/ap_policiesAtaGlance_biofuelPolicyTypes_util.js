@@ -693,7 +693,8 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                         console.log("Before create chart 1 " + commodityClassName);
 
                         //Creation of the first chart
-                        var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
+                        //var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
+                        var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Combination of policies targeted on ethanol, biodiesel and biofuel (unspecified).<br>Source: AMIS Policy Database ';
                         createChart(chart_div, seriesOptions, commodityClassName, notes);
 
                         //For the other chart
@@ -746,21 +747,21 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                                             commodityClassName = namesArray[1];
                                             chart_div = "bd0_submenu3-chart_two";
                                             //$("#bd0_submenu3-chart_two_title").text(commodityClassName);
-                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
+                                            notes = 'n Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
                                             console.log("Before create chart 2 " + commodityClassName);
                                         }
                                         else if(commodityClassCode==codesArray[2])
                                         {
                                             commodityClassName = namesArray[2];
                                             chart_div = "bd0_submenu3-chart_three";
-                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Unspecified biofuel policies are those policies for which the legal document does not specify whether the policy applies to ethanol or biodiesel.<br>Source: AMIS Policy Database';
+                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
                                             console.log("Before create chart 3 " + commodityClassName);
                                         }
                                         else if(commodityClassCode==codesArray[3])
                                         {
                                             commodityClassName = namesArray[3];
                                             chart_div = "bd0_submenu3-chart_four";
-                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Combination of policies targeted on ethanol, biodiesel and biofuel (unspecified).<br>Source: AMIS Policy Database ';
+                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Unspecified biofuel policies are those policies for which the legal document does not specify whether the policy applies to ethanol or biodiesels.<br>Source: AMIS Policy Database';
                                             console.log("Before create chart 4 " + commodityClassName);
                                         }
                                         createChart(chart_div, seriesOptions, commodityClassName, notes);

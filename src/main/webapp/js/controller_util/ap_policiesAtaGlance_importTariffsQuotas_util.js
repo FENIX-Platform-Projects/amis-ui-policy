@@ -467,226 +467,226 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
         });
     }
 
-    function subMenu2(obj){
-
-        var policy_type_codes_array = [];
-        policy_type_codes_array.push(ap_utilVariables.CONFIG.import_tariffs_policy_type_code);
-        var policy_measure_codes_array = [];
-        policy_measure_codes_array.push(ap_utilVariables.CONFIG.import_tariffs_policy_measure_code);
-        var data = ap_policyDataObject.init();
-        data.datasource = ap_utilVariables.CONFIG.datasource;
-        data.commodity_class_code = ap_utilVariables.CONFIG.import_tariffs_commodity_class_codes;
-        //The order is important
-        data.policy_type_code = policy_type_codes_array;
-        data.policy_measure_code = policy_measure_codes_array;
-        data.year_list = ap_utilVariables.CONFIG.import_tariffs_year_list;
-        data.unit = ap_utilVariables.CONFIG.import_tariffs_unit;
-        data.policy_element = ap_utilVariables.CONFIG.import_tariffs_policy_element;
-        //MAX
-        data.chart_type = false;
-
-        var payloadrest = JSON.stringify(data);
-        /* Retrive UI structure from DB. */
-        $.ajax({
-
-            type: 'POST',
-            url: 'http://'+ap_utilVariables.CONFIG.base_ip_address+':'+ap_utilVariables.CONFIG.base_ip_port+ap_utilVariables.CONFIG.importTariffsPolicyMeasuresBarChart,
-            data : {"pdObj": payloadrest},
-
-            success : function(response) {
-
-                /* Convert the response in an object, i needed. */
-                var json = response;
-                if (typeof(response) == 'string')
-                    json = $.parseJSON(response);
-
-                //Chart
-                $('#bd4_submenu1-chart_two').highcharts({
-                    chart: {
-                        type: 'column',
-                        borderWidth: 2,
-                        marginBottom: 100
-                    },
-                    title: {
-                        text: 'Average values of applied and bound ad valorem import tariffs in the AMIS countries'
-                    },
-                    subtitle: {
-                        text: 'Period '+ obj.start_date_yy+'/'+obj.end_date_yy
-                    },
-                    xAxis: {
-                        categories: [
-                            '2010',
-                            '2011',
-                            '2012',
-                            '2013'
-                        ]
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: '%',
-                            rotation: 0
-                        }
-                    },
-                    colors: [
-                        '#255ba3',//Dark Blue
-                        '#67b7e3',//Light Blue
-                        '#c52b15',//Dark Red
-                        '#ec6754',//Light Red
-                        '#125824',//Dark Green
-                        '#199e34',//Light Green
-                        '#9a9a9a',//Dark Gray
-                        '#cccccc'//Light Gray
-                    ],
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    legend: {
-                        title: {
-                            text: 'Commodity Class',
-                            style: {
-                                fontStyle: 'italic'
-                            }
-                        },
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        y: 50,
-                        borderWidth: 1,
-                        enabled: true,
-                        borderColor: '#4572a7',
-                        labelFormatter: function() {
-//                    var html_legend = '<dl><dt><b>'+this.name+'</b></dt><dd> :'+ pmt_name_description[this.name]+'</dd></dl>';
-                            //return this.name +' ('+pmt_name_description[this.name]+')';
-                            //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
-                            var html_legend = ''+this.name+': '+ split_string(pmTariffQuotas_name_description[this.name]);
-                            return html_legend;
-                        }
-                    },
-                    labels: {
-                        items: [
-                            {
-//                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
-                                html: 'Graph excludes mixed commodity classes.<br>Graph only considers ad valorem tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Not all countries notify each year.<br>Source: AMIS Policy Database.',
-                                style: {
-                                    left: '1px',
-                                    //top: '402px',
-                                    top: '260',
-                                    cursor: 'default',
-                                    color: '#413839',
-                                    fontSize: '10px'
-                                }
-                            }
-                        ]
-                    },
-                    credits: {
-                        enabled: false
-//                href: 'javascript:;',
-//                position: {
-//                    align: 'right'
-//                    // x: 10,
-//                    // y: -5
-//                },
-//                style: {
-//                    cursor: 'default',
-//                    color: '#413839',
-//                    fontSize: '10px'
-//                },
-//                text: 'Source: AMIS Policy'
-                    },
-                    exporting: {
-                        buttons: {
-                            contextButton: {
-                                enabled: false
-
-                            }
-//                    ,
-//                    exportButton: {
+//    function subMenu2(obj){
+//
+//        var policy_type_codes_array = [];
+//        policy_type_codes_array.push(ap_utilVariables.CONFIG.import_tariffs_policy_type_code);
+//        var policy_measure_codes_array = [];
+//        policy_measure_codes_array.push(ap_utilVariables.CONFIG.import_tariffs_policy_measure_code);
+//        var data = ap_policyDataObject.init();
+//        data.datasource = ap_utilVariables.CONFIG.datasource;
+//        data.commodity_class_code = ap_utilVariables.CONFIG.import_tariffs_commodity_class_codes;
+//        //The order is important
+//        data.policy_type_code = policy_type_codes_array;
+//        data.policy_measure_code = policy_measure_codes_array;
+//        data.year_list = ap_utilVariables.CONFIG.import_tariffs_year_list;
+//        data.unit = ap_utilVariables.CONFIG.import_tariffs_unit;
+//        data.policy_element = ap_utilVariables.CONFIG.import_tariffs_policy_element;
+//        //MAX
+//        data.chart_type = false;
+//
+//        var payloadrest = JSON.stringify(data);
+//        /* Retrive UI structure from DB. */
+//        $.ajax({
+//
+//            type: 'POST',
+//            url: 'http://'+ap_utilVariables.CONFIG.base_ip_address+':'+ap_utilVariables.CONFIG.base_ip_port+ap_utilVariables.CONFIG.importTariffsPolicyMeasuresBarChart,
+//            data : {"pdObj": payloadrest},
+//
+//            success : function(response) {
+//
+//                /* Convert the response in an object, i needed. */
+//                var json = response;
+//                if (typeof(response) == 'string')
+//                    json = $.parseJSON(response);
+//
+//                //Chart
+//                $('#bd4_submenu1-chart_two').highcharts({
+//                    chart: {
+//                        type: 'column',
+//                        borderWidth: 2,
+//                        marginBottom: 100
+//                    },
+//                    title: {
+//                        text: 'Average values of applied and bound ad valorem import tariffs in the AMIS countries'
+//                    },
+//                    subtitle: {
+//                        text: 'Period '+ obj.start_date_yy+'/'+obj.end_date_yy
+//                    },
+//                    xAxis: {
+//                        categories: [
+//                            '2010',
+//                            '2011',
+//                            '2012',
+//                            '2013'
+//                        ]
+//                    },
+//                    yAxis: {
+//                        min: 0,
+//                        title: {
+//                            text: '%',
+//                            rotation: 0
+//                        }
+//                    },
+//                    colors: [
+//                        '#255ba3',//Dark Blue
+//                        '#67b7e3',//Light Blue
+//                        '#c52b15',//Dark Red
+//                        '#ec6754',//Light Red
+//                        '#125824',//Dark Green
+//                        '#199e34',//Light Green
+//                        '#9a9a9a',//Dark Gray
+//                        '#cccccc'//Light Gray
+//                    ],
+//                    tooltip: {
+//                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+////                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+//                            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+//                        footerFormat: '</table>',
+//                        shared: true,
+//                        useHTML: true
+//                    },
+//                    plotOptions: {
+//                        column: {
+//                            pointPadding: 0.2,
+//                            borderWidth: 0
+//                        }
+//                    },
+//                    legend: {
+//                        title: {
+//                            text: 'Commodity Class',
+//                            style: {
+//                                fontStyle: 'italic'
+//                            }
+//                        },
+//                        layout: 'vertical',
+//                        align: 'right',
+//                        verticalAlign: 'top',
+//                        y: 50,
+//                        borderWidth: 1,
+//                        enabled: true,
+//                        borderColor: '#4572a7',
+//                        labelFormatter: function() {
+////                    var html_legend = '<dl><dt><b>'+this.name+'</b></dt><dd> :'+ pmt_name_description[this.name]+'</dd></dl>';
+//                            //return this.name +' ('+pmt_name_description[this.name]+')';
+//                            //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
+//                            var html_legend = ''+this.name+': '+ split_string(pmTariffQuotas_name_description[this.name]);
+//                            return html_legend;
+//                        }
+//                    },
+//                    labels: {
+//                        items: [
+//                            {
+////                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
+//                                html: 'Graph excludes mixed commodity classes.<br>Graph only considers ad valorem tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Not all countries notify each year.<br>Source: AMIS Policy Database.',
+//                                style: {
+//                                    left: '1px',
+//                                    //top: '402px',
+//                                    top: '260',
+//                                    cursor: 'default',
+//                                    color: '#413839',
+//                                    fontSize: '10px'
+//                                }
+//                            }
+//                        ]
+//                    },
+//                    credits: {
+//                        enabled: false
+////                href: 'javascript:;',
+////                position: {
+////                    align: 'right'
+////                    // x: 10,
+////                    // y: -5
+////                },
+////                style: {
+////                    cursor: 'default',
+////                    color: '#413839',
+////                    fontSize: '10px'
+////                },
+////                text: 'Source: AMIS Policy'
+//                    },
+//                    exporting: {
+//                        buttons: {
+//                            contextButton: {
+//                                enabled: false
+//
+//                            }
+////                    ,
+////                    exportButton: {
+//////                        theme: {
+//////                            title: 'Download',
+//////                            'stroke-width': 1,
+//////                            stroke: '#4572a7',
+//////                            //fill: '#bada55',
+//////                            fill: '#f5cd54',
+//////                            r: 0
+//////                        },
 ////                        theme: {
 ////                            title: 'Download',
 ////                            'stroke-width': 1,
 ////                            stroke: '#4572a7',
-////                            //fill: '#bada55',
-////                            fill: '#f5cd54',
-////                            r: 0
+////                            //fill: '#f5cd54',
+////                            //  fill: '#bada55',
+////                            fill:'#ADD8E6',
+////                            r: 0,
+////                            states: {
+////                                hover: {
+////                                    fill: '#d3d3d3'
+////                                }
+////                            }
 ////                        },
-//                        theme: {
-//                            title: 'Download',
-//                            'stroke-width': 1,
-//                            stroke: '#4572a7',
-//                            //fill: '#f5cd54',
-//                            //  fill: '#bada55',
-//                            fill:'#ADD8E6',
-//                            r: 0,
-//                            states: {
-//                                hover: {
-//                                    fill: '#d3d3d3'
-//                                }
-//                            }
-//                        },
-//                        text: 'Chart Download',
-//                        menuItems: [
-//                            {
-//                                text: 'As PNG image',
-//                                onclick: function () {
-//                                    this.exportChart();
-//                                }
+////                        text: 'Chart Download',
+////                        menuItems: [
+////                            {
+////                                text: 'As PNG image',
+////                                onclick: function () {
+////                                    this.exportChart();
+////                                }
+////
+////                            },
+////                            {
+////                                text: 'As JPEG image',
+////                                onclick: function () {
+////                                    this.exportChart({
+////                                        type: 'image/jpeg'
+////                                    });
+////                                }
+////                            },
+////                            {
+////                                text: 'As SVG vector image',
+////                                onclick: function () {
+////                                    this.exportChart({
+////                                        type: 'image/svg+xml'
+////                                    });
+////                                }
+////
+////                            },
+////                            {
+////                                text: 'To PDF document',
+////                                onclick: function () {
+////                                    this.exportChart({
+////                                        type: 'application/pdf'
+////                                    });
+////                                }
+////                            }
+////                        ]
+////                    }
+//                        }
+//                    },
+//                    series: json
+//                });
+//            },
 //
-//                            },
-//                            {
-//                                text: 'As JPEG image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/jpeg'
-//                                    });
-//                                }
-//                            },
-//                            {
-//                                text: 'As SVG vector image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/svg+xml'
-//                                    });
-//                                }
-//
-//                            },
-//                            {
-//                                text: 'To PDF document',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'application/pdf'
-//                                    });
-//                                }
-//                            }
-//                        ]
-//                    }
-                        }
-                    },
-                    series: json
-                });
-            },
-
-            error : function(err,b,c) {
-                alert(err.status + ", " + b + ", " + c);
-            }
-        });
-    }
+//            error : function(err,b,c) {
+//                alert(err.status + ", " + b + ", " + c);
+//            }
+//        });
+//    }
 
 
-    return { subMenu1 : subMenu1,
-        subMenu2 : subMenu2
+    return { subMenu1 : subMenu1
+//        subMenu2 : subMenu2
     }
 
 })();

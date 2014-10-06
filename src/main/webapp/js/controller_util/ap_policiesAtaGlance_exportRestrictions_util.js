@@ -354,11 +354,11 @@ var ap_policiesAtaGlance_exportRestrictions_util = (function() {
                             ],
                             xAxis: {
                                 categories: [
-                                    commodityNamesArray[0],
                                     commodityNamesArray[1],
                                     commodityNamesArray[2],
                                     commodityNamesArray[3],
-                                    commodityNamesArray[4]
+                                    commodityNamesArray[4],
+                                    commodityNamesArray[5]
                                 ]
                             },
                             yAxis: {

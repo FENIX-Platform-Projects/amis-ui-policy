@@ -103,3 +103,56 @@
     }
     */
 }
+
+
+
+
+
+/* RESTYLING*/
+
+/* iDangerous Swiper */
+.slider_container{
+    position: relative;
+}
+
+.arrow-left {
+    z-index: 100;
+    background: url(img/freccia-sx.png) no-repeat left top;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 34px;
+    height: 34px;
+}
+.arrow-right {
+    background: url(img/freccia-dx.png) no-repeat left bottom;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 34px;
+    height: 34px;
+    z-index: 100;
+}
+.swiper-container {
+    height: 350px;
+}
+.swiper-slide {
+    height: 350px;
+}
+
+.content-slide {
+    padding: 0 50px;
+    color: #fff;
+    height: 350px;
+}
+
+.chart-container {
+    height: 350px;
+}
+.title {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+

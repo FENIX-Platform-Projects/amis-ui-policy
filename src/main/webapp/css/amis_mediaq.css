@@ -15,7 +15,7 @@
 
 .central-chart::after	{height: 0;}
 
-.home-btn-box 			{height: 230px;}
+.home-btn-box 			{height: 100px;}
 
 }
 
@@ -35,7 +35,7 @@
 
 .central-chart::after	{height: 0;}
 
-.home-btn-box 			{height: 300px;}
+.home-btn-box 			{height: 250px;}
 
 }
 
@@ -54,7 +54,7 @@
 
 .central-chart::after	{height: 250px;}
 
-.home-btn-box 			{height: 250px;}
+.home-btn-box 			{height: 175px;}
     
 }
 
@@ -73,6 +73,6 @@
 
 .central-chart::after	{height: 200px;}
 
-.home-btn-box 			{height: 230px;}
+.home-btn-box 			{height: 175px;}
 
 }

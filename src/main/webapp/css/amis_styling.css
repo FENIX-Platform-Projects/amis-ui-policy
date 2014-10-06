@@ -2,6 +2,10 @@
     background-color: white;
 }
 
+a {
+    outline: 0 !important;
+}
+
 /* Header */
 
 .banner-links {
@@ -49,11 +53,38 @@
     color: #FFFFFF;
 }
 
+.navbar-nav > li{
+    position: relative;
+}
+
+.navbar-nav > li.active:before{
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #dd3118;
+    position: absolute;
+    margin-left: -10px;
+    left: 50%;
+    top: 100%;
+}
+
 .nav > li > a:hover, .nav > li > a:focus {
     background-color: #EEEEEE;
     text-decoration: none;
     color: #333;
 }
+
+.navbar-nav > li.active:hover:before{
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #eeeeee;
+    position: absolute;
+    margin-left: -10px;
+    left: 50%;
+    top: 100%;
+}
+
 
 .amis-sidebar-title{
     border-bottom: 1px solid #2a5d9f;
@@ -193,10 +224,25 @@ p {
 }
 
 
+.slider_container{
+    background-color: #fafafa;
+}
+
+
+.ap-diagram-link{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.ap-diagram-link img {
+    margin: 20px 0;
+}
+
 /*  Home Box */
 
 .home-btn-box {
-    background-color: #ededed;
+    background-color: #fafafa;
     border-right: 15px solid #FFFFFF;
     border-left: 15px solid #FFFFFF;
 }
@@ -261,3 +307,63 @@ p {
     padding-left: 0;
 }
 
+
+h4.modal-title{
+    color: #dd3118;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
+
+}
+
+/*------------------Vertical Align ---*/
+.hf-va-holder {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.hf-va-child {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.hf-va-child-align-left {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+
+}
+
+.hf-va-child-align-right {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+
+}
+
+
+.ap-country-holder{
+    width: 50%;
+    height: 100%;
+    position: relative;
+    top: 0;
+}
+
+
+.ap-country-holder.second{
+    left: 50%;
+    top:0;
+}
+
+.modal-body{
+
+    color: #2a5d9f;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 12px;
+}
+
+.modal-body span{
+
+
+}

@@ -1,10 +1,10 @@
 var ap_utilVariables = (function() {
 
     var CONFIG ={
-//        base_ip_address    :  '168.202.28.26',
-//        base_ip_port    :  '8090',
-       base_ip_address    :  'statistics.amis-outlook.org',
-       base_ip_port    :  '80',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '8090',
+//       base_ip_address    :  'statistics.amis-outlook.org',
+//       base_ip_port    :  '80',
         datasource      :   'POLICY',
         biofuel_pt_url   :   '/wds/rest/policyservice/policyTypesFromDomain',
         biofuelTimeSeries_url   :   '/wds/rest/policyservice/biofuelPoliciesTimeSeries',
@@ -20,14 +20,20 @@ var ap_utilVariables = (function() {
         biofuel_commodity_domain_code   :  2,
         //The order in biofuel_commodity_class_codes is important
         biofuel_commodity_class_codes   :  "5,6,7",
-        biofuel_commodity_class_codes_all   :  "5-6-7-5,6,7",
-        biofuel_commodity_class_names_all   :  "Ethanol-Biodiesel-Biofuel (unspecified)-All",
-        biofuel_commodity_class_names_all_time_series   :  "ethanol-biodiesel-unspecified biofuel-biofuel",
+//        biofuel_commodity_class_codes_all   :  "5-6-7-5,6,7",
+//        biofuel_commodity_class_names_all   :  "Ethanol-Biodiesel-Biofuel (unspecified)-All",
+//        biofuel_commodity_class_names_all_time_series   :  "ethanol-biodiesel-unspecified biofuel-biofuel",
+        biofuel_commodity_class_codes_all   :  "5,6,7-5-6-7",
+        biofuel_commodity_class_names_all   :  "All-Ethanol-Biodiesel-Biofuel (unspecified)",
+        biofuel_commodity_class_names_all_time_series   :  "biofuel-ethanol-biodiesel-unspecified biofuel",
 
         export_commodity_class_codes    :   "1,3,2,4",
-        export_commodity_class_codes_all   :  "1-3-2-4-1,3,2,4",
-        export_commodity_class_names_all   :  "Wheat-Maize-Rice-Soybeans-All",
-        export_commodity_class_names_all_times_series:  "wheat-maize-rice-soybeans-all AMIS commodities",
+//        export_commodity_class_codes_all   :  "1-3-2-4-1,3,2,4",
+//        export_commodity_class_names_all   :  "Wheat-Maize-Rice-Soybeans-All",
+//        export_commodity_class_names_all_times_series:  "wheat-maize-rice-soybeans-all AMIS commodities",
+        export_commodity_class_codes_all   :  "1,3,2,4-1-3-2-4",
+        export_commodity_class_names_all   :  "All-Wheat-Maize-Rice-Soybeans",
+        export_commodity_class_names_all_times_series:  "all AMIS commodities-wheat-maize-rice-soybeans",
 
         import_tariffs_commodity_class_codes    :   "1,3,2,4",
         import_tariffs_commodity_class_names    :   "Wheat-Maize-Rice-Soybeans",

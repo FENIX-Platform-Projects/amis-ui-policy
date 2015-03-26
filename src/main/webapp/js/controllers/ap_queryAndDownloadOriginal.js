@@ -737,7 +737,7 @@ var ap_queryAndDownload = (function() {
                             }
                         }
                     }
-                    console.log("ap_queryAndDownload.CONFIG.shareGroupCommodities_url hs_code "+hs_code+" hs_suffix "+hs_suffix+" hs_version "+hs_version+" short_description "+short_description);
+//                    console.log("ap_queryAndDownload.CONFIG.shareGroupCommodities_url hs_code "+hs_code+" hs_suffix "+hs_suffix+" hs_version "+hs_version+" short_description "+short_description);
 //                    ap_commodityShareGroupObject.init(commodity_id, target_code, description);
                     ap_commodityShareGroupObject.init(hs_code, hs_suffix, hs_version, short_description);
                     ap_queryAndDownload.build_shareGroupGrid(load);

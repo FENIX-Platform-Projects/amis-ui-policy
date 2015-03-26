@@ -1,4 +1,6 @@
-var ap_utilFunctions = (function() {
+//var ap_utilFunctions = (function() {
+define([
+], function(){
 
     function init(){
 
@@ -60,7 +62,7 @@ var ap_utilFunctions = (function() {
         data_compare : data_compare,
         data_change : data_change
          }
-})();
+});
 
-window.addEventListener('load', ap_utilFunctions.init, false);
+//window.addEventListener('load', ap_utilFunctions.init, false);
 

@@ -1,4 +1,7 @@
-var ap_policyDataObject = (function() {
+define([
+], function( ){
+
+//var ap_policyDataObject = (function() {
 
     function voObjectConstruction()
     {
@@ -22,6 +25,14 @@ var ap_policyDataObject = (function() {
         data.unit="";
         data.chart_type= false;
 
+        //key=country -> obj{subnational_code, subnational_name}
+        data.subnational_for_coutry = "";
+        //key=subnational_code -> subnational_name
+        data.subnational = "";
+
+        data.subnational_for_coutry_lev_3 = "";
+        //key=subnational_code -> subnational_name
+        data.subnational_lev_3 = "";
 
 //        data.showNull = true;
 //        data.showZeroes = true;
@@ -44,5 +55,4 @@ var ap_policyDataObject = (function() {
 
 return {  init : voObjectConstruction
     }
-
-})();
+});

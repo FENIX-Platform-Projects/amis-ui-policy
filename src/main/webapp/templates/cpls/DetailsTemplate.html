@@ -1,0 +1,215 @@
+<div class="row" xmlns="http://java.sun.com/jsf/html">
+    <div class="col-lg-6">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="field1" class="col-sm-2 control-label">Id</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field1" name='cplId' placeholder="Id"
+                           value="<%= cpl ? cpl.get('cplId') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field2" class="col-sm-2 control-label">Cpl Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field2" name='cplCode' placeholder="Cpl Code"
+                           value="<%= cpl ? cpl.get('cplCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field3" class="col-sm-2 control-label">Commodity ID</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field3" name='commodityId' placeholder="commodityId"
+                           value="<%= cpl ? cpl.get('commodityId') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field4" class="col-sm-2 control-label">Country Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field4" name='countryCode' placeholder="country Code"
+                           value="<%= cpl ? cpl.get('countryCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field5" class="col-sm-2 control-label">Country Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field5" name='countryName' placeholder="country Name"
+                           value="<%= cpl ? cpl.get('countryName') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field6" class="col-sm-2 control-label">SubNational Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field6" name='subnationalCode'
+                           placeholder="SubnationalCode"
+                           value="<%= cpl ? cpl.get('subnationalCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field7" class="col-sm-2 control-label">Subnational Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field7" name='subnationalName'
+                           placeholder="Subnational Name"
+                           value="<%= cpl ? cpl.get('subnationalName') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field8" class="col-sm-2 control-label">Commodity Domain Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field8" name='commodityDomainCode'
+                           placeholder="Commodity Domain Code"
+                           value="<%= cpl ? cpl.get('commodityDomainCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field9" class="col-sm-2 control-label">Commodity Domain Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field9" name='commodityDomainName'
+                           placeholder="Commodity Domain Name"
+                           value="<%= cpl ? cpl.get('commodityDomainName') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field10" class="col-sm-2 control-label">Commodity Class Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field10" name='commodityClassCode'
+                           placeholder="Commodity Class Code"
+                           value="<%= cpl ? cpl.get('commodityClassCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field11" class="col-sm-2 control-label">Commodity Class Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field11" name='commodityClassName'
+                           placeholder="Commodity Class Name"
+                           value="<%= cpl ? cpl.get('commodityClassName') : '' %>">
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="col-lg-6">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label for="field12" class="col-sm-2 control-label">Policy Domain code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field12" name='policyDomainCode'
+                           placeholder="Policy Domain code"
+                           value="<%= cpl ? cpl.get('policyDomainCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field13" class="col-sm-2 control-label">Policy Domain name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field13" name='policyDomainName'
+                           placeholder="Policy Domain name"
+                           value="<%= cpl ? cpl.get('policyDomainName') : '' %>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="field14" class="col-sm-2 control-label">Policy Type code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field14" name='policyTypeCode'
+                           placeholder="Policy Type code"
+                           value="<%= cpl ? cpl.get('policyTypeCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field15" class="col-sm-2 control-label">Policy Type Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field15" name='policyTypeName'
+                           placeholder="Policy Type name"
+                           value="<%= cpl ? cpl.get('policyTypeName') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field16" class="col-sm-2 control-label">Policy Measure Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field16" name='policyMeasureCode'
+                           placeholder="Policy Measure Code"
+                           value="<%= cpl ? cpl.get('policyMeasureCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field17" class="col-sm-2 control-label">Policy Measure Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field17" name='policyMeasureName'
+                           placeholder="Policy Measure Name"
+                           value="<%= cpl ? cpl.get('policyMeasureName') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field18" class="col-sm-2 control-label">Condition Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field18" name='conditionCode'
+                           placeholder="Condition Code"
+                           value="<%= cpl ? cpl.get('conditionCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field19" class="col-sm-2 control-label">Condition </label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field19" name='condition' placeholder="Condition "
+                           value="<%= cpl ? cpl.get('condition') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field20" class="col-sm-2 control-label">Individual Policy Code</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field20" name='individualPolicyCode'
+                           placeholder="Individual policy Code"
+                           value="<%= cpl ? cpl.get('individualPolicyCode') : '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="field21" class="col-sm-2 control-label">Individual Policy Name</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="field21" name='individualPolicyName'
+                           placeholder="Individual policy Name"
+                           value="<%= cpl ? cpl.get('individualPolicyName') : '' %>">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

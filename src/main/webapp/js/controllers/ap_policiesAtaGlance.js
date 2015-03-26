@@ -1,4 +1,21 @@
-var ap_policiesAtaGlance = (function() {
+var ap_policiesAtaGlance = define([
+    'ap_sidemenu',
+    'ap_policiesAtaGlance_biofuelPolicyTypes_util',
+    'ap_policiesAtaGlance_biofuelPolicyMeasures_util',
+    'ap_policiesAtaGlance_exportRestrictions_util',
+    'ap_policiesAtaGlance_exportSubsidies_util',
+    'ap_policiesAtaGlance_importTariffsQuotas_util',
+    'ap_util_variables',
+    'ap_util_functions',
+    'structure',
+    'text!json/conf.json',
+    'jquery',
+    'commons',
+    'history',
+    'bootstrap',
+    'xDomainRequest'
+], function( ap_sidemenu, ap_policiesAtaGlance_biofuelPolicyTypes_util , ap_policiesAtaGlance_biofuelPolicyMeasures_util, ap_policiesAtaGlance_exportRestrictions_util, ap_policiesAtaGlance_exportSubsidies_util, ap_policiesAtaGlance_importTariffsQuotas_util, ap_utilVariables, ap_utilFunctions, Structure, conf){
+//var ap_policiesAtaGlance = (function() {
 
     var State       = {},
         lang        = 'EN',
@@ -17,84 +34,111 @@ var ap_policiesAtaGlance = (function() {
 
     var $content, $header, $footer, $slider, tab, sec, lang, magic;
 
+//    function Ap_policiesAtaGlance(){
+//
+//    };
+
     function init(){
-        //alert("In init");
-        $content  = $(s_content);
-        $header   = $(s_header);
-        $footer   = $(s_footer);
-        $slider   = $(s_newsslider);
-       // alert("Before initEventListeners");
-        initEventListeners();
-        initHistory();
 
-       // fx_topmenu ? fx_topmenu.init(ap_policiesAtaGlance, document.querySelector(s_topmenu)) : alert('No fx_topmenu.js found');
-        ap_sidemenu ? ap_sidemenu.init({
-//            json        : 'json/fx_sidemenu_view.json',
-            json        : 'json/ap_sidemenu_policiesAtaGlance.json',
-            controller  : ap_policiesAtaGlance,
-            container   : s_sidemenu
-        }) : alert('No ap_sidemenu.js found');
-
-        //Register the objs overlooked by the controller
-       // objs.push(fx_topmenu);
-        objs.push(ap_sidemenu);
-        objs.push('fx_footer');
-        objs.push('fx_content');
-        objs.push('fx_header');
-        objs.push('fx_newsslider');
-
-        $.getJSON(json_config, function(result){
-
-            json_pageelem = result;
-            var state = {};
-
-            //get 'tab' from URL
-            var t = getQuerystringParam()['tab'];
-            var arrayTab = Object.keys( json_pageelem.content);
-
-            if (t){
-                var it = $.inArray(t, arrayTab);
-                if (it > -1) state.tab = arrayTab[it];
-                else state.tab = arrayTab[0]
-            } else {
-                state.tab = arrayTab[0]
+        var callbacks = {
+            "policiesAtaGlance_biofuelPolicyTypes" : function(){
+                browseData_sideMenu0();
+            },
+            "policiesAtaGlance_biofuelPolicyMeasures" : function(){
+                browseData_sideMenu1();
+            },
+            "policiesAtaGlance_importTariffsQuotas" : function(){
+                browseData_sideMenu4();
+            },
+            "policiesAtaGlance_exportSubsidies" : function(){
+                browseData_sideMenu3();
+            },
+            "policiesAtaGlance_exportRestrictions" : function(){
+                browseData_sideMenu2();
             }
+        };
 
-            //Lang
-            var l = getQuerystringParam()['lang'];
-            var arrayLang = Object.keys( json_pageelem.content[state.tab]['html']);
+        new Structure().initialize(JSON.parse(conf), callbacks);
+    }
 
-            if (l){
-                var il = $.inArray(l.toUpperCase(), arrayLang);
-                if (il > -1) state.lang = arrayLang[il];
-                else state.lang = arrayLang[0];
-            } else state.lang = arrayLang[0];
-
-            //Sec
-            var s = getQuerystringParam()['sec'];
-            if (s) state.sec = s;
-
-            //For the objs that needs the controller lang to render
-            lang = state.lang;
-            tab = state.tab;
-            if (state.sec) {
-                sec = state.sec;
-                initSec = state.sec;
-            }
-
-            State.data = state;
-
-            // Replace the first History State with che params
-            var url = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
-            var queries = location.search.substring(1);
-            if (queries) url += '?'+queries;
-           // History.replaceState(State.data, "View", url);
-
-            renderPage();
-
-        }).error(function() { showErrorMsg("Impossible to load the Config JSON", alertcont); });
-
-    };
+//    function init(){
+//        //alert("In init");
+//        $content  = $(s_content);
+//        $header   = $(s_header);
+//        $footer   = $(s_footer);
+//        $slider   = $(s_newsslider);
+//       // alert("Before initEventListeners");
+//        initEventListeners();
+//        initHistory();
+//
+//       // fx_topmenu ? fx_topmenu.init(ap_policiesAtaGlance, document.querySelector(s_topmenu)) : alert('No fx_topmenu.js found');
+//        ap_sidemenu ? ap_sidemenu.init({
+////            json        : 'json/fx_sidemenu_view.json',
+//            json        : 'json/ap_sidemenu_policiesAtaGlance.json',
+//            controller  : ap_policiesAtaGlance,
+//            container   : s_sidemenu
+//        }) : alert('No ap_sidemenu.js found');
+//
+//        //Register the objs overlooked by the controller
+//       // objs.push(fx_topmenu);
+//        objs.push(ap_sidemenu);
+//        objs.push('fx_footer');
+//        objs.push('fx_content');
+//        objs.push('fx_header');
+//        objs.push('fx_newsslider');
+//
+//        $.getJSON(json_config, function(result){
+//
+//            json_pageelem = result;
+//            var state = {};
+//
+//            //get 'tab' from URL
+//            var t = getQuerystringParam()['tab'];
+//            var arrayTab = Object.keys( json_pageelem.content);
+//
+//            if (t){
+//                var it = $.inArray(t, arrayTab);
+//                if (it > -1) state.tab = arrayTab[it];
+//                else state.tab = arrayTab[0]
+//            } else {
+//                state.tab = arrayTab[0]
+//            }
+//
+//            //Lang
+//            var l = getQuerystringParam()['lang'];
+//            var arrayLang = Object.keys( json_pageelem.content[state.tab]['html']);
+//
+//            if (l){
+//                var il = $.inArray(l.toUpperCase(), arrayLang);
+//                if (il > -1) state.lang = arrayLang[il];
+//                else state.lang = arrayLang[0];
+//            } else state.lang = arrayLang[0];
+//
+//            //Sec
+//            var s = getQuerystringParam()['sec'];
+//            if (s) state.sec = s;
+//
+//            //For the objs that needs the controller lang to render
+//            lang = state.lang;
+//            tab = state.tab;
+//            if (state.sec) {
+//                sec = state.sec;
+//                initSec = state.sec;
+//            }
+//
+//            State.data = state;
+//
+//            // Replace the first History State with che params
+//            var url = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+//            var queries = location.search.substring(1);
+//            if (queries) url += '?'+queries;
+//           // History.replaceState(State.data, "View", url);
+//
+//            renderPage();
+//
+//        }).error(function() { showErrorMsg("Impossible to load the Config JSON", alertcont); });
+//
+//    };
 
     function initEventListeners(){
        // alert("In initEventListeners");
@@ -220,7 +264,7 @@ var ap_policiesAtaGlance = (function() {
         // back to top
         setTimeout(function () {
 
-            var $sideBar = $('.fx-sidebar')
+            var $sideBar = $('#sidemenu')
 
             $sideBar.affix({
                 offset: {
@@ -352,7 +396,7 @@ var ap_policiesAtaGlance = (function() {
 //        ap_policiesAtaGlance_exportRestrictions_util.subMenu1();
 //       // ap_policiesAtaGlance_exportRestrictions_util.subMenu2();
 //        ap_policiesAtaGlance_exportRestrictions_util.subMenu3();
-
+//console.log("browseData_sideMenu2");
         var page_obj ={};
         page_obj.type = 'exportRestrictions';
         page_obj.instance = ap_policiesAtaGlance_exportRestrictions_util;
@@ -360,6 +404,7 @@ var ap_policiesAtaGlance = (function() {
     }
 
     function browseData_sideMenu3(){
+//        console.log("browseData_sideMenu3");
         var obj = new Object();
         obj.start_date_dd = '01';
         obj.start_date_mm = '01';
@@ -375,6 +420,7 @@ var ap_policiesAtaGlance = (function() {
     }
 
     function browseData_sideMenu4(){
+//        console.log("browseData_sideMenu4");
         var obj = new Object();
         obj.start_date_yy = '2010';
         obj.end_date_yy = '2013';
@@ -384,12 +430,12 @@ var ap_policiesAtaGlance = (function() {
        // ap_policiesAtaGlance_importTariffsQuotas_util.subMenu3();
     }
 
-    function browseData_sideMenu5(){
-        ap_policiesAtaGlance_policyByCommodities_util.subMenu0();
-        ap_policiesAtaGlance_policyByCommodities_util.subMenu1();
-        ap_policiesAtaGlance_policyByCommodities_util.subMenu2();
-        ap_policiesAtaGlance_policyByCommodities_util.subMenu3();
-    }
+//    function browseData_sideMenu5(){
+//        ap_policiesAtaGlance_policyByCommodities_util.subMenu0();
+//        ap_policiesAtaGlance_policyByCommodities_util.subMenu1();
+//        ap_policiesAtaGlance_policyByCommodities_util.subMenu2();
+//        ap_policiesAtaGlance_policyByCommodities_util.subMenu3();
+//    }
 
     function startAndDate(page) {
         /* Retrive UI structure from DB. */
@@ -494,31 +540,34 @@ var ap_policiesAtaGlance = (function() {
                     if((page.type !=null)&&(typeof page.type!='undefined')){
                         switch (page.type){
                             case 'biofuelPolicyTypes':
-                                console.log("biofuelPolicyTypes !!!!!!!!!!!!!!!!!!!!!");
-                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
-                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int)
+                                end_date_yy_int = 2016;
+//                                console.log("biofuelPolicyTypes !!!!!!!!!!!!!!!!!!!!!");
+//                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
+//                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int)
                                 //page.instance.subMenu0(start_date_dd_int, start_date_mm_int, start_date_yy_int, end_date_dd_int, end_date_mm_int, end_date_yy_int);
-                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries);
+                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_biofuelPolicy, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries_biofuelPolicy);
                                 page.instance.subMenu1();
                                 // ap_policiesAtaGlance_biofuelPolicyTypes_util.subMenu2();
-                                page.instance.subMenu3();
+                                page.instance.subMenu3(0);
                                 break;
                             case 'biofuelPolicyMeasures':
-                                console.log("biofuelPolicyMeasures !!!!!!!!!!!!!!!!!!!!!!");
-                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
-                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
+                                end_date_yy_int = 2016;
+//                                console.log("biofuelPolicyMeasures !!!!!!!!!!!!!!!!!!!!!!");
+//                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
+//                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
                                 //page.instance.subMenu0(start_date_dd_int, start_date_mm_int, start_date_yy_int, end_date_dd_int, end_date_mm_int, end_date_yy_int);
-                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries);
+                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_biofuelPolicy, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries_biofuelPolicy);
                                // page.instance.subMenu1();
                                 // ap_policiesAtaGlance_biofuelPolicyTypes_util.subMenu2();
                                 //page.instance.subMenu3();
                                 break;
                             case 'exportRestrictions':
-                                console.log("exportRestrictions !!!!!!!!!!!!!!!!!!!!!!");
-                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
-                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
+                                end_date_yy_int = 2016;
+//                                console.log("exportRestrictions !!!!!!!!!!!!!!!!!!!!!!");
+//                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
+//                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
                                 //page.instance.subMenu0(start_date_dd_int, start_date_mm_int, start_date_yy_int, end_date_dd_int, end_date_mm_int, end_date_yy_int);
-                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries);
+                                page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_exportRestriction, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries_exportRestriction);
                                 // page.instance.subMenu1();
                                 // ap_policiesAtaGlance_biofuelPolicyTypes_util.subMenu2();
                                 //page.instance.subMenu3();
@@ -534,140 +583,9 @@ var ap_policiesAtaGlance = (function() {
         });
     }
 
-
-    function foodsecuritystatusCB(){
-
-
-
-//        //General Information
-//        var source = '{"chart":{"backgroundColor": "#F8F6F2", "renderTo":"obj_0","type":"column","zoomType":"xy"},"colors":["#009966","#009966","#009966","#6c79db","#a68122","#ffd569","#439966","#800432","#067dcc","#1f678a","#92a8b7","#5eadd5","#6c79db","#a68122","#ffd569","#439966","#800432","#067dcc"],"xAxis":{"categories":["Total Population - Both sexes","Rural population","Agricultural population","Male economically active population in Agr","Female economically active population in Agr"],"labels":{"enabled":true},"tickInterval":1},"title":{"text":""},"credits":{"position":{"align":"left","x":10},"text":"M = Million, K = Thousand","href":null},"tooltip":{"shared":true,"crosshairs":true},"plotOptions":{"line":{"marker":{"enabled":false}}},"yAxis":[{"title":{"text":"1000","style":{"color":"#1f678a"}},"labels":{"style":{"color":"#1f678a"}}}],"series":[{"name":"Nigeria","type":"column","data":[158423,79524,39405,7453,4814],"yAxis":0}]}'
-//        var myObject = eval('(' + source + ')');
-//        $('#chart-one').highcharts(myObject);
-
-        //Food Security
-        $('#chart-two').highcharts({
-            chart: {
-                backgroundColor:'#F8F6F2'
-            },
-            colors : ['#009a65', '#006342', '#965a00', '#e88a00', '#f3ab2d', '#8b001d', '#d5002b', '#eb3660', '#26ce99', '#009a65'],
-            title: {
-                text: 'Food Security Analysis',
-                x: -20 //center
-            },
-            subtitle: {
-                text: 'Source: CountrySTAT.com',
-                x: -20
-            },
-            xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperature (°C)'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: '°C'
-            },
-            series: [{
-                name: 'Tokyo',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-            }, {
-                name: 'New York',
-                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-            }, {
-                name: 'Berlin',
-                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-            }, {
-                name: 'London',
-                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-            }]
-        });
-
-
-    }
-
-    function pricesCB(){ amis_chart_init(); }
-
-   // function ndviDB(){ fx_NDVI_MAP.init(); }
-    function ndviDB(){  }
-
-    function marketCB(){ amis_chart_init(); }
-
-    function collist(){
-
-        var cl;
-        var colSize = 6;
-
-        cl =  jQuery.fn.jColumnListView({
-            id:               'cl2',
-            columnWidth:      220,
-            columnHeight:     200,
-            columnMargin:     8,
-            paramName:        'cview',
-            columnNum:        colSize,
-            appendToId:       'colListDiv',
-            removeAfter:  true,
-            showLabels:   false,
-            useSplitters: false,
-            checkAndClick: false,
-            textFormat:            '%cvl-text%',
-            emptyChildrenCounter:  false,
-            childIndicator:        true,
-            singleCheck: true,
-            ajaxSource: {
-                url:         'config/faostat_classification_en.json',
-                method:      'get',
-                dataType:    'json',
-                onSuccess:   function (reqObj, respStatus, respData) {
-                    //console.log('SUCCESS respData = '+ respData);
-                },
-                onFailure:   function (reqObj, respStatus, errObj) {
-                    // console.log('ERROR');
-                },
-                waiterClass: 'cvl-column-waiter',
-                itemUrl:       null,
-                pathSeparator: ','
-            },
-            onItemChecked: function (item) {
-                var path = "";
-                console.log('onItemChecked ...');
-
-                $.each(item.getFullPath(), function( index, parent ) {
-
-                    if(index !=item.getFullPath().length - 1){
-                        if (parent.isEnabled){
-                            path += '<a href="alert('+parent.value+')">'+parent.text+'</a>';
-                        }
-                        else {
-                            path += parent.text + " ";
-                        }
-
-                        if(index < item.getFullPath().length - 2){
-                            path += " > ";
-                        }
-                    }
-
-                });
-               // alert('Selected '+item.getText() + ' value: '+ item.getValue() + ' path: ' + path);
-            },
-            onItemUnchecked: function (item) {
-                // console.log('onItemUnChecked ...');
-                //alert('Clear View');
-            }
-
-        });
-    }
-
     return {  init : init,
-        lang : function(){ return lang; } }
+        lang : function(){ return lang; }
+        //Ap_policiesAtaGlance : Ap_policiesAtaGlance
+    }
 
-})();
-
-window.addEventListener('load', ap_policiesAtaGlance.init, false);
+});

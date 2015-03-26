@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>AMIS - Data Entry tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FENIX Panel - Administration">
+    <meta name="author" content="Daniele Salvatore <daniele.salvatore[at]fao.org>">
+    <!-- Google Font-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap  -->
+    <!--<link rel="stylesheet" href="css/lib/bootstrap.css">-->
+    <link rel="stylesheet" href="css/bootstrap-theme.3.2.0.min.css">
+    <link rel="stylesheet" href="css/bootstrap.3.2.0.min.css">
+    <!-- JQwidgets  -->
+    <!--<link rel="stylesheet" href='css/lib/jqx.base.css'/>-->
+    <link rel="stylesheet" href='js/libs/jqwidgets-ver3.4.0/jqwidgets/styles/jqx.base.css'/>
+    <!--Jquery-ui-->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <!--Policy Structure Css for Policy Web Site-->
+    <link rel="stylesheet" href="css/policy_grid_style.css">
+    <!--Qd Generic Component Css-->
+    <link rel="stylesheet" href="css/qd_component.css">
+    <link href="css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <!-- JQwidgets  -->
+    <!--<link rel="stylesheet" href='http://fenixapps.fao.org/repository/js/jqwidgets/3.2.2/styles/jqx.base.css'/>-->
+    <!-- nprogress js-->
+    <link rel="stylesheet" href="css/nprogress.css">
+    <!--jQAllRangeSliders-->
+    <link rel="stylesheet" href="css/iThing_Modified.css">
+
+    <link href='http://glyphicons.com/' rel='stylesheet' type='text/css'>
+    <link href="css/ap_queryAndDownload.css" rel="stylesheet" type="text/css">
+    <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
+    <link href="css/amis-sass.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<!-- Sign in modal -->
+<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">FENIX Login in</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input id="modal-mail" type="email" autofocus="" required="" placeholder="Email address"
+                           class="form-control">
+                    <input type="password" required="" placeholder="Password" class="form-control">
+                    <label class="checkbox">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="sign-in-btn" type="submit" class="btn btn-lg btn-default btn-block">Sign in</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="deleteModalTitle">
+                    <h1>You are about to delete a record, please provide a justification.</h1>
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <h3>This justification is preferably a link to a government website or another reliable source. You can also upload a pdf version of the legal document or source document.</h3>
+
+                <dl class="dl-horizontal">
+                    <dt>CPL id</dt>
+                    <dd id="delMod_cplid">Value</dd>
+                    <dt>Commodity id</dt>
+                    <dd id="delMod_commid">Value</dd>
+                    <dt>policy id</dt>
+                    <dd id="delMod_polid">Value</dd>
+                    <dt>Location</dt>
+                    <dd id="delMod_loc">Value</dd>
+                </dl>
+
+                <input id="delMod_text" type="text" class="form-control" placeholder="Justification">
+                <input type="file">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" disabled="disabled" class="btn btn-primary" id="delMod_submit">Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Header-->
+<div class="container amis-header">
+    <div class="amis-tag pull-left"></div>
+
+    <div class="pull-right banner-links"><a href="#" target='_self'> Send by email </a> | <a href="#"
+                                                                                             target='_self'>Print
+        this page</a></div>
+</div>
+
+<!-- Top menu-->
+<!-- Top menu-->
+<div class="container amis-menu">
+    <!-- Main menu-->
+    <nav class="navbar navbar-left">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
+            <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
+            <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
+            <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
+            <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
+            <li class="dropdown protected">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <!--<li><a href="../policyinput">Input Data</a></li>-->
+                    <li><a href="../policy/dataEntry.html">Input Data</a></li>
+                </ul>
+            </li>
+            <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
+        </ul>
+    </nav>
+    <nav class="navbar navbar-right">
+        <ul class="nav navbar-nav">
+            <li><a href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a></li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Page Title -->
+<div class="container">
+    <div class="row">
+        <div id="header" class="fx-header col-lg-12">
+            <div>
+                <h1 class='fx_header_title fx_p_ico'>AMIS Input Data</h1>
+                <h4>
+                    The input tool allows you to edit, delete or add a new record.
+                    Note that any change will require a justification. This justification is preferably a link to a government website or another reliable source. You can also upload a pdf version of the legal document or source document.
+                    (in red): The current version is only a prototype. We welcome your feedback on the user-friendliness of this tool.
+                </h4>
+                <hr class='fx-hr'>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Previous Content -->
+<div class="previous_content">
+    <!-- Page Content - Search tabs -->
+    <div class="container">
+        <div class='row amis_download_holder'>
+            <div class='col-xs-12'>
+                <div class='note-tabs'>
+                    <ul class='nav nav-tabs'>
+                        <li class='active'>
+                            <a href='#panel_standard_download' data-toggle='tab' class='fx_header_title_small'> Simple
+                                Search</a>
+                        </li>
+                        <li>
+                            <a href='#panel_bulk_download' data-toggle='tab' class='fx_header_title_small'> Expert
+                                Search </a>
+                        </li>
+                        <li>
+                            <a href='#addnewrecord_panel' data-toggle='tab' class='fx_header_title_small'> Add a record </a>
+                        </li>
+                    </ul>
+                    <div class='tab-content'>
+                        <div id='panel_standard_download' class='tab-pane active'>
+                            <div>
+                                <div id="qd_component"></div>
+                            </div>
+                        </div>
+
+                        <div id='panel_bulk_download' class='tab-pane'>
+                            <div class="expert_search_alert_container"></div>
+
+                            <br>
+
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="expert_search_input" class="col-sm-2 control-label">CPL id</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="expert_search_input"
+                                               placeholder="Enter a CPL id">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" class="btn btn-default" id="expert_search_submit">Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id='addnewrecord_panel' class='tab-pane'>
+
+                            <blockquote>
+                                <p>Under construction.</p>
+                            </blockquote>
+
+                            <div id="add_record_container"></div>
+
+                        </div>
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.tab table -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Page Content - Search Results -->
+    <div class="container">
+        <div class='row'>
+            <div class='col-xs-12'>
+                <h1 class="fx_header_title fx_p_ico">Results</h1>
+
+                <div id="standard_preview_jqxgrid"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Backbone content -->
+<div class="backbone_content container">
+    <div id="input_content"></div>
+</div>
+
+
+<!--Footer -->
+<div class="container">
+    <div class="row amis-footer">
+        <div class="col-xs-2 amis-footer-sides">
+            <a href='#' class='amis-contact-us'>CONTACT US</a>
+        </div>
+        <div class="col-xs-8 amis-footer-menu">
+            <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a
+                class="amis-footer-menu" href='../policy/index.html' target='_self'>POLICY HOME</a> | <a
+                class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a>
+            | <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a> |
+            <a class="amis-footer-menu" href='../policy/analysis.html' target='_self'>ANALYSES</a> | <a
+                class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
+        </div>
+
+        <div class="col-xs-2 amis-footer-sides">
+            <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe"
+                 href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
+                <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
+
+                <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Auxiliary container for QueryAndDownload Component -->
+<div id="shared_group_window">
+    <div id="shared_group_windowHeader">
+    </div>
+    <div style="overflow: auto;" id="shared_group_windowContent">
+        <div id="shared_group_grid"></div>
+    </div>
+</div>
+<div id="additional_info_window">
+    <div id="additional_info_windowHeader">
+    </div>
+    <div style="overflow: auto;" id="additional_info_windowContent">
+        <div id="additional_info_container"></div>
+    </div>
+</div>
+<div id="metadata_fullscreen" style='background-color: #FFFFFF; display: none;'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-10 col-lg-10'>
+            &nbsp
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-1 col-lg-1'>
+            <div id="close_metadata_fullscreen_button_container">
+                <div>
+                    <button id='close_metadata_fullscreen_button'>Close</button>
+                </div>
+            </div>
+        </div>
+        <div class='col-xs-12 col-sm-12 col-md-1 col-lg-1'>
+            &nbsp;
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+            <div style='background-color:#FFFFFF;' id='metadata_fullScreenContent'></div>
+        </div>
+    </div>
+</div>
+<!-- / Auxiliary container for QueryAndDownload Component -->
+
+<!-- =====================
+        Javascript
+=======================-->
+<script data-main="js/controllers/main_dataEntry" src="js/libs/require.min.2.1.14.js"></script>
+
+</body>
+</html>

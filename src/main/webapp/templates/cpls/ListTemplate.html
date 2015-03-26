@@ -1,0 +1,103 @@
+<h1>AMIS Policy Commodity-Policy-Location list</h1>
+
+<hr>
+
+<h3>Search Form
+    <small>Fill the form to look for CPLs</small>
+</h3>
+
+<div class="row">
+    <div id="cpls-search-form" class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="cpls-search-form-policyMeasure"></div>
+            </div>
+            <div class="col-lg-6">
+                <div id="cpls-search-form-policyDomain"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="cpls-search-form-country" class="control-label">Country</label>
+
+                <div id="cpls-search-form-country"></div>
+            </div>
+            <div class="col-lg-6">
+                <label for="cpls-search-form-commodityClass" class="control-label">Commodity Class</label>
+
+                <div id="cpls-search-form-commodityClass"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <button id="cpls-search-form-submit-btn" type="button" class="btn btn-danger btn-lg btn-block">Search</button>
+    </div>
+</div>
+
+<hr>
+
+<h3>Search Results
+    <small>CPLs found</small>
+</h3>
+
+<div class="row" id="search-results">
+    <div class="col-lg-12">
+        <div id="cpls-list"></div>
+    </div>
+</div>
+
+<div class="row" id="no-results">
+    <div class="col-lg-12">
+        <div class="alert alert-danger fade in">
+            <h4>No results found!</h4>
+            <button id="cpls-new-btn" type="button" class="btn btn-default btn-lg btn-block">Create CPL</button>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+
+<h3>Policy List
+    <small>List of Policies related to selected CPL</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-10">
+        <div id="policies-list"></div>
+    </div>
+    <div class="col-lg-2">
+        <button id="cpl-policies-add-btn" type="button" class="btn btn-default btn-lg btn-block">Add Policy</button>
+        <button id="cpl-policies-new-btn" type="button" class="btn btn-default btn-lg btn-block">New Policy</button>
+    </div>
+</div>
+
+<hr>
+
+<h3>CPL Details
+    <small>Details of the selected CPL</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-10">
+        <div id="cpl-details"></div>
+    </div>
+
+    <div class="col-lg-2">
+        <button id="cpl-edit-btn" type="button" class="btn btn-default btn-lg btn-block">Edit</button>
+    </div>
+</div>
+
+<hr>
+
+<h3>Policy Details
+    <small>Details of the selected Policy</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="policy-details"></div>
+    </div>
+</div>
+
+<hr>

@@ -35,6 +35,16 @@
     <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 
+
+   <!--For Map-->
+    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/css/jquery.power.tip/1.1.0/jquery.powertip.css" type="text/css" />
+    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/leaflet/0.7.3/leaflet.css" />
+    <link href='http://fenixapps.fao.org/repository/js/chosen/1.0.0/chosen.min.css' rel='stylesheet'>
+    <!-- Fenix Map js -->
+    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/fenix-map-js.css" />
+    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/leaflet-custom.css" />
+
     <style>
         /*applied to the columns.*/
         .jqx-grid-column-header, .jqx-grid-columngroup-header {
@@ -108,16 +118,14 @@
         <ul class="nav navbar-nav">
             <li><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
             <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
-            <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
+            <li class="active"><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
             <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
             <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
             <li class="dropdown protected">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="../policy-management#cpls">CPL</a></li>
-                    <li><a href="../policy-management#policies">Policy</a></li>
-                    <li><a href="../policy-management#commodities">Commodity</a></li>
-                    <li><a href="../policy-management#sharedgroups">Shared Group</a></li>
+                    <!--<li><a href="../policyinput">Input Data</a></li>-->
+                    <li><a href="../policy/dataEntry.html">Input Data</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -133,14 +141,15 @@
 <!-- Page Title -->
 <div class="container">
     <div class="row">
-        <div id="header" class="fx-header col-lg-12">
+        <div id="header" class="fx-header col-xs-12">
             <div>
                 <!--<a class="pull-left" href='../policy/index.html' target='_self'>-->
                 <!--<img src="img/homePage2.jpg" alt="Browse Data" class="img-responsive">-->
                 <!--</a>-->
                 <!--<h1 class='fx_header_title fx_p_ico'>Analysis <small>Analysis Brief Description </small></h1>-->
                 <h1 class='fx_header_title fx_p_ico'>Query And Download</h1>
-                <h4>Select, view and download subsets of the AMIS policy database. The Bulk Download tab allows for downloading the entire database or predefined sets of the database.<br><br>To better understand the information in the downloaded files, have a look at the explanatory documents that are posted on the <a href="../policy/statisticalNotes.html">Statistical Notes</a> page.<br><br> The organizational diagram illustrates how policies are classified in the AMIS policy database (include the organogram icon with link to png – maybe first put the icon and then the text, depends on what looks better).</h4>
+                <h4>Select, view and download subsets of the AMIS policy database. The Bulk Download tab allows for downloading the entire database or predefined sets of the database.<br><br>To better understand the information in the downloaded files, have a look at the explanatory documents that are posted on the <a href="../policy/statisticalNotes.html">Statistical Notes</a> page.<br><br> The <a href="../policy/doc/statistical_notes/OrganizationPoliciesInAMISPolicyDatabase.pdf" target='_self'>organizational diagram
+                    </a> illustrates how policies are classified in the AMIS policy database.</h4>
                 <hr class='fx-hr'>
             </div>
         </div>
@@ -161,14 +170,28 @@
                         <div class='col-xs-12'>
                             <div class='note-tabs'>
                                 <ul id='test' class='nav nav-tabs'>
-                                    <li class='active'><a href='#pane1' id ='pane1' data-toggle='tab' class='fx_header_title_small'>Preview</a></li>
-                                    <!--<li><a href='#pane2' id ='pane2' data-toggle='tab' class='fx_header_title_small'>Pivot Preview</a></li>-->
+                                    <!--<li class='active'><a href='#pane1' id ='pane1' data-toggle='tab' class='fx_header_title_small'>Preview</a></li>-->
+                                    <li class='active'><a href='#standard_preview' id ='pane1' data-toggle='tab' class='fx_header_title_small'>Preview</a></li>
+                                    <!--<li class='active'><a href='#standard_preview' id ='pane1' data-toggle='tab' class='fx_header_title_small'>Table</a></li>-->
+                                    <!--<li><a href='#pivot_preview' id ='pane2' data-toggle='tab' class='fx_header_title_small'>Map</a></li>-->
                                 </ul>
                                 <div class='tab-content'>
                                     <div id='standard_preview' class='tab-pane active'>
                                         <div id="standard_preview_jqxgrid"></div>
                                     </div>
                                     <!--<div id='pivot_preview' class='tab-pane'>-->
+                                        <!--<br>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-xs-12">-->
+                                                <!--<div class="col-xs-6">-->
+                                                    <!--<button id ="gaul_0_button" type="button" class="btn btn-default policy-button">Gaul 0</button>-->
+                                                    <!--<button id ="gaul_1_button" type="button" class="btn btn-default policy-button">Gaul 1</button>-->
+                                                    <!--<button id ="gaul_2_button" type="button" class="btn btn-default policy-button">Gaul 2</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<br>-->
+                                        <!--<div id="map" style="height:430px;overflow: hidden;margin: 0 auto; text-align: left;"></div>-->
                                     <!--</div>-->
                                 </div><!-- /.tab-content -->
                             </div><!-- /.tabbable -->
@@ -265,8 +288,9 @@
     </div>
 </div>
 
-<form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://168.202.28.26:8090/wds/rest/policyservice/streamexcel' target='_self'>
+<form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://168.202.28.26:8090/wdspolicy/rest/policyservice/streamexcel' target='_self'>
     <!--<form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://statistics.amis-outlook.org:80/wds/rest/policyservice/streamexcel' target='_self'>-->
+        <!--<form style='display: none;' name='excelFormWithQuotes' method='POST' action='http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/streamexcel' target='_self'>-->
     <div><input type='text' value='faostat' name='cssFilename_WQ' id='cssFilename_WQ'/></div>
     <div><input type='text' value='' name='datasource_WQ' id='datasource_WQ'/></div>
     <div><input type='text' value='2' name='decimalNumbers_WQ' id='decimalNumbers_WQ'/></div>
@@ -279,8 +303,9 @@
     <div><input type='text' value='' name='subtitle_WQ' id='subtitle_WQ'/></div>
 </form>
 
-<form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://168.202.28.26:8090/wds/rest/policyservice/streamexcel2' target='_self'>
+<form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://168.202.28.26:8090/wdspolicy/rest/policyservice/streamexcel2' target='_self'>
     <!--<form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://statistics.amis-outlook.org:80/wds/rest/policyservice/streamexcel2' target='_self'>-->
+<!--<form style='display: none;' name='excelFormWithQuotes2' method='POST' action='http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/streamexcel2' target='_self'>-->
     <div><input type='text' value='faostat' name='cssFilename_WQ2' id='cssFilename_WQ2'/></div>
     <div><input type='text' value='' name='datasource_WQ2' id='datasource_WQ2'/></div>
     <div><input type='text' value='2' name='decimalNumbers_WQ2' id='decimalNumbers_WQ2'/></div>
@@ -310,7 +335,7 @@
     });
 </script>
 
-<script data-main="js/controllers/main.js" src="js/libs/require.min.2.1.14.js"></script>
+<script data-main="js/controllers/main_queryAndDownload" src="js/libs/require.min.2.1.14.js"></script>
 
 </body>
 </html>

@@ -77,7 +77,7 @@
             {
                 "id":"view-sidemenu-4-1",
                 "label":{
-                    "EN":"Frequency graph",
+                    "EN":"",
                     "IT":""
                 },
                 "datatab":"bd4_submenu1",
@@ -100,7 +100,7 @@
             {
                 "id":"view-sidemenu-3-1",
                 "label":{
-                    "EN":"Frequency graph",
+                    "EN":"",
                     "IT":""
                 },
                 "datatab":"bd3_submenu1",

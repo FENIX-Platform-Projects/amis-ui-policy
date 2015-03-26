@@ -2,70 +2,70 @@
 -------------------------------------------------- */
 
 .fx-header .container {
-  position: relative;
+    position: relative;
 }
 
 .fx_header_title {
-  color: #265797 !important;
-  font-size: 24px;
+    color: #265797 !important;
+    font-size: 20px;
 }
 
 .fx_section_title {
-  color: #265797 !important;
-  font-family: 'Roboto',sans-serif;
-  font-size: 18px;
-  font-weight: bold;
+    color: #265797 !important;
+    font-family: 'Roboto',sans-serif;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .fx_map_section_title{
-	font-weight: 300;
-	display: inline-block;
-	margin-bottom: 20px;
+    font-weight: 300;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .fx_map_sequence {
-	display: inline-block;
-	height: 30px;
-	width: 30px;
-	-webkit-border-radius: 5px;
-  	-moz-border-radius: 5px;
- 	 border-radius: 5px;
- 	 border: 1px solid #666666;
- 	 text-align: center;
- 	 font-size: 18px;
- 	 font-weight: bold;
- 	 margin-right: 6px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #666666;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 6px;
 }
 
 .fx_ndvi_ico {
-	background-repeat: no-repeat;
-	height: 37px;
-	padding: 5px 0 0 50px;
-	background-image: url("img/icons/ndvi-ico.png")
+    background-repeat: no-repeat;
+    height: 37px;
+    padding: 5px 0 0 50px;
+    background-image: url("img/icons/ndvi-ico.png")
 
 }
 
 .fx_p_ico {
-	background-repeat: no-repeat;
-	height: 37px;
-	padding: 5px 0 0 50px;
-	background-image: url("img/icons/p-ico.png")
+    background-repeat: no-repeat;
+    height: 37px;
+    padding: 5px 0 0 50px;
+    background-image: url("img/icons/p-ico.png")
 
 }
 
 .fx_m_ico {
-	background-repeat: no-repeat;
-	height: 37px;
-	padding: 5px 0 0 50px;
-	background-image: url("img/icons/m-ico.png")
+    background-repeat: no-repeat;
+    height: 37px;
+    padding: 5px 0 0 50px;
+    background-image: url("img/icons/m-ico.png")
 
 }
 
 .fx_fss_ico {
-	background-repeat: no-repeat;
-	height: 37px;
-	padding: 5px 0 0 50px;
-	background-image: url("img/icons/fss-ico.png")
+    background-repeat: no-repeat;
+    height: 37px;
+    padding: 5px 0 0 50px;
+    background-image: url("img/icons/fss-ico.png")
 
 }
 
@@ -75,26 +75,26 @@
 /* Tablets and up */
 @media screen and (min-width: 768px) {
 
-  /*  
-  .fx-header {
-    font-size: 21px;
-    text-align: left;
-  }
-  .fx-header h1 {
-    font-size: 60px;
-    line-height: 1;
-  }
-  */
-  
+    /*
+    .fx-header {
+      font-size: 21px;
+      text-align: left;
+    }
+    .fx-header h1 {
+      font-size: 60px;
+      line-height: 1;
+    }
+    */
+
 }
 
 /* Tablets/desktops and up */
 @media screen and (min-width: 992px) {
 
-  /*
-  .fx-header h1,
-  .fx-header p {
-    margin-right: 380px;
-  }
-  */
+    /*
+    .fx-header h1,
+    .fx-header p {
+      margin-right: 380px;
+    }
+    */
 }

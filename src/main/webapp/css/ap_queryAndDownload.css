@@ -77,10 +77,6 @@ body {
     padding: 1px 5px;
 }
 
-.fx_header_title {
-    color: #265797 !important;
-    font-size: 24px;
-}
 
 .fx_header_title_small {
     color: #265797 !important;
@@ -152,6 +148,11 @@ body {
 
 .fx_header_title {
     color: #265797 !important;
+    font-size: 20px;
+}
+
+.fx-header .fx_header_title {
+    color: #df2f00 !important;
     font-size: 24px;
 }
 
@@ -235,7 +236,7 @@ body {
 }
 
 .drop-down-menu-root {
-   left: 15px;
+    left: 15px;
 
 }
 

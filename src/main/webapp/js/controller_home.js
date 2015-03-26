@@ -598,9 +598,11 @@ var AMIS_controller = (function () {
 
     function initSwiper () {
 
+        var current = "barbara";
+
         var mySwiper = new Swiper('.swiper-container',{
             slidesPerView: 1,
-            roundLengths: true,
+            //roundLengths: true,
             autoplay : 10000,
             simulateTouch: false,
             watchActiveIndex : true,
@@ -625,8 +627,10 @@ var AMIS_controller = (function () {
 
         function renderChart(  activeSlide  ) {
 
-            console.log(JSON.stringify(AMIS_home_charts[activeSlide.data('chart')]))
-            $(activeSlide).find('.chart-container').highcharts(AMIS_home_charts[activeSlide.data('chart')])
+            if (activeSlide.data('chart') !== current){
+                current = activeSlide.data('chart')
+                $(activeSlide).find('.chart-container').highcharts( AMIS_home_charts[current])
+            }
         }
     }
 

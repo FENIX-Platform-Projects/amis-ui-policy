@@ -1,7 +1,0 @@
-[
-    ["ListBox0","Domain","1","DomainList", "Domain", "Domain Title"],
-    ["ListBox1","CommodityClass","1","CommodityClassList", "Commodity Class", "Commodity Class Title"],
-    ["ListBox2","PolicyMeasureType","1","PMTList", "Policy Measure Type","Policy Measure Type Title"],
-    ["ListBox3","Countries","1","AreaList", "Countries", "Countries Title"],
-    ["ListBoxYears","Years","1","YearList", "Years", "Years"]
-]

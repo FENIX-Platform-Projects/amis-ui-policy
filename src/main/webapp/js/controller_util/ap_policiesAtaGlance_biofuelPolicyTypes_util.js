@@ -1,4 +1,16 @@
-var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
+//var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
+define([
+    'ap_util_variables',
+    'ap_policyDataObject',
+    'ap_util_functions',
+    'highcharts',
+    'highcharts_exporting',
+    'jquery',
+    'jQAllRangeSliders',
+    'jqwidget',
+    'bootstrap',
+    'xDomainRequest'
+], function(ap_utilVariables, ap_policyDataObject, ap_utilFunctions, highcharts ){
 
     var from = '16-02-2014';
     var to = '18-02-2014';
@@ -52,20 +64,73 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
     var submenu3_end_date_mm = '';
     var submenu3_end_date_yy = '';
 
-    function split_string(name){
+    function split_string(name) {
         //console.log('split_string name '+name);
         var words = name.split(/[\s]+/);
-        var numWordsPerLine = 4;
+        var numWordsPerLine = 1;
         var str = [];
 
         for (var word in words) {
             if (word > 0 && word % numWordsPerLine == 0)
+            {
                 str.push('<br>');
+            }
 
-            str.push(words[word]);
+            str.push('<span style="font-weight: normal;font-size: 11px;">'+words[word]+'</span>');
         }
-       // console.log('split_string str '+str);
-        return str.join(' ');
+        //console.log('split_string str ' + str);
+        //return str.join(' ');
+        var result = '';
+        for (var i = 0; i < str.length; i++)
+        {
+            result+=str[i];
+        }
+        //console.log('result ' + result);
+        //return str.join(' ');
+        //return str.join();
+        return result;
+    }
+
+    function split_string2(name, series_number) {
+        //console.log('split_string name '+name);
+        var words = name.split(/[\s]+/);
+        var numWordsPerLine = 1;
+        var str = [];
+
+        var i=0;
+        for (var word in words) {
+//            if (word > 0 && word % numWordsPerLine == 0)
+//                str.push('</tr>');
+//                str.push('<br>');
+
+            if(i==0)
+            {
+                str.push('<td>');
+                str.push(words[word]);
+                str.push('</td>');
+                str.push('</tr>');
+            }
+            else
+            {
+                str.push('<tr>');
+                str.push('<td>');
+                str.push(words[word]);
+                str.push('</td>');
+                str.push('</tr>');
+            }
+            i++;
+        }
+       // console.log('split_string str ' + str);
+        //return str.join(' ');
+        var result = '';
+        for (var i = 0; i < str.length; i++)
+        {
+            result+=str[i];
+        }
+       // console.log('result ' + result);
+        //return str.join(' ');
+        //return str.join();
+        return result;
     }
 
     function break_label (label) {
@@ -101,9 +166,16 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //        affix.width(width);
         //To remove the AFFIX END
 
+//        start_date_dd = '1';
+//        start_date_mm = '0';
+//        start_date_yy = '2010';
+//        end_date_dd = '1';
+//        end_date_mm = '0';
+//        end_date_yy = '2014';
+
         start_date_dd = '1';
         start_date_mm = '0';
-        start_date_yy = '2010';
+        start_date_yy = '2011';
         end_date_dd = '1';
         end_date_mm = '0';
         end_date_yy = '2014';
@@ -117,10 +189,12 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
         original_end_date_yy = ''+end_date_yy_int;
 
         $("#bd0_submenu0-slider_2_container").dateRangeSlider( {
-//            step: { days : 1 },
+            //step: { days : 1 },
             step: { months : 1 },
             bounds: {
                 min:  new Date(original_start_date_yy, original_start_date_mm, original_start_date_dd),
+//                min:  new Date(2010, 11, 31),
+//                max:  new Date(2013, 11, 31)
                 max:  new Date(original_end_date_yy, original_end_date_mm, original_end_date_dd)
             },
             defaultValues: {
@@ -161,6 +235,32 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 
         $("#bd0_submenu0-button").on('click', function () {
             subMenu1();
+            // subMenu3();
+        });
+
+        //subMenu3(0);
+
+        //All
+        $("#bd0_submenu3-chart_one_title").on('click', function () {
+            subMenu3(0);
+            // subMenu3();
+        });
+
+        //Ethanol
+        $("#bd0_submenu3-chart_two_title").on('click', function () {
+            subMenu3(1);
+            // subMenu3();
+        });
+
+        //Biodiesel
+        $("#bd0_submenu3-chart_three_title").on('click', function () {
+            subMenu3(2);
+            // subMenu3();
+        });
+
+        //Biofuel(unspecified)
+        $("#bd0_submenu3-chart_four_title").on('click', function () {
+            subMenu3(3);
             // subMenu3();
         });
 
@@ -218,11 +318,9 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                data.start_date = ''+1+'/'+start_date_mm+'/'+start_date_yy;
 //                data.end_date = ''+31+'/'+end_date_mm+'/'+end_date_yy;
                 data.start_date = ''+start_date_yy+'-'+start_date_mm+'-01';
-                data.end_date = ''+end_date_yy+'-'+end_date_mm+'-31';
-
+                data.end_date = ''+end_date_yy+'-'+end_date_mm+'-28';
 
                 var payloadrest = JSON.stringify(data);
-                console.log(data);
                 /* Retrive UI structure from DB. */
                 $.ajax({
 
@@ -247,10 +345,38 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                                    }
 //                                },
                                 borderWidth: 2,
-                                marginBottom: 100
+                                marginBottom: 170,
+                                events: {
+                                    load: function () {
+                                        var label = this.renderer.label('In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Source: AMIS Policy Database')
+                                            .css({
+                                                width: '450px',
+                                                //color: '#222',
+                                                fontSize: '9px'
+                                            })
+                                            .attr({
+                                                //'stroke': 'silver',
+                                                //'stroke-width': 2,
+                                                'r': 5,
+                                                'padding': 10
+                                            })
+                                            .add();
+
+                                        label.align(Highcharts.extend(label.getBBox(), {
+//                                            align: 'center',
+                                            align: 'left',
+                                            x: 0, // offset
+                                            verticalAlign: 'bottom',
+                                            y: 50 // offset
+                                        }), null, 'spacingBox');
+
+                                    }
+                                },
+                                spacingBottom: 50
                             },
                             title: {
-                                text: 'Number of AMIS countries with biofuel policies, disaggregated by policy type'
+                                text: 'Number of AMIS countries with biofuel policies, disaggregated by policy type',
+                                style: {"fontSize": "15px"}
                             },
 
                             subtitle: {
@@ -262,7 +388,8 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                                 '#255ba3',//Dark Blue
                                 '#f6b539',//Dark Yellow
                                 '#199e34',//Light Green
-                                '#cccccc',//Light Gray
+                                //'#cccccc',//Light Gray
+                                '#7f7f7f',//Dark Gray
                                 '#67b7e3',//Light Blue
                                 '#dc3018'//Red
                             ],
@@ -289,22 +416,39 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                                 shared: true,
                                 useHTML: true
                             },
-                            labels: {
-                                items: [
-                                    {
-//                                    html: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. <br>Biodiesel, ethanol and biofuel are mutually exclusive categories. <br>Source: AMIS Policy',
-                                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Source: AMIS Policy Database',
-                                        style: {
-                                            left: '1px',
-                                            //top: '300px',
-                                            top: '300px',
-                                            cursor: 'default',
-                                            color: '#413839',
-                                            fontSize: '10px'
-                                        }
-                                    }
-                                ]
-                            },
+//                            labels: {
+//                                items: [
+//                                    {
+////                                    html: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. <br>Biodiesel, ethanol and biofuel are mutually exclusive categories. <br>Source: AMIS Policy',
+//                                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Source: AMIS Policy Database',
+//                                        style: {
+//                                            left: '1px',
+//                                            //top: '300px',
+//                                            top: '300px',
+//                                            cursor: 'default',
+//                                            color: '#413839',
+//                                            fontSize: '9px'
+//                                        }
+//                                    }
+//                                ]
+//                            },
+//                              labels: {
+//                                items: [
+//                                    {
+////                                    html: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. <br>Biodiesel, ethanol and biofuel are mutually exclusive categories. <br>Source: AMIS Policy',
+//                                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Source: AMIS Policy Database',
+//                                        style: {
+//                                            left: '0.5px',
+//                                            //top: '300px',
+////                                            top: '400px',
+//                                            //bottom:'20px',
+//                                            cursor: 'default',
+//                                            color: '#413839',
+//                                            fontSize: '9px'
+//                                        }
+//                                    }
+//                                ]
+//                            },
                             credits: {
                                 enabled: false
                             },
@@ -318,19 +462,39 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                                 title: {
                                     text: 'Policy Type',
                                     style: {
-                                        fontStyle: 'italic'
+                                        fontWeight: 'bold'
+                                      //  fontStyle: 'italic',
+                                       // textDecoration: 'underline'
                                     }
                                 },
-                                layout: 'vertical',
-                                align: 'right',
-                                verticalAlign: 'top',
-                                y: 50,
-                                borderWidth: 1,
+                                itemWidth: 200,
+                                //y: 10,
+
+                                //Start Before
+//                                layout: 'vertical',
+//                                align: 'right',
+//                                verticalAlign: 'top',
+                                // y: 50,
+                                //End Before
+                                verticalAlign: 'center',
+                                layout: 'horizontal',
+//                                layout: 'vertical',
+                                align: 'center',
+                                //align: 'left',
+                                y: 370,
+                                x:0,
+                                useHTML: true,
+//                                borderWidth: 1,
                                 enabled: true,
                                 borderColor: '#4572a7',
                                 labelFormatter: function() {
-                                    //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
-                                    var html_legend = ''+this.name+': '+ split_string(pt_name_timeSeries_highcharts[this.name])+'<br/>';
+                                //   var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal; font-size: 11px; padding-top: 2px;">'+this.name+': </td><td style="font-weight: normal; font-size: 11px;padding-top: 2px;padding-bottom: 4px">'+ split_string(pt_name_timeSeries_highcharts[this.name])+'</td></tr></table>';
+                                 //   var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal">'+this.name+': </td>'+split_string2(pt_name_timeSeries_highcharts[this.name])+'</table>';
+                                    //var html_legend = ''+this.name+': '+ split_string(pt_name_timeSeries_highcharts[this.name])+'<br/>';
+
+                                    var html_legend = ''+this.name+': '+ '<span style="font-weight: normal;font-size: 10px;">'+pt_name_timeSeries_highcharts[this.name]+'</span>';
+//                                    var html_legend = '<span style="font-weight: normal;font-size: 11px;">'+pt_name_timeSeries_highcharts[this.name]+'</span>';
+                                    //console.log("html_legend = "+html_legend);
                                     return html_legend;
                                 }
                             },
@@ -349,80 +513,105 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                                },
 //                                text: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. Biodiesel, ethanol and biofuel are mutually exclusive categories --- Source: AMIS Policy'
 //                            },
+
+
+
+
                             exporting: {
                                 buttons: {
                                     contextButton: {
                                         enabled: false
 
-                                    }//,
-//                    exportButton: {
-//                        theme: {
-//                            title: 'Download',
-//                            'stroke-width': 1,
-//                            stroke: '#4572a7',
-//                            //fill: '#f5cd54',
-//                          //  fill: '#bada55',
-//                            fill:'#ADD8E6',
-//                            r: 0,
-//                            states: {
-//                                hover: {
-//                                    fill: '#d3d3d3'
-//                                }
-//                              }
-//                        },
-//                        text: 'Chart Download',
-//                        menuItems: [
-//                            {
-//                                text: 'As PNG image',
-//                                onclick: function () {
-//                                    this.exportChart();
-//                                }
-//
-//                            },
-//                            {
-//                                text: 'As JPEG image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/jpeg'
-//                                    });
-//                                }
-//                            },
-//                            {
-//                                text: 'As SVG vector image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/svg+xml'
-//                                    });
-//                                }
-//
-//                            },
-//                            {
-//                                text: 'To PDF document',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'application/pdf'
-//                                    });
-//                                }
-//                            }
-//                        ]
-//                    }
+                                    },
+                    exportButton: {
+                        theme: {
+                            title: 'Download',
+                            'stroke-width': 1,
+                            stroke: '#4572a7',
+                            //fill: '#f5cd54',
+                          //  fill: '#bada55',
+                            fill:'#ADD8E6',
+                            r: 0,
+                            states: {
+                                hover: {
+                                    fill: '#d3d3d3'
+                                }
+                              }
+                        },
+                        text: 'Download',
+                        menuItems: [
+                            {
+                                text: 'As PNG image',
+                                onclick: function () {
+                                    this.exportChart({
+                                        filename: 'Biofuels-policies-frequency_graph'
+                                    });
+//                                    this.exportChart(null, {  chart: {
+//                                        style: {
+//                                            fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif', // default font
+//                                            fontSize: '6px'
+//                                        }
+//                                    }});
+//                                     this.exportChart(null, { sourceWidth: 1200,
+//                                         sourceHeight: 400,
+//                                         scale : 2,
+//                                         chartOptions: {
+//                                             yAxis: [{
+//                                                 min: 0,
+//                                                 max: 20
+//                                             }]
+//                                         }
+//                                     });
+
+                                }
+
+                            },
+                            {
+                                text: 'As JPEG image',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'image/jpeg',
+                                        filename: 'Biofuels-policies-frequency_graph'
+                                    });
+                                }
+                            },
+                            {
+                                text: 'As SVG vector image',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'image/svg+xml',
+                                        filename: 'Biofuels-policies-frequency_graph'
+                                    });
+                                }
+
+                            },
+                            {
+                                text: 'To PDF document',
+                                onclick: function () {
+                                    this.exportChart({
+                                        type: 'application/pdf',
+                                        filename: 'Biofuels-policies-frequency_graph'
+                                    });
+                                }
+                            }
+                        ]
+                    }
                                 }
                             },
 
                             series: json
                         }
-                        console.log(JSON.stringify(o));
                         //Chart
                         $('#bd0_submenu1-chart_one').highcharts(o);
                     },
 
                         error : function(err,b,c) {
-                            alert(err.status + ", " + b + ", " + c);
+                           // alert(err.status + ", " + b + ", " + c);
                         }
                     });
             },
             error : function(err,b,c) {
-                alert(err.status + ", " + b + ", " + c);
+               // alert(err.status + ", " + b + ", " + c);
             }
         });
     }
@@ -576,46 +765,7 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
     };*/
     //Original subMenu3 End
 
-    function subMenu3(){
-
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $(window).resize();
-            var chart = $('#bd0_submenu3-chart_one').highcharts();
-            if((chart!=null)&&(typeof chart != 'undefined'))
-            {
-                //alert("before set ext 1")
-                chart.xAxis[0].setExtremes(
-                    Date.UTC(parseInt(submenu3_start_date_yy,10), parseInt(submenu3_start_date_mm,10), parseInt(submenu3_start_date_dd,10)),
-                    Date.UTC(parseInt(submenu3_end_date_yy,10), parseInt(submenu3_end_date_mm,10), parseInt(submenu3_end_date_dd,10))
-                );
-            }
-            chart = $('#bd0_submenu3-chart_two').highcharts();
-            if((chart!=null)&&(typeof chart != 'undefined'))
-            {
-               // alert("before set ext 2")
-                chart.xAxis[0].setExtremes(
-                    Date.UTC(parseInt(submenu3_start_date_yy,10), parseInt(submenu3_start_date_mm,10), parseInt(submenu3_start_date_dd,10)),
-                    Date.UTC(parseInt(submenu3_end_date_yy,10), parseInt(submenu3_end_date_mm,10), parseInt(submenu3_end_date_dd,10))
-                );
-            }
-            chart = $('#bd0_submenu3-chart_three').highcharts();
-            if((chart!=null)&&(typeof chart != 'undefined')) {
-              //  alert("before set ext 3")
-                chart.xAxis[0].setExtremes(
-                    Date.UTC(parseInt(submenu3_start_date_yy, 10), parseInt(submenu3_start_date_mm, 10), parseInt(submenu3_start_date_dd, 10)),
-                    Date.UTC(parseInt(submenu3_end_date_yy, 10), parseInt(submenu3_end_date_mm, 10), parseInt(submenu3_end_date_dd, 10))
-                );
-            }
-            chart = $('#bd0_submenu3-chart_four').highcharts();
-            if((chart!=null)&&(typeof chart != 'undefined')) {
-             //   alert("before set ext 4")
-                chart.xAxis[0].setExtremes(
-                    Date.UTC(parseInt(submenu3_start_date_yy, 10), parseInt(submenu3_start_date_mm, 10), parseInt(submenu3_start_date_dd, 10)),
-                    Date.UTC(parseInt(submenu3_end_date_yy, 10), parseInt(submenu3_end_date_mm, 10), parseInt(submenu3_end_date_dd, 10))
-                );
-            }
-        });
-
+    function subMenu3(commodity_index){
         //Naming the tabs
         var namesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_names_all.split("-");
         $("#bd0_submenu3-chart_one_title").text(namesArray[0]);
@@ -648,27 +798,30 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                     //Policy Type Name
                     pt_name_timeSeries_highstockchart["" + (i + 1)] = jsonPt[i][1];
                 }
+                /* Retrive UI structure from DB. */
 
+                //For the other chart
+//                        for(var iCommodityCode =1; iCommodityCode<commodityCodesArray.length; iCommodityCode++)
+//                        {
+                var iCommodityCode = commodity_index;
                 var data = ap_policyDataObject.init();
                 data.datasource = ap_utilVariables.CONFIG.datasource;
-                data.commodity_class_code = commodityCodesArray[0];
+                data.commodity_class_code = commodityCodesArray[iCommodityCode];
                 data.policy_type_code = policy_type_codes;
 //                data.start_date = '05/05/2010';
 //                data.end_date = '05/04/2011';
-//                data.start_date = '' + start_date_dd + '/' + start_date_mm + '/' + start_date_yy;
-//                data.end_date = '' + end_date_dd + '/' + end_date_mm + '/' + end_date_yy;
-                original_start_date_dd= ap_utilFunctions.data_change(''+original_start_date_dd);
-                original_start_date_mm= ap_utilFunctions.data_change(''+original_start_date_mm);
-                original_end_date_dd= ap_utilFunctions.data_change(''+original_end_date_dd);
-                original_end_date_mm= ap_utilFunctions.data_change(''+original_end_date_mm);
-                data.start_date = ''+original_start_date_yy_time_series+'-'+original_start_date_mm+'-'+original_start_date_dd;
-                data.end_date = '' + original_end_date_yy+'-'+original_end_date_mm+'-'+original_end_date_dd;
-//                data.start_date = '' + original_start_date_dd + '/' + original_start_date_mm + '/' + original_start_date_yy_time_series;
-//                data.end_date = '' + original_end_date_dd + '/' + original_end_date_mm + '/' + original_end_date_yy;
-
+//                            data.start_date = '' + start_date_dd + '/' + start_date_mm + '/' + start_date_yy;
+//                            data.end_date = '' + end_date_dd + '/' + end_date_mm + '/' + end_date_yy;
+                original_start_date_dd = ap_utilFunctions.data_change(''+original_start_date_dd);
+                original_start_date_mm = ap_utilFunctions.data_change(''+original_start_date_mm);
+                original_end_date_dd = ap_utilFunctions.data_change(''+original_end_date_dd);
+                original_end_date_mm = ap_utilFunctions.data_change(''+original_end_date_mm);
+                data.start_date = original_start_date_yy_time_series+'-'+original_start_date_mm+'-'+original_start_date_dd;
+                data.end_date = original_end_date_yy+'-'+original_end_date_mm+'-'+original_end_date_dd;
+//                            data.start_date = '' + original_start_date_dd + '/' + original_start_date_mm + '/' + original_start_date_yy_time_series;
+//                            data.end_date = '' + original_end_date_dd + '/' + original_end_date_mm + '/' + original_end_date_yy;
                 var payloadrest = JSON.stringify(data);
                 /* Retrive UI structure from DB. */
-                console.log("Before Post "+data.commodity_class_code);
                 $.ajax({
 
                     type: 'POST',
@@ -685,103 +838,124 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
                         var seriesOptions = json.dataArray;
                         var commodityClassCode = json.commodityClassCode;
                         var commodityClassName = '';
+                        var commodityClassNameTimeSeries = '';
                         var chart_div = '';
 
-                        namesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_names_all_time_series.split("-");
-                        commodityClassName = namesArray[0];
-                        chart_div = "bd0_submenu3-chart_one";
-                        console.log("Before create chart 1 " + commodityClassName);
+                        if ((commodityClassCode != null) && (typeof commodityClassCode != 'undefined')) {
+                            //Check which is the commodity class
+                            var codesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_codes_all.split("-");
+                            var namesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_names_all_time_series.split("-");
+                            if(commodityClassCode==codesArray[0]) {
+                                commodityClassName = namesArray[0];
+                                chart_div = "bd0_submenu3-chart_one";
 
-                        //Creation of the first chart
-                        //var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
-                        var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Combination of policies targeted on ethanol, biodiesel and biofuel (unspecified).<br>Source: AMIS Policy Database ';
-                        createChart(chart_div, seriesOptions, commodityClassName, notes);
+                                //Creation of the first chart
+                                //var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
+                                var notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Combination of policies targeted on ethanol, biodiesel and biofuel (unspecified).<br>Source: AMIS Policy Database ';
+                                $("#bd0_submenu3-chart_two").hide();
+                                $("#bd0_submenu3-chart_three").hide();
+                                $("#bd0_submenu3-chart_four").hide();
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab_active");
 
-                        //For the other chart
-                        for(var iCommodityCode =1; iCommodityCode<commodityCodesArray.length; iCommodityCode++)
-                        {
-                            var data = ap_policyDataObject.init();
-                            data.datasource = ap_utilVariables.CONFIG.datasource;
-                            data.commodity_class_code = commodityCodesArray[iCommodityCode];
-                            data.policy_type_code = policy_type_codes;
-//                data.start_date = '05/05/2010';
-//                data.end_date = '05/04/2011';
-//                            data.start_date = '' + start_date_dd + '/' + start_date_mm + '/' + start_date_yy;
-//                            data.end_date = '' + end_date_dd + '/' + end_date_mm + '/' + end_date_yy;
-                            original_start_date_dd = ap_utilFunctions.data_change(''+original_start_date_dd);
-                            original_start_date_mm = ap_utilFunctions.data_change(''+original_start_date_mm);
-                            original_end_date_dd = ap_utilFunctions.data_change(''+original_end_date_dd);
-                            original_end_date_mm = ap_utilFunctions.data_change(''+original_end_date_mm);
-                            data.start_date = original_start_date_yy_time_series+'-'+original_start_date_mm+'-'+original_start_date_dd;
-                            data.end_date = original_end_date_yy+'-'+original_end_date_mm+'-'+original_end_date_dd;
-//                            data.start_date = '' + original_start_date_dd + '/' + original_start_date_mm + '/' + original_start_date_yy_time_series;
-//                            data.end_date = '' + original_end_date_dd + '/' + original_end_date_mm + '/' + original_end_date_yy;
-                            var payloadrest = JSON.stringify(data);
-                            /* Retrive UI structure from DB. */
-                            console.log("Before Post "+data.commodity_class_code);
-                            $.ajax({
+                                $("#bd0_submenu3-chart_one_title").addClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_two_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").addClass("btn_policy_highstock_tab");
+                                $("#" + chart_div).show();
+                            }
+                            else if(commodityClassCode==codesArray[1])
+                            {
+                                commodityClassName = namesArray[1];
+                                chart_div = "bd0_submenu3-chart_two";
+                                //$("#bd0_submenu3-chart_two_title").text(commodityClassName);
+                                notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
 
-                                type: 'POST',
-                                url: 'http://' + ap_utilVariables.CONFIG.base_ip_address + ':' + ap_utilVariables.CONFIG.base_ip_port + ap_utilVariables.CONFIG.biofuelTimeSeries_url,
-                                data: {"pdObj": payloadrest},
+                                $("#bd0_submenu3-chart_one").hide();
+                                $("#bd0_submenu3-chart_three").hide();
+                                $("#bd0_submenu3-chart_four").hide();
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab");
 
-                                success: function (response) {
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab_active");
 
-                                    /* Convert the response in an object, i needed. */
-                                    var json = response;
-                                    if (typeof(response) == 'string')
-                                        json = $.parseJSON(response);
-                                    //console.log("Success json *"+json.name+"*"+" array "+json.data);
-                                    var seriesOptions = json.dataArray;
-                                    var commodityClassCode = json.commodityClassCode;
-                                    var commodityClassName = '';
-                                    var commodityClassNameTimeSeries = '';
-                                    var chart_div = '';
+                                $("#bd0_submenu3-chart_one_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").addClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_three_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").addClass("btn_policy_highstock_tab");
+                                $("#"+chart_div).show();
+                            }
+                            else if(commodityClassCode==codesArray[2])
+                            {
+                                commodityClassName = namesArray[2];
+                                chart_div = "bd0_submenu3-chart_three";
+                                notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
 
-                                    if ((commodityClassCode != null) && (typeof commodityClassCode != 'undefined')) {
-                                        //Check which is the commodity class
-                                        var codesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_codes_all.split("-");
-                                        var namesArray = ap_utilVariables.CONFIG.biofuel_commodity_class_names_all_time_series.split("-");
-                                        if(commodityClassCode==codesArray[1])
-                                        {
-                                            commodityClassName = namesArray[1];
-                                            chart_div = "bd0_submenu3-chart_two";
-                                            //$("#bd0_submenu3-chart_two_title").text(commodityClassName);
-                                            notes = 'n Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
-                                            console.log("Before create chart 2 " + commodityClassName);
-                                        }
-                                        else if(commodityClassCode==codesArray[2])
-                                        {
-                                            commodityClassName = namesArray[2];
-                                            chart_div = "bd0_submenu3-chart_three";
-                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy Database';
-                                            console.log("Before create chart 3 " + commodityClassName);
-                                        }
-                                        else if(commodityClassCode==codesArray[3])
-                                        {
-                                            commodityClassName = namesArray[3];
-                                            chart_div = "bd0_submenu3-chart_four";
-                                            notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Unspecified biofuel policies are those policies for which the legal document does not specify whether the policy applies to ethanol or biodiesels.<br>Source: AMIS Policy Database';
-                                            console.log("Before create chart 4 " + commodityClassName);
-                                        }
-                                        createChart(chart_div, seriesOptions, commodityClassName, notes);
+                                $("#bd0_submenu3-chart_one").hide();
+                                $("#bd0_submenu3-chart_two").hide();
+                                $("#bd0_submenu3-chart_four").hide();
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab");
 
-                                    }
-                                },
-                                error: function (err, b, c) {
-                                    alert(err.status + ", " + b + ", " + c);
-                                }
-                            });
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab_active");
+
+                                $("#bd0_submenu3-chart_one_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").addClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_four_title").addClass("btn_policy_highstock_tab");
+                                $("#"+chart_div).show();
+                            }
+                            else if(commodityClassCode==codesArray[3])
+                            {
+                                commodityClassName = namesArray[3];
+                                chart_div = "bd0_submenu3-chart_four";
+                                notes = 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Unspecified biofuel policies can apply to ethanol and/or biodiesel.<br>Source: AMIS Policy Database';
+
+                                $("#bd0_submenu3-chart_one").hide();
+                                $("#bd0_submenu3-chart_two").hide();
+                                $("#bd0_submenu3-chart_three").hide();
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab");
+
+                                $("#bd0_submenu3-chart_one_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_two_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_three_title").removeClass("btn_policy_highstock_tab_active");
+                                $("#bd0_submenu3-chart_four_title").removeClass("btn_policy_highstock_tab_active");
+
+                                $("#bd0_submenu3-chart_one_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_two_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_three_title").addClass("btn_policy_highstock_tab");
+                                $("#bd0_submenu3-chart_four_title").addClass("btn_policy_highstock_tab_active");
+                                $("#"+chart_div).show();
+                            }
+                            createChart(chart_div, seriesOptions, commodityClassName, notes);
                         }
-
                     },
                     error: function (err, b, c) {
-                        alert(err.status + ", " + b + ", " + c);
+                        // alert(err.status + ", " + b + ", " + c);
                     }
                 });
             },
             error : function(err,b,c) {
-                alert(err.status + ", " + b + ", " + c);
+              //  alert(err.status + ", " + b + ", " + c);
             }
         });
     };
@@ -789,16 +963,20 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
     // create the chart when all data is loaded
     function createChart(chart_div, seriesOptions, title, notes) {
 
-//            $('#bd0_submenu3-chart_one').highcharts('StockChart', {
-        $('#'+chart_div).highcharts('StockChart', {
-            chart: {
-                borderWidth: 2,
+        if((chart_div!=null)&&(typeof chart_div!= "undefined")){
+            //            $('#bd0_submenu3-chart_one').highcharts('StockChart', {
+            $('#'+chart_div).highcharts('StockChart', {
+                chart: {
+                    borderWidth: 2,
 //                marginBottom: 120,
-                marginBottom: 80,
-                events: {
-                    load: function(event) {
-                        // modify the legend symbol from a rect to a line
-                        $('.highcharts-legend-item path').attr('stroke-width', '12').attr('y', '10');
+//                marginBottom: 80,
+//                marginBottom: 170,
+                    marginBottom: 200,
+                    events: {
+                        load: function(event) {
+                            // modify the legend symbol from a rect to a line
+                            $('.highcharts-legend-item path').attr('stroke-width', '12').attr('y', '10');
+
 //                        this.xAxis[0].setExtremes(
 //                                Date.UTC(parseInt('2005',10), parseInt(submenu3_start_date_mm,10), parseInt(submenu3_start_date_dd,10)),
 //                //                Date.UTC(parseInt(submenu3_start_date_yy,10), parseInt(submenu3_start_date_mm,10), parseInt(submenu3_start_date_dd,10)),
@@ -813,8 +991,33 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                                Date.UTC(parseInt(submenu3_end_date_yy,10), parseInt(submenu3_end_date_mm,10), parseInt(submenu3_end_date_dd,10))
 //                            );
 //                        }
-                    }
-                }
+                            var label = this.renderer.label(notes)
+                                .css({
+                                    width: '450px',
+                                    //color: '#222',
+                                    fontSize: '9px'
+                                })
+                                .attr({
+                                    //'stroke': 'silver',
+                                    //'stroke-width': 2,
+                                    'r': 5,
+                                    'padding': 50
+
+                                    //'paddingBottom': 50,
+//                                'paddingLeft': 10
+                                })
+                                .add();
+
+                            label.align(Highcharts.extend(label.getBBox(), {
+//                                            align: 'center',
+                                align: 'left',
+                                x: -40, // offset
+                                verticalAlign: 'bottom',
+                                y: 60 // offset
+                            }), null, 'spacingBox');
+                        }
+                    },
+                    spacingBottom: 50
 
 //                events: {
 //                    selection: function(event) {
@@ -824,107 +1027,121 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                        );
 //                    }
 //                }
-            },
-            colors: [
-                '#125824',//Dark Green
-                '#255ba3',//Dark Blue
-                '#f6b539',//Dark Yellow
-                '#199e34',//Light Green
-                '#cccccc',//Light Gray
-                '#67b7e3',//Light Blue
-                '#dc3018'//Red
-            ],
-            navigator: {
-                top: 300
+                },
+                colors: [
+                    '#125824',//Dark Green
+                    '#255ba3',//Dark Blue
+                    '#f6b539',//Dark Yellow
+                    '#199e34',//Light Green
+                    //'#cccccc',//Light Gray
+                    '#7f7f7f',//Dark Gray
+                    '#67b7e3',//Light Blue
+                    '#dc3018'//Red
+                ],
+                navigator: {
+//                top: 300
+                    top: 360
 //                top: 270
-            },
-            rangeSelector: {
-                enabled: false
-            },
+                },
+                rangeSelector: {
+                    enabled: true,
+//                    inputDateFormat: '%Y-%m-%d'
+                    inputDateFormat: '%d-%m-%Y'
+                },
+
+                xAxis : {
+                    //min: Date.UTC(2003, 0,1),
+//                    max: Date.UTC(2014,11,30)
+                    min: Date.UTC(2011,0,1),
+                    max: Date.UTC(2014,0,1),
+                    floor: Date.UTC(2011,0,1),
+                    ceiling: Date.UTC(2016,0,1)
+                },
 
 //                rangeSelector: {
 //                    selected: 4
 //                },
-            xAxis: {
-                events: {
-                    setExtremes: function(e) {
-                        //console.log(this);
-                        var date_start = new Date(this.min);
-                        submenu3_start_date_dd = date_start.getDate();
-                        submenu3_start_date_mm = date_start.getMonth() + 1;
-                        submenu3_start_date_yy = date_start.getFullYear();
-                        var date_end = new Date(this.max);
-                        submenu3_end_date_dd = date_end.getDate();
-                        submenu3_end_date_mm = date_end.getMonth() + 1;
-                        submenu3_end_date_yy = date_end.getFullYear();
-                    }
-                }
-            },
-            yAxis: {
-                min: 0,
-                allowDecimals: false,
-                title: {
-                    text: 'Number of AMIS Countries'
-                },
-                opposite: false,
-                labels: {
-                    formatter: function() {
+//            xAxis: {
+//                events: {
+//                    setExtremes: function(e) {
+//                        //console.log(this);
+//                        var date_start = new Date(this.min);
+//                        submenu3_start_date_dd = date_start.getDate();
+//                        submenu3_start_date_mm = date_start.getMonth() + 1;
+//                        submenu3_start_date_yy = date_start.getFullYear();
+//                        var date_end = new Date(this.max);
+//                        submenu3_end_date_dd = date_end.getDate();
+//                        submenu3_end_date_mm = date_end.getMonth() + 1;
+//                        submenu3_end_date_yy = date_end.getFullYear();
+//                    }
+//                }
+//            },
+                yAxis: {
+                    min: 0,
+                    allowDecimals: false,
+                    title: {
+                        text: 'Number of AMIS Countries'
+                    },
+                    opposite: false,
+                    labels: {
+                        formatter: function() {
 //                            return (this.value > 0 ? '+' : '') + this.value + '%';
-                        return this.value;
-                    }
+                            return this.value;
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: 'silver'
+                    }]
                 },
-                plotLines: [{
-                    value: 0,
-                    width: 2,
-                    color: 'silver'
-                }]
-            },
 
-            plotOptions: {
-                area:{
-                    dataGrouping: {
-                        enabled: false
-                    }
-                },
-                series: {
-                    events: {
+                plotOptions: {
+                    area:{
+                        dataGrouping: {
+                            enabled: false
+                        }
+                    },
+                    series: {
+                        events: {
 //                        legendItemClick: function () {
 //                            alert('I am an alert series');
 //                            $('.highcharts-legend-item path').attr('stroke-width', '12').attr('y', '10');
 //                            //return false; // <== returning false will cancel the default action
 //                        },
-                        show: function () {
-                            // alert('Show');
-                            $('.highcharts-legend-item path').attr('stroke-width', '12').attr('y', '10');
-                            //return false; // <== returning false will cancel the default action
+                            show: function () {
+                                // alert('Show');
+                                $('.highcharts-legend-item path').attr('stroke-width', '12').attr('y', '10');
+                                //return false; // <== returning false will cancel the default action
+                            }
                         }
                     }
-                }
-            },
+                },
 
-            title : {
+                title : {
 //                                    text : 'Time Series of the frequency of the Policy Type'
 //                text : 'Time series of biofuel policies, disaggregated by policy type - '+title
-                text : 'Number of AMIS countries with '+title+' policies, disaggregated by policy type'
-            },
+                    text : 'Number of AMIS countries with '+title+' policies, disaggregated by policy type',
+                    style: {"fontSize": "15px"}
+                },
 
-            tooltip: {
+                tooltip: {
 //                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change}%)<br/>',
-                //headerFormat: '<span style="font-size: 10px">Highcharts.dateFormat("%B %Y", point.x)</span><br/>',
-                formatter: function () {
-                    var s = '<b>' + Highcharts.dateFormat('%B %Y', this.x) + '</b> <br/>';
+                    //headerFormat: '<span style="font-size: 10px">Highcharts.dateFormat("%B %Y", point.x)</span><br/>',
+                    formatter: function () {
+                        var s = '<b>' + Highcharts.dateFormat('%B %Y', this.x) + '</b> <br/>';
 
-                                    $.each(this.points, function (i,point) {
+                        $.each(this.points, function (i,point) {
 
-                                        s +='<span style="color:'+point.series.color+'">'+point.series.name+'</span>: '+Highcharts.numberFormat(point.y, 0) +'<br/>';
+                            s +='<span style="color:'+point.series.color+'">'+point.series.name+'</span>: '+Highcharts.numberFormat(point.y, 0) +'<br/>';
 
-                                    });
-                    return s;
-                }
+                        });
+                        return s;
+                    }
 //                headerFormat:'<span style="font-size: 10px"> {point.key}</span><br/>',
 //                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
 //                valueDecimals: 0
-            },
+                },
 //                legend: {
 //                    layout: 'horizontal',
 //                    align: 'center',
@@ -934,29 +1151,75 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                    borderColor: '#4572a7'
 //                },
 
-            legend: {
-                title: {
-                    text: 'Policy Type',
-                    style: {
-                        fontStyle: 'italic'
+//            legend: {
+//                title: {
+//                    text: 'Policy Type',
+//                    style: {
+//                        fontStyle: 'italic',
+//                        textDecoration: 'underline'
+//                    }
+//                },
+//                layout: 'vertical',
+//                align: 'right',
+//                verticalAlign: 'top',
+//                y: 50,
+//                //borderWidth: 1,
+//                enabled: true,
+//                borderColor: '#4572a7',
+//                useHTML: true,
+//                labelFormatter: function() {
+////                    var html_legend = '<dl><dt><b>'+this.name+'</b></dt><dd> :'+ pmt_name_description[this.name]+'</dd></dl>';
+//                    //return this.name +' ('+pmt_name_description[this.name]+')';
+//                    //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
+//                    //var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal">'+this.name+': </td><td style="font-weight: normal">'+ split_string(pt_name_timeSeries_highstockchart[this.name])+'</td></tr></table>';
+//                    var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal; font-size: 11px; padding-top: 2px;">'+this.name+': </td><td style="font-weight: normal; font-size: 11px;padding-top: 2px;padding-bottom: 4px">'+ split_string(pt_name_timeSeries_highstockchart[this.name])+'</td></tr></table>';
+//                    //var html_legend = ''+this.name+': '+ pt_name_timeSeries_highstockchart[this.name];
+//                    return html_legend;
+//                }
+//            },
+
+                legend: {
+                    title: {
+                        text: 'Policy Type',
+                        style: {
+                            fontWeight: 'bold'
+                            //  fontStyle: 'italic',
+                            // textDecoration: 'underline'
+                        }
+                    },
+                    itemWidth: 200,
+                    //y: 10,
+
+                    //Start Before
+//                                layout: 'vertical',
+//                                align: 'right',
+//                                verticalAlign: 'top',
+                    // y: 50,
+                    //End Before
+                    verticalAlign: 'center',
+                    layout: 'horizontal',
+//                                layout: 'vertical',
+                    align: 'center',
+                    //align: 'left',
+//                y: 370,
+                    y: 420,
+                    x:0,
+                    useHTML: true,
+//                                borderWidth: 1,
+                    enabled: true,
+                    borderColor: '#4572a7',
+                    labelFormatter: function() {
+                        //   var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal; font-size: 11px; padding-top: 2px;">'+this.name+': </td><td style="font-weight: normal; font-size: 11px;padding-top: 2px;padding-bottom: 4px">'+ split_string(pt_name_timeSeries_highcharts[this.name])+'</td></tr></table>';
+                        //   var html_legend = '<table><tr><td valign="top" rowspan="2" style="font-weight: normal">'+this.name+': </td>'+split_string2(pt_name_timeSeries_highcharts[this.name])+'</table>';
+                        //var html_legend = ''+this.name+': '+ split_string(pt_name_timeSeries_highcharts[this.name])+'<br/>';
+
+                        var html_legend = ''+this.name+': '+ '<span style="font-weight: normal;font-size: 10px;">'+pt_name_timeSeries_highstockchart[this.name]+'</span>';
+//                                    var html_legend = '<span style="font-weight: normal;font-size: 11px;">'+pt_name_timeSeries_highcharts[this.name]+'</span>';
+                        //console.log("html_legend = "+html_legend);
+                        return html_legend;
                     }
                 },
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                y: 50,
-                borderWidth: 1,
-                enabled: true,
-                borderColor: '#4572a7',
-                labelFormatter: function() {
-//                    var html_legend = '<dl><dt><b>'+this.name+'</b></dt><dd> :'+ pmt_name_description[this.name]+'</dd></dl>';
-                    //return this.name +' ('+pmt_name_description[this.name]+')';
-                    //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
-                    var html_legend = ''+this.name+': '+ pt_name_timeSeries_highstockchart[this.name];
-                    return html_legend;
-                }
-            },
-            //Original legend start
+                //Original legend start
 //            legend: {
 //                title: {
 //                    text: 'Policy Type',
@@ -982,25 +1245,25 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                }
 //            },//Original legend end
 
-            labels: {
-                items: [
-                    {
-//                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
-                        html: notes,
-                        style: {
-                            left: '1px',
-                            //top: '402px',
-                            top: '310',
-                            cursor: 'default',
-                            color: '#413839',
-                            fontSize: '10px'
-                        }
-                    }
-                ]
-            },
-            credits: {
-                enabled: false
-            },
+//            labels: {
+//                items: [
+//                    {
+////                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
+//                        html: notes,
+//                        style: {
+//                            left: '1px',
+//                            //top: '402px',
+//                            top: '310',
+//                            cursor: 'default',
+//                            color: '#413839',
+//                            fontSize: '9px'
+//                        }
+//                    }
+//                ]
+//            },
+                credits: {
+                    enabled: false
+                },
 
 //                                credits: {
 //                                    enabled: true,
@@ -1018,147 +1281,74 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
 //                                    text: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. --- Source: AMIS Policy'
 //                                },
 
-            exporting: {
-//                    buttons: {
-//                        contextButton: {
-//                            symbol: 'circle',
-//                            symbolStrokeWidth: 1,
-//                            symbolFill: '#4572a7',
-////                            symbolFill: '#f5cd54',
-//                            symbolStroke: '#330033'
-//                        }
-//                    }
+                exporting: {
+                    buttons: {
+                        contextButton: {
+                            enabled: false
 
-                buttons: {
-                    contextButton: {
-                        enabled: false
-                    }//,
-//                                exportButton: {
-//                                    theme: {
-//                                        title: 'Download',
-//                                        'stroke-width': 1,
-//                                        stroke: '#4572a7',
-//                                        //fill: '#f5cd54',
-//                                        //  fill: '#bada55',
-//                                        fill:'#ADD8E6',
-//                                        r: 0,
-//                                        states: {
-//                                            hover: {
-//                                                fill: '#d3d3d3'
-//                                            }
-//                                        }
-//                                    },
-////                            theme: {
-////                                title: 'Download',
-////                                'stroke-width': 1,
-////                                //stroke: 'silver',
-////                                stroke: '#4572a7',
-////                                fill: '#f5cd54',
-////                                r: 0
-//////                                states: {
-//////                                    hover: {
-//////                                        fill: '#f5cd54'
-//////                                    },
-//////                                    select: {
-//////                                        stroke: '#039',
-//////                                        fill: '#f5cd54'
-//////                                    }
-//////                                }
-////                            },
-//                                    // symbol: 'circle',
-////                            symbol: 'url(http://highcharts.com/demo/gfx/diamond.png)',
-//                                    // symbolStrokeWidth: 1,
-//                                    // symbolFill: '#4572a7',
-////                            symbolFill: '#f5cd54',
-//                                    // symbolStroke: '#330033',
-//                                    //stroke: '#f5cd54',
-//                                    // stroke: '#c0c0c0',
-//                                    // strokeWidth: 3,
-//                                    text: 'Chart Download',
-//                                    //  _titleKey: 'downloadButtonTitle',
-//                                    // borderColor: '#330033',
-//                                    menuItems: [
-////                                {
-////                                    text: exportButtonTitle,
-////                                    onclick: function () {
-////                                        //var minDate = $('input.highcharts-range-selector:eq(0)').val();
-////                                        //var maxDate = $('input.highcharts-range-selector:eq(1)').val();
-////                                        var minDate = $('input.highcharts-range-selector:eq(0)', $('#' + chart_div_id)).val();
-////                                        var maxDate = $('input.highcharts-range-selector:eq(1)', $('#' + chart_div_id)).val();
-////
-////                                        if (minDate == null && maxDate == null) {
-////                                            minDate = startdate;
-////                                            maxDate = enddate;
-////                                        }
-////
-////
-////                                        var title = this.options.title.text + ' ' + this.options.subtitle.text
-////                                        var exportUrl = "";
-////                                        if (domain_source == 'AMIS-STATISTICS' || domain_source == 'FAO-EST') {
-////                                            if (market_codes != null)
-////                                                exportUrl = "http://statistics.amis-outlook.org/data/amis-market-monitor/jsp/amis-mm-est-data-export.jsp?indicatorcode=" + indicator_codes + "&marketcode=" + market_codes + "&mindate=" + minDate + "&maxdate=" + maxDate + "&title=" + title;
-////                                            else
-////                                                exportUrl = "http://statistics.amis-outlook.org/data/amis-market-monitor/jsp/amis-mm-data-export.jsp?indicatorcode=" + indicator_codes + "&domaintable=" + domain_table_code + "&mindate=" + minDate + "&maxdate=" + maxDate + "&title=" + title;
-////                                        }
-////                                        else if (domain_source == 'FRED') {
-////                                            var newTitle = 'AMIS Market Monitor: '+ this.options.title.text;
-////                                            exportUrl="http://fenixapps.fao.org/fenix-fred/rest/series/export/excel?series_id="+indicator_codes+"&start_date=" + minDate + "&end_date=" + maxDate+"&title="+newTitle+"&api_key=dab0b2bdc1c6816c598ba62118eda19d"
-////                                        }
-////
-////                                        if (!chartHideDataExport)
-////                                            window.open(exportUrl);
-////                                    }
-////                                },
-//                                        // {
-//                                        // text: '&nbsp;',
-//                                        //	separator: true
-//                                        // },
-//
-//                                        {
-//                                            text: 'As PNG image',
-//                                            onclick: function () {
-//                                                this.exportChart();
-//                                            }
-//
-//                                        },
-//                                        {
-//                                            text: 'As JPEG image',
-//                                            onclick: function () {
-//                                                this.exportChart({
-//                                                    type: 'image/jpeg'
-//                                                });
-//                                            }
-//                                        },
-//                                        {
-//                                            text: 'As SVG vector image',
-//                                            onclick: function () {
-//                                                this.exportChart({
-//                                                    type: 'image/svg+xml'
-//                                                });
-//                                            }
-//
-//                                        },
-//                                        {
-//                                            text: 'To PDF document',
-//                                            onclick: function () {
-//                                                this.exportChart({
-//                                                    type: 'application/pdf'
-//                                                });
-//                                            }
-//                                        }
-//                                    ]
-//                                }
-//                        printButton: {
-//                            text: 'Print',
-//                            _titleKey: 'printButtonTitle',
-//                            onclick: function () {
-//                                this.print();
-//                            }
-//                        }
-                }
-            },
-            series: seriesOptions
-        });
+                        },
+                        exportButton: {
+                            theme: {
+                                title: 'Download',
+                                'stroke-width': 1,
+                                stroke: '#4572a7',
+                                //fill: '#f5cd54',
+                                //  fill: '#bada55',
+                                fill:'#ADD8E6',
+                                r: 0,
+                                states: {
+                                    hover: {
+                                        fill: '#d3d3d3'
+                                    }
+                                }
+                            },
+                            text: 'Download',
+                            menuItems: [
+                                {
+                                    text: 'As PNG image',
+                                    onclick: function () {
+                                        this.exportChart({
+                                            filename: 'Biofuels-policies-time_series_graph'
+                                        });
+                                    }
+
+                                },
+                                {
+                                    text: 'As JPEG image',
+                                    onclick: function () {
+                                        this.exportChart({
+                                            type: 'image/jpeg',
+                                            filename: 'Biofuels-policies-time_series_graph'
+                                        });
+                                    }
+                                },
+                                {
+                                    text: 'As SVG vector image',
+                                    onclick: function () {
+                                        this.exportChart({
+                                            type: 'image/svg+xml',
+                                            filename: 'Biofuels-policies-time_series_graph'
+                                        });
+                                    }
+
+                                },
+                                {
+                                    text: 'To PDF document',
+                                    onclick: function () {
+                                        this.exportChart({
+                                            type: 'application/pdf',
+                                            filename: 'Biofuels-policies-time_series_graph'
+                                        });
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                series: seriesOptions
+            });
+        }
+
 
 //        var start_year ='2005';
 //        var chart = $('#'+chart_div).highcharts();
@@ -1216,4 +1406,4 @@ var ap_policiesAtaGlance_biofuelPolicyTypes_util = (function() {
         createChart :   createChart()
     }
 
-})();
+});

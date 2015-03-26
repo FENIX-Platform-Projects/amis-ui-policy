@@ -1,0 +1,108 @@
+<h1>AMIS Policy Policy list</h1>
+
+<hr>
+
+<h3>Search Form
+    <small>Fill the form to look for Policies</small>
+</h3>
+
+<div class="row">
+    <div id="policies-search-form" class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="policies-search-form-from" class="control-label">From</label>
+
+                <div id="policies-search-form-from"></div>
+            </div>
+            <div class="col-lg-6">
+                <label for="policies-search-form-to" class="control-label">to</label>
+
+                <div id="policies-search-form-to"></div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="policies-search-form-commodityClass" class="control-label">Commodity Class</label>
+
+                <div id="policies-search-form-commodityClass"></div>
+            </div>
+            <div class="col-lg-6">
+                <div id="policies-search-form-country"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <button id="policies-search-form-submit-btn" type="button" class="btn btn-danger btn-lg btn-block">Search
+        </button>
+    </div>
+</div>
+
+<hr>
+
+<h3>Search Results
+    <small>Policies found</small>
+</h3>
+
+<div class="row" id="search-results">
+    <div class="col-lg-12">
+        <div id="policies-list"></div>
+    </div>
+</div>
+
+<div class="row" id="no-results">
+    <div class="col-lg-12">
+        <div class="alert alert-danger fade in">
+            <h4>No results found!</h4>
+            <button id="policies-new-btn" type="button" class="btn btn-default btn-lg btn-block">Create Policy</button>
+        </div>
+
+    </div>
+</div>
+
+<hr>
+
+<h3>Policy Details
+    <small>Details of the selected Policy</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-10">
+        <div id="policy-details"></div>
+    </div>
+
+    <div class="col-lg-2">
+        <button id="policy-edit-btn" type="button" class="btn btn-default btn-lg btn-block">Edit</button>
+    </div>
+</div>
+
+<hr>
+
+<h3>CPLs List
+    <small>List of CPLs related to selected Policies</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="cpls-list"></div>
+    </div>
+</div>
+
+<hr>
+
+<h3>CPL Details
+    <small>Details of the selected CPL</small>
+</h3>
+
+<div class="row">
+    <div class="col-lg-10">
+        <div id="cpl-details"></div>
+    </div>
+
+    <div class="col-lg-2">
+        <button id="cpl-edit-btn" type="button" class="btn btn-default btn-lg btn-block">Edit</button>
+    </div>
+</div>
+
+<hr>

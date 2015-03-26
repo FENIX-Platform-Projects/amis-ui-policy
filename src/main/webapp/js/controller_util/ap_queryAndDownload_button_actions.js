@@ -2,7 +2,8 @@ define([
     'jquery',
     'pnotify',
     'host_preview',
-    'jQAllRangeSliders'
+    'jQAllRangeSliders',
+    'xDomainRequest'
 ], function($, PNotify, HostPreview) {
 
     var optionsDefault = {

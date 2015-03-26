@@ -1,4 +1,16 @@
-var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
+//var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
+define([
+    'ap_util_variables',
+    'ap_policyDataObject',
+    'ap_util_functions',
+    'highcharts',
+    'highcharts_exporting',
+    'jquery',
+    'jQAllRangeSliders',
+    'jqwidget',
+    'bootstrap',
+    'xDomainRequest'
+], function(ap_utilVariables, ap_policyDataObject, ap_utilFunctions, highcharts ){
 
     var from = '16-02-2014';
     var to = '18-02-2014';
@@ -287,10 +299,39 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
                 var o={  chart: {
                     type: 'column',
                     borderWidth: 2,
-                    marginBottom: 100
+//                    marginBottom: 100
+                    marginBottom: 170,
+                    events: {
+                        load: function () {
+                            var label = this.renderer.label('Graph excludes mixed commodity classes. Not all countries notify each year. Graph only considers ad valorem<br>tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Source: AMIS Policy Database.')
+                                .css({
+                                    width: '500px',
+                                    //color: '#222',
+                                    fontSize: '9px'
+                                })
+                                .attr({
+                                    //'stroke': 'silver',
+                                    //'stroke-width': 2,
+                                    'r': 5,
+                                    'padding': 10
+                                })
+                                .add();
+
+                            label.align(Highcharts.extend(label.getBBox(), {
+//                                            align: 'center',
+                                align: 'left',
+                                x: 0, // offset
+                                verticalAlign: 'bottom',
+                                y: 50 // offset
+                            }), null, 'spacingBox');
+
+                        }
+                    },
+                    spacingBottom: 50
                 },
                     title: {
-                        text: 'Average values of applied and bound ad valorem import tariffs in the AMIS countries'
+                        text: 'Average values of applied and bound ad valorem import tariffs in the AMIS countries',
+                        style: {"fontSize": "15px"}
                     },
                     subtitle: {
                         text: 'Period '+ obj.start_date_yy+'/'+obj.end_date_yy
@@ -321,13 +362,15 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
                         '#cccccc'//Light Gray
                     ],
                     tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-//                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-                        footerFormat: '</table>',
                         shared: true,
-                        useHTML: true
+                        formatter: function () {
+                            var s = '';
+                            $.each(this.points, function (i,point) {
+                                s +='<span style="color:'+point.series.color+'">'+point.series.name+'</span>: <b>'+Highcharts.numberFormat(point.y, 1) +'</b>%; <b>'+point.point.name+ '</b> TLS<br/>';
+                            });
+
+                            return s;
+                        }
                     },
                     plotOptions: {
                         column: {
@@ -339,40 +382,57 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
                         title: {
                             text: 'Commodity Class',
                             style: {
-                                fontStyle: 'italic'
+                                fontWeight: 'bold'
+                                //  fontStyle: 'italic',
+                                // textDecoration: 'underline'
                             }
                         },
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        y: 50,
-                        borderWidth: 1,
+                        itemWidth: 200,
+                        //y: 10,
+
+                        //Start Before
+//                                layout: 'vertical',
+//                                align: 'right',
+//                                verticalAlign: 'top',
+                        // y: 50,
+                        //End Before
+                        verticalAlign: 'center',
+                        layout: 'horizontal',
+//                                layout: 'vertical',
+                        align: 'center',
+                        //align: 'left',
+                        y: 370,
+                        x:0,
+                        useHTML: true,
+//                                borderWidth: 1,
                         enabled: true,
                         borderColor: '#4572a7',
                         labelFormatter: function() {
 //                    var html_legend = '<dl><dt><b>'+this.name+'</b></dt><dd> :'+ pmt_name_description[this.name]+'</dd></dl>';
                             //return this.name +' ('+pmt_name_description[this.name]+')';
                             //var html_legend = '<table><tr><td valign="top"><b>'+this.name+': </b></td><td>'+ split_string(pmt_name_description[this.name])+'</td></tr></table>';
-                            var html_legend = ''+this.name+': '+ split_string(pmTariffQuotas_name_description[this.name]);
+//                            var html_legend = ''+this.name+': '+ split_string(pmTariffQuotas_name_description[this.name]);
+                            var html_legend = ''+this.name+': '+ '<span style="font-weight: normal;font-size: 10px;">'+pmTariffQuotas_name_description[this.name]+'</span>';
                             return html_legend;
                         }
                     },
-                    labels: {
-                        items: [
-                            {
-//                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
-                                html: 'Graph excludes mixed commodity classes.<br>Graph only considers ad valorem tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Not all countries notify each year.<br>Source: AMIS Policy Database.',
-                                style: {
-                                    left: '1px',
-                                    //top: '402px',
-                                    top: '260',
-                                    cursor: 'default',
-                                    color: '#413839',
-                                    fontSize: '10px'
-                                }
-                            }
-                        ]
-                    },
+
+//                    labels: {
+//                        items: [
+//                            {
+////                        html: 'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level.<br>Source: AMIS Policy',
+//                                html: 'Graph excludes mixed commodity classes.<br>Graph only considers ad valorem tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Not all countries notify each year.<br>Source: AMIS Policy Database.',
+//                                style: {
+//                                    left: '1px',
+//                                    //top: '402px',
+//                                    top: '260',
+//                                    cursor: 'default',
+//                                    color: '#413839',
+//                                    fontSize: '10px'
+//                                }
+//                            }
+//                        ]
+//                    },
                     credits: {
                         enabled: false
 //                href: 'javascript:;',
@@ -393,67 +453,78 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
                             contextButton: {
                                 enabled: false
 
+                            },
+                            exportButton: {
+                                theme: {
+                                    title: 'Download',
+                                    'stroke-width': 1,
+                                    stroke: '#4572a7',
+                                    //fill: '#f5cd54',
+                                    //  fill: '#bada55',
+                                    fill:'#ADD8E6',
+                                    r: 0,
+                                    states: {
+                                        hover: {
+                                            fill: '#d3d3d3'
+                                        }
+                                    }
+                                },
+                                text: 'Download',
+                                menuItems: [
+                                    {
+                                        text: 'As PNG image',
+                                        onclick: function () {
+                                            this.exportChart({filename: 'Import-tariffs-frequency_graph'});
+//                                    this.exportChart(null, {  chart: {
+//                                        style: {
+//                                            fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif', // default font
+//                                            fontSize: '6px'
+//                                        }
+//                                    }});
+//                                     this.exportChart(null, { sourceWidth: 1200,
+//                                         sourceHeight: 400,
+//                                         scale : 2,
+//                                         chartOptions: {
+//                                             yAxis: [{
+//                                                 min: 0,
+//                                                 max: 20
+//                                             }]
+//                                         }
+//                                     });
+
+                                        }
+
+                                    },
+                                    {
+                                        text: 'As JPEG image',
+                                        onclick: function () {
+                                            this.exportChart({
+                                                type: 'image/jpeg',
+                                                filename: 'Import-tariffs-frequency_graph'
+                                            });
+                                        }
+                                    },
+                                    {
+                                        text: 'As SVG vector image',
+                                        onclick: function () {
+                                            this.exportChart({
+                                                type: 'image/svg+xml',
+                                                filename: 'Import-tariffs-frequency_graph'
+                                            });
+                                        }
+
+                                    },
+                                    {
+                                        text: 'To PDF document',
+                                        onclick: function () {
+                                            this.exportChart({
+                                                type: 'application/pdf',
+                                                filename: 'Import-tariffs-frequency_graph'
+                                            });
+                                        }
+                                    }
+                                ]
                             }
-//                    ,
-//                    exportButton: {
-////                        theme: {
-////                            title: 'Download',
-////                            'stroke-width': 1,
-////                            stroke: '#4572a7',
-////                            //fill: '#bada55',
-////                            fill: '#f5cd54',
-////                            r: 0
-////                        },
-//                        theme: {
-//                            title: 'Download',
-//                            'stroke-width': 1,
-//                            stroke: '#4572a7',
-//                            //fill: '#f5cd54',
-//                            //  fill: '#bada55',
-//                            fill:'#ADD8E6',
-//                            r: 0,
-//                            states: {
-//                                hover: {
-//                                    fill: '#d3d3d3'
-//                                }
-//                            }
-//                        },
-//                        text: 'Chart Download',
-//                        menuItems: [
-//                            {
-//                                text: 'As PNG image',
-//                                onclick: function () {
-//                                    this.exportChart();
-//                                }
-//
-//                            },
-//                            {
-//                                text: 'As JPEG image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/jpeg'
-//                                    });
-//                                }
-//                            },
-//                            {
-//                                text: 'As SVG vector image',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'image/svg+xml'
-//                                    });
-//                                }
-//
-//                            },
-//                            {
-//                                text: 'To PDF document',
-//                                onclick: function () {
-//                                    this.exportChart({
-//                                        type: 'application/pdf'
-//                                    });
-//                                }
-//                            }
-//                        ]
-//                    }
                         }
                     },
                     series: json};
@@ -462,7 +533,7 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
             },
 
             error : function(err,b,c) {
-                alert(err.status + ", " + b + ", " + c);
+              //  alert(err.status + ", " + b + ", " + c);
             }
         });
     }
@@ -689,6 +760,6 @@ var ap_policiesAtaGlance_importTariffsQuotas_util = (function() {
 //        subMenu2 : subMenu2
     }
 
-})();
+});
 
 //window.addEventListener('load', ap_policiesAtaGlance_importTariffsQuotas_util.init, false);

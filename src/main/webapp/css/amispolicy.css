@@ -22,6 +22,19 @@ a {
     color: #154179;
 }
 
+.nav-tabs li a, .nav-tabs li a:hover, .nav-tabs li a:active {
+    background-color: white;
+    border-color: #dddddd;
+}
+
+.nav-tabs li.active a, .nav-tabs li.active a:hover, .nav-tabs li.active a:active{
+    background-color: #2a5d9f !important;
+    color: white !important;
+}
+
+
+
+
 .well{
     background-color: #FFFFFF;
     box-shadow: none;
@@ -108,4 +121,122 @@ a {
     height: 86px;
 }
 
+.fx-header .fx_header_title {
+    color: #df2f00 !important;
+    font-size: 24px;
+}
 
+.fx_header_title_sidebar{
+    color: #df2f00 !important;
+    font-size: 24px;
+}
+
+.side-affix.affix{
+    top: -20px;
+    width: 263px;
+}
+
+.side-affix #sidemenu_items{
+    margin: 0;
+    padding: 0;
+}
+
+
+/* STATISTICAL NOTES */
+
+
+
+.amis-notes-box{
+    background-color: #fafafa;
+    padding-bottom: 15px;
+}
+
+.amis-notes-box ul {
+    padding: 0px;
+    list-style: none;
+}
+
+
+.amis-notes-box ul li{
+    margin-bottom: 5px;
+    padding-left: 1em;
+    text-indent: -.7em;
+}
+
+.amis-notes-box ul li a{
+    font-weight: bold;
+}
+
+.amis-notes-box ul li:before {
+    content: "• ";
+    color: #265797; /* or whatever color you prefer */
+}
+
+/* GRAPH THUMBNAILS */
+
+a[href="#bd0_submenu1-title"] {
+    /*height: 90px;*/
+
+    /*background: url('img/graph-thumbnail/bio-I.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+/*#id {*/
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/bio-I.png') no-repeat bottom center;*/
+    /*margin-bottom: 10px;*/
+    /*border-right: 1px solid white;*/
+/*}*/
+
+a[href="#bd0_submenu3_title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/bio-II.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+
+
+a[href="#bd1_submenu1-title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/biopol-I.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+
+a[href="#bd1_submenu3-title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/biopol-II.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+a[href="#bd4_submenu1-title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/import.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+a[href="#bd3_submenu1_title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/export.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+a[href="#bd2_submenu1-title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/exporestr-I.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}
+
+a[href="#bd2_submenu3-title"] {
+    /*height: 90px;*/
+    /*background: url('img/graph-thumbnail/exporestr-II.png') no-repeat bottom center;*/
+    margin-bottom: 10px;
+    border-right: 1px solid white;
+}

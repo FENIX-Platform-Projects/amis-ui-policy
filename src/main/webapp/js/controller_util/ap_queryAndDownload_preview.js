@@ -3,7 +3,8 @@ define([
     'nprogress',
     'host_utility',
     'fullscreen',
-    'jQAllRangeSliders'
+    'jQAllRangeSliders',
+    'xDomainRequest'
 ], function($, NProgress, HostUtility) {
 
     var optionsDefault = {
@@ -28,7 +29,12 @@ define([
 
         additional_info_policy_window_once_open :false,
         additional_info_policy_window :"additional_info_window",
-        additional_info_policy_container :"additional_info_container"
+        additional_info_policy_container :"additional_info_container",
+
+        "cached_map" : {
+            "l" : null,
+            "map" : null
+        }
     }
 
     //text= Loads dependencies as plain text files.
@@ -49,6 +55,124 @@ define([
 
         $('#pane2').click(function (e) {
             $('#'+self.options.standard_preview_jqxgrid).hide();
+        });
+
+    };
+
+    HostPreview.prototype.getPolicyFromCpls = function (host, payload ) {
+        this.options.host_instance = host;
+        this.options.host_utility_instance = new HostUtility();
+        var self = this;
+        $.ajax({
+            type: 'POST',
+// url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
+            url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + host.options.masterFromCplId_url,
+            data: {"pdObj": payload},
+            success: function (response) {
+                /* Convert the response in an object, i needed. */
+                var json = response;
+                if (typeof(response) == 'string')
+                    json = $.parseJSON(response);
+                var mastertable_data = new Array();
+                for (var i = 0; i < json.length; i++) {
+                    var row = {};
+                    for (var j = 0; j < json[i].length; j++) {
+                        if ((json[i][j] == null) || (typeof json[i][j] == 'undefined')) {
+                            json[i][j] = "";
+                        }
+                        switch (j) {
+                            case 0:
+//cpl_id[i] = json[i][j];
+                                row["CplId"] = json[i][j];
+                                break;
+                            case 1:
+//cpl_code[i] = json[i][j];
+                                break;
+                            case 2:
+//commodity_id[i] = json[i][j];
+                                row["CommodityId"] = json[i][j];
+                                break;
+                            case 3:
+//country_code[i] = json[i][j];
+                                row["CountryCode"] = json[i][j];
+                                break;
+                            case 4:
+// country_name[i] = json[i][j];
+                                row["CountryName"] = json[i][j];
+                                break;
+                            case 5:
+//subnational_code[i] = json[i][j];
+                                row["SubnationalCode"] = json[i][j];
+                                break;
+                            case 6:
+// subnational_name[i] = json[i][j];
+                                row["SubnationalName"] = json[i][j];
+                                break;
+                            case 7:
+//commoditydomain_code[i] = json[i][j];
+                                row["CommodityDomainCode"] = json[i][j];
+                                break;
+                            case 8:
+//commoditydomain_name[i] = json[i][j];
+                                row["CommodityDomainName"] = json[i][j];
+                                break;
+                            case 9:
+//commodityclass_code[i] = json[i][j];
+                                row["CommodityClassCode"] = json[i][j];
+                                break;
+                            case 10:
+//commodityclass_name[i] = json[i][j];
+                                row["CommodityClassName"] = json[i][j];
+                                break;
+                            case 11:
+//policydomain_code[i] = json[i][j];
+                                row["PolicyDomainCode"] = json[i][j];
+                                break;
+                            case 12:
+// policydomain_name[i] = json[i][j];
+                                row["PolicyDomainName"] = json[i][j];
+                                break;
+                            case 13:
+//policytype_code[i] = json[i][j];
+                                row["PolicyTypeCode"] = json[i][j];
+                                break;
+                            case 14:
+// policytype_name[i] = json[i][j];
+                                row["PolicyTypeName"] = json[i][j];
+                                break;
+                            case 15:
+//policymeasure_code[i] = json[i][j];
+                                row["PolicyMeasureCode"] = json[i][j];
+                                break;
+                            case 16:
+// policymeasure_name[i] = json[i][j];
+                                row["PolicyMeasureName"] = json[i][j];
+                                break;
+                            case 17:
+//condition_code[i] = json[i][j];
+                                row["PolicyConditionCode"] = json[i][j];
+                                break;
+                            case 18:
+// condition[i] = json[i][j];
+                                row["PolicyCondition"] = json[i][j];
+                                break;
+                            case 19:
+//individualpolicy_code[i] = json[i][j];
+                                row["IndividualPolicyCode"] = json[i][j];
+                                break;
+                            case 20:
+// individualpolicy_name[i] = json[i][j];
+                                row["IndividualPolicyName"] = json[i][j];
+                                break;
+                        }
+                    }
+                    mastertable_data[i] = row;
+                }
+                self.master_grid_creation(mastertable_data, self, host);
+            },
+            error: function (err, b, c) {
+                alert(err.status + ", " + b + ", " + c);
+            }
         });
     };
 
@@ -109,119 +233,258 @@ define([
                         cpl_id_list_String += "'"+self.options.cpl_id_list[i]+"'";
                     }
 
-                    console.log("CPL_ID !!!!! "+cpl_id_list_String);
-
                     var forGetMasterData = host.options.host_policy_data_object.voObjectConstruction();
-                    forGetMasterData.datasource = host.options.datasource;
-                    forGetMasterData.cpl_id = cpl_id_list_String;
-                    var payloadrestMasterData = JSON.stringify(forGetMasterData);
-                    //console.log("url "+ap_queryAndDownload.CONFIG.masterFromCplId_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/'+ ap_queryAndDownload.CONFIG.cpl_id_list[0]);
+
+//                    var body =
+//                    {
+//                        "uid": "GAUL",
+//                        "version": "2014",
+//                        "levels" : 2
+//                    }
+                    //Country
+//                    var selecteditems = host.options.qd_instance.getSelectedItems(self.options.fx_selector_6);
+//                    var country = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+                    //console.log(data.country_code)
+                    var country_code =[];
+
+                    if((data.country_code!=null)&&(typeof data.country_code!="undefined"))
+                    {
+                        var data_country_code_array = data.country_code.split(",");
+                        for(var icode = 0; icode<data_country_code_array.length; icode++){
+                            country_code[icode] = ''+data_country_code_array[icode];
+                        }
+                    }
+//                    console.log("Before data.country_code!!!!")
+//                    console.log(country_code)
+                    var body = {};
+                    body.uid = "GAUL";
+                    body.version = "2014";
+                    body.codes = country_code;
+                   // body.levels = 2;
+
+                    var body2 = JSON.stringify(body);
+                    //Getting GAUL code
                     $.ajax({
+                            type: 'POST',
+                            url: ''+host.options.codelist_url_2,
+                            data : body2,
+//                            data : {"body": body2},
+                            //body : body,
+                            contentType: 'application/json',
+                            dataType:'json',
+//                            url: ''+host.options.codelist_url_2+host.options.gaulsubnationalLevel_url,
+                            success : function(response) {
+                                //console.log(response)
+                                var json = response;
+                                if (typeof(response) == 'string')
+                                    json = $.parseJSON(response);
+                                var i=0;
+                                //Subnational level 2
+                                forGetMasterData.subnational = {};
+                                //Subnational level 2
+                                forGetMasterData.subnational_for_coutry = {};
+                                //Subnational level 2
+                                forGetMasterData.subnational_lev_3 = {};
+                                //Subnational level 2
+                                forGetMasterData.subnational_for_coutry_lev_3 = {};
 
-                        type: 'POST',
-//                            url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
-                        url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.masterFromCplId_url,
-                        data : {"pdObj": payloadrestMasterData},
+                                //Country
+                                forGetMasterData.country = {};
 
-                        success : function(response) {
-                            /* Convert the response in an object, i needed. */
-                            var json = response;
-                            if (typeof(response) == 'string')
-                                json = $.parseJSON(response);
 
-                            var mastertable_data = new Array();
+                                for(i=0; i<json.length;i++){
+                                    var country = json[i].code;
+                                    var country_title = json[i].title["EN"];
+                                    forGetMasterData.country[country]=country_title;
+                                    var children = json[i].children;
+                                    //Subnational level 2
+                                    for(var ichild = 0; ichild<children.length; ichild++){
+                                        var child = children[ichild];
+                                        var child_code = child.code;
+                                        var child_name = child.title['EN'];
+                                        forGetMasterData.subnational[child_code]=child_name;
+                                        //console.log("country = "+country);
+                                        if((forGetMasterData.subnational_for_coutry[country]!=null)&&(typeof forGetMasterData.subnational_for_coutry[country]!='undefined')){
+                                            //forGetMasterData.subnational_for_coutry[country] = {};
+                                            forGetMasterData.subnational_for_coutry[country][child_code]=child_name;
+                                        }
+                                        else{
+                                            forGetMasterData.subnational_for_coutry[country] = {};
+                                            forGetMasterData.subnational_for_coutry[country][child_code]=child_name;
+                                        }
 
-                            for (var i = 0 ; i < json.length ; i++) {
-                                var row = {};
-                                for (var j = 0 ; j < json[i].length ; j++) {
-                                    if((json[i][j] == null)||(typeof json[i][j] == 'undefined')) {
-                                        json[i][j]="";
+                                        //Check if there are children of the third level
+                                        var children_lev_3 = json[i].children[ichild].children;
+                                        //console.log(json[i].children[ichild])
+                                        if((children_lev_3!=null)&&(typeof children_lev_3 !="undefined")){
+                                            for(var ichild_lev_3 = 0; ichild_lev_3<children_lev_3.length; ichild_lev_3++){
+                                                var child_lev_3 = children_lev_3[ichild_lev_3];
+                                                var child_code_lev_3 = child_lev_3.code;
+                                                var child_name_lev_3 = child_lev_3.title['EN'];
+                                                forGetMasterData.subnational_lev_3[child_code_lev_3]=child_name_lev_3;
+                                                //console.log("country = "+country);
+                                                if((forGetMasterData.subnational_for_coutry_lev_3[country]!=null)&&(typeof forGetMasterData.subnational_for_coutry_lev_3[country]!='undefined')){
+                                                    //forGetMasterData.subnational_for_coutry[country] = {};
+                                                    forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3]=child_name_lev_3;
+                                                }
+                                                else{
+                                                    forGetMasterData.subnational_for_coutry_lev_3[country] = {};
+                                                    forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3]=child_name_lev_3;
+                                                }
+                                            }
+                                        }
+//                                        var child_obj = {};
+//                                        child_obj.code = child_code;
+//                                        child_obj.name = child_name;
+
+//                                        forGetMasterData.subnational_for_coutry[country][child_code]=child_name;
                                     }
-                                    switch(j)
-                                    {
-                                        case 0:
-                                            //cpl_id[i] = json[i][j];
-                                            row["CplId"] = json[i][j];
-                                            break;
-                                        case 1:
-                                            //cpl_code[i] = json[i][j];
-                                            break;
-                                        case 2:
-                                            //commodity_id[i] = json[i][j];
-                                            row["CommodityId"] = json[i][j];
-                                            break;
-                                        case 3:
-                                            //country_code[i] = json[i][j];
-                                            break;
-                                        case 4:
-//                                            country_name[i] = json[i][j];
-                                            row["CountryName"] = json[i][j];
-                                            break;
-                                        case 5:
-                                            //subnational_code[i] = json[i][j];
-                                            break;
-                                        case 6:
-//                                            subnational_name[i] = json[i][j];
-                                            row["SubnationalName"] = json[i][j];
-                                            break;
-                                        case 7:
-                                            //commoditydomain_code[i] = json[i][j];
-                                            break;
-                                        case 8:
-                                            //commoditydomain_name[i] = json[i][j];
-                                            break;
-                                        case 9:
-                                            //commodityclass_code[i] = json[i][j];
-                                            break;
-                                        case 10:
-                                            //commodityclass_name[i] = json[i][j];
-                                            row["CommodityClassName"] = json[i][j];
-                                            break;
-                                        case 11:
-                                            //policydomain_code[i] = json[i][j];
-                                            break;
-                                        case 12:
-//                                            policydomain_name[i] = json[i][j];
-                                            row["PolicyDomainName"] = json[i][j];
-                                            break;
-                                        case 13:
-                                            //policytype_code[i] = json[i][j];
-                                            break;
-                                        case 14:
-//                                            policytype_name[i] = json[i][j];
-                                            row["PolicyTypeName"] = json[i][j];
-                                            break;
-                                        case 15:
-                                            //policymeasure_code[i] = json[i][j];
-                                            break;
-                                        case 16:
-//                                            policymeasure_name[i] = json[i][j];
-                                            row["PolicyMeasureName"] = json[i][j];
-                                            break;
-                                        case 17:
-                                            //condition_code[i] = json[i][j];
-                                            break;
-                                        case 18:
-//                                            condition[i] = json[i][j];
-                                            row["PolicyCondition"] = json[i][j];
-                                            break;
-                                        case 19:
-                                            //individualpolicy_code[i] = json[i][j];
-                                            break;
-                                        case 20:
-//                                            individualpolicy_name[i] = json[i][j];
-                                            row["IndividualPolicyName"] = json[i][j];
-                                            break;
-                                    }
+//                                    var code = json[i].code;
+//                                    var title = json[i].title['EN'];
                                 }
-                                mastertable_data[i] = row;
-                            }
-                            self.master_grid_creation(mastertable_data, self, host);
-                        },
+//                                console.log(forGetMasterData.subnational)
+//                                console.log(forGetMasterData.subnational_for_coutry)
+
+                                forGetMasterData.datasource = host.options.datasource;
+                                forGetMasterData.cpl_id = cpl_id_list_String;
+                                var payloadrestMasterData = JSON.stringify(forGetMasterData);
+                                var payloadMap = JSON.stringify(forGetMasterData.subnational);
+                                var payloadMap2 = JSON.stringify(forGetMasterData.subnational_for_coutry);
+                                var payloadMap3 = JSON.stringify(forGetMasterData.subnational_lev_3);
+                                var payloadMap4 = JSON.stringify(forGetMasterData.subnational_for_coutry_lev_3);
+
+                                //Case Search
+                                if(self.options.host_instance.options.button_preview_action_type == 'search'){
+                                    self.getPolicyFromCpls(host, payloadrestMasterData);
+                                }
+                                else{
+                                    alert("Updated!!")
+                                    //Case Query and Download
+                                    //console.log("url "+ap_queryAndDownload.CONFIG.masterFromCplId_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/'+ ap_queryAndDownload.CONFIG.cpl_id_list[0]);
+                                    $.ajax({
+
+                                        type: 'POST',
+//                            url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
+                                        url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.masterFromCplIdAndSubnational,
+                                        data : {"pdObj": payloadrestMasterData, "map":payloadMap, "map2":payloadMap2, "map3":payloadMap3, "map4":payloadMap4},
+
+                                        success : function(response) {
+                                            /* Convert the response in an object, i needed. */
+                                            var json = response;
+                                            if (typeof(response) == 'string')
+                                                json = $.parseJSON(response);
+
+                                            //console.log(json);
+
+                                            var mastertable_data = new Array();
+
+                                            for (var i = 0 ; i < json.length ; i++) {
+                                                var row = {};
+                                                for (var j = 0 ; j < json[i].length ; j++) {
+                                                    if((json[i][j] == null)||(typeof json[i][j] == 'undefined')) {
+                                                        json[i][j]="";
+                                                    }
+                                                    switch(j)
+                                                    {
+                                                        case 0:
+                                                            //cpl_id[i] = json[i][j];
+                                                            row["CplId"] = json[i][j];
+                                                            break;
+                                                        case 1:
+                                                            //cpl_code[i] = json[i][j];
+                                                            break;
+                                                        case 2:
+                                                            //commodity_id[i] = json[i][j];
+                                                            row["CommodityId"] = json[i][j];
+                                                            break;
+                                                        case 3:
+                                                            //country_code[i] = json[i][j];
+                                                            row["CountryCode"] = json[i][j];
+                                                            break;
+                                                        case 4:
+//                                            country_name[i] = json[i][j];
+                                                            row["CountryName"] = json[i][j];
+                                                            break;
+                                                        case 5:
+                                                            //subnational_code[i] = json[i][j];
+                                                            row["SubnationalCode"] = json[i][j];
+                                                            break;
+                                                        case 6:
+//                                            subnational_name[i] = json[i][j];
+                                                            row["SubnationalName"] = json[i][j];
+                                                            break;
+                                                        case 7:
+                                                            //commoditydomain_code[i] = json[i][j];
+                                                            row["CommodityDomainCode"] = json[i][j];
+                                                            break;
+                                                        case 8:
+                                                            //commoditydomain_name[i] = json[i][j];
+                                                            row["CommodityDomainName"] = json[i][j];
+                                                            break;
+                                                        case 9:
+                                                            //commodityclass_code[i] = json[i][j];
+                                                            row["CommodityClassCode"] = json[i][j];
+                                                            break;
+                                                        case 10:
+                                                            //commodityclass_name[i] = json[i][j];
+                                                            row["CommodityClassName"] = json[i][j];
+                                                            break;
+                                                        case 11:
+                                                            //policydomain_code[i] = json[i][j];
+                                                            row["PolicyDomainCode"] = json[i][j];
+                                                            break;
+                                                        case 12:
+//                                            policydomain_name[i] = json[i][j];
+                                                            row["PolicyDomainName"] = json[i][j];
+                                                            break;
+                                                        case 13:
+                                                            //policytype_code[i] = json[i][j];
+                                                            row["PolicyTypeCode"] = json[i][j];
+                                                            break;
+                                                        case 14:
+//                                            policytype_name[i] = json[i][j];
+                                                            row["PolicyTypeName"] = json[i][j];
+                                                            break;
+                                                        case 15:
+                                                            //policymeasure_code[i] = json[i][j];
+                                                            row["PolicyMeasureCode"] = json[i][j];
+                                                            break;
+                                                        case 16:
+//                                            policymeasure_name[i] = json[i][j];
+                                                            row["PolicyMeasureName"] = json[i][j];
+                                                            break;
+                                                        case 17:
+                                                            //condition_code[i] = json[i][j];
+                                                            row["PolicyConditionCode"] = json[i][j];
+                                                            break;
+                                                        case 18:
+//                                            condition[i] = json[i][j];
+                                                            row["PolicyCondition"] = json[i][j];
+                                                            break;
+                                                        case 19:
+                                                            //individualpolicy_code[i] = json[i][j];
+                                                            row["IndividualPolicyCode"] = json[i][j];
+                                                            break;
+                                                        case 20:
+//                                            individualpolicy_name[i] = json[i][j];
+                                                            row["IndividualPolicyName"] = json[i][j];
+                                                            break;
+                                                    }
+                                                }
+                                                mastertable_data[i] = row;
+                                            }
+                                            self.master_grid_creation(mastertable_data, self, host);
+                                            //self.map_creation(mastertable_data, self, host, forGetMasterData);
+                                        },
+                                        error : function(err,b,c) {
+                                            alert(err.status + ", " + b + ", " + c);
+                                        }
+                                    });
+                                }
+                            },
                         error : function(err,b,c) {
                             alert(err.status + ", " + b + ", " + c);
-                        }
-                    });
+                        }});
                 }
             },
 
@@ -231,8 +494,599 @@ define([
         });
     }
 
-    HostPreview.prototype.master_grid_creation = function(data, host_preview, host)
-    {
+//    HostPreview.prototype.map_creation = function(data, host_preview, host, forGetMasterData) {
+//
+//        var map_data = host.options.host_policy_data_object.voObjectConstruction();
+//
+//        map_data.datasource = forGetMasterData.datasource;
+//        map_data.cpl_id = forGetMasterData.cpl_id;
+//        map_data.yearTab = host_preview.options.year_tab;
+//        map_data.year_list = host_preview.options.year_list;
+//        map_data.start_date = host_preview.options.start_date || host.options.default_start_date;
+//        map_data.end_date = host_preview.options.end_date || host.options.default_end_date;
+//        var payloadrestMapCreation = JSON.stringify(map_data);
+//
+//        //console.log("map_creation start 1... ");
+//        $.ajax({
+//            type: 'POST',
+//            url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.mapData,
+//            data : {"pdObj": payloadrestMapCreation},
+//
+//            success : function(response) {
+//                /* Convert the response in an object, i needed. */
+//                var json = response;
+//                if (typeof(response) == 'string')
+//                    json = $.parseJSON(response);
+////                console.log("In map success");
+////                console.log(json);
+////                console.log("In map success country_map");
+////                console.log(json.country_map);
+////                console.log("In map success subnationalMap");
+////                console.log(json.subnational_map);
+////                console.log("After Master subnational");
+//
+//                //forGetMasterData.subnational = level 2
+//                //forGetMasterData.subnational_lev_3
+//                //Create the array of subnational level 2 and subnational level 3
+//                var subnational_level_2 = [];
+//                var subnational_level_3 = [];
+//                var country = [];
+//                //console.log(forGetMasterData.subnational);
+//                //console.log(forGetMasterData.subnational_lev_3);
+//
+//                var gaul_country = Object.keys(forGetMasterData.country);
+//                var gaul_subnational_level_2 = Object.keys(forGetMasterData.subnational);
+//                var gaul_subnational_level_3 = Object.keys(forGetMasterData.subnational_lev_3);
+//
+//                if((json.country_map!=null)&&(typeof json.country_map!="undefined")) {
+//                    var country_from_db = Object.keys(json.country_map);
+//                    for(var i=0; i<country_from_db.length;i++)
+//                    {
+//                        var country_obj ={};
+//                        country_obj[country_from_db[i]]= json.country_map[country_from_db[i]];
+//                        if((gaul_country!=null)&&(typeof gaul_country!="undefined")){
+//                            for(var j=0; j<gaul_country.length; j++)
+//                            {
+//                                if(country_from_db[i]==gaul_country[j]){
+//                                    country.push(country_obj);
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                if((json.subnational_map!=null)&&(typeof json.subnational_map!="undefined")){
+//
+//                    var keys_ar =Object.keys(json.subnational_map);
+//                    //json.subnationalMap.keys_ar[0]
+////                    for(var key in keys_ar){
+//                    var subnational_found = false;
+//                    for(var i=0; i<keys_ar.length;i++)
+//                    {
+//                        //console.log(keys_ar[i] +"  ----  "+json.subnational_map[keys_ar[i]])
+//                        var subnational_obj ={};
+//                        subnational_obj[keys_ar[i]]= json.subnational_map[keys_ar[i]];
+//                        if((gaul_subnational_level_2!=null)&&(typeof gaul_subnational_level_2!="undefined")){
+//                            for(var j=0; j<gaul_subnational_level_2.length; j++)
+//                            {
+//                                if(keys_ar[i]==gaul_subnational_level_2[j]){
+//                                    subnational_level_2.push(subnational_obj);
+//                                    subnational_found = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//
+//                        if((gaul_subnational_level_3!=null)&&(typeof gaul_subnational_level_3!="undefined")){
+//                            for(var k=0; k<gaul_subnational_level_3.length; k++)
+//                            {
+//                                if(keys_ar[i]==gaul_subnational_level_3[k]){
+//                                    subnational_level_3.push(subnational_obj);
+//                                    subnational_found = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                console.log("Start subnational_level_2");
+//                console.log(subnational_level_2);
+//                console.log("End subnational_level_2");
+//                console.log("Start subnational_level_3");
+//                console.log(subnational_level_3);
+//                console.log("End subnational_level_3");
+//                console.log("Start country");
+//                console.log(country);
+//                console.log("End country!!!!!");
+//                $("#gaul_0_button").removeClass('policy-button-show');
+//                $("#gaul_0_button").addClass('policy-button');
+//                $("#gaul_1_button").removeClass('policy-button-show');
+//                $("#gaul_1_button").addClass('policy-button');
+//                $("#gaul_2_button").removeClass('policy-button-show');
+//                $("#gaul_2_button").addClass('policy-button');
+//               // $('#'+this.options.id).text(this.options.title);
+//                if((country!=null)&&(typeof country!= "undefined")&&(country.length>0)){
+//                    $("#gaul_0_button").addClass('policy-button-show');
+//                    $("#gaul_0_button").addClass('btn btn-xs btn-primary');
+//
+//                    $("#gaul_0_button").click(function(e){
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, country, "0", "Blues", host_preview);
+//                    });
+//                }
+//
+//                if((subnational_level_2!=null)&&(typeof subnational_level_2!= "undefined")&&(subnational_level_2.length>0)){
+//                    //Green
+//                    $("#gaul_1_button").addClass('policy-button-show');
+//                    $("#gaul_1_button").click(function(e){
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, subnational_level_2, "1", "Greens", host_preview);
+//                    });
+//                    $("#gaul_1_button").addClass('btn btn-xs btn-success');
+//                }
+//
+//                if((subnational_level_3!=null)&&(typeof subnational_level_3!= "undefined")&&(subnational_level_3.length>0)) {
+//                    //Red
+//                    $("#gaul_2_button").addClass('policy-button-show');
+//                    $("#gaul_2_button").click(function (e) {
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, subnational_level_3, "2", "Reds", host_preview);
+//                    });
+//                    $("#gaul_2_button").addClass('btn btn-xs btn-danger');
+//                }
+//
+//                host_preview.createMap("map", country, host_preview);
+//                //$("#map").append("Prova");
+//            },
+//            error : function(err,b,c) {
+//                alert(err.status + ", " + b + ", " + c);
+//            }
+//        });
+//    };
+
+//    HostPreview.prototype.map_creation = function(data, host_preview, host, forGetMasterData) {
+//
+//        var map_data = host.options.host_policy_data_object.voObjectConstruction();
+//
+//        map_data.datasource = forGetMasterData.datasource;
+//        map_data.cpl_id = forGetMasterData.cpl_id;
+//        map_data.yearTab = host_preview.options.year_tab;
+//        map_data.year_list = host_preview.options.year_list;
+//        map_data.start_date = host_preview.options.start_date || host.options.default_start_date;
+//        map_data.end_date = host_preview.options.end_date || host.options.default_end_date;
+//        var payloadrestMapCreation = JSON.stringify(map_data);
+//
+//        //console.log("map_creation start 1... ");
+//        $.ajax({
+//            type: 'POST',
+//            url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.mapData,
+//            data : {"pdObj": payloadrestMapCreation},
+//
+//            success : function(response) {
+//                /* Convert the response in an object, i needed. */
+//                var json = response;
+//                if (typeof(response) == 'string')
+//                    json = $.parseJSON(response);
+////                console.log("In map success");
+////                console.log(json);
+////                console.log("In map success country_map");
+////                console.log(json.country_map);
+////                console.log("In map success subnationalMap");
+////                console.log(json.subnational_map);
+////                console.log("After Master subnational");
+//
+//                //forGetMasterData.subnational = level 2
+//                //forGetMasterData.subnational_lev_3
+//                //Create the array of subnational level 2 and subnational level 3
+//                var subnational_level_2 = [];
+//                var subnational_level_3 = [];
+//                var country = [];
+//                //console.log(forGetMasterData.subnational);
+//                //console.log(forGetMasterData.subnational_lev_3);
+//
+//                var gaul_country = Object.keys(forGetMasterData.country);
+//                var gaul_subnational_level_2 = Object.keys(forGetMasterData.subnational);
+//                var gaul_subnational_level_3 = Object.keys(forGetMasterData.subnational_lev_3);
+//
+//                if((json.country_map!=null)&&(typeof json.country_map!="undefined")) {
+//                    var country_from_db = Object.keys(json.country_map);
+//                    for(var i=0; i<country_from_db.length;i++)
+//                    {
+//                        var country_obj ={};
+//                        country_obj[country_from_db[i]]= json.country_map[country_from_db[i]];
+//                        if((gaul_country!=null)&&(typeof gaul_country!="undefined")){
+//                            for(var j=0; j<gaul_country.length; j++)
+//                            {
+//                                if(country_from_db[i]==gaul_country[j]){
+//                                    country.push(country_obj);
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                if((json.subnational_map!=null)&&(typeof json.subnational_map!="undefined")){
+//
+//                    var keys_ar =Object.keys(json.subnational_map);
+//                    //json.subnationalMap.keys_ar[0]
+////                    for(var key in keys_ar){
+//                    var subnational_found = false;
+//                    for(var i=0; i<keys_ar.length;i++)
+//                    {
+//                        //console.log(keys_ar[i] +"  ----  "+json.subnational_map[keys_ar[i]])
+//                        var subnational_obj ={};
+//                        subnational_obj[keys_ar[i]]= json.subnational_map[keys_ar[i]];
+//                        if((gaul_subnational_level_2!=null)&&(typeof gaul_subnational_level_2!="undefined")){
+//                            for(var j=0; j<gaul_subnational_level_2.length; j++)
+//                            {
+//                                if(keys_ar[i]==gaul_subnational_level_2[j]){
+//                                    subnational_level_2.push(subnational_obj);
+//                                    subnational_found = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//
+//                        if((gaul_subnational_level_3!=null)&&(typeof gaul_subnational_level_3!="undefined")){
+//                            for(var k=0; k<gaul_subnational_level_3.length; k++)
+//                            {
+//                                if(keys_ar[i]==gaul_subnational_level_3[k]){
+//                                    subnational_level_3.push(subnational_obj);
+//                                    subnational_found = true;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                console.log("Start subnational_level_2");
+//                console.log(subnational_level_2);
+//                console.log("End subnational_level_2");
+//                console.log("Start subnational_level_3");
+//                console.log(subnational_level_3);
+//                console.log("End subnational_level_3");
+//                console.log("Start country");
+//                console.log(country);
+//                console.log("End country!!!!!");
+//                $("#gaul_0_button").removeClass('policy-button-show');
+//                $("#gaul_0_button").addClass('policy-button');
+//                $("#gaul_1_button").removeClass('policy-button-show');
+//                $("#gaul_1_button").addClass('policy-button');
+//                $("#gaul_2_button").removeClass('policy-button-show');
+//                $("#gaul_2_button").addClass('policy-button');
+//                // $('#'+this.options.id).text(this.options.title);
+//                if((country!=null)&&(typeof country!= "undefined")&&(country.length>0)){
+//                    $("#gaul_0_button").addClass('policy-button-show');
+//                    $("#gaul_0_button").addClass('btn btn-xs btn-primary');
+//
+//                    $("#gaul_0_button").click(function(e){
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, country, "0", "Blues", host_preview);
+//                    });
+//                }
+//
+//                if((subnational_level_2!=null)&&(typeof subnational_level_2!= "undefined")&&(subnational_level_2.length>0)){
+//                    //Green
+//                    $("#gaul_1_button").addClass('policy-button-show');
+//                    $("#gaul_1_button").click(function(e){
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, subnational_level_2, "1", "Greens", host_preview);
+//                    });
+//                    $("#gaul_1_button").addClass('btn btn-xs btn-success');
+//                }
+//
+//                if((subnational_level_3!=null)&&(typeof subnational_level_3!= "undefined")&&(subnational_level_3.length>0)) {
+//                    //Red
+//                    $("#gaul_2_button").addClass('policy-button-show');
+//                    $("#gaul_2_button").click(function (e) {
+//                        host_preview.create_join_layer(host_preview.options.cached_map.fmMap.map, subnational_level_3, "2", "Reds", host_preview);
+//                    });
+//                    $("#gaul_2_button").addClass('btn btn-xs btn-danger');
+//                }
+//
+//                host_preview.createMap("map", country, host_preview);
+//                //$("#map").append("Prova");
+//            },
+//            error : function(err,b,c) {
+//                alert(err.status + ", " + b + ", " + c);
+//            }
+//        });
+//    };
+
+    HostPreview.prototype.map_creation = function(data, host_preview, host, forGetMasterData) {
+
+        var map_data = host.options.host_policy_data_object.voObjectConstruction();
+
+        map_data.datasource = forGetMasterData.datasource;
+        map_data.cpl_id = forGetMasterData.cpl_id;
+        map_data.yearTab = host_preview.options.year_tab;
+        map_data.year_list = host_preview.options.year_list;
+        map_data.start_date = host_preview.options.start_date || host.options.default_start_date;
+        map_data.end_date = host_preview.options.end_date || host.options.default_end_date;
+        var payloadrestMapCreation = JSON.stringify(map_data);
+
+        //console.log("map_creation start 1... ");
+        $.ajax({
+            type: 'POST',
+            url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.mapData,
+            data : {"pdObj": payloadrestMapCreation},
+
+            success : function(response) {
+                /* Convert the response in an object, i needed. */
+                var json = response;
+                if (typeof(response) == 'string')
+                    json = $.parseJSON(response);
+//                console.log("In map success");
+//                console.log(json);
+//                console.log("In map success country_map");
+//                console.log(json.country_map);
+//                console.log("In map success subnationalMap");
+//                console.log(json.subnational_map);
+//                console.log("After Master subnational");
+
+                //forGetMasterData.subnational = level 2
+                //forGetMasterData.subnational_lev_3
+                //Create the array of subnational level 2 and subnational level 3
+                var subnational_level_2 = [];
+                var subnational_level_3 = [];
+                var country = [];
+                //console.log(forGetMasterData.subnational);
+                //console.log(forGetMasterData.subnational_lev_3);
+
+                var gaul_country = Object.keys(forGetMasterData.country);
+                var gaul_subnational_level_2 = Object.keys(forGetMasterData.subnational);
+                var gaul_subnational_level_3 = Object.keys(forGetMasterData.subnational_lev_3);
+
+                if((json.country_map!=null)&&(typeof json.country_map!="undefined")) {
+                    var country_from_db = Object.keys(json.country_map);
+                    for(var i=0; i<country_from_db.length;i++)
+                    {
+                        var country_obj ={};
+                        country_obj[country_from_db[i]]= json.country_map[country_from_db[i]];
+                        if((gaul_country!=null)&&(typeof gaul_country!="undefined")){
+                            for(var j=0; j<gaul_country.length; j++)
+                            {
+                                if(country_from_db[i]==gaul_country[j]){
+                                    country.push(country_obj);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if((json.subnational_map!=null)&&(typeof json.subnational_map!="undefined")){
+
+                    var keys_ar =Object.keys(json.subnational_map);
+                    //json.subnationalMap.keys_ar[0]
+//                    for(var key in keys_ar){
+                    var subnational_found = false;
+                    for(var i=0; i<keys_ar.length;i++)
+                    {
+                        //console.log(keys_ar[i] +"  ----  "+json.subnational_map[keys_ar[i]])
+                        var subnational_obj ={};
+                        subnational_obj[keys_ar[i]]= json.subnational_map[keys_ar[i]];
+                        if((gaul_subnational_level_2!=null)&&(typeof gaul_subnational_level_2!="undefined")){
+                            for(var j=0; j<gaul_subnational_level_2.length; j++)
+                            {
+                                if(keys_ar[i]==gaul_subnational_level_2[j]){
+                                    subnational_level_2.push(subnational_obj);
+                                    subnational_found = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if((gaul_subnational_level_3!=null)&&(typeof gaul_subnational_level_3!="undefined")){
+                            for(var k=0; k<gaul_subnational_level_3.length; k++)
+                            {
+                                if(keys_ar[i]==gaul_subnational_level_3[k]){
+                                    subnational_level_3.push(subnational_obj);
+                                    subnational_found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                console.log("Start subnational_level_2");
+                console.log(subnational_level_2);
+                console.log("End subnational_level_2");
+                console.log("Start subnational_level_3");
+                console.log(subnational_level_3);
+                console.log("End subnational_level_3");
+                console.log("Start country");
+                console.log(country);
+                console.log("End country!!!!!");
+
+                host_preview.createMap("map", country, subnational_level_2, subnational_level_3, host_preview);
+                //$("#map").append("Prova");
+            },
+            error : function(err,b,c) {
+                alert(err.status + ", " + b + ", " + c);
+            }
+        });
+    };
+
+//    HostPreview.prototype.createMap = function (id, country, host_preview) {
+//        $("#" + id).empty()
+//        var fmMap = new FM.Map(id, {
+//            plugins: {
+//                geosearch: false,
+//                mouseposition: false,
+//                controlloading: false,
+//                zoomControl: 'bottomright'
+//            },
+//            guiController: {
+//                overlay : true,
+//                baselayer: true,
+//                wmsLoader: false
+//            },
+//            gui: {
+//                disclaimerfao: true
+//            }
+//        }, {
+//            zoomControl: false,
+//            attributionControl: false
+//        });
+//        fmMap.createMap();
+//        fmMap.addLayer( new FM.layer({
+//            urlWMS: "http://fenixapps2.fao.org/geoserver-demo",
+//            layers: "fenix:gaul0_line_3857",
+//            layertitle: "Boundaries",
+//            styles: "gaul0_line",
+//            opacity: "0.7",
+//            zindex: 600
+//        }));
+//
+//        //console.log(fmMap)
+//        host_preview.options.cached_map.fmMap = fmMap;
+//
+//        //console.log(host_preview.options.cached_map.fmMap)
+//
+//        host_preview.create_join_layer(fmMap, country, "0", "Blues", host_preview);
+////        fmMap.m.invalidateSize();
+//
+////        $("#pane2").on("click",  function (e) {
+//////            console.log(host_preview.options.cached_map.fmMap)
+////            console.log(host_preview.options.cached_map.fmMap.map.invalidateSize)
+////            host_preview.options.cached_map.fmMap.map.invalidateSize();
+////        });
+//
+//        $('#pane2[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+//            host_preview.options.cached_map.fmMap.map.invalidateSize();
+//        });
+//    }
+
+    HostPreview.prototype.createMap = function (id, country, subnational_level_2, subnational_level_3, host_preview) {
+        $("#" + id).empty()
+        var fmMap = new FM.Map(id, {
+            plugins: {
+                geosearch: false,
+                mouseposition: false,
+                controlloading: false,
+                zoomControl: 'bottomright'
+            },
+            guiController: {
+                overlay : true,
+                baselayer: true,
+                wmsLoader: false
+            },
+            gui: {
+                disclaimerfao: true
+            }
+        }, {
+            zoomControl: false,
+            attributionControl: false
+        });
+        fmMap.createMap();
+//        fmMap.addLayer( new FM.layer({
+//            urlWMS: "http://fenixapps2.fao.org/geoserver-demo",
+//            layers: "fenix:gaul0_line_3857",
+//            layertitle: "Boundaries",
+//            styles: "gaul0_line",
+//            opacity: "0.7",
+//            zindex: 600
+//        }));
+
+        //console.log(fmMap)
+        //host_preview.options.cached_map.fmMap = fmMap;
+
+        //console.log(host_preview.options.cached_map.fmMap)
+        if((country!=null)&&(typeof country!= "undefined")&&(country.length>0)) {
+            host_preview.create_join_layer(fmMap, country, "0", "Blues");
+        }
+
+        if((subnational_level_2!=null)&&(typeof subnational_level_2!= "undefined")&&(subnational_level_2.length>0)) {
+            host_preview.create_join_layer(fmMap, subnational_level_2, "1", "Greens");
+        }
+
+        if((subnational_level_3!=null)&&(typeof subnational_level_3!= "undefined")&&(subnational_level_3.length>0)) {
+            host_preview.create_join_layer(fmMap, subnational_level_3, "2", "Reds");
+        }
+
+        fmMap.addLayer( new FM.layer({
+            urlWMS: "http://fenixapps2.fao.org/geoserver-demo",
+            layers: "fenix:gaul0_line_3857",
+            layertitle: "Boundaries",
+            styles: "gaul0_line",
+            opacity: "0.7",
+            zindex: 600
+        }));
+
+//        fmMap.m.invalidateSize();
+
+//        $("#pane2").on("click",  function (e) {
+////            console.log(host_preview.options.cached_map.fmMap)
+//            console.log(host_preview.options.cached_map.fmMap.map.invalidateSize)
+//            host_preview.options.cached_map.fmMap.map.invalidateSize();
+//        });
+
+        $('#pane2[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            fmMap.map.invalidateSize();
+        });
+    }
+
+//    HostPreview.prototype.create_join_layer = function (fmMap, data, gaul_code, legend_color, host_preview) {
+//
+//        try {
+//            //console.log(host_preview.options.cached_map.l)
+//            host_preview.options.cached_map.fmMap.removeLayer(host_preview.options.cached_map.l)
+//        }catch(e){
+//            console.log("ERRRORR!@!!!")
+//            //console.log(e)
+//        }
+////        $.when(host_preview.options.cached_map.fmMap.removeLayer(host_preview.options.cached_map.l)).done(function() {
+////            alert("Done" ); // Alerts "123"
+////        });
+////        console.log(fmMap)
+////        console.log(data)
+////        console.log(gaul_code)
+////        console.log(host_preview)
+//
+//        host_preview.options.cached_map.l = new FM.layer({
+//            urlWMS: "http://fenixapps2.fao.org/geoserver-demo",
+//            layers: "fenix:gaul"+gaul_code+"_3857",
+//            joincolumn: "adm"+gaul_code+"_code",
+//            layertitle: "Number of policy",
+//            layertype : 'JOIN',
+//            jointype:'shaded',
+//            defaultgfi: true,
+//            openlegend: true,
+//            opacity: '0.7',
+//            lang: "en",
+//            joindata: JSON.stringify(data),
+//            joincolumnlabel: "adm"+gaul_code+"_name",
+//            colorramp:''+legend_color,
+//            intervals:'3',
+//            mu:'Number of policy'
+//        });
+//        host_preview.options.cached_map.fmMap.addLayer(host_preview.options.cached_map.l, host_preview.options.cached_map.fmMap);
+//    }
+
+    HostPreview.prototype.create_join_layer = function (fmMap, data, gaul_code, legend_color) {
+
+        var layer = new FM.layer({
+            urlWMS: "http://fenixapps2.fao.org/geoserver-demo",
+            layers: "fenix:gaul"+gaul_code+"_3857",
+            joincolumn: "adm"+gaul_code+"_code",
+            layertitle: "Num.of policy for GAUL"+gaul_code,
+            layertype : 'JOIN',
+            jointype:'shaded',
+            defaultgfi: true,
+            openlegend: true,
+            opacity: '0.7',
+            lang: "en",
+            joindata: JSON.stringify(data),
+            joincolumnlabel: "adm"+gaul_code+"_name",
+            colorramp:''+legend_color,
+            intervals:'3',
+            mu:'Number of policy for GAUL'+gaul_code
+        });
+        fmMap.addLayer(layer, fmMap);
+    }
+
+
+    HostPreview.prototype.master_grid_creation = function (data, host_preview, host) {
+
+        host_preview.masterData = data;
         var source =
         {
             datafields: [
@@ -247,8 +1101,8 @@ define([
                 { name: 'IndividualPolicyName' },
                 { name: 'CplId' }
             ],
-            root: "Master",
-            record: "Master",
+            //root: "Master",
+            //record: "Master",
             id: 'CplId',
             localdata: data,
             datatype: "array"
@@ -256,15 +1110,33 @@ define([
 //        var employeesAdapter = new $.jqx.dataAdapter(source);
         // create nested grid.
         var initrowdetails = function (index, parentElement, gridElement, record) {
+//            console.log("INITROWDETAILS 2")
+//            console.log(host_preview.masterData)
+//            console.log(host_preview.masterData[index])
+//            console.log(index)
+//            console.log(parentElement)
+//            console.log(gridElement)
+//            console.log(record)
             host_preview.build_policyTableGrid(index, parentElement, gridElement, record, host_preview, host);
         }
 
         var renderer = function (row, column, value) {
             return '<span class=fx_master_table_render>' + value + '</span>';
+        };
+
+        var $p =  $("#" + host_preview.options.standard_preview_jqxgrid).parent();
+
+        var $c = $("<div id=" + host_preview.options.standard_preview_jqxgrid + "></div>");
+        $("#" + host_preview.options.standard_preview_jqxgrid).jqxGrid('destroy');
+
+        if ($("#" + host_preview.options.standard_preview_jqxgrid).length !== 0) {
+            $("#" + host_preview.options.standard_preview_jqxgrid).remove()
         }
 
+        $p.append( $c );
+
         // create jqxgrid
-        $("#"+host_preview.options.standard_preview_jqxgrid).jqxGrid(
+        $("#" + host_preview.options.standard_preview_jqxgrid).jqxGrid(
             {
                 width: '100%',
                 height: 370,
@@ -276,13 +1148,13 @@ define([
                 rowdetailstemplate: { rowdetails: "<div id='grid' class=fx_master_table_row_details></div>", rowdetailsheight: 200, rowdetailshidden: true },
                 enabletooltips: true,
                 columnsheight: 35,
-                rowsheight : 30,
+                rowsheight: 30,
                 columnsresize: true,
                 sortable: true,
                 filterable: true,
                 showfilterrow: true,
                 ready: function () {
-                    $("#"+host_preview.options.standard_preview_jqxgrid).jqxGrid('showrowdetails', 0);
+                    $("#" + host_preview.options.standard_preview_jqxgrid).jqxGrid('showrowdetails', 0);
                 },
 
                 columns: [
@@ -301,7 +1173,6 @@ define([
         NProgress.done();
     };
 
-
     HostPreview.prototype.build_policyTableGrid = function(index, parentElement, gridElement, record, host_preview, host)
     {
         var id = record.uid.toString();
@@ -313,8 +1184,12 @@ define([
         data.commodity_id = ''+record.CommodityId.toString();
         data.yearTab = host_preview.options.year_tab;
         data.year_list = host_preview.options.year_list;
-        data.start_date = host_preview.options.start_date;
-        data.end_date = host_preview.options.end_date;
+//        data.start_date = host_preview.options.start_date;
+//        data.end_date = host_preview.options.end_date;
+//        data.start_date = host_preview.options.start_date || '1983-01-01';
+//        data.end_date = host_preview.options.end_date || '2025-01-01';
+        data.start_date = host_preview.options.start_date || host.options.default_start_date;
+        data.end_date = host_preview.options.end_date || host.options.default_end_date;
         var payloadrest = JSON.stringify(data);
 
 //        console.log("Before Policy Table Start");
@@ -340,7 +1215,6 @@ define([
                 if (typeof(response) == 'string')
                     json = $.parseJSON(response);
                 //  console.log("json ***"+json+"***");
-
                 var metadata_id = [];
                 var policy_id = [];
                 var cpl_id = [];
@@ -387,6 +1261,7 @@ define([
                 var policytable_data = new Array();
                 for (var i = 0; i < json.length; i++) {
                     var row = {};
+                    //row["CountryCode"] = record
                     row["AdditionalInfoButton"] = "Show";
                     row["MetadataButton"] = "Show";
                     row["EditButton"] = "Edit";
@@ -561,10 +1436,11 @@ define([
                                 break;
                         }
                     }
+                    row["MasterIndex"] = index;
                     policytable_data[i]= row;
                 }
 
-                host_preview.policy_grid_creation(policytable_data, parentElement, host_preview, host);
+                host_preview.policy_grid_creation(policytable_data, parentElement, host_preview, host, index);
             },
             error : function(err,b,c) {
                 alert(err.status + ", " + b + ", " + c);
@@ -572,13 +1448,12 @@ define([
         });
     };
 
-    HostPreview.prototype.policy_grid_creation = function(policytable_data, parentElement, host_preview, host)
+    HostPreview.prototype.policy_grid_creation = function(policytable_data, parentElement, host_preview, host, index)
     {
         //"HsVersion", "HsCode", "HsSuffix", "PolicyElement", "StartDate", "EndDate", "Unit", "Value", "ValueText", "Exemptions", "ShortDescription"
         var policy_source = "";
 
         var info = host_preview.options.host_utility_instance.getPolicyTable_datafields(policytable_data, host);
-
         policy_source =
         {
             localdata: policytable_data,
@@ -607,6 +1482,15 @@ define([
                 }
                 else if(event.args.datafield=="AdditionalInfoButton"){
                     var policy_grid = $($(parentElement).children()[0]);
+                    var policy_grid2 = $($(parentElement).children()[0]);
+                    var datarecord = policy_grid2.jqxGrid('getrowdata', event.args.rowindex);
+                    //console.log(host_preview.masterData[datarecord["MasterIndex"]])
+
+                    var data_entry_obj = {};
+                    data_entry_obj["policy_data"] = datarecord;
+                    data_entry_obj["master_data"] = host_preview.masterData[datarecord["MasterIndex"]];
+                    console.log("Additional info obj")
+                    console.log(data_entry_obj)
                     host_preview.buildAdditionalPolicyTables(host_preview, policy_grid, event);
                 }
                 else if(event.args.datafield=="MetadataButton"){
@@ -621,19 +1505,19 @@ define([
                         $('#metadata_fullscreen').css("display", "none");
                         $('#metadata_fullscreen').fullScreen(false);
                     });
-
                 }
                 else if(event.args.datafield=="EditButton"){
-                   alert("Edit Button");
                     var properties = {};
                     var policy_grid = $($(parentElement).children()[0]);
                     var datarecord = policy_grid.jqxGrid('getrowdata', event.args.rowindex);
-                    console.log(datarecord);
-                    console.log("Policy_id ="+datarecord["Policy_id"]);
+                    var data_entry_obj = {};
+                    data_entry_obj["policy_data"] = datarecord;
+                    data_entry_obj["master_data"] = host_preview.masterData[datarecord["MasterIndex"]];
+                    console.log("Data entry obj")
+                    console.log(data_entry_obj)
                     $('body').trigger('EditSearchButton', properties);
                 }
                 else if(event.args.datafield=="DeleteButton"){
-                    alert("Delete Button");
                     var properties = {};
                     $('body').trigger('DeleteSearchButton', properties);
                 }
@@ -728,9 +1612,9 @@ define([
                                 enabletooltips: true,
 
                                 columns: [
-                                    { text: 'Hs Code', dataField: 'hs_code', width: '20%', renderer: columnsrenderer},
-                                    { text: 'Hs Suffix', dataField: 'hs_suffix', width: '10%', renderer: columnsrenderer},
-                                    { text: 'Hs Version', dataField: 'hs_version', width: '20%', renderer: columnsrenderer},
+                                    { text: 'HS Code', dataField: 'hs_code', width: '20%', renderer: columnsrenderer},
+                                    { text: 'HS Suffix', dataField: 'hs_suffix', width: '10%', renderer: columnsrenderer},
+                                    { text: 'HS Version', dataField: 'hs_version', width: '20%', renderer: columnsrenderer},
                                     { text: 'Short Description', dataField: 'short_description', width: '50%', renderer: columnsrenderer}
                                 ]
                             });
@@ -751,9 +1635,9 @@ define([
                             enabletooltips: true,
 
                             columns: [
-                                { text: 'Hs Code', dataField: 'hs_code', width: '20%', renderer: columnsrenderer},
-                                { text: 'Hs Suffix', dataField: 'hs_suffix', width: '10%', renderer: columnsrenderer},
-                                { text: 'Hs Version', dataField: 'hs_version', width: '20%', renderer: columnsrenderer},
+                                { text: 'HS Code', dataField: 'hs_code', width: '20%', renderer: columnsrenderer},
+                                { text: 'HS Suffix', dataField: 'hs_suffix', width: '10%', renderer: columnsrenderer},
+                                { text: 'HS Version', dataField: 'hs_version', width: '20%', renderer: columnsrenderer},
                                 { text: 'Short Description', dataField: 'short_description', width: '50%', renderer: columnsrenderer}
                             ]
                         });
@@ -778,9 +1662,9 @@ define([
         container.append(leftcolumn);
         container.append(rightcolumn);
 
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsVersion", leftcolumn, "Hs Version", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsCode", leftcolumn, "Hs Code", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsSuffix", leftcolumn, "HsSuffix", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsVersion", leftcolumn, "HS Version", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsCode", leftcolumn, "HS Code", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsSuffix", leftcolumn, "HS Suffix", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("PolicyElement", leftcolumn, "PolicyElement", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("StartDate", leftcolumn, "StartDate", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("EndDate", leftcolumn, "EndDate", datarecord);

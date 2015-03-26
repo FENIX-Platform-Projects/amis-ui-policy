@@ -1,0 +1,157 @@
+{
+    "offset": 70,
+    "affix" : {
+       "offset": {
+          "delta" : 0,
+          "top" : ["div.amis-menu", "div.amis-header"]
+       }
+    },
+    "views": {
+        "#container_1": {
+            "view_sidemenu_0_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_biofuelPolicyTypes-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_biofuelPolicyTypes"
+                }
+            },
+            "view_sidemenu_1_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_biofuelPolicyMeasures-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_biofuelPolicyMeasures"
+                }
+            },
+            "view_sidemenu_2_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_importTariffsQuotas-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_importTariffsQuotas"
+                }
+            },
+            "view_sidemenu_3_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportSubsidies-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_exportSubsidies"
+                }
+            },
+            "view_sidemenu_4_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportRestrictions-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_exportRestrictions"
+                }
+            }
+        }
+    },
+    "menu": {
+        "container": "#menu",
+        "toAffix" : "#toAffix",
+        "items": [
+            {
+                "id": "view-sidemenu-0",
+                "page": "view_sidemenu_0_event",
+                "label": {
+                    "EN": "Biofuels policies"
+                },
+                "children": [
+                    {
+                        "target": "#bd0_submenu1-title",
+                        "label": {
+                            "EN": "Frequency graph"
+                        }
+                    },
+                    {
+                        "target": "#bd0_submenu3_title",
+                        "label": {
+                            "EN": "Time series"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "view-sidemenu-1",
+                "page": "view_sidemenu_1_event",
+                "label": {
+                    "EN": "Biofuels policies-detailed"
+                },
+                "children": [
+                    {
+                        "target": "#bd1_submenu1-title",
+                        "label": {
+                            "EN": "Frequency graph"
+                        }
+                    },
+                    {
+                        "target": "#bd1_submenu3-title",
+                        "label": {
+                            "EN": "Time series"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "view-sidemenu-2",
+                "page": "view_sidemenu_2_event",
+                "label": {
+                    "EN": "Import tariffs"
+                },
+                "children": [
+                    {
+                        "target": "#bd4_submenu1-title",
+                        "label": {
+                            "EN": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "view-sidemenu-3",
+                "page": "view_sidemenu_3_event",
+                "label": {
+                    "EN": "Export subsidies"
+                },
+                "children": [
+                    {
+                        "target": "#bd3_submenu1_title",
+                        "label": {
+                            "EN": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "view-sidemenu-4",
+                "page": "view_sidemenu_4_event",
+                "label": {
+                    "EN": "Export restrictions"
+                },
+                "children": [
+                    {
+                        "target": "#bd2_submenu1-title",
+                        "label": {
+                            "EN": "Frequency graph"
+                        }
+                    },
+                    {
+                        "target": "#bd2_submenu3-title",
+                        "label": {
+                            "EN": "Time series"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

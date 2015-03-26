@@ -1,4 +1,16 @@
-var ap_policiesAtaGlance_exportSubsidies_util = (function() {
+//var ap_policiesAtaGlance_exportSubsidies_util = (function() {
+define([
+    'ap_util_variables',
+    'ap_policyDataObject',
+    'ap_util_functions',
+    'highcharts',
+    'highcharts_exporting',
+    'jquery',
+    'jQAllRangeSliders',
+    'jqwidget',
+    'bootstrap',
+    'xDomainRequest'
+], function(ap_utilVariables, ap_policyDataObject, ap_utilFunctions, highcharts ){
 
     var start_date_dd = '';
     var start_date_mm = '';
@@ -56,7 +68,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                 var json = response;
                 if (typeof(response) == 'string')
                     json = $.parseJSON(response);
-                console.log(json);
 
                 var source2 = new Array();
                 for (var i = 0; i < json.length; i++) {
@@ -104,7 +115,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                     var json = response;
                     if (typeof(response) == 'string')
                         json = $.parseJSON(response);
-                    console.log(json);
 
                     var jsonCodes = json.rootCodes;
                     jsonCodes.sort(function (a, b) {
@@ -122,14 +132,13 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                         var row = {};
                         row.value = c;
                         row.label = l;
-                        console.log("i = "+i + " c = "+c+" l = "+l);
                         source.push(row);
                     }
 
-                    commodity_class_combobox1 = source[0].value;
-                    commodity_class_combobox1_label = source[0].label;
+                    commodity_class_combobox1 = source[1].value;
+                    commodity_class_combobox1_label = source[1].label;
 
-                    $("#bd3_submenu1_combobox2").jqxComboBox({ source: source, selectedIndex: 0, height: '25px', displayMember: 'label', valueMember: 'value'});
+                    $("#bd3_submenu1_combobox2").jqxComboBox({ source: source, selectedIndex: 0, height: '25px', displayMember: 'label', valueMember: 'value', selectedIndex: 1});
 
                     $('#bd3_submenu1_combobox2').on('select', function(event)
                     {
@@ -149,12 +158,12 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                     subMenu1();
                         },
                         error : function(err,b,c) {
-                            alert(err.status + ", " + b + ", " + c);
+                           // alert(err.status + ", " + b + ", " + c);
                         }
                     });
             },
             error : function(err,b,c) {
-                alert(err.status + ", " + b + ", " + c);
+               // alert(err.status + ", " + b + ", " + c);
             }
         });
     }
@@ -170,8 +179,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
             year_list[count]= i;
             count++;
         }
-
-        console.log("Start date : "+start_date_yy + " End date : "+end_date_yy);
 
         var data = ap_policyDataObject.init();
         data.datasource = ap_utilVariables.CONFIG.datasource;
@@ -196,8 +203,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
         data.policy_element = ap_utilVariables.CONFIG.export_subsidies_policy_element;
         var payloadrest = JSON.stringify(data);
         /* Retrive UI structure from DB. */
-        console.log("Before Post "+data.commodity_class_code);
-        console.log(data);
         $.ajax({
 
             type: 'POST',
@@ -210,8 +215,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                 var json = response;
                 if (typeof(response) == 'string')
                     json = $.parseJSON(response);
-                console.log("success");
-                console.log(json[0]);
 
                 if((typeof json[0]!='undefined')&&(json[0]!="NOT_FOUND"))
                 {
@@ -224,7 +227,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                         var index = i+1;
                         unit_for_series_name[""+index] = ap_utilVariables.CONFIG.export_subsidies_units_y[i];
                     }
-                    console.log(unit_for_series_name);
                     //console.log("Success json *"+json.name+"*"+" array "+json.data);
 //                var seriesOptions = json.dataArray;
 //                var commodityClassCode = json.commodityClassCode;
@@ -239,10 +241,39 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                         chart: {
                             //type: 'column',
                             borderWidth: 2,
-                            marginBottom: 100
+//                            marginBottom: 100
+                            marginBottom: 170,
+                            events: {
+                                load: function () {
+                                    var label = this.renderer.label('Graph excludes Special and Differential Treatment (SDT) Notifications<br>Source: AMIS Policy Database')
+                                        .css({
+                                            width: '450px',
+                                            //color: '#222',
+                                            fontSize: '9px'
+                                        })
+                                        .attr({
+                                            //'stroke': 'silver',
+                                            //'stroke-width': 2,
+                                            'r': 5,
+                                            'padding': 10
+                                        })
+                                        .add();
+
+                                    label.align(Highcharts.extend(label.getBBox(), {
+//                                            align: 'center',
+                                        align: 'left',
+                                        x: 0, // offset
+                                        verticalAlign: 'bottom',
+                                        y: 50 // offset
+                                    }), null, 'spacingBox');
+
+                                }
+                            },
+                            spacingBottom: 50
                         },
                         title: {
-                            text: 'Quantity and budgetary outlay export subsidies in '+country_combobox2_label+' for '+commodity_class_combobox1_label+', commitments and notifications'
+                            text: 'Quantity and budgetary outlay export subsidies in '+country_combobox2_label+' for '+commodity_class_combobox1_label+', commitments and notifications',
+                            style: {"fontSize": "11px"}
                         },
                         subtitle: {
                             text: ''+start_date_yy+'-'+end_date_yy
@@ -290,7 +321,6 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
 //                        useHTML: true,
                             formatter: function () {
                                 var s = '<b>' + this.x + '</b> <br/>';
-                                console.log(unit_for_series_name);
 //
                                 $.each(this.points, function () {
 //                                s += '<br/>' + this.series.name + ': '+this.y+" "+ ap_utilVariables.CONFIG.export_subsidies_units[parseInt(this.series.name)-1];
@@ -324,44 +354,85 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
 //                    }
 //                ]
 //            },
+//                        legend: {
+//                            title: {
+//                                text: 'Policy Measure',
+//                                style: {
+//                                    fontWeight: 'bold'
+//                                    //  fontStyle: 'italic',
+//                                    // textDecoration: 'underline'
+//                                }
+//                            },
+//                            layout: 'vertical',
+//                            align: 'right',
+//                            verticalAlign: 'top',
+//                            y: 50,
+//                            borderWidth: 1,
+//                            enabled: true,
+//                            borderColor: '#4572a7',
+//                            labelFormatter: function() {
+////                    var html_legend = ''+this.name+': '+ split_string(pm_name_timeSeries_highcharts[this.name])+'<br/>';
+////                            var html_legend = ''+this.name+': <br/>';
+////                            return html_legend;
+//                                var html_legend = ''+this.name+': '+ split_string(ap_utilVariables.CONFIG.export_subsidies_policy_element_for_legend[parseInt(this.name)-1])+'<br/>';
+//                                return html_legend;
+//                            }
+//                        },
                         legend: {
                             title: {
                                 text: 'Policy Measure',
                                 style: {
-                                    fontStyle: 'italic'
+                                    fontWeight: 'bold'
+                                    //  fontStyle: 'italic',
+                                    // textDecoration: 'underline'
                                 }
                             },
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'top',
-                            y: 50,
-                            borderWidth: 1,
+                            itemWidth: 200,
+                            //y: 10,
+
+                            //Start Before
+//                                layout: 'vertical',
+//                                align: 'right',
+//                                verticalAlign: 'top',
+                            // y: 50,
+                            //End Before
+                            verticalAlign: 'center',
+                            layout: 'horizontal',
+//                                layout: 'vertical',
+                            align: 'center',
+                            //align: 'left',
+//                            y: 370,
+                            y: 280,
+                            x:0,
+                            useHTML: true,
+//                                borderWidth: 1,
                             enabled: true,
                             borderColor: '#4572a7',
                             labelFormatter: function() {
 //                    var html_legend = ''+this.name+': '+ split_string(pm_name_timeSeries_highcharts[this.name])+'<br/>';
 //                            var html_legend = ''+this.name+': <br/>';
 //                            return html_legend;
-                                var html_legend = ''+this.name+': '+ split_string(ap_utilVariables.CONFIG.export_subsidies_policy_element_for_legend[parseInt(this.name)-1])+'<br/>';
+                                //var html_legend = ''+this.name+': '+ split_string(ap_utilVariables.CONFIG.export_subsidies_policy_element_for_legend[parseInt(this.name)-1])+'<br/>';
+                                var html_legend = ''+this.name+': '+ '<span style="font-weight: normal;font-size: 10px;">'+ap_utilVariables.CONFIG.export_subsidies_policy_element_for_legend[parseInt(this.name)-1]+'</span>';
                                 return html_legend;
                             }
                         },
-                        labels: {
-                            items: [
-                                {
-//                        html: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level.<br>Source: AMIS Policy',
-                                    html: 'Graph excludes Special and Differential Treatment (SDT) Notifications<br>Source: AMIS Policy Database',
-                                    style: {
-                                        left: '1px',
-                                        //top: '402px',
-                                        top: '260',
-                                        cursor: 'default',
-                                        color: '#413839',
-                                        fontSize: '10px'
-                                    }
-                                }
-                            ]
-                        },
+//                        labels: {
+//                            items: [
+//                                {
+////                        html: 'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level.<br>Source: AMIS Policy',
+//                                    html: 'Graph excludes Special and Differential Treatment (SDT) Notifications<br>Source: AMIS Policy Database',
+//                                    style: {
+//                                        left: '1px',
+//                                        //top: '402px',
+//                                        top: '260',
+//                                        cursor: 'default',
+//                                        color: '#413839',
+//                                        fontSize: '10px'
+//                                    }
+//                                }
+//                            ]
+//                        },
                         credits: {
                             enabled: false
                         },
@@ -369,6 +440,78 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                             buttons: {
                                 contextButton: {
                                     enabled: false
+
+                                },
+                                exportButton: {
+                                    theme: {
+                                        title: 'Download',
+                                        'stroke-width': 1,
+                                        stroke: '#4572a7',
+                                        //fill: '#f5cd54',
+                                        //  fill: '#bada55',
+                                        fill:'#ADD8E6',
+                                        r: 0,
+                                        states: {
+                                            hover: {
+                                                fill: '#d3d3d3'
+                                            }
+                                        }
+                                    },
+                                    text: 'Download',
+                                    menuItems: [
+                                        {
+                                            text: 'As PNG image',
+                                            onclick: function () {
+                                                this.exportChart({filename: 'Export-subsidies'});
+//                                    this.exportChart(null, {  chart: {
+//                                        style: {
+//                                            fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif', // default font
+//                                            fontSize: '6px'
+//                                        }
+//                                    }});
+//                                     this.exportChart(null, { sourceWidth: 1200,
+//                                         sourceHeight: 400,
+//                                         scale : 2,
+//                                         chartOptions: {
+//                                             yAxis: [{
+//                                                 min: 0,
+//                                                 max: 20
+//                                             }]
+//                                         }
+//                                     });
+
+                                            }
+
+                                        },
+                                        {
+                                            text: 'As JPEG image',
+                                            onclick: function () {
+                                                this.exportChart({
+                                                    type: 'image/jpeg',
+                                                    filename: 'Export-subsidies'
+                                                });
+                                            }
+                                        },
+                                        {
+                                            text: 'As SVG vector image',
+                                            onclick: function () {
+                                                this.exportChart({
+                                                    type: 'image/svg+xml',
+                                                    filename: 'Export-subsidies'
+                                                });
+                                            }
+
+                                        },
+                                        {
+                                            text: 'To PDF document',
+                                            onclick: function () {
+                                                this.exportChart({
+                                                    type: 'application/pdf',
+                                                    filename: 'Export-subsidies'
+                                                });
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         },
@@ -376,14 +519,13 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
                     });
                 }
                 else{
-                    console.log("Not Found!!!!");
                     $('#bd3_submenu1-chart_one').remove();
                     var s ="<div id='bd3_submenu1-chart_one'><b>Data not Available for this selection</b></div>";
                     $('#bd3_submenu1-chart_one_container').append(s);
                 }
             },
             error: function (err, b, c) {
-                alert(err.status + ", " + b + ", " + c);
+              //  alert(err.status + ", " + b + ", " + c);
             }
         });
     }
@@ -392,4 +534,4 @@ var ap_policiesAtaGlance_exportSubsidies_util = (function() {
         subMenu0 : subMenu0,
         subMenu1 : subMenu1
     }
-})();
+});

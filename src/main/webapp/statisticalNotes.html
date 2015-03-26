@@ -90,14 +90,12 @@
             <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
             <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
             <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
-            <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
+            <li class="active"><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
             <li class="dropdown protected">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="../policy-management#cpls">CPL</a></li>
-                    <li><a href="../policy-management#policies">Policy</a></li>
-                    <li><a href="../policy-management#commodities">Commodity</a></li>
-                    <li><a href="../policy-management#sharedgroups">Shared Group</a></li>
+                    <!--<li><a href="../policyinput">Input Data</a></li>-->
+                    <li><a href="../policy/dataEntry.html">Input Data</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -113,7 +111,7 @@
 <!-- Page Title -->
 <div class="container">
     <div class="row">
-        <div id="header" class="fx-header col-lg-12">
+        <div id="header" class="fx-header col-xs-12">
             <div>
                 <!--<a class="pull-left" href='../policy/index.html' target='_self'>-->
                 <!--<img src="img/homePage2.jpg" alt="Browse Data" class="img-responsive">-->
@@ -128,31 +126,24 @@
 </div>
 
 <!--<div class='container'>-->
-    <!--<div class="row">-->
-        <!--<div id="header" class="fx-header col-lg-12"></div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-        <!--<div id="newsslider" class="fx-news-slider col-lg-12"></div>-->
-    <!--</div>-->
+<!--<div class="row">-->
+<!--<div id="header" class="fx-header col-lg-12"></div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div id="newsslider" class="fx-news-slider col-lg-12"></div>-->
+<!--</div>-->
 <!--</div>-->
 
 <!-- Content Container -->
 <div class="container">
     <div class="row">
-        <!--<div class="col-lg-3">-->
-            <!--<div id="sidemenu"></div>-->
-        <!--</div>-->
-        <div class="col-lg-12">
+
+        <div class="col-md-4">
             <h1 class='fx_header_title'>Definitions and classifications</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-1">
-        </div>
-        <div class="col-lg-11">
             <ul>
                 <li><p><a href="../policy/doc/statistical_notes/OrganizationPoliciesInAMISPolicyDatabase.pdf">Diagram organization policies</a></p></li>
-                <li><p><a href="#">Diagram organization database</a></p></li>
+                <!--<li><p><a href="#">Diagram organization database</a></p></li>-->
+                <li><p><a href="../policy/doc/statistical_notes/ConceptNoteAMISPolicyDatabase.pdf">Concept Note</a></p></li>
                 <li><p><a href="../policy/doc/statistical_notes/PolicyDefinitions.pdf">Definitions of policies</a></p></li>
                 <li><p><a href="../policy/doc/statistical_notes/ExplanationOfTheVariablesInTheAMISPolicyDatabase.pdf">Explanation of variables in the database</a></p></li>
                 <li><p><a href="../policy/doc/statistical_notes/Codelist.pdf">Codelist</a></p></li>
@@ -162,27 +153,22 @@
                 <li><p><a href="../policy/doc/statistical_notes/AbbreviationsUsedInTheAMISPolicyDatabase.pdf">Abbreviations</a></p></li>
             </ul>
         </div>
+
+        <div class="col-md-8 amis-notes-box">
+            <h1 class='fx_header_title'>Links</h1>
+
+            <p>Certain data in the AMIS policy database were retrieved from existing WTO or OECD databases. In particular, all data on import tariffs, tariff quotas, export subsidies and in-quota tariffs come directly from WTO databases and can be accessed through the Tariff Analysis Online facility. The selected data on producer and consumer support originate from OECD’s Producer and Consumer Support Estimates database. Data on export restrictions are based on OECD’s Inventory of Restrictions on Exports of Raw Materials. Links to these databases and their detailed methodology documents can be found below:</p>
+            <ul>
+                <li><a href="http://tariffanalysis.wto.org/">Tariff Analysis Online facility (WTO) </a>. This facility allows you to access the WTO's Integrated Data Base (IDB) and Consolidated Tariff Schedules (CTS) database on-line </li>
+                <li><a href="http://qdd.oecd.org/subject.aspx?subject=8F4CFFA0-3A25-43F2-A778-E8FEE81D89E2">Inventory of Restrictions on Exports of Raw Materials (OECD) </a>. This inventory contains information on export regulation in the raw materials sector, namely in agricultural products, minerals, metals and wood</li>
+                <li><a href="http://www.oecd.org/tad/agricultural-policies/producerandconsumersupportestimatesdatabase.htm">Producer and Consumer Support Estimates database (OECD) </a>. Policy data and indicators on government support to agriculture.</li>
+            </ul>
+
+        </div>
+
+
     </div>
     <br>
-    <div class="row">
-        <!--<div class="col-lg-3">-->
-        <!--<div id="sidemenu"></div>-->
-        <!--</div>-->
-        <div class="col-lg-12">
-            <h1 class='fx_header_title'>Links</h1>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <dl>
-                <dt>Certain data in the AMIS policy database were retrieved from existing WTO or OECD databases. In particular, all data on import tariffs, tariff quotas, export subsidies and in-quota tariffs come directly from WTO databases and can be accessed through the Tariff Analysis Online facility. The selected data on producer and consumer support originate from OECD’s Producer and Consumer Support Estimates database. Data on export restrictions are based on OECD’s Inventory of Restrictions on Exports of Raw Materials. Links to these databases and their detailed methodology documents can be found below:</dt><br>
-                <dd>-  <a href="http://tariffanalysis.wto.org/">Tariff Analysis Online facility (WTO) </a>. This facility allows you to access the WTO's Integrated Data Base (IDB) and Consolidated Tariff Schedules (CTS) database on-line </dd>
-                <dd>-  <a href="http://qdd.oecd.org/subject.aspx?subject=8F4CFFA0-3A25-43F2-A778-E8FEE81D89E2">Inventory of Restrictions on Exports of Raw Materials (OECD) </a>. This inventory contains information on export regulation in the raw materials sector, namely in agricultural products, minerals, metals and wood</dd>
-                <dd>-  <a href="http://www.oecd.org/tad/agricultural-policies/producerandconsumersupportestimatesdatabase.htm">Producer and Consumer Support Estimates database (OECD) </a>. Policy data and indicators on government support to agriculture.</dd>
-            </dl>
-        </div>
-    </div>
     <footer id="footer"></footer>
 </div>
 
@@ -223,22 +209,22 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-            <hr>
+        <div class="col-xs-12">
+            <br>
         </div>
     </div>
 </div>
 
 <!--&lt;!&ndash; Footer &ndash;&gt;-->
 <!--<div class="container">-->
-    <!--<div class="row">-->
-        <!--<div class="col-lg-12">-->
+<!--<div class="row">-->
+<!--<div class="col-lg-12">-->
 
-            <!--<div>COPYRIGHT © AmisPOLICY - 2014</div>-->
-            <!--<div>FAQ   |   TERMS OF USE   |   USER GUIDE   |   AmisPOLICY   |   LOGIN</div>-->
+<!--<div>COPYRIGHT © AmisPOLICY - 2014</div>-->
+<!--<div>FAQ   |   TERMS OF USE   |   USER GUIDE   |   AmisPOLICY   |   LOGIN</div>-->
 
-        <!--</div>-->
-    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 <!-- Footer -->

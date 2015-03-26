@@ -239,6 +239,11 @@ p {
     margin: 20px 0;
 }
 
+#sidemenu .ap-diagram-link img {
+    margin: 5px 0;
+}
+
+
 /*  Home Box */
 
 .home-btn-box {
@@ -366,4 +371,329 @@ h4.modal-title{
 .modal-body span{
 
 
+}
+
+
+
+/* Amis FOOTER as home */
+
+div.footer {
+    background: url("images/footer_bg.jpg") repeat-x scroll left bottom #fff;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 28px;
+    height: 220px;
+}
+div.footer p.bodytext {
+    float: left;
+    height: 27px;
+    line-height: 27px;
+    margin: 0 22px 0 0;
+}
+div.footer p.bodytext a {
+    color: #fff;
+}
+div.footer-home {
+    background-color: #fff;
+    margin-top: 25px;
+}
+div.copyright {
+    clear: both;
+    float: right;
+}
+div.copyright p.bodytext {
+    margin: 0;
+}
+#csstabs {
+    height: 170px;
+    margin-left: -17px;
+    position: relative;
+    width: 10px;
+}
+#csstabs ul {
+    padding-left: 0;
+}
+#csstabs p.bodytext {
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0;
+    padding: 0 10px;
+}
+#csstabs h3 {
+    height: 44px;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+}
+.tabcontent {
+    background-color: #fff;
+    border: 0 none;
+    margin-left: 18px;
+    margin-top: 0;
+    height: 130px;
+    width: 940px;
+   color: #000;
+}
+.tabcontent p.bodytext {
+    color: #000;
+}
+
+#tab0 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 2;
+}
+#tab0 .tabcontent p.bodytext {
+    color: #fff;
+}
+#tab1 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab1 h3 {
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 60px;
+    z-index: 3;
+}
+#tab2 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab2 h3 {
+    left: 87px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab3 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab3 h3 {
+    left: 184px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab4 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab4 h3 {
+    left: 296px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab5 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab5 h3 {
+    left: 452px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab6 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab6 h3 {
+    left: 551px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab7 .tabcontent {
+    height: 78px;
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab7 h3 {
+    left: 644px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab8 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab8 h3 {
+    left: 733px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab9 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab9 h3 {
+    left: 815px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#tab10 .tabcontent {
+
+    left: 0;
+    position: absolute;
+    top: 80px;
+    z-index: 1;
+}
+#tab10 h3 {
+    left: 365px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+}
+#csstabs:hover h3, #csstabs:focus h3, #csstabs:active h3 {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#tab1:hover h3, #tab1:focus h3, #tab1:active h3 {
+    z-index: 4;
+}
+#tab1:hover .tabcontent, #tab1:focus .tabcontent, #tab1:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab2:hover h3, #tab2:focus h3, #tab2:active h3 {
+    z-index: 4;
+}
+#tab2:hover .tabcontent, #tab2:focus .tabcontent, #tab2:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab3:hover h3, #tab3:focus h3, #tab3:active h3 {
+    z-index: 4;
+}
+#tab3:hover .tabcontent, #tab3:focus .tabcontent, #tab3:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab4:hover h3, #tab4:focus h3, #tab4:active h3 {
+    z-index: 4;
+}
+#tab4:hover .tabcontent, #tab4:focus .tabcontent, #tab4:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab5:hover h3, #tab5:focus h3, #tab5:active h3 {
+    z-index: 4;
+}
+#tab5:hover .tabcontent, #tab5:focus .tabcontent, #tab5:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab6:hover h3, #tab6:focus h3, #tab6:active h3 {
+    z-index: 4;
+}
+#tab6:hover .tabcontent, #tab6:focus .tabcontent, #tab6:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab7:hover h3, #tab7:focus h3, #tab7:active h3 {
+    z-index: 4;
+}
+#tab7:hover .tabcontent, #tab7:focus .tabcontent, #tab7:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab8:hover h3, #tab8:focus h3, #tab8:active h3 {
+    z-index: 4;
+}
+#tab8:hover .tabcontent, #tab8:focus .tabcontent, #tab8:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab9:hover h3, #tab9:focus h3, #tab9:active h3 {
+    z-index: 4;
+}
+#tab9:hover .tabcontent, #tab9:focus .tabcontent, #tab9:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+#tab10:hover h3, #tab10:focus h3, #tab10:active h3 {
+    z-index: 4;
+}
+#tab10:hover .tabcontent, #tab10:focus .tabcontent, #tab10:active .tabcontent {
+    background: none repeat scroll 0 0 #fff;
+    z-index: 3;
+}
+
+
+/* Amis Tab buttons */
+
+.btn_policy_highstock_tab, .btn_policy_highstock_tab_active {
+    /*Reset's every elements apperance*/
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    margin: 0;
+    padding: 10px 15px;
+    text-decoration: none;
+
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    line-height: 1.42857;
+    margin-right: 2px;
+    background-color: white;
+    border-color: #dddddd;
+
+}
+
+.btn_policy_highstock_tab_active {
+    /*Reset's every elements apperance*/
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    margin: 0;
+    padding: 10px 15px;
+    text-decoration: none;
+    color:  white;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    line-height: 1.42857;
+    margin-right: 2px;
+    background-color: #2a5d9f;
+    border-color: #dddddd;
+
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
 }

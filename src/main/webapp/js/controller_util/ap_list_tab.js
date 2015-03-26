@@ -1,4 +1,8 @@
-var ap_list_tab = (function() {
+define([
+    'jquery',
+    'jqwidget'
+], function( ){
+//var ap_list_tab = (function() {
 
     var CONFIG = {
         //The widget that has to contain the tabs
@@ -31,7 +35,6 @@ var ap_list_tab = (function() {
 
     function buildUI(ap_list_tab_obj) {
 
-        console.log("buildUI start ap_list_tab_obj.custom_widget "+ap_list_tab_obj.custom_widget);
         $("#"+ap_list_tab_obj.custom_widget).append(ap_list_tab.tab_item_creation(ap_list_tab_obj));
 
         // init widgets.
@@ -248,4 +251,4 @@ var ap_list_tab = (function() {
         tab_item_creation   :   tab_item_creation
     };
 
-})();
+});

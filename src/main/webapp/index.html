@@ -83,10 +83,8 @@
             <li class="dropdown protected">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="../policy-management#cpls">CPL</a></li>
-                    <li><a href="../policy-management#policies">Policy</a></li>
-                    <li><a href="../policy-management#commodities">Commodity</a></li>
-                    <li><a href="../policy-management#sharedgroups">Shared Group</a></li>
+                    <!--<li><a href="../policyinput">Input Data</a></li>-->
+                    <li><a href="../policy/dataEntry.html">Input Data</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -101,195 +99,398 @@
 
 <div class="container">
 
-    <!-- HOME CONTENT & LATERAL COLUMN for MENU-->
-    <div class="row">
+<!-- HOME CONTENT & LATERAL COLUMN for MENU-->
+<div class="row">
 
-        <!-- CONTENT-->
-        <div class="col-lg-9">
-            <h1 class='fx_header_title'>WELCOME TO THE AMIS POLICY DATABASE</h1>
+    <!-- CONTENT-->
+    <div class="col-xs-9">
+        <h1 class='fx_header_title'>WELCOME TO THE AMIS POLICY DATABASE</h1>
 
-            <p>The AMIS policy database gathers information on trade measures and domestic measures related to the four
-                AMIS crops (wheat, maize, rice, and soybeans) as well as biofuels. The design of this database allows
-                comparisons across countries, across commodities and across policies for selected periods of time. </p>
-            <br>
+        <p>The AMIS policy database gathers information on trade measures and domestic measures related to the four
+            AMIS crops (wheat, maize, rice, and soybeans) as well as biofuels. The design of this database allows
+            comparisons across countries, across commodities and across policies for selected periods of time. </p>
+        <br>
 
-            <div class="slider_container">
-                <a class="arrow-left" href="#"></a>
-                <a class="arrow-right" href="#"></a>
+        <div class="slider_container">
+            <a class="arrow-left" href="#"></a>
+            <a class="arrow-right" href="#"></a>
 
-                <!-- iDangerous SWIPER -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div data-chart='chartOne' class="swiper-slide">
-                            <div class="content-slide">
-                                <div class="chart-container"></div>
-                            </div>
+            <!-- iDangerous SWIPER -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div data-chart='chartOne' class="swiper-slide">
+                        <div class="content-slide">
+                            <div class="chart-container"></div>
                         </div>
-                        <div data-chart='chartTwo' class="swiper-slide">
-                            <div class="content-slide">
-                                <div class="chart-container"></div>
-                            </div>
+                    </div>
+                    <div data-chart='chartTwo' class="swiper-slide">
+                        <div class="content-slide">
+                            <div class="chart-container"></div>
                         </div>
-                        <div data-chart='chartThree' class="swiper-slide">
-                            <div class="content-slide">
-                                <div class="chart-container"></div>
-                            </div>
+                    </div>
+                    <div data-chart='chartThree' class="swiper-slide">
+                        <div class="content-slide">
+                            <div class="chart-container"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- LATERAL MENU -->
-        <div class="col-lg-3">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
-                    <h2 class="amis-sidebar-title">RESOURCES</h2>
-                    <ul class="amis-bullet">
-                        <li><a data-toggle="modal" data-target="#myModal2">List of the 28 AMIS countries</a></li>
-                        <li>Concept Note</li>
+    </div>
+
+    <!-- LATERAL MENU -->
+    <div class="col-xs-3">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                <h2 class="amis-sidebar-title">RESOURCES</h2>
+                <ul class="amis-bullet">
+                    <li><a data-toggle="modal" data-target="#myModal2">List of the 28 AMIS countries</a></li>
+                    <li><p><a href="../policy/doc/statistical_notes/ConceptNoteAMISPolicyDatabase.pdf">Concept Note</a></p></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+                <h2 class="amis-sidebar-title">POLICY CLASSIFICATION</h2>
+                <p>This diagram illustrates how policies are categorized in the AMIS policy database</p>
+                <a href="../policy/doc/statistical_notes/OrganizationPoliciesInAMISPolicyDatabase.pdf" target='_self' class="ap-diagram-link">
+                    <img src="css/img/logo-diagram.png" height="67px" width="160px"><br>
+                    <span>Open Diagram <i class="fa fa-chevron-circle-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<br>
+
+<!-- FOUR BIG SQUARE BUTTONS -->
+<div class="row">
+    <a href='../policy/policiesAtaGlance.html' target='_self'>
+        <div class="col-sm-3 home-btn-box">
+            <h2 class="text-center"> POLICIES AT A GLANCE </h2>
+
+            <p class="text-center">Get a snapshot of the contents and potential of the policy database. Browse the
+                pre-defined sets of interactive graphs that display different aspects of the database.</p>
+        </div>
+    </a>
+    <a href='../policy/queryAndDownload.html' target='_self'>
+        <div class="col-sm-3 home-btn-box">
+            <h2 class="text-center"> QUERY AND DOWNLOAD </h2>
+
+            <p class="text-center">Select, view and download subsets of the database. A value inspection tool allows
+                for viewing, sorting and filtering the data.</p>
+        </div>
+    </a>
+    <a href='../policy/analysis.html' target='_self'>
+        <div class="col-sm-3 home-btn-box">
+            <h2 class="text-center"> ANALYSIS </h2>
+
+            <p class="text-center">Compare policy information with market information. Graphic tools offer
+                contextual information to visually examine the possible relationship between selected policies and
+                other variables such as production, trade and prices.</p>
+        </div>
+    </a>
+    <a href='../policy/statisticalNotes.html' target='_self'>
+        <div class="col-sm-3 home-btn-box">
+            <h2 class="text-center"> STATISTICAL NOTES </h2>
+
+            <p class="text-center">Look up how variables are defined and classified. Explanatory documents, diagrams
+                and links provide background information on the organization and contents of the database.</p>
+        </div>
+    </a>
+</div>
+
+
+
+<div class="footer">
+    <div class="footer-home">
+        <!--  CONTENT ELEMENT, uid:135270/icebox [begin] -->
+        <div class="csc-default" id="c135270"><script src="http://www.fao.org/fileadmin/templates/AMIS/js/imageswapper.js" type="text/javascript"></script>
+
+            <div id="csstabs">
+
+                <div id="tab0">
+                    <h3></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:136852/text [begin] -->
+                        <div class="csc-default" id="c136852">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>FAO</b> - Achieving food security for all is at the heart of FAO's  efforts - to make sure people have regular access to enough high-quality  food to lead active, healthy lives. FAO's mandate is to raise levels of  nutrition, improve agricultural productivity, better the lives of rural  populations and contribute to the growth of the world economy</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:136852/text [end] -->
+
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
-                    <h2 class="amis-sidebar-title">POLICY CLASSIFICATION</h2>
-                    <p>This diagram illustrates how policies are categorized in the AMIS policy database</p>
-                    <a href='../policy/img/homePage/PolicyDiagram.png' target='_self' class="ap-diagram-link">
 
-                        <img src="css/img/logo-diagram.png" height="67px" width="160px"><br>
-                        <span>Open Diagram <i class="fa fa-chevron-circle-right"></i></span>
+                <div id="tab1">
+                    <h3><img title="FAO" alt="FAO" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/fao_nm.jpg"></h3>
+                    <ul class="tabcontent">
 
-                    </a>
+                        <!--  CONTENT ELEMENT, uid:135271/text [begin] -->
+                        <div class="csc-default" id="c135271">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>FAO</b> - Achieving food security for all is at the heart of FAO's efforts - to make sure people have regular access to enough high-quality food to lead active, healthy lives. FAO's mandate is to raise levels of nutrition, improve agricultural productivity, better the lives of rural populations and contribute to the growth of the world economy.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135271/text [end] -->
 
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <br>
-    <br>
-
-    <!-- FOUR BIG SQUARE BUTTONS -->
-    <div class="row">
-        <a href='../policy/policiesAtaGlance.html' target='_self'>
-            <div class="col-sm-3 home-btn-box">
-                <h2 class="text-center"> POLICIES AT A GLANCE </h2>
-
-                <p class="text-center">Get a snapshot of the contents and potential of the policy database. Browse the
-                    pre-defined sets of interactive graphs that display different aspects of the database.</p>
-            </div>
-        </a>
-        <a href='../policy/queryAndDownload.html' target='_self'>
-            <div class="col-sm-3 home-btn-box">
-                <h2 class="text-center"> QUERY AND DOWNLOAD </h2>
-
-                <p class="text-center">Select, view and download subsets of the database. A value inspection tool allows
-                    for viewing, sorting and filtering the data.</p>
-            </div>
-        </a>
-        <a href='../policy/analysis.html' target='_self'>
-            <div class="col-sm-3 home-btn-box">
-                <h2 class="text-center"> ANALYSIS </h2>
-
-                <p class="text-center">Compare policy information with market information. Graphic tools offer
-                    contextual information to visually examine the possible relationship between selected policies and
-                    other variables such as production, trade and prices.</p>
-            </div>
-        </a>
-        <a href='../policy/statisticalNotes.html' target='_self'>
-            <div class="col-sm-3 home-btn-box">
-                <h2 class="text-center"> STATISTICAL NOTES </h2>
-
-                <p class="text-center">Look up how variables are defined and classified. Explanatory documents, diagrams
-                    and links provide background information on the organization and contents of the database.</p>
-            </div>
-        </a>
-    </div>
-
-
-    <!-- PARTNERS -->
-    <div class="row">
-        <div class="col-xs-12">
-            <h2> PARTNERS </h2>
-            <img class="img-responsive" src="img/partners.jpg">
-        </div>
-    </div>
-
-
-    <!-- FOOTER -->
-    <div class="row amis-footer">
-        <div class="col-xs-2 amis-footer-sides">
-            <a href='#' class='amis-contact-us'>CONTACT US</a>
-        </div>
-        <div class="col-xs-8 amis-footer-menu">
-            <!--AMIS HOME | POLICY HOME | POLICIES AT A GLANCE |  QUERY AND DOWNLOAD  | ANALYSES  |  STATISTICAL NOTES-->
-            <!--<a href="http://www.amis-outlook.org/home/en/" target='_self' style="color:white">AMIS HOME</a> | <a href='../policy/index.html' target='_self' style="color:white">POLICY HOME</a> | <a href='../policy/policiesAtaGlance.html' target='_self' style="color:white">POLICIES AT A GLANCE</a> |  <a href='../policy/queryAndDownload.html' target='_self' style="color:white">QUERY AND DOWNLOAD</a>  | <a href='../policy/analysis.html' target='_self' style="color:white">ANALYSES</a>  |  <a href='../policy/statisticalNotes.html' target='_self' style="color:white">STATISTICAL NOTES</a>-->
-            <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a
-                class="amis-footer-menu" href='../policy/index.html' target='_self'>POLICY HOME</a> | <a
-                class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a>
-            | <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a> |
-            <a class="amis-footer-menu" href='../policy/analysis.html' target='_self'>ANALYSIS</a> | <a
-                class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
-        </div>
-        <div class="col-xs-2 amis-footer-sides">
-            <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe"
-                 href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
-                <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
-
-                <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Country Modal -->
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel2">The 28 AMIS countries are:</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="ap-country-holder">
-                        Argentina <br>
-                        Australia <br>
-                        Brazil<br>
-                        Canada<br>
-                        China<br>
-                        Egypt<br>
-                        European Union<br>
-                        France<br>
-                        Germany<br>
-                        India<br>
-                        Indonesia<br>
-                        Italy<br>
-                        Japan<br>
-                        Kazakhstan<br>
-                        Mexico<br>
-                    </div>
-                    <div class="ap-country-holder">
-                        Nigeria<br>
-                        Philippines<br>
-                        Republic of Korea<br>
-                        Russian Federation<br>
-                        Saudi Arabia<br>
-                        South Africa<br>
-                        Spain<br>
-                        Thailand<br>
-                        Turkey<br>
-                        Ukraine<br>
-                        United Kingdom<br>
-                        United States of America<br>
-                        Viet Nam<br>
-                    </div>
+                    </ul>
                 </div>
 
-            </div>
+                <div id="tab2">
+                    <h3><img title="UN HLTF" alt="UN HLTF" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/un_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135272/text [begin] -->
+                        <div class="csc-default" id="c135272">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>HLTF </b>- The UN High Level Task Force on Global Food Security (HLTF) is a coordination mechanism bringing together 23 international entities chaired by the UN Secretary General with the Director General of FAO as Vice Chair. Its remit is to ensure coherence and coordination of support provided by the international system to countries and regions, and to global initiatives. The strategy for this support is based on a comprehensive twin-track approach to food and nutrition security.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135272/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab3">
+                    <h3><img title="IFAD" alt="IFAD" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/ifad_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135273/text [begin] -->
+                        <div class="csc-default" id="c135273">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>IFAD </b>- The International Fund for Agricultural Development&nbsp;works with poor rural people to enable them to grow and sell more food, increase their incomes and determine the direction of their own lives. Since 1978, IFAD has invested about US$13.2 billion in grants and low-interest loans to developing countries through projects empowering about 400 million people to break out of poverty, thereby helping to create vibrant rural communities. IFAD is an international financial institution and a specialized UN agency based in Rome.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135273/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab4">
+                    <h3><img title="IFPRI" alt="IFPRI" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/ifpri_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135274/text [begin] -->
+                        <div class="csc-default" id="c135274">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>IFPRI </b>- The International Food Policy Research Institute&nbsp;seeks sustainable solutions for ending hunger and poverty. IFPRI’s vision is a world free of Hunger and malnutrition and IFPRI’s mission is to provide policy solutions that reduce poverty and end hunger and malnutrition.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135274/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab10">
+                    <h3><img title="IGC" alt="IGC" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/igc_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:178306/text [begin] -->
+                        <div class="csc-default" id="c178306">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>IGC</b> - The International Grains Council, established by the Grains Trade Convention, 1995 (GTC), seeks to further international cooperation in grains trade, to promote expansion, openness and fairness in the grains sector and to contribute to grain market stability and to enhance world food security. These objectives are sought by improving market transparency through information-sharing, analysis and consultation on grain market and policy developments.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:178306/text [end] -->
+
+                    </ul>
+                </div>
+
+
+                <div id="tab5">
+                    <h3><img title="OECD" alt="OECD" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/oecd_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135275/text [begin] -->
+                        <div class="csc-default" id="c135275">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>OECD</b> - The Organisation for Economic Co-operation and Development promotes policies to improve the economic and social well-being of people around the world. It provides a forum in which governments can work together to share experiences and seek solutions to common problems, it measures, analyses, and compares policy performance, and sets international standards on a wide range of things, from agriculture and tax to the safety of chemicals. </p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135275/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab6">
+                    <h3><img title="UNCTAD" alt="UNCTAD" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/unctad_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135276/text [begin] -->
+                        <div class="csc-default" id="c135276">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>UNCTAD</b> is the United Nations focal point for trade and development, and for interrelated issued in the areas of finance, technology, investment and sustainable development. UNCTAD's objective is to assist developing countries, especially the least developed countries, and countries with economies in transition, to integrate beneficially into the global economy. UNCTAD also seeks to help the international community promote a global partnership for development, increase coherence in global economic policymaking, and assure development gains for all from trade. </p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135276/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab7">
+                     <!-- <h3><img title="World Bank" alt="World Bank" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/wbank_nm.jpg"></h3>-->
+                    <h3><img title="World Bank" alt="World Bank" src="img/HomePageLogos/wbank_nm.jpg"></h3>
+
+
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135277/text [begin] -->
+                        <div class="csc-default" id="c135277">
+                            <!--  Text: [begin] -->
+                      <!--       <p class="bodytext"><b>World Bank</b> - Reduction of global poverty is the World Bank's challenge. The Bank focuses on achievement of the Millennium Development Goals that call for the elimination of poverty and sustained development. The Bank's mission is to help developing countries and their people reach these goals by working with our partners to alleviate poverty. The Bank addresses global challenges in ways that advance an inclusive and sustainable globalization that overcome poverty, enhance growth with care of the environment, and create individual opportunity and hope.</p>-->
+
+<p class="bodytext"><b>World Bank</b> - The World Bank Group has set two goals for the world to achieve by 2030:<br>
+
+	- End extreme poverty by decreasing the percentage of people living on less than $1.25 a day to no more than 3%<br>
+	- Promote shared prosperity by fostering the income growth of the bottom 40% for every country<br>
+
+
+The World Bank is a vital source of financial and technical assistance to developing countries around the world. We are not a bank in the ordinary sense but a unique partnership to reduce poverty and support development.
+</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135277/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab8">
+                    <h3><img title="WFP" alt="WFP" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/wfp_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135278/text [begin] -->
+                        <div class="csc-default" id="c135278">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>WFP</b> is the food assistance arm of the United Nations. The five Strategic Objectives that govern WFP activities are to provide food assistance to: save lives and protect livelihoods in emergencies; prevent acute hunger and invest in disaster preparedness and mitigation measures; restore and rebuild lives and livelihoods in post conflict, post-disaster or transition situations; reduce chronic hunger and under-nutrition; strengthen the capacities of countries to reduce hunger, including through hand-over strategies and local purchase.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135278/text [end] -->
+
+                    </ul>
+                </div>
+
+                <div id="tab9">
+                    <h3><img title="WTO" alt="WTO" src="http://www.fao.org/fileadmin/templates/AMIS/images/logos/wto_nm.jpg"></h3>
+                    <ul class="tabcontent">
+
+                        <!--  CONTENT ELEMENT, uid:135279/text [begin] -->
+                        <div class="csc-default" id="c135279">
+                            <!--  Text: [begin] -->
+                            <p class="bodytext"><b>WTO</b> - The World Trade Organization deals with the global rules of trade between nations. The WTO is member-driven organization &mdash; all decisions are made by the member governments, and the rules are the outcome of negotiations among Members. Its main function is to ensure that trade flows as smoothly, predictably and freely as possible.</p>
+                            <!--  Text: [end] -->
+                        </div>
+                        <!--  CONTENT ELEMENT, uid:135279/text [end] -->
+
+                    </ul>
+                </div>
+
+
+            </div></div>
+        <!--  CONTENT ELEMENT, uid:135270/icebox [end] -->
+    </div>
+    <div class="copyright">
+        <!--  CONTENT ELEMENT, uid:135301/text [begin] -->
+        <div class="csc-default" id="c135301">
+            <!--  Text: [begin] -->
+            <p class="bodytext">&copy; AMIS 2014</p>
+            <!--  Text: [end] -->
+        </div>
+        <!--  CONTENT ELEMENT, uid:135301/text [end] -->
+    </div>
+    <!--  CONTENT ELEMENT, uid:134576/text [begin] -->
+    <div class="csc-default" id="c134576">
+        <!--  Text: [begin] -->
+        <p class="bodytext"><a href="mailto:AMIS-Secretariat@fao.org">Contact us</a></p>
+        <!--  Text: [end] -->
+    </div>
+    <!--  CONTENT ELEMENT, uid:134576/text [end] -->
+
+    <div style="clear:both;"></div>
+</div>
+
+
+
+
+<!-- FOOTER -->
+<div class="row amis-footer">
+    <div class="col-xs-2 amis-footer-sides">
+        <a href='#' class='amis-contact-us'>CONTACT US</a>
+    </div>
+    <div class="col-xs-8 amis-footer-menu">
+        <!--AMIS HOME | POLICY HOME | POLICIES AT A GLANCE |  QUERY AND DOWNLOAD  | ANALYSES  |  STATISTICAL NOTES-->
+        <!--<a href="http://www.amis-outlook.org/home/en/" target='_self' style="color:white">AMIS HOME</a> | <a href='../policy/index.html' target='_self' style="color:white">POLICY HOME</a> | <a href='../policy/policiesAtaGlance.html' target='_self' style="color:white">POLICIES AT A GLANCE</a> |  <a href='../policy/queryAndDownload.html' target='_self' style="color:white">QUERY AND DOWNLOAD</a>  | <a href='../policy/analysis.html' target='_self' style="color:white">ANALYSES</a>  |  <a href='../policy/statisticalNotes.html' target='_self' style="color:white">STATISTICAL NOTES</a>-->
+        <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a
+            class="amis-footer-menu" href='../policy/index.html' target='_self'>POLICY HOME</a> | <a
+            class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE TEST </a>
+        | <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a> |
+        <a class="amis-footer-menu" href='../policy/analysis.html' target='_self'>ANALYSIS</a> | <a
+            class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
+    </div>
+    <div class="col-xs-2 amis-footer-sides">
+        <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe"
+             href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
+            <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
+
+            <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
         </div>
     </div>
+</div>
+
+
+
+
+
+<!-- Country Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel2">The 28 AMIS countries are:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="ap-country-holder">
+                    Argentina <br>
+                    Australia <br>
+                    Brazil<br>
+                    Canada<br>
+                    China<br>
+                    Egypt<br>
+                    European Union<br>
+                    France<br>
+                    Germany<br>
+                    India<br>
+                    Indonesia<br>
+                    Italy<br>
+                    Japan<br>
+                    Kazakhstan<br>
+                    Mexico<br>
+                </div>
+                <div class="ap-country-holder">
+                    Nigeria<br>
+                    Philippines<br>
+                    Republic of Korea<br>
+                    Russian Federation<br>
+                    Saudi Arabia<br>
+                    South Africa<br>
+                    Spain<br>
+                    Thailand<br>
+                    Turkey<br>
+                    Ukraine<br>
+                    United Kingdom<br>
+                    United States of America<br>
+                    Viet Nam<br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </div>
 <!-- /container -->
@@ -310,8 +511,10 @@
 <!-- Jqwidgets  -->
 <script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all.js'></script>
 <!-- highcharts -->
-<script src=" http://code.highcharts.com/highcharts.js"></script>
+<!--<script src=" http://code.highcharts.com/highcharts.js"></script>-->
+<script src="//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts.js"></script>
 <script src="js/highcharts/modules/exporting.js"></script>
+
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9] -->
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -341,11 +544,3 @@
 
 </body>
 </html>
-
-
-submitter » gnopaster | imprint « imprint
-» Terms of use «
-
-
-© 2004-2013 by project-mindstorm IT Services - powered by gnopaste-ng v0.5.5
-generated in 0.317s

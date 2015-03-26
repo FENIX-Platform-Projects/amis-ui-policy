@@ -1,7 +1,8 @@
 define([
     'jquery',
     'nprogress',
-    'jQAllRangeSliders'
+    'jQAllRangeSliders',
+    'xDomainRequest'
 ], function($, NProgress) {
 
     var optionsDefault = {
@@ -385,7 +386,8 @@ define([
                     var days = date2.getDate(),
                         month = date2.getMonth() + 1,
                         year = date2.getFullYear();
-                    return days + "/" + month + "/" + year;
+                   // return days + "/" + month + "/" + year;
+                    return ""+month + "/" + year;
                 }, "left_label_title": start_date_yy, "right_label_title": end_date_yy};
 
                 //Classic Years

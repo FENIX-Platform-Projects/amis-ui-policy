@@ -1,5 +1,6 @@
 define([
-    'jquery'
+    'jquery',
+    'xDomainRequest'
 ], function($) {
 
     var optionsDefault = {

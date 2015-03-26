@@ -1,4 +1,7 @@
-var ap_policyTableObject = (function() {
+define([
+], function( ){
+
+//var ap_policyTableObject = (function() {
 
     var CONFIG = {
 
@@ -106,52 +109,99 @@ var ap_policyTableObject = (function() {
                   original_dataset, type_of_change_code, type_of_change_name, measure_descr, product_original_hs, product_original_name,
                   implementationprocedure, xs_yeartype, link_pdf, benchmark_link_pdf, short_description, shared_group_code)
     {
-        ap_policyTableObject.CONFIG.metadata_id = metadata_id;
-        ap_policyTableObject.CONFIG.policy_id = policy_id;
-        ap_policyTableObject.CONFIG.cpl_id = cpl_id;
-        ap_policyTableObject.CONFIG.commodity_id = commodity_id;
-        ap_policyTableObject.CONFIG.hs_version = hs_version;
-        ap_policyTableObject.CONFIG.hs_code = hs_code;
-        ap_policyTableObject.CONFIG.hs_suffix = hs_suffix;
-        ap_policyTableObject.CONFIG.policy_element = policy_element;
-        ap_policyTableObject.CONFIG.start_date = start_date;
-        ap_policyTableObject.CONFIG.end_date = end_date;
+//        ap_policyTableObject.CONFIG.metadata_id = metadata_id;
+//        ap_policyTableObject.CONFIG.policy_id = policy_id;
+//        ap_policyTableObject.CONFIG.cpl_id = cpl_id;
+//        ap_policyTableObject.CONFIG.commodity_id = commodity_id;
+//        ap_policyTableObject.CONFIG.hs_version = hs_version;
+//        ap_policyTableObject.CONFIG.hs_code = hs_code;
+//        ap_policyTableObject.CONFIG.hs_suffix = hs_suffix;
+//        ap_policyTableObject.CONFIG.policy_element = policy_element;
+//        ap_policyTableObject.CONFIG.start_date = start_date;
+//        ap_policyTableObject.CONFIG.end_date = end_date;
+//
+//        ap_policyTableObject.CONFIG.units = units;
+//        ap_policyTableObject.CONFIG.value = value;
+//        ap_policyTableObject.CONFIG.value_text = value_text;
+//        ap_policyTableObject.CONFIG.value_type = value_type;
+//        ap_policyTableObject.CONFIG.exemptions = exemptions;
+//        ap_policyTableObject.CONFIG.location_condition = location_condition;
+//        ap_policyTableObject.CONFIG.notes = notes;
+//        ap_policyTableObject.CONFIG.link = link;
+//        ap_policyTableObject.CONFIG.source = source;
+//        ap_policyTableObject.CONFIG.title_of_notice = title_of_notice;
+//
+//        ap_policyTableObject.CONFIG.legal_basis_name = legal_basis_name;
+//        ap_policyTableObject.CONFIG.date_of_publication = date_of_publication;
+//        ap_policyTableObject.CONFIG.imposed_end_date = imposed_end_date;
+//        ap_policyTableObject.CONFIG.second_generation_specific = second_generation_specific;
+//        ap_policyTableObject.CONFIG.benchmark_tax = benchmark_tax;
+//        ap_policyTableObject.CONFIG.benchmark_product = benchmark_product;
+//        ap_policyTableObject.CONFIG.tax_rate_biofuel = tax_rate_biofuel;
+//        ap_policyTableObject.CONFIG.tax_rate_benchmark = tax_rate_benchmark;
+//        ap_policyTableObject.CONFIG.start_date_tax = start_date_tax;
+//        ap_policyTableObject.CONFIG.benchmark_link = benchmark_link;
+//
+//        ap_policyTableObject.CONFIG.original_dataset = original_dataset;
+//        ap_policyTableObject.CONFIG.type_of_change_code = type_of_change_code;
+//        ap_policyTableObject.CONFIG.type_of_change_name = type_of_change_name;
+//        ap_policyTableObject.CONFIG.measure_descr = measure_descr;
+//        ap_policyTableObject.CONFIG.product_original_hs = product_original_hs;
+//        ap_policyTableObject.CONFIG.product_original_name = product_original_name;
+//        ap_policyTableObject.CONFIG.implementationprocedure = implementationprocedure;
+//        ap_policyTableObject.CONFIG.xs_yeartype = xs_yeartype;
+//        ap_policyTableObject.CONFIG.link_pdf = link_pdf;
+//        ap_policyTableObject.CONFIG.benchmark_link_pdf = benchmark_link_pdf;
+//
+//        ap_policyTableObject.CONFIG.short_description = short_description;
+//        ap_policyTableObject.CONFIG.shared_group_code = shared_group_code;
 
-        ap_policyTableObject.CONFIG.units = units;
-        ap_policyTableObject.CONFIG.value = value;
-        ap_policyTableObject.CONFIG.value_text = value_text;
-        ap_policyTableObject.CONFIG.value_type = value_type;
-        ap_policyTableObject.CONFIG.exemptions = exemptions;
-        ap_policyTableObject.CONFIG.location_condition = location_condition;
-        ap_policyTableObject.CONFIG.notes = notes;
-        ap_policyTableObject.CONFIG.link = link;
-        ap_policyTableObject.CONFIG.source = source;
-        ap_policyTableObject.CONFIG.title_of_notice = title_of_notice;
+        this.CONFIG.metadata_id = metadata_id;
+        this.CONFIG.policy_id = policy_id;
+        this.CONFIG.cpl_id = cpl_id;
+        this.CONFIG.commodity_id = commodity_id;
+        this.CONFIG.hs_version = hs_version;
+        this.CONFIG.hs_code = hs_code;
+        this.CONFIG.hs_suffix = hs_suffix;
+        this.CONFIG.policy_element = policy_element;
+        this.CONFIG.start_date = start_date;
+        this.CONFIG.end_date = end_date;
 
-        ap_policyTableObject.CONFIG.legal_basis_name = legal_basis_name;
-        ap_policyTableObject.CONFIG.date_of_publication = date_of_publication;
-        ap_policyTableObject.CONFIG.imposed_end_date = imposed_end_date;
-        ap_policyTableObject.CONFIG.second_generation_specific = second_generation_specific;
-        ap_policyTableObject.CONFIG.benchmark_tax = benchmark_tax;
-        ap_policyTableObject.CONFIG.benchmark_product = benchmark_product;
-        ap_policyTableObject.CONFIG.tax_rate_biofuel = tax_rate_biofuel;
-        ap_policyTableObject.CONFIG.tax_rate_benchmark = tax_rate_benchmark;
-        ap_policyTableObject.CONFIG.start_date_tax = start_date_tax;
-        ap_policyTableObject.CONFIG.benchmark_link = benchmark_link;
+        this.CONFIG.units = units;
+        this.CONFIG.value = value;
+        this.CONFIG.value_text = value_text;
+        this.CONFIG.value_type = value_type;
+        this.CONFIG.exemptions = exemptions;
+        this.CONFIG.location_condition = location_condition;
+        this.CONFIG.notes = notes;
+        this.CONFIG.link = link;
+        this.CONFIG.source = source;
+        this.CONFIG.title_of_notice = title_of_notice;
 
-        ap_policyTableObject.CONFIG.original_dataset = original_dataset;
-        ap_policyTableObject.CONFIG.type_of_change_code = type_of_change_code;
-        ap_policyTableObject.CONFIG.type_of_change_name = type_of_change_name;
-        ap_policyTableObject.CONFIG.measure_descr = measure_descr;
-        ap_policyTableObject.CONFIG.product_original_hs = product_original_hs;
-        ap_policyTableObject.CONFIG.product_original_name = product_original_name;
-        ap_policyTableObject.CONFIG.implementationprocedure = implementationprocedure;
-        ap_policyTableObject.CONFIG.xs_yeartype = xs_yeartype;
-        ap_policyTableObject.CONFIG.link_pdf = link_pdf;
-        ap_policyTableObject.CONFIG.benchmark_link_pdf = benchmark_link_pdf;
+        this.CONFIG.legal_basis_name = legal_basis_name;
+        this.CONFIG.date_of_publication = date_of_publication;
+        this.CONFIG.imposed_end_date = imposed_end_date;
+        this.CONFIG.second_generation_specific = second_generation_specific;
+        this.CONFIG.benchmark_tax = benchmark_tax;
+        this.CONFIG.benchmark_product = benchmark_product;
+        this.CONFIG.tax_rate_biofuel = tax_rate_biofuel;
+        this.CONFIG.tax_rate_benchmark = tax_rate_benchmark;
+        this.CONFIG.start_date_tax = start_date_tax;
+        this.CONFIG.benchmark_link = benchmark_link;
 
-        ap_policyTableObject.CONFIG.short_description = short_description;
-        ap_policyTableObject.CONFIG.shared_group_code = shared_group_code;
+        this.CONFIG.original_dataset = original_dataset;
+        this.CONFIG.type_of_change_code = type_of_change_code;
+        this.CONFIG.type_of_change_name = type_of_change_name;
+        this.CONFIG.measure_descr = measure_descr;
+        this.CONFIG.product_original_hs = product_original_hs;
+        this.CONFIG.product_original_name = product_original_name;
+        this.CONFIG.implementationprocedure = implementationprocedure;
+        this.CONFIG.xs_yeartype = xs_yeartype;
+        this.CONFIG.link_pdf = link_pdf;
+        this.CONFIG.benchmark_link_pdf = benchmark_link_pdf;
+
+        this.CONFIG.short_description = short_description;
+        this.CONFIG.shared_group_code = shared_group_code;
     }
 
 
@@ -159,4 +209,4 @@ return {  CONFIG : CONFIG,
             init    :  init
     }
 
-})();
+});

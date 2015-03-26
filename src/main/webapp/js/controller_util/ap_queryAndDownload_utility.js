@@ -1,6 +1,7 @@
 define([
     'jquery',
-    'jQAllRangeSliders'
+    'jQAllRangeSliders',
+    'xDomainRequest'
 ], function($) {
 
     var optionsDefault = {
@@ -91,13 +92,18 @@ define([
                     var date2 = new Date(selecteditems.min);
                     var days = date2.getDate();
                     days=this.data_change(''+days);
+                    //ONLY FOR THE POLICY
+                    days= "01";
                     var month = date2.getMonth() + 1;
                     month=this.data_change(''+month);
                     var year = date2.getFullYear();
+//                    selected_items_string[0] = year+ "-"+month + "-"+days;
                     selected_items_string[0] = year+ "-"+month + "-"+days;
                     date2 = new Date(selecteditems.max);
                     days = date2.getDate();
                     days=this.data_change(''+days);
+                    //ONLY FOR THE POLICY
+                    days= "28";
                     month = date2.getMonth() + 1;
                     month=this.data_change(''+month);
                     year = date2.getFullYear();
@@ -287,15 +293,15 @@ define([
             //No Shared Group
             obj = { name: 'HsCode' };
             datafields.push(obj);
-            obj2 = { text: 'Hs Code', datafield: 'HsCode', rendered: tooltiprenderer };
+            obj2 = { text: 'HS Code', datafield: 'HsCode', rendered: tooltiprenderer };
             columns.push(obj2);
             obj = { name: 'HsVersion' };
             datafields.push(obj);
-            obj2 = { text: 'Hs Version', datafield: 'HsVersion', rendered: tooltiprenderer };
+            obj2 = { text: 'HS Version', datafield: 'HsVersion', rendered: tooltiprenderer };
             columns.push(obj2);
             obj = { name: 'HsSuffix' };
             datafields.push(obj);
-            obj2 = { text: 'Hs Suffix', datafield: 'HsSuffix', rendered: tooltiprenderer };
+            obj2 = { text: 'HS Suffix', datafield: 'HsSuffix', rendered: tooltiprenderer };
             columns.push(obj2);
         }
 
@@ -463,6 +469,9 @@ define([
         datafields.push(obj);
         obj = { name: 'SharedGroupCode'};
         datafields.push(obj);
+
+        obj = { name: 'MasterIndex'};
+        datafields.push(obj);
         //For the additional information window end
         var colNum = columns.length;
         var dim = 100/columns.length;
@@ -478,6 +487,7 @@ define([
         return info;
     }
 
+    //E.g. ("Link", leftcolumn, "Link", datarecord)
     HostUtility.prototype.checkAdditional_info_window_Datafield = function(type, column, title, datarecord)
     {
         var element = '';
@@ -489,14 +499,23 @@ define([
 //        {
 //            element = "<div style='margin: 10px;'><b>"+title+":</b> " + ''+ "</div>";
 //        }
+
         if((datarecord[type]!=null)||(typeof datarecord[type]!= "undefined"))
         {
-            element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + datarecord[type] + "</div>";
+            if(type == "Link")
+            {
+                //It has to be an hyperlink
+                element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + " <a href="+datarecord[type]+" target='_self'>"+datarecord[type]+"</a>" + "</div>";
+            }
+            else{
+                element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + datarecord[type] + "</div>";
+            }
         }
         else
         {
             element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + ''+ "</div>";
         }
+
         $(column).append(element);
     }
 
@@ -508,7 +527,6 @@ define([
                     a.splice(j--, 1);
             }
         }
-
         return a;
     };
 

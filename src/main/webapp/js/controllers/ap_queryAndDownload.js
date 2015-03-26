@@ -1,15 +1,22 @@
 define([
+    'backbone',
     'qd_controller',
     'text!json/conf.json',
+    'text!json/dataEntry_conf.json',
     'host_utility',
     'host_domainParser',
     'host_buttonActions',
     'host_policyDataObject',
     'host_preview',
     'nprogress',
+//    'fenix-map',
+//    'router',
     'jquery',
-    'jQAllRangeSliders'
-], function( Qd, conf , HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress){
+    'jQAllRangeSliders',
+    'xDomainRequest'
+
+//], function(Backbone, Qd, conf , data_entry_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, Router){
+], function(Backbone, Qd, conf , data_entry_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress){
 
     var optionsDefault = {
 
@@ -40,21 +47,36 @@ define([
         fx_selector_8_2 : 'fx_selector_8_2',
 
         //To WDS
-        base_ip_address    :  '168.202.28.26',
-        base_ip_port    :  '8090',
-//        base_ip_address    :  'statistics.amis-outlook.org',
-//        base_ip_port    :  '80',
+//        base_ip_address    :  '168.202.28.26',
+//        base_ip_port    :  '8090',
+        base_ip_address    :  'statistics.amis-outlook.org',
+        base_ip_port    :  '80',
         datasource      :   'POLICY',
-        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
-        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
+//        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
+//        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
+//        //For Preview Action
+//        downloadPreview_url     :   '/wds/rest/policyservice/downloadPreview',
+//        masterFromCplId_url     :   '/wds/rest/policyservice/masterFromCplId',
+//        policyTable_url     :   '/wds/rest/policyservice/downloadPreviewPolicyTable',
+//        shareGroupCommodities_url     :   '/wds/rest/policyservice/shareGroupInfo',
+        policyTypes_url   :   '/wdspolicy/rest/policyservice/policyTypes',
+        startAndEndDate_url   :   '/wdspolicy/rest/policyservice/startEndDate',
         //For Preview Action
-        downloadPreview_url     :   '/wds/rest/policyservice/downloadPreview',
-        masterFromCplId_url     :   '/wds/rest/policyservice/masterFromCplId',
-        policyTable_url     :   '/wds/rest/policyservice/downloadPreviewPolicyTable',
-        shareGroupCommodities_url     :   '/wds/rest/policyservice/shareGroupInfo',
+        downloadPreview_url     :   '/wdspolicy/rest/policyservice/downloadPreview',
+        masterFromCplId_url     :   '/wdspolicy/rest/policyservice/masterFromCplId',
+        masterFromCplIdAndSubnational     :   '/wdspolicy/rest/policyservice/masterFromCplIdAndSubnational',
+        policyTable_url     :   '/wdspolicy/rest/policyservice/downloadPreviewPolicyTable',
+        shareGroupCommodities_url     :   '/wdspolicy/rest/policyservice/shareGroupInfo',
+        mapData     :   '/wdspolicy/rest/policyservice/mapData',
+//        gaulsubnationalLevel_url    :   'GAUL/1.0?level=2',
+        //gaulsubnationalLevel_url    :   'GAUL/1.0?level=2',
 
+        //To D3S for GAUL
+//        codelist_url_2    :   'http://faostat3.fao.org:7777/msd/cl/code/',
+        codelist_url_2    :   'http://faostat3.fao.org/d3s2/v2/msd/codes/filter',
         //To D3S
         codelist_url    :   'http://faostat3.fao.org/d3sp/service/msd/cl/system',
+//        codelist_url    :   'http://faostat3.fao.org:7788/msd/cl/system',
        // codelist_url    :   'http://hqlprfenixapp2.hq.un.fao.org:7788/msd/cl/system',
         codelist_url_CommodityAgricultural  :  'OECD_CommodityClass1',
         codelist_url_CommodityBiofuels  :  'OECD_CommodityClass2',
@@ -100,8 +122,13 @@ define([
         country_agricultural_domestic_codes : ['17','37','46','53','999000','116','126','202','132','162','204','249','254','259','227'],
 
         //"preview" is Query and Download page, "search" is Input Data page
-//        button_preview_action_type : "preview"
-        button_preview_action_type : "search"
+        button_preview_action_type : "preview",
+//        button_preview_action_type : "search",
+
+        //This is used in the Search action
+//        default_start_date : '1983-01-01',
+        default_start_date : '1995-01-01',
+        default_end_date : '2025-01-01'
     }
 
     //text= Loads dependencies as plain text files.
@@ -111,6 +138,13 @@ define([
             this.options = {};
         }
         $.extend(true, this.options, optionsDefault, o);
+
+        var self = this;
+        if(this.options.button_preview_action_type == "search") {
+            require(['router'], function(Router) {
+                self.initRouter(Router, self);
+            });
+        }
     }
 
 //    Host.prototype.init = function(){
@@ -143,6 +177,8 @@ define([
         this.options.host_policy_data_object = new HostPolicyDataObject();
         this.options.host_button_actions = new HostButtonActions();
         this.options.host_button_actions.options.host_preview = new HostPreview();
+
+        //this.options.host_button_actions.options.host_preview.createMap("map2");
         var self = this;
         this.map_event_creation();
 
@@ -150,22 +186,31 @@ define([
         //The object will be used to set properties, that could be useful for other use cases
         var obj ='';
 
-        var qd_instance = new Qd({
-            container :  document.querySelector('#qd_component')
-        }).initialize(JSON.parse(conf), obj);
+        var qd_instance = '';
+
+        if(this.options.button_preview_action_type == "search"){
+            //Data Entry
+            qd_instance = new Qd({
+                container :  document.querySelector('#qd_component')
+            }).initialize(JSON.parse(data_entry_conf), obj);
+            this.initInputFunctionalities();
+        }
+        else{
+            //By default is Query and Download
+            qd_instance = new Qd({
+                container :  document.querySelector('#qd_component')
+            }).initialize(JSON.parse(conf), obj);
+        }
 
         //It's possible to put this listener here because the "selectors_added" event is called just once
         //The variable of the model for this selector is changed
         //The body is used because the #fx_selector_4 is not yet in the html
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_1_changed"], function(){
-            console.log('Host selected_fx_selector_1_changed ');
 
             var selecteditem = qd_instance.getSelectedItems(self.options.fx_selector_2);
             var selectItemsArray = [];
             selectItemsArray.push(selecteditem);
-            console.log('selecteditem '+selecteditem);
-            console.log(selecteditem);
             //Reload the selection for Policy Domain to force the 'selected_fx_selector_2_changed' event
             //Select
             qd_instance.update_selector_selection(self.options.fx_selector_2, selectItemsArray, true);
@@ -178,11 +223,10 @@ define([
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_2_changed"], function(){
-            console.log('Host selected_fx_selector_2_changed ');
+
             //The Loading Window
             NProgress.start();
             var selecteditem = qd_instance.getSelectedItems(self.options.fx_selector_1);
-            console.log('Host selected_fx_selector_2_changed '+selecteditem);
             if((selecteditem!=null)&&(typeof selecteditem!='undefined'))
             {
                 var commodity_domain = ''+selecteditem.code;
@@ -234,7 +278,6 @@ define([
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_3_changed"], function(){
-            console.log('Host selected_fx_selector_3_changed !!!!!!');
 
             self.options.host_domain_parser.listbox_element_enable_and_disable(qd_instance, self.options.fx_selector_3, self.options.fx_selector_4);
 //            var selecteditems = qd_instance.getSelectedItems('fx_selector_3');
@@ -257,12 +300,11 @@ define([
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_4_changed"], function(){
-            console.log('Host selected_fx_selector_4_changed !!!!!!');
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_5_changed"], function(event, properties){
 
-            console.log('Host selected_fx_selector_5_changed ');//properties.changed_item
+            //properties.changed_item
             //console.log("Properties... ");
 //            console.log(event);
             //console.log(properties);
@@ -286,17 +328,14 @@ define([
                 if ((item.value != null) && (typeof item.value != 'undefined') && (item.value.length > 0)) {
                     //console.log("22222 ");
                     var code = item.value.substring(item.value.indexOf('_') + 1);
-                    console.log("code =  "+code);
                     var parent_index = $.inArray(code, self.options.commodity_parent_codes);
                     if (parent_index != -1) {
-                        console.log("parent_index =  "+parent_index);
                         //Case: Maize, Rice, Soybean, Wheat
                         //console.log("item.selected =  "+item.selected);
                         if (item.event_type == 'select') {
                             //The item has been selected
                             var items_to_select = self.options.commodity_children_codes[parent_index];
                             //console.log("items_to_select ");
-                            console.log(items_to_select);
                             var source_domain = qd_instance.getSelector_domain(self.options.fx_selector_5, true);
                             //console.log("Source domain ");
                            // console.log(source_domain);
@@ -314,8 +353,6 @@ define([
                                     }
                                 }
                                 properties_index = self.options.host_utility_instance.unique(properties_index);
-                                console.log("properties_index ");
-                                console.log(properties_index);
                                 if ((properties_index != null) && (typeof properties_index != 'undefined') && (properties_index.length > 0)) {
                                     qd_instance.update_selector_selection(self.options.fx_selector_5, properties_index, true);
                                 }
@@ -410,7 +447,6 @@ define([
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_8_2_changed"], function(){
-             console.log('Host selected_fx_selector_8_2_changed ');
             var export_type = 'AllData';
             self.options.host_button_actions.download_action(qd_instance, self, export_type);
         });
@@ -465,6 +501,98 @@ define([
             rest_url = {'rest_url_type':self.options.startAndEndDate_url, 'rest_url_datasource' : self.options.datasource};
             self.options.host_domain_parser.getDomainYear(qd_instance, selector_id, rest_url, self);
         });
+    };
+
+    Host.prototype.initInputFunctionalities = function () {
+        this.initExpertSearch();
+        this.bindEventListeners();
+    };
+
+    Host.prototype.bindEventListeners = function () {
+        $('body').on("EditSearchButton", $.proxy(this.onEditAction, this));
+        $('body').on("DeleteSearchButton", $.proxy(this.onDeleteAction, this));
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $('#standard_preview_jqxgrid').jqxGrid('clear');
+        })
+    };
+
+    Host.prototype.onEditAction = function (e, payload) {
+        console.log(payload)
+        window.currentRecord = payload;
+        console.log(payload)
+        //window.open("http://example.com/", '_self');
+        //Backbone.history.navigate('/record/edit/', {trigger:true, replace: false})
+    };
+
+    Host.prototype.onDeleteAction = function (e, payload) {
+        var $modal = $('#deleteModal'),
+            $submit = $modal.find("#delMod_submit"),
+            $cplid = $modal.find("#delMod_cplid"),
+            $commid = $modal.find("#delMod_commid"),
+            $polid = $modal.find("#delMod_polid"),
+            $locid = $modal.find("#delMod_loc"),
+            $text = $modal.find("#delMod_text");
+        $submit.attr("disabled", "disabled");
+        $cplid.html(payload.CplId);
+        $commid.html(payload.Policy_id);
+        $polid.html(payload.CommodityId);
+        $locid.html(payload.location_condition);
+        //TODO remove previous handler
+        $text.on('change paste keyup', function () {
+            if ($text.val() !== ''){
+                $submit.removeAttr('disabled')
+            } else {
+                $submit.attr("disabled","disabled");
+            }
+        });
+        $modal.modal('show');
+        $submit.on('click', function () {
+            $modal.modal('hide');
+        } )
+    };
+
+    Host.prototype.initExpertSearch = function () {
+        $('#expert_search_submit').on('click', $.proxy(this.onExpertSearchSubmit, this));
+    };
+    Host.prototype.onExpertSearchSubmit = function () {
+        var value = $('#expert_search_input').val();
+        if (this.validateExpertSearch(value)) {
+            var p = {
+                "datasource": "POLICY",
+                "policy_domain_code": "",
+                "commodity_domain_code": "",
+                "commodity_class_code": "",
+                "policy_type_code": [
+                ],
+                "policy_measure_code": [
+                ],
+                "country_code": "",
+                "yearTab": "",
+                "year_list": "",
+                "start_date": "",
+                "end_date": "",
+                "cpl_id": "'" + value + "'",
+                "commodity_id": ""
+            };
+            this.options.host_button_actions.options.host_preview.getPolicyFromCpls(this, JSON.stringify(p));
+        } else {
+            this.showExpertError('Invalid CPL id');
+        }
+    };
+    Host.prototype.showExpertError = function (e) {
+        var alert = '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><strong>Warning!</strong> ' + e + ' </div>';
+        $('.expert_search_alert_container').html(alert);
+    };
+    Host.prototype.validateExpertSearch = function (payload) {
+        var valid = true;
+        if (typeof payload !== 'string') {
+            valid = false;
+        }
+        return valid;
+    };
+    Host.prototype.initRouter = function (Router, self) {
+        // Pass in our Router module and call it's initialize function
+        var router = new Router({ host : self });
     };
 
     return Host;

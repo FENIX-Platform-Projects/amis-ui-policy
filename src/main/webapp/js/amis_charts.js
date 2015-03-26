@@ -9,9 +9,9 @@ window.AMIS_home_charts = {
         "title":{
             "text":"Number of AMIS countries with biofuel policies, disaggregated by policy type",
             "style": {
-            color: '#2a5d9f',
-            fontFamily: 'Open Sans Condensed'
-        }
+                color: '#2a5d9f',
+                fontFamily: 'Open Sans Condensed'
+            }
         },
         "subtitle":{
             "text":"Period 01-2010 until 01-2014"
@@ -44,7 +44,8 @@ window.AMIS_home_charts = {
             "pointFormat":"<tr><td style='color:{series.color};padding:0'>{series.name}: </td><td style='padding:0'><b>{point.y}</b></td></tr>",
             "footerFormat":"</table>",
             "shared":true,
-            "useHTML":true
+            "useHTML":true,
+            "enabled":false
         },
         "labels":{
             "items":[
@@ -66,11 +67,16 @@ window.AMIS_home_charts = {
         "plotOptions":{
             "column":{
                 "pointPadding":0.2,
-                "borderWidth":0
+                "borderWidth":0,
+                events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
             }
         },
         "legend":{
-            "enabled": false,
+            "enabled": true,
             "title":{
                 "text":"Policy Type",
                 "style":{
@@ -197,16 +203,22 @@ window.AMIS_home_charts = {
             "pointFormat":"<tr><td style='color:{series.color};padding:0'>{series.name}:</td><td style='padding:0'><b>{point.y:.1f}</b></td></tr>",
             "footerFormat":"</table>",
             "shared":true,
-            "useHTML":true
+            "useHTML":true,
+            "enabled":false
         },
         "plotOptions":{
             "column":{
                 "pointPadding":0.2,
-                "borderWidth":0
+                "borderWidth":0,
+                events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
             }
         },
         "legend":{
-            "enabled": false,
+            "enabled": true,
             "title":{
                 "text":"Commodity Class",
                 "style":{
@@ -244,80 +256,8 @@ window.AMIS_home_charts = {
                 }
             }
         },
-        "series":[
-            {
-                "name":'1: Wheat: Final Bound Tariff',
-                "data":[
-                    18,
-                    10,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'2: Wheat: MFN Applied Tariff',
-                "data":[
-                    18,
-                    0,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'3: Maize: Final Bound Tariff',
-                "data":[
-                    10,
-                    0,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'4: Maize: MFN Applied Tariff',
-                "data":[
-                    10,
-                    0,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'5: Rice: Final Bound Tariff',
-                "data":[
-                    10,
-                    10,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'6: Rice: MFN Applied Tariff',
-                "data":[
-                    10,
-                    0,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'7: Soybean: Final Bound Tariff',
-                "data":[
-                    0,
-                    0,
-                    0,
-                    0
-                ]
-            },
-            {
-                "name":'8: Soybean: MFN Applied Tariff',
-                "data":[
-                    0,
-                    0,
-                    0,
-                    0
-                ]
-            }
-        ]
+        "series":[{"name":'1: Wheat: Final Bound Tariff',"data":[44,60.1573770491803,34.902500000000025,28.76619718309869]},{"name":'2: Wheat: MFN Applied Tariff',"data":[44,23.217857142857152,11.701626016260152,10.781333333333436]},{"name":'3: Maize: Final Bound Tariff',"data":[33.333333333333336,59.552307692307714,37.541428571430565,51.9243243243246]},{"name":'4: Maize: MFN Applied Tariff',"data":[33.333333333333336,18.82586206896547,12.670422535211138,32.92151898734162]},{"name":'5: Rice: Final Bound Tariff',"data":[41.5625,54.82183908045977,39.16428571428571,34.499999999999915]},{"name":'6: Rice: MFN Applied Tariff',"data":[41.5625,29.25,16.95744680851064,18.260714285714293]},{"name":'7: Soybean: Final Bound Tariff',"data":[4.9,73.5758620689654,28.917045454545587,11.31800000000012]},{"name":'8: Soybean: MFN Applied Tariff',"data":[4.9,12.495652173913033,6.65568181818181,4.241176470588247]}]
+
     },
     'chartThree': {
         "chart":{
@@ -366,12 +306,13 @@ window.AMIS_home_charts = {
             "pointFormat":"<tr><td style='color:{series.color};padding:0'>{series.name}: </td><td style='padding:0'><b>{point.y}</b></td></tr>",
             "footerFormat":"</table>",
             "shared":true,
-            "useHTML":true
+            "useHTML":true,
+            "enabled":false
         },
         "labels":{
             "items":[
                 {
-                    "html":'In Australia, Brazil, Canada, Mexico and US policies can be implemented at State-level. <br>Biodiesel, ethanol and biofuel are mutually exclusive categories.<br>Source: AMIS Policy',
+                    html: 'Graph excludes mixed commodity classes.<br>Countries target their interventions on specific varieties, often at the HS8 or HS10 digit level.<br>Source: AMIS Policy Database',
                     "style":{
                         "left":"1px",
                         "top":"220px",
@@ -388,7 +329,12 @@ window.AMIS_home_charts = {
         "plotOptions":{
             "column":{
                 "pointPadding":0.2,
-                "borderWidth":0
+                "borderWidth":0,
+                events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
             }
         },
         "legend":{
@@ -403,7 +349,7 @@ window.AMIS_home_charts = {
             "verticalAlign":"top",
             "y":50,
             "borderWidth":1,
-            "enabled":false,
+            "enabled":true,
             "borderColor":"#4572a7"
         },
         "exporting":{

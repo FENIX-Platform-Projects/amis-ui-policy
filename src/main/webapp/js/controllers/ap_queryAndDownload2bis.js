@@ -379,7 +379,7 @@ var ap_queryAndDownload = (function() {
                 var data = new Array();
                 /* Fill it...result from codelist */
                 var system = json.system;
-                console.log("system="+system);
+
                 if(system.indexOf('Commodity')!=-1)
                 {
                     type = ap_queryAndDownload.CONFIG.commodity_type;
@@ -388,7 +388,7 @@ var ap_queryAndDownload = (function() {
                 {
                     type = ap_queryAndDownload.CONFIG.country_type;
                 }
-                console.log("Type="+type);
+
                 for (var i = 0 ; i < json.rootCodes.length ; i++) {
 //                        var c = json.rootCodes[i].code;
 //                        var l = json.rootCodes[i].title['EN'];
@@ -604,10 +604,10 @@ var ap_queryAndDownload = (function() {
                     var tab_name_description = [];
                     var tab_procedure_name = [];
 
-                    for (var i = 0 ; i < json.length ; i++) {
-                        console.log("Policy json["+i+"][0] ***"+ json[i][0]+"***");
-                        console.log("Policy json["+i+"][1] ***"+ json[i][1]+"***");
-                    }
+//                    for (var i = 0 ; i < json.length ; i++) {
+//                        console.log("Policy json["+i+"][0] ***"+ json[i][0]+"***");
+//                        console.log("Policy json["+i+"][1] ***"+ json[i][1]+"***");
+//                    }
 
                     buildPolicyMeasures(json);
                 },
@@ -849,7 +849,7 @@ var ap_queryAndDownload = (function() {
                     //OECD_PolicyType2
                     var pt_code = system.substring(15);
                     var pt_label = title.substring(5);
-                    console.log("pt_code "+pt_code +" pt_label "+pt_label);
+
                     // alert("pt_code "+pt_code);
                     /* Fill it...result from codelist */
 //                    var code = [];
@@ -879,7 +879,7 @@ var ap_queryAndDownload = (function() {
                         //ap_queryAndDownload.buildTab(ap_queryAndDownload.CONFIG.policy_type, '');
                         var c = jsonCodes[j].code;
                         var l = jsonCodes[j].title['EN'];
-                         console.log("c= "+c+" l= "+l);
+
                         var obj = {value:ap_queryAndDownload.CONFIG.ap_list_tab_obj_policyTypes.tabs_id[ap_queryAndDownload.CONFIG.ap_list_tab_obj_policyTypes.actual_tab_num]+"_"+j+"_"+c, label: ''+l};
                         data[j]= obj;
                         //tabNameCode Pmt2,Pmt1    tabNameLabel Import measures,Export measures
@@ -1017,8 +1017,6 @@ var ap_queryAndDownload = (function() {
                 break;
             case ap_queryAndDownload.CONFIG.policy_type:
                 ap_list_tab_obj = ap_queryAndDownload.CONFIG.ap_list_tab_obj_policyTypes;
-                console.log("ap_queryAndDownload.CONFIG.ap_list_tab_obj_policyTypes.custom_widget "+ap_queryAndDownload.CONFIG.ap_list_tab_obj_policyTypes.custom_widget);
-                console.log("ap_list_tab_obj.custom_widget "+ap_list_tab_obj.custom_widget);
                 break;
         }
 

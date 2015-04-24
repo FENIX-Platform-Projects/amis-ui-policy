@@ -3,6 +3,12 @@ requirejs.config({
     baseUrl: 'js/libs',
 
     paths : {
+        underscore: "{FENIX_CDN}/js/underscore/1.7.0/underscore.min",
+        backbone: "{FENIX_CDN}/js/backbone/1.1.2/backbone.min",
+        handlebars: "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
+        chaplin: "{FENIX_CDN}/js/chaplin/1.0.1/chaplin.min",
+        amplify : '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
+
         jquery : '//code.jquery.com/jquery-1.11.0.min',
         host : '../controllers/ap_queryAndDownload',
         host_utility : '../controller_util/ap_queryAndDownload_utility',
@@ -34,11 +40,12 @@ requirejs.config({
         nprogress: 'nprogress',
         webix: 'webix',
         fullscreen: 'jquery.fullscreen-min',
-        underscore: 'underscore',
+        //underscore: 'underscore',
         router: '../router',
         models: '../models',
         views: '../views',
-        collections: '../collections'
+        collections: '../collections',
+        createdatasetPolicy: '../../scripts/mains/createdatasetPolicy3'
     },
 
     shim: {
@@ -68,6 +75,13 @@ requirejs.config({
         },
         xDomainRequest:{
             deps: ['jquery']
+        },
+        handlebars: {
+            exports: 'Handlebars'
+        },
+        amplify: {
+            deps: ['jquery'],
+            exports: 'amplifyjs'
         }
     }
 
@@ -117,9 +131,13 @@ require([
     Layout.configure({
         manage: true
     });
-    require(["host" ], function ( Host ) {
+    require(["host", "createdatasetPolicy" ], function ( Host, DataEntry ) {
+    //require(["host" ], function ( Host ) {
 //DataEntry.initialize();
-        var host = new Host({button_preview_action_type : "search"});
+        var host = new Host({button_preview_action_type : "searchEditPolicy"});
+
+        //var dataEntry = new DataEntry();
+        //DataEntry.onDeleteAction();
         console.log(host);
         host.initQDComponent();
     });

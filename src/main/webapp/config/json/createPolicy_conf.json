@@ -1,0 +1,139 @@
+{
+    "validate":false,
+    "structure":{
+        "layout_type":"grid_data_entry_create_policy",
+        "layout_config":{"selectors_layout":[
+            {"selector_id":"fx_selector_1", "bounding_box":{"row":{"start":"1", "end":"1"}, "col":{"start":"1", "end":"1"}}},
+            {"selector_id":"fx_selector_2", "bounding_box":{"row":{"start":"1", "end":"1"}, "col":{"start":"2", "end":"2"}}},
+            {"selector_id":"fx_selector_3", "bounding_box":{"row":{"start":"2", "end":"2"}, "col":{"start":"1", "end":"2"}}},
+            {"selector_id":"fx_selector_4", "bounding_box":{"row":{"start":"3", "end":"3"}, "col":{"start":"1", "end":"1"}}},
+            {"selector_id":"fx_selector_5", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"1", "end":"1"}}},
+            {"selector_id":"fx_selector_5_b", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"2", "end":"2"}}},
+            {"selector_id":"fx_selector_6", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"1", "end":"1"}}},
+            {"selector_id":"fx_selector_6_b", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"2", "end":"2"}}},
+            {"selector_id":"fx_selector_7", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"1", "end":"1"}}},
+            {"selector_id":"fx_selector_7_b", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"2", "end":"2"}}},
+            {"selector_id":"fx_selector_8", "bounding_box":{"row":{"start":"4", "end":"4"}, "col":{"start":"1", "end":"2"}}}
+        ]}
+    },
+
+    "selectors":{
+        "selector_list":[{
+            "id":"fx_selector_1",
+            "type":"radiobuttongroup",
+            "domain_type" : "CommodityDomain",
+            "group_name":"fx_selector_1_group",
+            "elements" : [{"value":true,"id":"fx_selector_1_rb1", "label":"Agricultural", "code": 1, "position": 0}, {"value":false,"id":"fx_selector_1_rb2", "label":"Biofuels", "code":2, "position": 1}, {"value":false,"id":"fx_selector_1_rb3", "label":"Both", "code":-1, "position": 3}],
+            "language"  :   "EN",
+            "title" :   {"id":"fx_selector_1_label", "value":"Commodity Domain"}
+        },
+        {
+            "id":"fx_selector_2",
+            "type":"radiobuttongroup",
+            "domain_type" : "PolicyDomain",
+            "group_name":"fx_selector_2_group",
+            "elements" : [{"value":true,"id":"fx_selector_2_rb1", "label":"Trade", "code": 1, "position": 0}, {"value":false,"id":"fx_selector_2_rb2", "label":"Domestic", "code":2, "position": 1}, {"value":false,"id":"fx_selector_2_rb3", "label":"Both", "code":-1, "position": 3}],
+            "language"  :   "EN",
+            "title" :   {"id":"fx_selector_2_label", "value":"Policy Domain"}
+        },
+        {
+            "id":"fx_selector_3",
+            "type":"listbox",
+            "domain_type" : "PolicyType",
+            "list_id":"fx_selector_3_listbox",
+            "language"  :   "EN",
+            "title" :   {"value":"Policy Type"},
+            "default_selected_items":[0],
+            "domain":[{"value":"fouth","id":"4"}],
+            "buttons":[{"type":"select", "id": "fx_selector_3_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_3_button_clear", "title": "Clear Selection", "color": "red"}],
+            "multipleextended" : false
+        },
+        {
+            "id":"fx_selector_4",
+            "type":"listbox",
+            "domain_type" : "PolicyMeasure",
+            "list_id":"fx_selector_4_listbox",
+            "language"  :   "EN",
+            "title" :   {"value":"Policy Measure"},
+            "domain":[{"value":"fouth","id":"4"}],
+            "buttons":[{"type":"select", "id": "fx_selector_4_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_4_button_clear", "title": "Clear Selection", "color": "red"}],
+            "multipleextended" : false
+        },
+        {
+            "id":"fx_selector_5",
+            "type":"listbox",
+            "domain_type" : "Commodity",
+            "list_id":"fx_selector_5_listbox",
+            "language"  :   "EN",
+            "title" :   {"value":"Commodity Class"},
+            "domain":[{"value":"fouth","id":"4"}],
+            "default_selected_items":[0],
+            "buttons":[{"type":"select", "id": "fx_selector_5_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_button_clear", "title": "Clear Selection", "color": "red"}],
+            "multipleextended" : false
+        },
+        {
+          "id":"fx_selector_5_b",
+          "type":"listbox",
+          "domain_type" : "CommodityDetail",
+          "list_id":"fx_selector_5_b_listbox",
+          "language"  :   "EN",
+          "title" :   {"value":"Commodity"},
+          "domain":[{"value":"fouth","id":"4"}],
+          "buttons":[{"type":"select", "id": "fx_selector_5_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "multipleextended" : false
+        },
+        {
+            "id":"fx_selector_6",
+            "type":"listbox",
+            "domain_type" : "Country",
+            "list_id":"fx_selector_6_listbox",
+            "language"  :   "EN",
+            "title" :   {"value":"Country"},
+            "domain":[{"value":"fifty","id":"5"}],
+            "buttons":[{"type":"select", "id": "fx_selector_6_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_6_button_clear", "title": "Clear Selection", "color": "red"}],
+            "multipleextended" : false
+        },
+        {
+          "id":"fx_selector_6_b",
+          "type":"listbox",
+          "domain_type" : "Subnational",
+          "list_id":"fx_selector_6_b_listbox",
+          "language"  :   "EN",
+          "title" :   {"value":"Subnational"},
+          "domain":[{"value":"fifty","id":"5"}],
+          "buttons":[{"type":"select", "id": "fx_selector_6_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_6_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "multipleextended" : false
+        },
+        {
+          "id":"fx_selector_7",
+          "type":"listbox",
+          "domain_type" : "Condition",
+          "list_id":"fx_selector_7_listbox",
+          "language"  :   "EN",
+          "title" :   {"value":"Condition"},
+          "domain":[{"value":"fifty","id":"5"}],
+          "buttons":[{"type":"select", "id": "fx_selector_7_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_7_button_clear", "title": "Clear Selection", "color": "red"}],
+          "multipleextended" : false
+        },
+        {
+          "id":"fx_selector_7_b",
+          "type":"listbox",
+          "domain_type" : "IndividualPolicy",
+          "list_id":"fx_selector_7_b_listbox",
+          "language"  :   "EN",
+          "title" :   {"value":"Individual Policy"},
+          "domain":[{"value":"fifty","id":"5"}],
+          "buttons":[{"type":"select", "id": "fx_selector_7_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_7_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "multipleextended" : false
+        },
+        {
+            "id":"fx_selector_8_1",
+            "type":"button",
+            "domain_type" : "Preview",
+            "language"  :   "EN",
+            "title" :   "Create Policy",
+            "color" :   "orange"
+        }
+        ]
+    }
+}

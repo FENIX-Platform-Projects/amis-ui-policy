@@ -1,8 +1,9 @@
 define([
     'jquery',
-    'model_catalog/qd_policy_model'
+    'model_catalog/qd_policy_model',
+    'model_catalog/qd_policy_data_entry_create_policy_model'
 
-], function($, QDPolicyModel) {
+], function($, QDPolicyModel, QDPolicyDataEntryCreatePolicyModel) {
 
     var optionsDefault = {
         selectors : [],
@@ -24,6 +25,9 @@ define([
         switch(model_type){
             case 'grid_policy':
                 model_func = QDPolicyModel;
+                break;
+            case 'grid_data_entry_create_policy':
+                model_func = QDPolicyDataEntryCreatePolicyModel;
                 break;
             default: model_func = null;
         }

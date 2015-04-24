@@ -18,18 +18,29 @@ define([
     }
 
     HostDomainParser.prototype.getDomain = function(qd_controller_instance, selector_id, url_type_var, self) {
+
+        //qd_instance, self.options.fx_selector_5_b, url, self
         var domain_parser_instance = this;
+        var urlApp = '';
         /* Retrive UI structure from DB. */
-        var url_type = url_type_var.rest_url_type;
-        if((url_type_var.rest_url_specific_code != null)&&(typeof url_type_var.rest_url_specific_code != 'undefined'))
+        if((url_type_var!=null)&&(url_type_var.rest_url_type!=null)&&(url_type_var.rest_url_type!="undefined"))
         {
-            url_type += url_type_var.rest_url_specific_code;
+            var url_type = url_type_var.rest_url_type;
+            if((url_type_var.rest_url_specific_code != null)&&(typeof url_type_var.rest_url_specific_code != 'undefined'))
+            {
+                url_type += url_type_var.rest_url_specific_code;
+            }
+            urlApp = self.options.codelist_url +"/"+ url_type +"/1.0";
+        }
+        else{
+            //The url is a string
+            urlApp = url_type_var;
         }
 
         $.ajax({
             type: 'GET',
             //url: "http://faostat3.fao.org/d3sp/service/msd/cl/system/OECD_CommodityClass1/1.0",
-            url: self.options.codelist_url +"/"+ url_type +"/1.0",
+            url:  urlApp,
             dataType: 'json',
 
             success: function (response) {
@@ -39,15 +50,18 @@ define([
                     json = $.parseJSON(response);
                 //To order the json elements based on the title(label)
                 var jsonCodes = json.rootCodes;
-                jsonCodes.sort(function (a, b) {
-                    if (a.title.EN < b.title.EN)
-                        return -1;
-                    if (a.title.EN > b.title.EN)
-                        return 1;
-                    return 0;
-                });
+                var data = new Array();
+                if((jsonCodes!=null)&&(typeof jsonCodes!="undefined")&&(jsonCodes.length>0))
+                {
+                    jsonCodes.sort(function (a, b) {
+                        if (a.title.EN < b.title.EN)
+                            return -1;
+                        if (a.title.EN > b.title.EN)
+                            return 1;
+                        return 0;
+                    });
 
-                var toRemove = false;
+                    var toRemove = false;
 //                if(json.system.contains('CommodityClass'))
 //                {
 //                    toRemove = true;
@@ -57,69 +71,124 @@ define([
 //                {
 //                    toRemove = true;
 //                }
-                if(json.system.indexOf('CommodityClass')!=-1)
-                {
-                    toRemove = true;
-                }
 
-                var data = new Array();
+                    if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
+                    {
+                        toRemove = true;
+                    }
 
-                //-> Generic Component..can be Commodity or Country
-                var type = qd_controller_instance.getSelector_domainType(selector_id);
-                var language = qd_controller_instance.getSelector_language(selector_id);
+                    //-> Generic Component..can be Commodity or Country
+                    var type = qd_controller_instance.getSelector_domainType(selector_id);
+                    //alert("type= "+type)
+                    var language = qd_controller_instance.getSelector_language(selector_id);
 
-                var codes_to_remove = ['8','9','10','11','12'];
-                var parent = {'8':[1,3],'9':[2,3],'10':[3,4],'11':[1,2,3],'12':[1,2]};
-                var to_remove = [];
-                var remove_count =0;
-                var insert_count =0;
-                for (var i = 0; i < json.rootCodes.length; i++) {
+                    var codes_to_remove = ['8','9','10','11','12'];
+                    var parent = {'8':[1,3],'9':[2,3],'10':[3,4],'11':[1,2,3],'12':[1,2]};
+                    var to_remove = [];
+                    var remove_count =0;
+                    var insert_count =0;
+                    for (var i = 0; i < json.rootCodes.length; i++) {
 //                        var c = json.rootCodes[i].code;
 //                        var l = json.rootCodes[i].title['EN'];
-                    var c = jsonCodes[i].code;
-                    var l = jsonCodes[i].title[language];
-                    var obj = {"value": type + "_" + c, "label": '' + l, "code" : c, "type": type};
+                        var c = jsonCodes[i].code;
+                        var l = jsonCodes[i].title[language];
+                        var obj = {"value": type + "_" + c, "label": '' + l, "code" : c, "type": type};
 //                    var obj = {"value": type + "_" + i + "_" + c, "label": '' + l, "code" : c, "type": type};
 
-                    var inToRemove = false;
-                    if(toRemove)
-                    {
-                        var found = $.inArray(obj.code, codes_to_remove);
-                        if(found != -1)
+                        var inToRemove = false;
+                        if(toRemove)
                         {
-                            //The element has to be checked through the checkbox
-                            to_remove[remove_count]= obj;
-                            inToRemove = true;
-                            remove_count++;
+                            var found = $.inArray(obj.code, codes_to_remove);
+                            if(found != -1)
+                            {
+                                //The element has to be checked through the checkbox
+                                to_remove[remove_count]= obj;
+                                inToRemove = true;
+                                remove_count++;
+                            }
+                        }
+                        if(!inToRemove)
+                        {
+                            data[insert_count] = obj;
+                            insert_count++;
                         }
                     }
-                    if(!inToRemove)
+
+                    //For commodity and country tab there is one source element in this array
+                    var sources = new Array();
+                    sources[0] = data;
+
+                    //This obj 'properties' is specific for the update of each selector type
+                    //In this case is used to show or hide the elements that belong to the "Mixed"
+//                var properties = {'removeFromList': [{'label': 'Id1', 'value': 'ValueId1'}, {'label': 'Id2', 'value': 'ValueId2'}]};
+                    var properties ='';
+                    if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
+                    // if(json.system.contains('CommodityClass'))
                     {
-                        data[insert_count] = obj;
-                        insert_count++;
+                        properties = {'removeFromList': to_remove, 'parent':parent};
+                    }
+                    else
+                    {
+                        properties = {'removeFromList': to_remove};
                     }
                 }
+                else{
 
-                //For commodity and country tab there is one source element in this array
-                var sources = new Array();
-                sources[0] = data;
+                    var type = qd_controller_instance.getSelector_domainType(selector_id);
 
-                //This obj 'properties' is specific for the update of each selector type
-                //In this case is used to show or hide the elements that belong to the "Mixed"
-//                var properties = {'removeFromList': [{'label': 'Id1', 'value': 'ValueId1'}, {'label': 'Id2', 'value': 'ValueId2'}]};
-                var properties ='';
-                if(json.system.indexOf('CommodityClass')!=-1)
-               // if(json.system.contains('CommodityClass'))
-                {
-                    properties = {'removeFromList': to_remove, 'parent':parent};
-                }
-                else
-                {
-                    properties = {'removeFromList': to_remove};
+                    if((type==self.options.condition_selector_type)||(type==self.options.individualPolicy_selector_type)){
+                        for (var i = 0; i < json.length; i++) {
+                            var obj = {"value": type + "_" + json[i][0], "label": '' + json[i][1], "code" : json[i][0], "type": type};
+                            data[i] = obj;
+                        }
+                    }
+                    else if(type==self.options.commodityDetail_selector_type){
+                        for (var i = 0; i < json.length; i++) {
+                            var hs_suffix = '';
+                            var hs_version = '';
+                            var short_description = '';
+                            var app ='';
+                            if((json[i][1]!=null)&&(typeof json[i][1]!= "undefined")&&(json[i][1].length>0)){
+                                hs_suffix = json[i][1];
+                                if((typeof app!= "undefined")&&(app.length>0)){
+                                    app += " - ";
+                                }
+                                else{
+                                    app += " [";
+                                }
+                                app += hs_suffix;
+                            }
+                            if((json[i][2]!=null)&&(typeof json[i][2]!= "undefined")&&(json[i][2].length>0)){
+                                hs_version = json[i][2];
+                                if((typeof app!= "undefined")&&(app.length>0)){
+                                    app += " - ";
+                                }
+                                else{
+                                    app += " [";
+                                }
+                                app += hs_version;
+                            }
+                            if((json[i][3]!=null)&&(typeof json[i][3]!= "undefined")&&(json[i][3].length>0)){
+                                short_description = json[i][3];
+                                if((typeof app!= "undefined")&&(app.length>0)){
+                                    app += " - ";
+                                }
+                                else{
+                                    app += " [";
+                                }
+                                app += short_description;
+                            }
+                            if((typeof app!= "undefined")&&(app.length>0)){
+                                app += "]";
+                            }
+                            var obj = {"value": type + "_" + json[i][0], "label": '' + json[i][0] + app, "code" : json[i][0], "type": type};
+                            data[i] = obj;
+                        }
+                    }
                 }
 
                 //if(json.system.contains(self.options.codelist_url_PolicyType))
-                if(json.system.indexOf(self.options.codelist_url_PolicyType)!=-1)
+                if((json.system!=null)&&(typeof json.system!="undefined")&&(json.system.indexOf(self.options.codelist_url_PolicyType)!=-1))
                 {
                     var index_policy_meas_name_start = json.title.EN.indexOf("OECD") + 5;
                     var policy_meas_name = json.title.EN.substr(index_policy_meas_name_start);
@@ -218,7 +287,353 @@ define([
                 }
                 else{
                     qd_controller_instance.update_selector_domain(selector_id, data, properties);
+                    //if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type == "searchCreatePolicy")){
+                    //    //Load the Commodity linked to the selected commodity class
+                    //    alert("221")
+                    //    console.log(data);
+                    //
+                    //    if((data!=null)&&(data.length>0)){
+                    //        var commodity_code = data[0].code;
+                    //        var commodity_name = data[0].label;
+                    //    }
+                    //
+                    //    qd_controller_instance.update_selector_domain(self.options.fx_selector_6, data, properties);
+                    //
+                    //    //The first Policy Measures that don't belong to the Selected Policy Type have to be disabled
+                    //    domain_parser_instance.listbox_element_disable(qd_controller_instance, self.options.fx_selector_3, self.options.fx_selector_4);
+                    //    //The Loading Window
+                    //    NProgress.done();
+                    //
+                    //}
+                    //else{
+                    //    qd_controller_instance.update_selector_domain(selector_id, data, properties);
+                    //}
                 }
+            },
+
+            error: function (err, b, c) {
+                alert(err.status + ", " + b + ", " + c);
+            }
+        });
+    }
+
+    HostDomainParser.prototype.subnationalInfo = function(qd_controller_instance, host)
+    {
+        var country_code = '37';
+        var domainParser= this;
+        $.ajax({
+            type: 'GET',
+            url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + host.options.cplIdForCountry_url+"/"+host.options.datasource+"/"+country_code,
+            dataType: 'json',
+
+            success: function (response) {
+
+                /* Convert the response in an object, i fneeded. */
+                var json = response;
+                if (typeof(response) == 'string')
+                    json = $.parseJSON(response);
+
+                //var cpl_id_list_String = '';
+                //for (var i = 0; i < json.length; i++) {
+                //    cpl_id_list_String += ''+ json[i][0];
+                //    if(i<json.length-1){
+                //        cpl_id_list_String+=',';
+                //    }
+                //}
+                //console.log("cpl_id_list_String = "+cpl_id_list_String)
+
+                //var cpl_id_list_String = "136";
+                //var cpl_id_list_String = "374";
+                var cpl_id_list_String = "262,263,264,265,266,267,268,269,270,271,272,273,276,277,278,279,280,281,282,285,286,287,288,289,290,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,362,371,372,373,374,3124";
+                var forGetMasterData = host.options.host_policy_data_object.voObjectConstruction();
+
+//                    var body =
+//                    {
+//                        "uid": "GAUL",
+//                        "version": "2014",
+//                        "levels" : 2
+//                    }
+                //Country
+//                    var selecteditems = host.options.qd_instance.getSelectedItems(self.options.fx_selector_6);
+//                    var country = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+                //console.log(data.country_code)
+                //var country_code =['12'];
+                var country_code =['37'];
+
+                var body = {};
+                body.uid = "GAUL";
+                body.version = "2014";
+                body.codes = country_code;
+                // body.levels = 2;
+
+                var body2 = JSON.stringify(body);
+                //Getting GAUL code
+                console.log("subnationalInfo start")
+                $.ajax({
+                    type: 'POST',
+                    url: ''+host.options.codelist_url_2,
+                    data : body2,
+                    contentType: 'application/json',
+                    dataType:'json',
+//                            url: ''+host.options.codelist_url_2+host.options.gaulsubnationalLevel_url,
+                    success : function(response) {
+                        //console.log(response)
+                        var json = response;
+                        if (typeof(response) == 'string')
+                            json = $.parseJSON(response);
+                        var i=0;
+                        console.log("subnationalInfo 1")
+                        //Subnational level 2
+                        forGetMasterData.subnational = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_for_coutry = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_lev_3 = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_for_coutry_lev_3 = {};
+
+                        //Country
+                        forGetMasterData.country = {};
+
+                        for(i=0; i<json.length;i++){
+                            var country = json[i].code;
+                            var country_title = json[i].title["EN"];
+                            forGetMasterData.country[country]=country_title;
+                            var children = json[i].children;
+                            //Subnational level 2
+                            for(var ichild = 0; ichild<children.length; ichild++){
+                                var child = children[ichild];
+                                var child_code = child.code;
+                                var child_name = child.title['EN'];
+                                forGetMasterData.subnational[child_code]=child_name;
+                                //console.log("country = "+country);
+                                if((forGetMasterData.subnational_for_coutry[country]!=null)&&(typeof forGetMasterData.subnational_for_coutry[country]!='undefined')){
+                                    //forGetMasterData.subnational_for_coutry[country] = {};
+                                    forGetMasterData.subnational_for_coutry[country][child_code]=child_name;
+                                }
+                                else{
+                                    forGetMasterData.subnational_for_coutry[country] = {};
+                                    forGetMasterData.subnational_for_coutry[country][child_code]=child_name;
+                                }
+
+                                //Check if there are children of the third level
+                                var children_lev_3 = json[i].children[ichild].children;
+                                //console.log(json[i].children[ichild])
+                                if((children_lev_3!=null)&&(typeof children_lev_3 !="undefined")){
+                                    for(var ichild_lev_3 = 0; ichild_lev_3<children_lev_3.length; ichild_lev_3++){
+                                        var child_lev_3 = children_lev_3[ichild_lev_3];
+                                        var child_code_lev_3 = child_lev_3.code;
+                                        var child_name_lev_3 = child_lev_3.title['EN'];
+                                        forGetMasterData.subnational_lev_3[child_code_lev_3]=child_name_lev_3;
+                                        //console.log("country = "+country);
+                                        if((forGetMasterData.subnational_for_coutry_lev_3[country]!=null)&&(typeof forGetMasterData.subnational_for_coutry_lev_3[country]!='undefined')){
+                                            //forGetMasterData.subnational_for_coutry[country] = {};
+                                            forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3]=child_name_lev_3;
+                                        }
+                                        else{
+                                            forGetMasterData.subnational_for_coutry_lev_3[country] = {};
+                                            forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3]=child_name_lev_3;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        forGetMasterData.datasource = host.options.datasource;
+                        console.log("cpl_id_list_String="+cpl_id_list_String)
+                        forGetMasterData.cpl_id = cpl_id_list_String;
+                        var payloadrestMasterData = JSON.stringify(forGetMasterData);
+                        var payloadMap = JSON.stringify(forGetMasterData.subnational);
+                        var payloadMap2 = JSON.stringify(forGetMasterData.subnational_for_coutry);
+                        var payloadMap3 = JSON.stringify(forGetMasterData.subnational_lev_3);
+                        var payloadMap4 = JSON.stringify(forGetMasterData.subnational_for_coutry_lev_3);
+
+                        //Case Search
+                        //Case Query and Download
+                        //console.log("url "+ap_queryAndDownload.CONFIG.masterFromCplId_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/'+ ap_queryAndDownload.CONFIG.cpl_id_list[0]);
+                        $.ajax({
+                            type: 'POST',
+//                            url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
+                            url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.masterFromCplIdAndSubnational,
+                            data : {"pdObj": payloadrestMasterData, "map":payloadMap, "map2":payloadMap2, "map3":payloadMap3, "map4":payloadMap4},
+
+                            success : function(response) {
+                                /* Convert the response in an object, i needed. */
+                                var json = response;
+                                if (typeof(response) == 'string')
+                                    json = $.parseJSON(response);
+
+                                //console.log(json);
+
+                                console.log("subnationalInfo 3")
+                                var mastertable_data = new Array();
+                                var subnationalCount = 0;
+
+                                var type = host.options.subnational_selector_type;
+
+                                var subnationalLabelArray = new Array();
+                                var subnationalCodeArray = new Array();
+
+                                for (var i = 0 ; i < json.length ; i++) {
+                                    var row = {};
+                                    for (var j = 0 ; j < json[i].length ; j++) {
+                                        if((json[i][j] == null)||(typeof json[i][j] == 'undefined')) {
+                                            json[i][j]="";
+                                        }
+                                        switch(j)
+                                        {
+                                            case 0:
+                                                //cpl_id[i] = json[i][j];
+                                                row["CplId"] = json[i][j];
+                                                break;
+                                            case 1:
+                                                //cpl_code[i] = json[i][j];
+                                                break;
+                                            case 2:
+                                                //commodity_id[i] = json[i][j];
+                                                row["CommodityId"] = json[i][j];
+                                                break;
+                                            case 3:
+                                                //country_code[i] = json[i][j];
+                                                row["CountryCode"] = json[i][j];
+                                                break;
+                                            case 4:
+//                                            country_name[i] = json[i][j];
+                                                row["CountryName"] = json[i][j];
+                                                break;
+                                            case 5:
+                                                //subnational_code[i] = json[i][j];
+                                                row["SubnationalCode"] = json[i][j];
+                                                break;
+                                            case 6:
+//                                            subnational_name[i] = json[i][j];
+                                                row["SubnationalName"] = json[i][j];
+                                                break;
+                                            case 7:
+                                                //commoditydomain_code[i] = json[i][j];
+                                                row["CommodityDomainCode"] = json[i][j];
+                                                break;
+                                            case 8:
+                                                //commoditydomain_name[i] = json[i][j];
+                                                row["CommodityDomainName"] = json[i][j];
+                                                break;
+                                            case 9:
+                                                //commodityclass_code[i] = json[i][j];
+                                                row["CommodityClassCode"] = json[i][j];
+                                                break;
+                                            case 10:
+                                                //commodityclass_name[i] = json[i][j];
+                                                row["CommodityClassName"] = json[i][j];
+                                                break;
+                                            case 11:
+                                                //policydomain_code[i] = json[i][j];
+                                                row["PolicyDomainCode"] = json[i][j];
+                                                break;
+                                            case 12:
+//                                            policydomain_name[i] = json[i][j];
+                                                row["PolicyDomainName"] = json[i][j];
+                                                break;
+                                            case 13:
+                                                //policytype_code[i] = json[i][j];
+                                                row["PolicyTypeCode"] = json[i][j];
+                                                break;
+                                            case 14:
+//                                            policytype_name[i] = json[i][j];
+                                                row["PolicyTypeName"] = json[i][j];
+                                                break;
+                                            case 15:
+                                                //policymeasure_code[i] = json[i][j];
+                                                row["PolicyMeasureCode"] = json[i][j];
+                                                break;
+                                            case 16:
+//                                            policymeasure_name[i] = json[i][j];
+                                                row["PolicyMeasureName"] = json[i][j];
+                                                break;
+                                            case 17:
+                                                //condition_code[i] = json[i][j];
+                                                row["PolicyConditionCode"] = json[i][j];
+                                                break;
+                                            case 18:
+//                                            condition[i] = json[i][j];
+                                                row["PolicyCondition"] = json[i][j];
+                                                break;
+                                            case 19:
+                                                //individualpolicy_code[i] = json[i][j];
+                                                row["IndividualPolicyCode"] = json[i][j];
+                                                break;
+                                            case 20:
+//                                            individualpolicy_name[i] = json[i][j];
+                                                row["IndividualPolicyName"] = json[i][j];
+                                                break;
+                                        }
+                                    }
+
+                                    var subnationalLabel = '';
+                                    var subnationalCode = '';
+
+                                    var index=0;
+                                    var count = 0;
+                                    if((json[i][6]!= "n.a")&&(json[i][6].indexOf(",")>0)){
+
+                                        while(json[i][6].substring(index).indexOf(",")>0){
+                                            var commaIndex = json[i][6].substring(index).indexOf(",");
+                                            var sub_name = json[i][6].substring(index, commaIndex);
+                                            //console.log("if IN FOR sub_name = "+sub_name)
+                                            subnationalLabelArray.push(sub_name);
+                                            index = commaIndex+1;
+                                        }
+                                        //console.log("if OUT FOR json[i][6].substring(index) = "+json[i][6].substring(index))
+                                        subnationalLabelArray.push(json[i][6].substring(index));
+                                        subnationalCodeArray = json[i][5].split(",");
+                                    }
+                                    else{
+                                        subnationalLabel = json[i][6];
+                                        subnationalLabelArray.push(subnationalLabel);
+                                        subnationalCode = json[i][5];
+                                        subnationalCodeArray.push(subnationalCode);
+                                        //console.log("else subnationalLabel "+subnationalLabel)
+                                        //console.log("else subnationalCode "+subnationalCode)
+                                    }
+
+                                    for(var z=0; z< subnationalLabelArray.length; z++){
+                                        var found=false;
+                                        var obj = {"value": type + "_" + subnationalCodeArray[z], "label": '' + subnationalLabelArray[z], "code" : subnationalCodeArray[z], "type": type};
+
+                                        for(var iMasterdata=0; iMasterdata<mastertable_data.length; iMasterdata++)
+                                        {
+                                            var app = mastertable_data[iMasterdata];
+                                            if(app.code == obj.code){
+                                                found=true;
+                                                break;
+                                            }
+                                        }
+                                        if(found==false){
+                                            //The subnational has to be inserted only if it's not in the list
+                                            mastertable_data[subnationalCount] = obj;
+                                            subnationalCount++;
+                                        }
+
+                                        //mastertable_data[subnationalCount] = obj;
+                                        //subnationalCount++;
+                                    }
+
+                                    var properties = {};
+                                    qd_controller_instance.update_selector_domain(host.options.fx_selector_6_b, mastertable_data, properties);
+                                }
+                                console.log("To get Subnational info START");
+                                console.log(mastertable_data)
+                                console.log("To get Subnational info END");
+
+                                //self.master_grid_creation(mastertable_data, self, host);
+                            },
+                            error : function(err,b,c) {
+                                alert(err.status + ", " + b + ", " + c);
+                            }
+                        });
+                    },
+                    error : function(err,b,c) {
+                        alert(err.status + ", " + b + ", " + c);
+                    }});
             },
 
             error: function (err, b, c) {

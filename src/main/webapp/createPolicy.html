@@ -37,6 +37,9 @@
     <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
     <link href="css/amis-sass.css" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="submodules/fenix-ui-common/css/fenix-style.css">
+    <link rel="stylesheet" href='submodules/fenix-ui-metadata-editor/css/fenix-metadata-editor.css'/>
+
 </head>
 <body>
 
@@ -129,7 +132,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--<li><a href="../policyinput">Input Data</a></li>-->
-                    <li><a href="../policy/dataEntry.html">Input Data</a></li>
+                    <!--<li><a href="../policy/dataEntry.html">Input Data</a></li>-->
+                    <li><a href="../policy/amisInputData.html">Input Data</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -159,10 +163,28 @@
     </div>
 </div>
 
+<div id="metadataEditorContainer"></div>
+
 <!-- Previous Content -->
 <div class="previous_content">
     <!-- Page Content - Search tabs -->
     <div class="container">
+        <!--<div class='row'>-->
+            <!--<div class='col-xs-2 col-xs-offset-10'>-->
+                <!--<a href='../policy/amisInputData.html' target='_self'>-->
+                    <!--<img src="css/img/crowd.png" alt="Browse Data" class="img-responsive">-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class='row'>
+            <div class='col-xs-3 col-xs-offset-9'>
+                <ul class="breadcrumb">
+                    <li><a href="../policy/amisInputData.html">Data Entry</a></li>
+                    <li class="active">Create Policy</li>
+                </ul>
+            </div>
+        </div>
+
         <div class='row amis_download_holder'>
             <div class='col-xs-12'>
                 <div class='note-tabs'>
@@ -175,9 +197,9 @@
                             <a href='#panel_bulk_download' data-toggle='tab' class='fx_header_title_small'> Expert
                                 Search </a>
                         </li>
-                        <li>
-                            <a href='#addnewrecord_panel' data-toggle='tab' class='fx_header_title_small'> Add a record </a>
-                        </li>
+                        <!--<li>-->
+                            <!--<a href='#addnewrecord_panel' data-toggle='tab' class='fx_header_title_small'> Add a record </a>-->
+                        <!--</li>-->
                     </ul>
                     <div class='tab-content'>
                         <div id='panel_standard_download' class='tab-pane active'>
@@ -313,7 +335,8 @@
 <!-- =====================
         Javascript
 =======================-->
-<script data-main="js/controllers/main_dataEntry" src="js/libs/require.min.2.1.14.js"></script>
+<!--<script data-main="js/controllers/main_dataEntry" src="js/libs/require.min.2.1.14.js"></script>-->
+<script data-main="js/controllers/main_dataEntryCreatePolicy" src="js/libs/require.min.2.1.14.js"></script>
 
 </body>
 </html>

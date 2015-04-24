@@ -291,7 +291,6 @@ define([
                                 //Country
                                 forGetMasterData.country = {};
 
-
                                 for(i=0; i<json.length;i++){
                                     var country = json[i].code;
                                     var country_title = json[i].title["EN"];
@@ -354,15 +353,13 @@ define([
                                 var payloadMap4 = JSON.stringify(forGetMasterData.subnational_for_coutry_lev_3);
 
                                 //Case Search
-                                if(self.options.host_instance.options.button_preview_action_type == 'search'){
+                                if((self.options.button_preview_action_type == "searchEditPolicy")||(self.options.button_preview_action_type == "searchCreatePolicy")){
                                     self.getPolicyFromCpls(host, payloadrestMasterData);
                                 }
                                 else{
-                                    alert("Updated!!")
                                     //Case Query and Download
                                     //console.log("url "+ap_queryAndDownload.CONFIG.masterFromCplId_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/'+ ap_queryAndDownload.CONFIG.cpl_id_list[0]);
                                     $.ajax({
-
                                         type: 'POST',
 //                            url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
                                         url: 'http://'+host.options.base_ip_address+':'+host.options.base_ip_port+host.options.masterFromCplIdAndSubnational,
@@ -1515,7 +1512,8 @@ define([
                     data_entry_obj["master_data"] = host_preview.masterData[datarecord["MasterIndex"]];
                     console.log("Data entry obj")
                     console.log(data_entry_obj)
-                    $('body').trigger('EditSearchButton', properties);
+                    $('.previous_content').hide();
+                    $('body').trigger('EditSearchButton', data_entry_obj);
                 }
                 else if(event.args.datafield=="DeleteButton"){
                     var properties = {};

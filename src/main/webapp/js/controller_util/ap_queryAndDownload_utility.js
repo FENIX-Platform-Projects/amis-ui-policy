@@ -394,7 +394,7 @@ define([
         obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
         columns.push(obj2);
 
-        if(host.options.button_preview_action_type == "search")
+        if((host.options.button_preview_action_type == "searchEditPolicy")||(host.options.button_preview_action_type == "searchCreatePolicy"))
         {
             obj = { name: 'EditButton' };
             datafields.push(obj);

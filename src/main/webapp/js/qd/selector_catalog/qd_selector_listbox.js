@@ -39,7 +39,8 @@ define([
         //it remains false
         //It is used by the checkbox of type removeFromList
         // (if Select All is pressed insert the elements in the list box like selected)
-        select_all_button_pressed : false
+        select_all_button_pressed : false,
+        multipleextended : true
     }
 
     function QDSelectorListbox( o )
@@ -182,7 +183,6 @@ define([
                         }
                         self.deselectItems(properties);
                     }
-
                     break;
                 default :
                     break;
@@ -440,7 +440,8 @@ define([
         });
 
         //The domain is not set in initialization phase
-        $('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended:true});
+        //$('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended:true});
+        $('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended: this.options.multipleextended});
 
         //This is not the right event
         this.changeListBox();

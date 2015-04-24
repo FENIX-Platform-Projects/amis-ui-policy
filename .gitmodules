@@ -1,0 +1,6 @@
+[submodule "src/main/webapp/submodules/fenix-ui-metadata-editor"]
+	path = src/main/webapp/submodules/fenix-ui-metadata-editor
+	url = https://github.com/FENIX-Platform/fenix-ui-metadata-editor.git
+[submodule "src/main/webapp/submodules/fenix-ui-common"]
+	path = src/main/webapp/submodules/fenix-ui-common
+	url = https://github.com/FENIX-Platform/fenix-ui-common.git

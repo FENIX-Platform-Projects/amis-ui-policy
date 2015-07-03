@@ -14,8 +14,11 @@ define([
         fx_selector_4 : 'fx_selector_4',
         fx_selector_5 : 'fx_selector_5',
         fx_selector_5_b : 'fx_selector_5_b',
+        fx_selector_5_button_clear : 'fx_selector_5_button_clear',
+        fx_selector_5_b_button_info : 'fx_selector_5_b_button_info',
         fx_selector_6 : 'fx_selector_6',
         fx_selector_6_b : 'fx_selector_6_b',
+        fx_selector_6_button_clear : 'fx_selector_6_button_clear',
         fx_selector_7 : 'fx_selector_7',
         fx_selector_7_b : 'fx_selector_7_b',
         fx_selector_8_1 : 'fx_selector_8_1',
@@ -38,6 +41,12 @@ define([
         selectedItems_fx_selector_6:[],
         //Subnational
         selectedItems_fx_selector_6_b:[],
+
+        //Clear Button for Commodity
+        fx_selector_5_button_clear:[],
+
+        //Clear Button for Subnational
+        fx_selector_6_button_clear:[],
 
         //The array containing the model event that are raised by the model
         model_structure_event:[]
@@ -67,8 +76,11 @@ define([
         this.options.model_structure_event["selected_fx_selector_4_changed"] = "selected_fx_selector_4_changed";
         this.options.model_structure_event["selected_fx_selector_5_changed"] = "selected_fx_selector_5_changed";
         this.options.model_structure_event["selected_fx_selector_5_b_changed"] = "selected_fx_selector_5_b_changed";
+        this.options.model_structure_event["selected_fx_selector_5_button_clear"] = "selected_fx_selector_5_button_clear";
+        this.options.model_structure_event["selected_fx_selector_5_b_button_info"] = "selected_fx_selector_5_b_button_info";
         this.options.model_structure_event["selected_fx_selector_6_changed"] = "selected_fx_selector_6_changed";
         this.options.model_structure_event["selected_fx_selector_6_b_changed"] = "selected_fx_selector_6_b_changed";
+        this.options.model_structure_event["selected_fx_selector_6_button_clear"] = "selected_fx_selector_6_button_clear";
         this.options.model_structure_event["selected_fx_selector_7_changed"] = "selected_fx_selector_7_changed";
         this.options.model_structure_event["selected_fx_selector_7_b_changed"] = "selected_fx_selector_7_b_changed";
         this.options.model_structure_event["selected_fx_selector_8_1_changed"] = "selected_fx_selector_8_1_changed";
@@ -187,6 +199,7 @@ define([
         this.setSelectedItems_fx_selector_6_b(selected_items);
         //Raise the commodities change event
 //        $('#fx_selector_6').trigger(this.options.model_structure_event["selected_fx_selector_6_changed"]);
+        //console.log("Before call trigger changeSelectedItems_fx_selector_6_b")
         $('#'+ this.options.fx_selector_6_b).trigger(this.options.model_structure_event["selected_fx_selector_6_b_changed"], properties);
     };
 
@@ -228,6 +241,24 @@ define([
         //Raise the commodities change event
 //        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
         $('#'+ this.options.fx_selector_8_1).trigger(this.options.model_structure_event["selected_fx_selector_8_1_changed"]);
+    };
+
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_5_button_clear = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_5_button_clear).trigger(this.options.model_structure_event["selected_fx_selector_5_button_clear"]);
+    };
+
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_6_button_clear = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_6_button_clear).trigger(this.options.model_structure_event["selected_fx_selector_6_button_clear"]);
+    };
+
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_5_b_button_info = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_5_b_button_info).trigger(this.options.model_structure_event["selected_fx_selector_5_b_button_info"]);
     };
 
     //properties is specific for the specific selector
@@ -282,7 +313,7 @@ define([
                     this.changeSelectedItems_fx_selector_3(new_selection, properties);
                     break;
                 case this.options.fx_selector_4 :
-                    this.changeSelectedItems_fx_selector_4(new_selection);
+                    this.changeSelectedItems_fx_selector_4(new_selection, properties);
 //                    console.log('Policy model'+this.options.selectedItems_fx_selector_4);
 //                    for(var i=0; i< this.options.selectedItems_fx_selector_4.length; i++)
 //                    {
@@ -295,11 +326,24 @@ define([
                 case this.options.fx_selector_5_b :
                     this.changeSelectedItems_fx_selector_5_b(new_selection, properties);
                     break;
+                case this.options.fx_selector_5_button_clear ://Clear Button
+                    // console.log("In grid update properties  = "+properties);
+                    this.changeSelectedItems_fx_selector_5_button_clear(properties, properties);
+                    break;
+                case this.options.fx_selector_5_b_button_info ://Info Button
+                    // console.log("In grid update properties  = "+properties);
+                    this.changeSelectedItems_fx_selector_5_b_button_info(properties, properties);
+                    break;
                 case this.options.fx_selector_6 :
+                //    alert("model 6")
                     this.changeSelectedItems_fx_selector_6(new_selection, properties);
                     break;
                 case this.options.fx_selector_6_b :
                     this.changeSelectedItems_fx_selector_6_b(new_selection, properties);
+                    break;
+                case this.options.fx_selector_6_button_clear ://Clear Button
+                    // console.log("In grid update properties  = "+properties);
+                    this.changeSelectedItems_fx_selector_6_button_clear(properties, properties);
                     break;
                 case this.options.fx_selector_7 :
                     this.changeSelectedItems_fx_selector_7(new_selection, properties);

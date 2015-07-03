@@ -25,31 +25,31 @@ define([
 
         //Commodity Domain
         var selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_1);
-        var commodity_domain = self.options.host_utility_instance.selected_items_parser(0, selecteditems, '', '', self.options.commodity_domain_both);
+        var commodity_domain = self.options.host_utility_instance.selected_items_parser(self, 0, selecteditems, '', '', self.options.commodity_domain_both);
 
         //Policy Domain
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_2);
-        var policy_domain = self.options.host_utility_instance.selected_items_parser(0, selecteditems, '', '', self.options.policy_domain_both);
+        var policy_domain = self.options.host_utility_instance.selected_items_parser(self, 0, selecteditems, '', '', self.options.policy_domain_both);
 
         //Policy Type
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_3);
-        var policy_type = self.options.host_utility_instance.selected_items_parser(1, selecteditems, true);
+        var policy_type = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems, true);
 
         //Policy Measure
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_4);
-        var policy_measure = self.options.host_utility_instance.selected_items_parser(3, selecteditems, false, policy_type);
+        var policy_measure = self.options.host_utility_instance.selected_items_parser(self, 3, selecteditems, false, policy_type);
 
         //Commodity Class
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_5);
-        var commodity_class = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+        var commodity_class = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems);
 
         //Country
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_6);
-        var country = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+        var country = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems);
 
         //Years
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_7);
-        var year = self.options.host_utility_instance.selected_items_parser(2, selecteditems);
+        var year = self.options.host_utility_instance.selected_items_parser(self, 2, selecteditems);
 
         var stop = false;
         if((commodity_domain==null)||(typeof commodity_domain=='undefined')||(commodity_domain.length==0)||(policy_domain==null)||(typeof policy_domain=='undefined')||(policy_domain.length==0)||(policy_type==null)||(policy_type=='undefined')||(policy_type.length==0)||(commodity_class==null)||(typeof commodity_class=='undefined')||(commodity_class.length==0)||(country==null)||(typeof country=='undefined')||(country.length==0)||(year==null)||(typeof year=='undefined')||(year.length==0))
@@ -158,31 +158,31 @@ define([
     {
         //Commodity Domain
         var selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_1);
-        var commodity_domain = self.options.host_utility_instance.selected_items_parser(0, selecteditems, '', '', self.options.commodity_domain_both);
+        var commodity_domain = self.options.host_utility_instance.selected_items_parser(self, 0, selecteditems, '', '', self.options.commodity_domain_both);
 
         //Policy Domain
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_2);
-        var policy_domain = self.options.host_utility_instance.selected_items_parser(0, selecteditems, '', '', self.options.policy_domain_both);
+        var policy_domain = self.options.host_utility_instance.selected_items_parser(self, 0, selecteditems, '', '', self.options.policy_domain_both);
 
         //Policy Type
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_3);
-        var policy_type = self.options.host_utility_instance.selected_items_parser(1, selecteditems, true);
+        var policy_type = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems, true);
 
         //Policy Measure
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_4);
-        var policy_measure = self.options.host_utility_instance.selected_items_parser(3, selecteditems, false, policy_type);
+        var policy_measure = self.options.host_utility_instance.selected_items_parser(self, 3, selecteditems, false, policy_type);
 
         //Commodity Class
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_5);
-        var commodity_class = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+        var commodity_class = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems);
 
         //Country
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_6);
-        var country = self.options.host_utility_instance.selected_items_parser(1, selecteditems);
+        var country = self.options.host_utility_instance.selected_items_parser(self, 1, selecteditems);
 
         //Years
         selecteditems = qd_instance.getSelectedItems(self.options.fx_selector_7);
-        var year = self.options.host_utility_instance.selected_items_parser(2, selecteditems);
+        var year = self.options.host_utility_instance.selected_items_parser(self, 2, selecteditems);
 
         var stop = false;
         if((commodity_domain==null)||(typeof commodity_domain=='undefined')||(commodity_domain.length==0)||(policy_domain==null)||(typeof policy_domain=='undefined')||(policy_domain.length==0)||(policy_type==null)||(policy_type=='undefined')||(policy_type.length==0)||(commodity_class==null)||(typeof commodity_class=='undefined')||(commodity_class.length==0)||(country==null)||(typeof country=='undefined')||(country.length==0)||(year==null)||(typeof year=='undefined')||(year.length==0))

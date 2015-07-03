@@ -66,6 +66,11 @@ define([
         export_subsidies_units : ['USD', 'USD', 'Tonnes', 'Tonnes'],
         export_subsidies_units_y : [0, 0, 1, 1],
 
+        tax_concession_policyType_code : 9,
+        domestic_policyDomain_code : 2,
+        export_measure_policyType_code : 1,
+        export_subsidies_policyMeasure_code : 3,
+
         //To D3S
         codelist_url    :   'http://faostat3.fao.org/d3sp/service/msd/cl/system',
 //        codelist_url    :   'http://faostat3.fao.org:7788/msd/cl/system',

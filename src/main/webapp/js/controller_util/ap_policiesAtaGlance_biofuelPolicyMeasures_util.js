@@ -15,30 +15,8 @@ define([
     var from = '16-02-2014';
     var to = '18-02-2014';
 
-    var pmt_name_description = {};
-    pmt_name_description["1"] = "Per unit domestic measures";
-    pmt_name_description["2"] = "Export measures";
-    pmt_name_description["3"] = "Biofuel mandates";
-    pmt_name_description["4"] = "Import measures";
-    pmt_name_description["5"] = "Other domestic measures1";
-    pmt_name_description["6"] = "Other domestic measures2";
-    pmt_name_description["7"] = "Other domestic measures3";
-    pmt_name_description["8"] = "Other domestic measures4";
-    pmt_name_description["9"] = "Other domestic measures5";
-    pmt_name_description["10"] = "Other domestic measures6";
-
     var pt_name_timeSeries_highcharts = {};
     var pt_name_timeSeries_highstockchart = {};
-
-    var pm_name_description = {};
-    pm_name_description["1"] = "Export prohibition";
-    pm_name_description["2"] = "Export tax";
-    pm_name_description["3"] = "Restriction on customs clearance point for exports";
-    pm_name_description["4"] = "Export quota";
-    pm_name_description["5"] = "Minimum export price / price reference for exports";
-    pm_name_description["6"] = "Domestic price regulation";
-    pm_name_description["7"] = "Carbon tax exemption or similar disincentive systems on fossil fuels (in the transport sector)";
-    pm_name_description["8"] = "Non-specified tax concessions";
 
     //This contains the first and the last date in the database
     var original_start_date_dd = '';
@@ -1023,7 +1001,6 @@ define([
 
     // create the chart when all data is loaded
     function createChart(chart_div, seriesOptions, title, pm_name_timeSeries_highcharts, notes) {
-
 //            $('#bd1_submenu3-chart_one').highcharts('StockChart', {
         $('#'+chart_div).highcharts('StockChart', {
             chart: {
@@ -1110,8 +1087,17 @@ define([
             },
             rangeSelector: {
                 enabled: true,
-//                inputDateFormat: '%Y-%m-%d'
-                inputDateFormat: '%d-%m-%Y'
+                inputDateFormat: '%d-%m-%Y',
+                inputEditDateFormat: '%d-%m-%Y',
+                inputDateParser: function (value) {
+                    value = value.split(/[-\.]/);
+                    var month = parseInt(value[1],10)-1;
+                    return Date.UTC(
+                        parseInt(value[2], 10),
+                        month,
+                        parseInt(value[0], 10)
+                    );
+                }
             },
 
             xAxis : {

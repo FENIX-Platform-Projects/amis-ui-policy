@@ -20,10 +20,12 @@ define([
     var end_date_yy = '';
 
     var year_list = '';
-    var country_code = '249';
-    var commodity_class_code = '3';
-    var policy_type_code = '1';
-    var policy_measure_code = '3';
+    //var policy_type_code = '1';
+    //For Policy type Export
+    var policy_type_code = ap_utilVariables.CONFIG.export_measure_policyType_code;
+    //Export subsidies
+    //var policy_measure_code = '3';
+    var policy_type_code = ap_utilVariables.CONFIG.export_subsidies_policyMeasure_code;
     var unit_for_series_name = "";
 
     var commodity_class_combobox1 = "";

@@ -5,6 +5,7 @@ define([
 ], function($) {
 
     var optionsDefault = {
+        fieldsToHide : ''
     }
 
     //text= Loads dependencies as plain text files.
@@ -17,7 +18,7 @@ define([
 
     //policy_types is an array that contains the codes of the policy types...
     //it is used to get the policy measure
-    HostUtility.prototype.selected_items_parser = function(type, selecteditems, policy_type_flag, policy_types, prop){
+    HostUtility.prototype.selected_items_parser = function(q_d, type, selecteditems, policy_type_flag, policy_types, prop){
 
         var selected_items_string = '';
         var selected_items_array = [];
@@ -30,7 +31,7 @@ define([
                 //Commodity Domain and Policy Domain
                 //selecteditems is an object
                 selected_items_string = selecteditems.code;
-                if(selecteditems.code == '-1')
+                if((selecteditems.code == q_d.options.commodity_domain_both_code)||(selecteditems.code == q_d.options.policy_domain_both_code))
                 {
                     //When both is clicked prop contains the both codes
                     selected_items_string = prop;
@@ -173,7 +174,19 @@ define([
         return selected_items_string;
     };
 
-    //Utility functions
+    HostUtility.prototype.buttonShowHide = function(buttonId, action) {
+
+        if(action){
+            //True = Show
+            $("#"+buttonId).show();
+        }
+        else{
+            //False = Hide
+            $("#"+buttonId).hide();
+        }
+    }
+
+        //Utility functions
     HostUtility.prototype.data_compare = function(firt_dd, first_mm, first_yy, second_dd, second_mm, second_yy) {
 
         var last_date = '';
@@ -575,6 +588,599 @@ define([
         }
 
         return date_to_check;
+    }
+
+    HostUtility.prototype.checkFieldsByPolicySelection = function(guiJson, payload) {
+       var masterdata = payload.master_data;
+        console.log(masterdata)
+       //var policydata = payload.policy_data;
+       //This is an array
+       this.setFieldsForConfigurationObj();
+       var obj = this.options.fieldsToHide;
+       for(var i=0;i<obj.length; i++){
+            if(masterdata.CommodityDomainCode == obj[i].commodityDomainCode){
+                if(masterdata.PolicyDomainCode == obj[i].policyDomainCode){
+                    if(masterdata.PolicyTypeCode == obj[i].policyTypeCode){
+                        if(masterdata.PolicyMeasureCode == obj[i].policyMeasureCode){
+                            this.configurationApply(guiJson, i);
+                        }
+                    }
+                }
+            }
+       }
+    }
+
+    //There is an association between the fieldsToHide array and the index in the configurationApply function
+    HostUtility.prototype.setFieldsForConfigurationObj = function() {
+        this.options.fieldsToHide = [];
+        var obj = {};
+
+        //index=0...Agricultural Domestic Direct Payments
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '6';
+        obj.policyMeasureCode = '21';
+        this.options.fieldsToHide.push(obj);
+        //index=1
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '6';
+        obj.policyMeasureCode = '22';
+        this.options.fieldsToHide.push(obj);
+        //index=2
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '6';
+        obj.policyMeasureCode = '16';
+        this.options.fieldsToHide.push(obj);
+        //index=3... Agricultural Domestic Input Support
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '5';
+        obj.policyMeasureCode = '19';
+        this.options.fieldsToHide.push(obj);
+        //index=4
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '5';
+        obj.policyMeasureCode = '18';
+        this.options.fieldsToHide.push(obj);
+        //index=5... Agricultural Domestic Market Transfers
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '3';
+        obj.policyMeasureCode = '13';
+        this.options.fieldsToHide.push(obj);
+        //index=6
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '3';
+        obj.policyMeasureCode = '15';
+        this.options.fieldsToHide.push(obj);
+        //index=7
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '3';
+        obj.policyMeasureCode = '14';
+        this.options.fieldsToHide.push(obj);
+        //index=8...Agricultural Domestic Production Payments
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '4';
+        obj.policyMeasureCode = '17';
+        this.options.fieldsToHide.push(obj);
+        //index=9...Agricultural Domestic Relative Indicators
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '7';
+        obj.policyMeasureCode = '23';
+        this.options.fieldsToHide.push(obj);
+        //index=10
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '7';
+        obj.policyMeasureCode = '26';
+        this.options.fieldsToHide.push(obj);
+        //index=11
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '7';
+        obj.policyMeasureCode = '25';
+        this.options.fieldsToHide.push(obj);
+        //index=12
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '7';
+        obj.policyMeasureCode = '24';
+        this.options.fieldsToHide.push(obj);
+        //index=13...Agricultural Trade Export Measure
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '1';
+        this.options.fieldsToHide.push(obj);
+        //index=14
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '2';
+        this.options.fieldsToHide.push(obj);
+        //index=15//HERE
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '3';
+        this.options.fieldsToHide.push(obj);
+        //index=16
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '4';
+        this.options.fieldsToHide.push(obj);
+        //index=17
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '5';
+        this.options.fieldsToHide.push(obj);
+        //index=18
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '44';
+        this.options.fieldsToHide.push(obj);
+        //index=19
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '45';
+        this.options.fieldsToHide.push(obj);
+        //index=20
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '6';
+        this.options.fieldsToHide.push(obj);
+        //index=21
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '9';
+        this.options.fieldsToHide.push(obj);
+        //index=22
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '10';
+        this.options.fieldsToHide.push(obj);
+        //index=23...Agricultural Trade Import Measure
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '11';
+        this.options.fieldsToHide.push(obj);
+        //index=24
+        obj = {};
+        obj.commodityDomainCode = '1';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '12';
+        this.options.fieldsToHide.push(obj);
+        //index=25...Biofuels Domestic Biofuel targets
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '8';
+        obj.policyMeasureCode = '34';
+        this.options.fieldsToHide.push(obj);
+        //index=26
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '8';
+        obj.policyMeasureCode = '35';
+        this.options.fieldsToHide.push(obj);
+        //index=26
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '8';
+        obj.policyMeasureCode = '36';
+        this.options.fieldsToHide.push(obj);
+        //index=25...Biofuels Domestic Domestic price regulation
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '10';
+        obj.policyMeasureCode = '44';
+        this.options.fieldsToHide.push(obj);
+        //index=26
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '10';
+        obj.policyMeasureCode = '45';
+        this.options.fieldsToHide.push(obj);
+        //index=27...Biofuels Domestic Other domestic measures
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '11';
+        obj.policyMeasureCode = '31';
+        this.options.fieldsToHide.push(obj);
+        //index=28
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '11';
+        obj.policyMeasureCode = '46';
+        this.options.fieldsToHide.push(obj);
+        //index=29
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '11';
+        obj.policyMeasureCode = '47';
+        this.options.fieldsToHide.push(obj);
+        //index=30...Biofuels Domestic Production Payments
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '11';
+        obj.policyMeasureCode = '17';
+        this.options.fieldsToHide.push(obj);
+        //index=31...Biofuels Domestic Tax concessions
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '37';
+        this.options.fieldsToHide.push(obj);
+        //index=32
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '38';
+        this.options.fieldsToHide.push(obj);
+        //index=33
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '39';
+        this.options.fieldsToHide.push(obj);
+        //index=34
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '40';
+        this.options.fieldsToHide.push(obj);
+        //index=35
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '41';
+        this.options.fieldsToHide.push(obj);
+        //index=36
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '42';
+        this.options.fieldsToHide.push(obj);
+        //index=37
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '2';
+        obj.policyTypeCode = '9';
+        obj.policyMeasureCode = '43';
+        this.options.fieldsToHide.push(obj);
+        //index=38...Biofuels Trade Export Measures
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '27';
+        this.options.fieldsToHide.push(obj);
+        //index=39
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '4';
+        this.options.fieldsToHide.push(obj);
+        //index=40
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '5';
+        this.options.fieldsToHide.push(obj);
+        //index=41
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '6';
+        this.options.fieldsToHide.push(obj);
+        //index=42
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '1';
+        obj.policyMeasureCode = '10';
+        this.options.fieldsToHide.push(obj);
+        //index=43...Biofuels Trade Import Measures
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '28';
+        this.options.fieldsToHide.push(obj);
+        //index=44
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '29';
+        this.options.fieldsToHide.push(obj);
+        //index=45
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '30';
+        this.options.fieldsToHide.push(obj);
+        //index=46
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '11';
+        this.options.fieldsToHide.push(obj);
+        //index=47
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '31';
+        this.options.fieldsToHide.push(obj);
+        //index=48
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '32';
+        this.options.fieldsToHide.push(obj);
+        //index=49
+        obj = {};
+        obj.commodityDomainCode = '2';
+        obj.policyDomainCode = '1';
+        obj.policyTypeCode = '2';
+        obj.policyMeasureCode = '33';
+        this.options.fieldsToHide.push(obj);
+    }
+
+    HostUtility.prototype.configurationApply = function(guiJson, index) {
+        //alert(index)
+        var one_case_array = [0,1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,19,20];
+        var one_case_result = (one_case_array.indexOf(index))!=-1;
+        var two_case_array = [13,17,21];
+        var two_case_result = (two_case_array.indexOf(index))!=-1;
+        var three_case_array = [22];
+        var three_case_result = (three_case_array.indexOf(index))!=-1;
+        var four_case_array = [15,23,24];
+        var four_case_result = (four_case_array.indexOf(index))!=-1;
+        var five_case_array = [25,49];
+        var five_case_result = (five_case_array.indexOf(index))!=-1;
+        var six_case_array = [26,27,28,29,31,32,33,41,42,46,48,51,52];
+        var six_case_result = (six_case_array.indexOf(index))!=-1;
+        var seven_case_array = [30,43,50];
+        var seven_case_result = (seven_case_array.indexOf(index))!=-1;
+        var eight_case_array = [34,35,36,37,38,39,40,44,45,47];
+        var eight_case_result = (eight_case_array.indexOf(index))!=-1;
+
+        switch (true){
+            //case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,25,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,50,51,52:
+            case one_case_result:
+                //alert("CASE 0")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case two_case_result:
+                //alert("CASE 1")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                delete guiJson.panels[0].properties.unit;
+                delete guiJson.panels[0].properties.value;
+                delete guiJson.panels[0].properties.valueText;
+                break;
+            case three_case_result:
+                //alert("CASE 2")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                break;
+            case four_case_result:
+                //alert("CASE 3")
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case five_case_result:
+                //alert("CASE 4")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case six_case_result:
+                //alert("CASE 5")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case seven_case_result:
+                //alert("CASE 6")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                delete guiJson.panels[0].properties.unit;
+                delete guiJson.panels[0].properties.value;
+                delete guiJson.panels[0].properties.valueText;
+                break;
+            case eight_case_result:
+                //alert("CASE 7")
+                delete guiJson.panels[0].properties.policyElement;
+                break;
+
+        }
+
+     /*   switch (index){
+            //case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,25,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,50,51,52:
+            case 0,1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,19,20:
+                alert("CASE 0")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case 13,17,21:
+                alert("CASE 1")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                delete guiJson.panels[0].properties.unit;
+                delete guiJson.panels[0].properties.value;
+                delete guiJson.panels[0].properties.valueText;
+                break;
+            case 22:
+                alert("CASE 2")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                break;
+            case 23,24:
+                alert("CASE 3")
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.secondGenerationSpecific;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case 25,49:
+                alert("CASE 4")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case 26,27,28,29,31,32,33,41,42,46,48,51,52:
+                alert("CASE 5")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                break;
+            case 30,43,50:
+                alert("CASE 6")
+                delete guiJson.panels[0].properties.policyElement;
+                delete guiJson.panels[0].properties.taxRateBenchmark;
+                delete guiJson.panels[0].properties.benchmarkLink;
+                delete guiJson.panels[0].properties.benchmarkLinkPdf;
+                delete guiJson.panels[0].properties.benchmarkTax;
+                delete guiJson.panels[0].properties.benchmarkProduct;
+                delete guiJson.panels[0].properties.taxRateBiofuel;
+                delete guiJson.panels[0].properties.startDateTax;
+                delete guiJson.panels[0].properties.unit;
+                delete guiJson.panels[0].properties.value;
+                delete guiJson.panels[0].properties.valueText;
+                break;
+            case 34,35,36,37,38,39,40,44,45,47:
+                alert("CASE 7")
+                delete guiJson.panels[0].properties.policyElement;
+                break;
+
+        }*/
     }
 
     return HostUtility;

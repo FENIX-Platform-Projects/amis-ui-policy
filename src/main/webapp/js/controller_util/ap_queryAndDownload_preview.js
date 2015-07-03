@@ -219,7 +219,8 @@ define([
                     NProgress.done();
                 }
                 else
-                {   //masterFromCplId_url
+                {
+                    //masterFromCplId_url
                     var s = '<div id='+self.options.standard_preview_jqxgrid+'></div>';
                     $('#standard_preview').children().remove();
                     $('#standard_preview').append(s);

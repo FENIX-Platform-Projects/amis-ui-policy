@@ -15,22 +15,6 @@ define([
     var from = '16-02-2014';
     var to = '18-02-2014';
 
-    var pmt_name_description = {};
-    pmt_name_description["1"] = "Per unit domestic measures";
-    pmt_name_description["2"] = "Export measures";
-    pmt_name_description["3"] = "Biofuel mandates";
-    pmt_name_description["4"] = "Import measures";
-
-    var pm_name_description = {};
-    pm_name_description["1"] = "Export prohibition";
-    pm_name_description["2"] = "Export tax";
-    pm_name_description["3"] = "Restriction on customs clearance point for exports";
-    pm_name_description["4"] = "Export quota";
-    pm_name_description["5"] = "Minimum export price / price reference for exports";
-    pm_name_description["6"] = "Domestic price regulation";
-    pm_name_description["7"] = "Carbon tax exemption or similar disincentive systems on fossil fuels (in the transport sector)";
-    pm_name_description["8"] = "Non-specified tax concessions";
-
     var pmTariffQuotas_name_description = {};
     pmTariffQuotas_name_description["1"] = "Wheat: Final Bound Tariff ";
     pmTariffQuotas_name_description["2"] = "Wheat: MFN Applied Tariff ";

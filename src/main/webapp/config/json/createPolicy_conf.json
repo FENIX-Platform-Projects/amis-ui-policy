@@ -43,9 +43,10 @@
             "list_id":"fx_selector_3_listbox",
             "language"  :   "EN",
             "title" :   {"value":"Policy Type"},
+            "style":{"heigth":100},
             "default_selected_items":[0],
             "domain":[{"value":"fouth","id":"4"}],
-            "buttons":[{"type":"select", "id": "fx_selector_3_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_3_button_clear", "title": "Clear Selection", "color": "red"}],
+            "buttons":[{"type":"clear", "id": "fx_selector_3_button_clear", "title": "Clear Selection", "color": "red"}],
             "multipleextended" : false
         },
         {
@@ -55,8 +56,9 @@
             "list_id":"fx_selector_4_listbox",
             "language"  :   "EN",
             "title" :   {"value":"Policy Measure"},
+            "style":{"heigth":100},
             "domain":[{"value":"fouth","id":"4"}],
-            "buttons":[{"type":"select", "id": "fx_selector_4_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_4_button_clear", "title": "Clear Selection", "color": "red"}],
+            "buttons":[{"type":"clear", "id": "fx_selector_4_button_clear", "title": "Clear Selection", "color": "red"}],
             "multipleextended" : false
         },
         {
@@ -66,9 +68,10 @@
             "list_id":"fx_selector_5_listbox",
             "language"  :   "EN",
             "title" :   {"value":"Commodity Class"},
+            "style":{"heigth":100},
             "domain":[{"value":"fouth","id":"4"}],
             "default_selected_items":[0],
-            "buttons":[{"type":"select", "id": "fx_selector_5_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_button_clear", "title": "Clear Selection", "color": "red"}],
+            "buttons":[{"type":"clear", "id": "fx_selector_5_button_clear", "title": "Clear Selection", "color": "red"}],
             "multipleextended" : false
         },
         {
@@ -78,8 +81,9 @@
           "list_id":"fx_selector_5_b_listbox",
           "language"  :   "EN",
           "title" :   {"value":"Commodity"},
+          "style":{"heigth":100},
           "domain":[{"value":"fouth","id":"4"}],
-          "buttons":[{"type":"select", "id": "fx_selector_5_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "buttons":[{"type":"info", "id": "fx_selector_5_b_button_info", "title": "Info", "color": "green", "show":false},{"type":"add", "id": "fx_selector_5_b_button_select", "title": "Add", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_b_button_clear", "title": "Clear Selection", "color": "red"}],
           "multipleextended" : false
         },
         {
@@ -90,7 +94,9 @@
             "language"  :   "EN",
             "title" :   {"value":"Country"},
             "domain":[{"value":"fifty","id":"5"}],
-            "buttons":[{"type":"select", "id": "fx_selector_6_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_6_button_clear", "title": "Clear Selection", "color": "red"}],
+            "style":{"heigth":100},
+            "default_selected_items":[0],
+            "buttons":[{"type":"clear", "id": "fx_selector_6_button_clear", "title": "Clear Selection", "color": "red"}],
             "multipleextended" : false
         },
         {
@@ -101,7 +107,8 @@
           "language"  :   "EN",
           "title" :   {"value":"Subnational"},
           "domain":[{"value":"fifty","id":"5"}],
-          "buttons":[{"type":"select", "id": "fx_selector_6_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_6_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "style":{"heigth":100},
+          "buttons":[{"type":"add", "id": "fx_selector_6_b_button_select", "title": "Add", "color": "blue"}, {"type":"clear", "id": "fx_selector_6_b_button_clear", "title": "Clear Selection", "color": "red"}],
           "multipleextended" : false
         },
         {
@@ -112,7 +119,8 @@
           "language"  :   "EN",
           "title" :   {"value":"Condition"},
           "domain":[{"value":"fifty","id":"5"}],
-          "buttons":[{"type":"select", "id": "fx_selector_7_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_7_button_clear", "title": "Clear Selection", "color": "red"}],
+          "style":{"heigth":100},
+          "buttons":[{"type":"add", "id": "fx_selector_7_button_select", "title": "Add", "color": "blue"}, {"type":"clear", "id": "fx_selector_7_button_clear", "title": "Clear Selection", "color": "red"}],
           "multipleextended" : false
         },
         {
@@ -123,7 +131,8 @@
           "language"  :   "EN",
           "title" :   {"value":"Individual Policy"},
           "domain":[{"value":"fifty","id":"5"}],
-          "buttons":[{"type":"select", "id": "fx_selector_7_b_button_select", "title": "Select All", "color": "blue"}, {"type":"clear", "id": "fx_selector_7_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "style":{"heigth":100},
+          "buttons":[{"type":"clear", "id": "fx_selector_7_b_button_clear", "title": "Clear Selection", "color": "red"}],
           "multipleextended" : false
         },
         {

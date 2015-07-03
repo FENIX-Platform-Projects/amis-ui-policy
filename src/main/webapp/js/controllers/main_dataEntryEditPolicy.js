@@ -46,6 +46,7 @@ require([
                     qd_selector: '../qd/qd_selector',
                     qd_model: '../qd/qd_model',
                     qd_catalog_selector: '../qd/qd_catalog_selector',
+                    ap_util_variables : '../controller_util/ap_util_variables',
                     template: '../../templates',
                     board_catalog: '../qd/board_catalog',
                     selector_catalog: '../qd/selector_catalog',
@@ -60,7 +61,8 @@ require([
                     models: '../models',
                     views: '../views',
                     collections: '../collections',
-                    createdatasetPolicy: '../../scripts/mains/createdatasetPolicy3'
+                    createdatasetPolicy: '../../scripts/mains/createdatasetPolicy3',
+                    ap_policyDataObject : '../common/policyDataObject'
                 },
 
                 shim: {

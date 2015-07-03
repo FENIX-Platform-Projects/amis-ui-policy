@@ -25,6 +25,7 @@ require([
                     host_policyDataObject: '../controller_util/ap_queryAndDownload_policy_data_object',
                     host_buttonActions: '../controller_util/ap_queryAndDownload_button_actions',
                     host_preview: '../controller_util/ap_queryAndDownload_preview',
+                    ap_policyDataObject : '../common/policyDataObject',
                     json: "../../config/json",
 //        jqueryui : '//code.jquery.com/ui/1.10.3/jquery-ui.min',
                     jqueryui: 'jquery-ui.min',
@@ -40,6 +41,7 @@ require([
                     qd_selector: '../qd/qd_selector',
                     qd_model: '../qd/qd_model',
                     qd_catalog_selector: '../qd/qd_catalog_selector',
+                    ap_util_variables : '../controller_util/ap_util_variables',
                     template: '../../templates',
                     board_catalog: '../qd/board_catalog',
                     selector_catalog: '../qd/selector_catalog',
@@ -109,10 +111,29 @@ require(['host', 'jquery', 'domReady!'], function( Host, $ ) {
     host.initQDComponent();
 
     //Fake login
-    $(".protected").hide();
+    //$(".protected").hide();
+    //$('#sign-in-btn').on('click', function(){
+    //    $('#signInModal').modal('hide');
+    //    $(".protected").show();
+    //});
+
+    //$(".protected").addClass("disabled");
+    var sessionStorageValueAttr = sessionStorage.getItem("value")
+    if((sessionStorageValueAttr!=null)&&(typeof sessionStorageValueAttr!="undefined")&&(sessionStorageValueAttr=='login')){
+    }else{
+        $(".protected").addClass("disabled");
+        $("#dataentry_editPolicy").hide();
+        $("#dataentry_addPolicy").hide();
+    }
     $('#sign-in-btn').on('click', function(){
         $('#signInModal').modal('hide');
-        $(".protected").show();
+        $(".protected").removeClass("disabled");
+        $("#dataentry_editPolicy").show();
+        $("#dataentry_addPolicy").show();
+        if (typeof(Storage) != "undefined") {
+            // Store
+            sessionStorage.setItem("value", "login");
+        }
     });
 });
 });

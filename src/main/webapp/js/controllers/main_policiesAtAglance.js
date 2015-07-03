@@ -102,9 +102,28 @@ require(['ap_policiesAtaGlance', 'jquery', 'domReady!'], function( Ap_policiesAt
     Ap_policiesAtaGlance.init();
 
     //Fake login
-    $(".protected").hide();
+    //$(".protected").hide();
+    //$('#sign-in-btn').on('click', function(){
+    //    $('#signInModal').modal('hide');
+    //    $(".protected").show();
+    //});
+
+   // $(".protected").addClass("disabled");
+    var sessionStorageValueAttr = sessionStorage.getItem("value")
+    if((sessionStorageValueAttr!=null)&&(typeof sessionStorageValueAttr!="undefined")&&(sessionStorageValueAttr=='login')){
+    }else{
+        $(".protected").addClass("disabled");
+        $("#dataentry_editPolicy").hide();
+        $("#dataentry_addPolicy").hide();
+    }
     $('#sign-in-btn').on('click', function(){
         $('#signInModal').modal('hide');
-        $(".protected").show();
+        $(".protected").removeClass("disabled");
+        $("#dataentry_editPolicy").show();
+        $("#dataentry_addPolicy").show();
+        if (typeof(Storage) != "undefined") {
+            // Store
+            sessionStorage.setItem("value", "login");
+        }
     });
 });

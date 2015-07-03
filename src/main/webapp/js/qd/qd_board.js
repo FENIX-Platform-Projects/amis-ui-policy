@@ -4,7 +4,7 @@ define(['jquery', 'underscore', 'qd_controller'],
 
         var optionsDefault = {
             layout_type :'grid_policy',
-            layout_type_constant :['grid_policy', 'grid_data_entry_create_policy'],
+            layout_type_constant :['grid_policy', 'grid_data_entry_edit_policy', 'grid_data_entry_create_policy'],
             //This is the specific instance of the query and download structure
             layout_type_instance : '',
 
@@ -51,8 +51,20 @@ define(['jquery', 'underscore', 'qd_controller'],
                                 policy_grid.initialize();
                             });
                             break;
-                        //Data Entry Create Policy Layout
+                        //Grid Layout
                         case this.options.layout_type_constant[1]:
+
+                            require(['board_catalog/qd_board_grid_data_entry_edit_policy'], function(QDGridPolicy) {
+                                //console.log(this.options.layout_type)
+                                //Parameters: 1-Grid Configuration
+                                //2-Selectors List
+                                var policy_grid = new QDGridPolicy({'layout_configuration' : qd_controller_obj.options.structure.layout_config, 'generic_component_main_div': qd_controller_obj.options.qd_component_main_div});
+                                self.options.layout_type_instance = policy_grid;
+                                policy_grid.initialize();
+                            });
+                            break;
+                        //Data Entry Create Policy Layout
+                        case this.options.layout_type_constant[2]:
 
                             require(['board_catalog/qd_board_grid_data_entry_create_policy'], function(QDGridPolicy) {
 

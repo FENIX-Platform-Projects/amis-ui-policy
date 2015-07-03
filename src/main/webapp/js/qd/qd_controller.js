@@ -46,7 +46,8 @@ define([
         selector_list_ready_count : 0,
         //This list could be used to check which selector has not been created
         //but it has not been used yet
-        selector_list_ready :[]
+        selector_list_ready :[],
+        window_info_done : false
     }
 
     function QD( o ){
@@ -165,7 +166,8 @@ define([
     //For example it can contain the 'menu item id' in the 'dropdown menu button'
     QD.prototype.modelUpdate = function (selector_instance, new_selection, properties) {
 
-        //alert("In controller update");
+        //alert("In modelUpdate")
+        //console.log(selector_instance.options.id)
         if((selector_instance!=null)&&(typeof selector_instance!="undefined"))
         {
             this.options.model.update(selector_instance, new_selection, properties);

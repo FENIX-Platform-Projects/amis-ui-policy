@@ -40,8 +40,7 @@ define([
         //It is used by the checkbox of type removeFromList
         // (if Select All is pressed insert the elements in the list box like selected)
         select_all_button_pressed : false,
-        multipleextended : true,
-        style :{"heigth":250}
+        multipleextended : true
     }
 
     function QDSelectorListbox( o )
@@ -352,19 +351,6 @@ define([
                 {
                     this.buttonEventsSetting(iButton);
                 }
-
-                //alert("Button info ")
-                //console.log(this.options.buttons[iButton]);
-                //console.log(this.options.buttons[iButton].show);
-                if((this.options.buttons[iButton].show!=null)&&(typeof this.options.buttons[iButton].show!="undefined")){
-                    if(this.options.buttons[iButton].show==false){
-                        $('#'+this.options.buttons[iButton].id).hide();
-                    }
-                    else{
-                        $('#'+this.options.buttons[iButton].id).show();
-                    }
-                }
-
             }
         }
     };
@@ -461,10 +447,7 @@ define([
 
         //The domain is not set in initialization phase
         //$('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended:true});
-        //$('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended: this.options.multipleextended});
-
-        $('#'+this.options.list_id).jqxListBox({width:"99%", height: this.options.style.heigth, multipleextended: this.options.multipleextended});
-
+        $('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended: this.options.multipleextended});
 
         //This is not the right event
         this.changeListBox();
@@ -492,8 +475,7 @@ define([
     //This obj 'properties' is specific for the update of each selector type
     //In this case is used in the checkbox
     QDSelectorListbox.prototype.updateDomain = function(properties){
-
-        $('#'+this.options.list_id).jqxListBox({source: this.options.domain});
+        $('#'+this.options.list_id).jqxListBox({source: this.options.domain, displayMember: "labelToVisualize"});
 
         //Setting the source ... the on change is not called
         this.modelUpdate(this);

@@ -23,6 +23,8 @@ define([
 //    }
 
     var optionsDefault = {
+
+        style :{"heigth":250},
         domain_type : '',
         language : '',
         //This is used in this selector type to indicate the id of the list that belong to this selector
@@ -487,7 +489,7 @@ define([
 //        });
 
         //The domain is not set in initialization phase
-        $('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended:true});
+        $('#'+this.options.list_id).jqxListBox({width:"99%", height: this.options.style.heigth, multipleextended:true});
 
         //This is not the right event
         this.changeListBox();

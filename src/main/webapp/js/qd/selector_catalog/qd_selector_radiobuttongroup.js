@@ -45,7 +45,9 @@ define([
 //         var item = {"value": ""+self.options.domain_type +"_"+self.options.elements[element_index].position +"_"+self.options.elements[element_index].code, "label":self.options.elements[element_index].label, "code":self.options.elements[element_index].code, "position":self.options.elements[element_index].position};
         var item = {"value": ""+self.options.domain_type +"_"+self.options.elements[element_index].code, "label":self.options.elements[element_index].label, "code":self.options.elements[element_index].code};
          //Call the controller to update the model for this component
-         self.options.controller.modelUpdate(self, item);
+        var properties = {};
+        properties.changed_item= item;
+         self.options.controller.modelUpdate(self, item, properties);
      };
 
     QDSelectorRadioButtonGroup.prototype.changeRadioButton = function(element_index){

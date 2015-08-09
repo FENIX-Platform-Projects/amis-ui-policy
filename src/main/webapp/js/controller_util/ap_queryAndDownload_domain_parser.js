@@ -1336,9 +1336,9 @@ define([
                 for (var i = 0; i < data.length; i++) {
                     var obj_code = data[i].code;
                     rest_url = {'rest_url_type':self.options.codelist_url_PolicyType, 'rest_url_specific_code': obj_code};
-                    alert("Test")
-                    self.options.host_domain_parser.getDomainPolicyMeasure(qd_controller_instance, policy_measure_selector_id, rest_url, self);
-                    //self.options.host_domain_parser.getDomain(qd_controller_instance, policy_measure_selector_id, rest_url, self);
+                    //alert("Test")
+                    //self.options.host_domain_parser.getDomainPolicyMeasure(qd_controller_instance, policy_measure_selector_id, rest_url, self);
+                    self.options.host_domain_parser.getDomain(qd_controller_instance, policy_measure_selector_id, rest_url, self);
                 }
             },
 

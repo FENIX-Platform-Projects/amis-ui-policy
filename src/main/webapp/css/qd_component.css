@@ -5,5 +5,15 @@
 
 .policy-button-show{
     display: inline;
+    margin: 5px;
+    float: right;
+}
+
+.float-fix{
+    float:none;
+}
+
+.float-fix-checkbox{
+    float:left;
 }
 /*For generic component end*/

@@ -37,13 +37,13 @@
 
 
    <!--For Map-->
-    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/css/jquery.power.tip/1.1.0/jquery.powertip.css" type="text/css" />
-    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.css" />
-    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/leaflet/0.7.3/leaflet.css" />
-    <link href='http://fenixapps.fao.org/repository/js/chosen/1.0.0/chosen.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/css/jquery.power.tip/1.1.0/jquery.powertip.css" type="text/css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/leaflet/0.7.3/leaflet.css" />
+    <link href='http://fenixrepo.fao.org/cdn/js/chosen/1.0.0/chosen.min.css' rel='stylesheet'>
     <!-- Fenix Map js -->
-    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/fenix-map-js.css" />
-    <link rel="stylesheet" href="http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/leaflet-custom.css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/fenix-map-js/1.0/fenix-map-js.css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/fenix-map-js/1.0/leaflet-custom.css" />
 
     <style>
         /*applied to the columns.*/
@@ -122,11 +122,13 @@
             <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
             <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
             <li class="dropdown protected">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA MANAGEMENT <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--<li><a href="../policyinput">Input Data</a></li>-->
                     <!--<li><a href="../policy/dataEntry.html">Input Data</a></li>-->
-                    <li><a href="../policy/amisInputData.html">Input Data</a></li>
+                    <!--<li><a href="../policy/amisInputData.html">Input Data</a></li>-->
+                    <li id="dataentry_editPolicy"><a href="../policy/editPolicy.html">Edit Policy</a></li>
+                    <li id="dataentry_addPolicy"><a href="../policy/createPolicy.html">Add Policy</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -149,8 +151,7 @@
                 <!--</a>-->
                 <!--<h1 class='fx_header_title fx_p_ico'>Analysis <small>Analysis Brief Description </small></h1>-->
                 <h1 class='fx_header_title fx_p_ico'>Query And Download</h1>
-                <h4>Select, view and download subsets of the AMIS policy database. The Bulk Download tab allows for downloading the entire database or predefined sets of the database.<br><br>To better understand the information in the downloaded files, have a look at the explanatory documents that are posted on the <a href="../policy/statisticalNotes.html">Statistical Notes</a> page.<br><br> The <a href="../policy/doc/statistical_notes/OrganizationPoliciesInAMISPolicyDatabase.pdf" target='_self'>organizational diagram
-                    </a> illustrates how policies are classified in the AMIS policy database.</h4>
+                <p>Select, view and download subsets of the AMIS policy database. The Bulk Download tab allows for downloading the entire database or predefined sets of the database.</p>
                 <hr class='fx-hr'>
             </div>
         </div>

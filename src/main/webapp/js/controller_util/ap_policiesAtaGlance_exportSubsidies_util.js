@@ -25,7 +25,7 @@ define([
     var policy_type_code = ap_utilVariables.CONFIG.export_measure_policyType_code;
     //Export subsidies
     //var policy_measure_code = '3';
-    var policy_type_code = ap_utilVariables.CONFIG.export_subsidies_policyMeasure_code;
+    var policy_measure_code = ap_utilVariables.CONFIG.export_subsidies_policyMeasure_code;
     var unit_for_series_name = "";
 
     var commodity_class_combobox1 = "";

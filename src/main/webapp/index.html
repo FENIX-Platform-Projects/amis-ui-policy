@@ -80,12 +80,14 @@
             <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
             <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
             <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
-            <li class="dropdown protected">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA ENTRY <b class="caret"></b></a>
+            <li class="dropdown protected" id="test">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA MANAGEMENT <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <!--<li><a href="../policyinput">Input Data</a></li>-->
                     <!--<li><a href="../policy/dataEntry.html">Input Data</a></li>-->
-                    <li><a href="../policy/amisInputData.html">Input Data</a></li>
+                    <!--<li><a href="../policy/amisInputData.html">Input Data</a></li>-->
+                    <li id="dataentry_editPolicy"><a href="../policy/editPolicy.html">Edit Policy</a></li>
+                    <li id="dataentry_addPolicy"><a href="../policy/createPolicy.html">Add Policy</a></li>
                 </ul>
             </li>
             <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
@@ -109,7 +111,7 @@
 
         <p>The AMIS policy database gathers information on trade measures and domestic measures related to the four
             AMIS crops (wheat, maize, rice, and soybeans) as well as biofuels. The design of this database allows
-            comparisons across countries, across commodities and across policies for selected periods of time. </p>
+            for comparisons across countries, across commodities and across policies for selected periods of time. </p>
         <br>
 
         <div class="slider_container">
@@ -143,14 +145,14 @@
     <!-- LATERAL MENU -->
     <div class="col-xs-3">
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+            <div class="col-xs-12">
                 <h2 class="amis-sidebar-title">RESOURCES</h2>
                 <ul class="amis-bullet">
                     <li><a data-toggle="modal" data-target="#myModal2">List of the 28 AMIS countries</a></li>
                     <li><p><a href="../policy/doc/statistical_notes/ConceptNoteAMISPolicyDatabase.pdf">Concept Note</a></p></li>
                 </ul>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12">
+            <div class="col-xs-12">
                 <h2 class="amis-sidebar-title">POLICY CLASSIFICATION</h2>
                 <p>This diagram illustrates how policies are categorized in the AMIS policy database</p>
                 <a href="../policy/doc/statistical_notes/OrganizationPoliciesInAMISPolicyDatabase.pdf" target='_self' class="ap-diagram-link">
@@ -505,15 +507,15 @@ The World Bank is a vital source of financial and technical assistance to develo
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <!--script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script--->
 <script type='text/javascript'
-        src='http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js'></script>
+        src='http://fenixrepo.fao.org/cdn/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js'></script>
 <!-- <script type="text/javascript" src="js/jquery.history.js"></script>  -->
 <script type='text/javascript'
-        src='http://fenixapps.fao.org/repository/js/jquery/1.0.9/jquery.i18n.properties-min.js'></script>
+        src='http://fenixrepo.fao.org/cdn/js/jquery/1.0.9/jquery.i18n.properties-min.js'></script>
 <!-- Jqwidgets  -->
-<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all.js'></script>
+<script type='text/javascript' src='http://fenixrepo.fao.org/cdn/js/jqwidgets/3.1/jqx-all.js'></script>
 <!-- highcharts -->
 <!--<script src=" http://code.highcharts.com/highcharts.js"></script>-->
-<script src="//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts.js"></script>
+<script src="//fenixrepo.fao.org/cdn/js/highcharts/4.0.4/js/highcharts.js"></script>
 <script src="js/highcharts/modules/exporting.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -542,6 +544,6 @@ The World Bank is a vital source of financial and technical assistance to develo
 <!-- Controller -->
 <script type="text/javascript" src="js/amis_charts.js"></script>
 <script type="text/javascript" src="js/controller_home.js"></script>
-
+<div id = 'result'></div>
 </body>
 </html>

@@ -2,17 +2,22 @@
 // relative or absolute path of Components' main.js
 require([
     '../../submodules/fenix-ui-common/js/Compiler',
-    '../../submodules/fenix-ui-metadata-editor/js/paths'
-], function (Compiler, MetadataEditor, Menu) {
+    '../../submodules/fenix-ui-metadata-editor/js/paths',
+    '../../submodules/amis-ui-policy-data-entry/js/paths',
+    '../../submodules/fenix-ui-common/js/paths'
+], function (Compiler, MetadataEditor, AmisPolicyDataEntry, FenixUiCommon) {
 
     var metadataEditorConfig = MetadataEditor;
     metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
-
-    //alert("Before compiler")
-
-    Compiler.resolve([metadataEditorConfig],
-        {
-            placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
+    var amisPolicyDataEntry = AmisPolicyDataEntry;
+    amisPolicyDataEntry['baseUrl'] = '../../submodules/amis-ui-policy-data-entry/js/';
+    var menuConfig = AmisPolicyDataEntry;
+    menuConfig['baseUrl'] = '../../submodules/amis-ui-policy-data-entry/js/';
+    var fenixUiCommon = FenixUiCommon;
+    fenixUiCommon['baseUrl'] = '../../submodules/fenix-ui-common/js/';
+    Compiler.resolve([fenixUiCommon, amisPolicyDataEntry],
+    {
+            placeholders:  {"FENIX_CDN": "//fenixrepo.fao.org/cdn"},
             config: {
 
                 baseUrl: 'js/libs',
@@ -27,13 +32,11 @@ require([
                     host_preview: '../controller_util/ap_queryAndDownload_preview',
                     ap_policyDataObject : '../common/policyDataObject',
                     json: "../../config/json",
-//        jqueryui : '//code.jquery.com/ui/1.10.3/jquery-ui.min',
                     jqueryui: 'jquery-ui.min',
-                    jqueryuicustom: '//fenixapps.fao.org/repository/js/jquery-ui/1.9.2/jquery-ui.custom.min',
-                    xDomainRequest: '//fenixapps.fao.org/repository/fenix/scripts/lib/jQuery.XDomainRequest',
+                    jqueryuicustom: '//fenixrepo.fao.org/cdn/js/jquery-ui/1.9.2/jquery-ui.custom.min',
+                    xDomainRequest: '//fenixrepo.fao.org/cdn/js/jQuery.XDomainRequest/jQuery.XDomainRequest',
                     jqwidget: 'jqwidgets-ver3.4.0/jqwidgets/jqx-all',
                     bootstrap: 'bootstrap.min',
-//        bootstrap: '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min',
                     jQAllRangeSliders: 'jQAllRangeSliders-min',
                     qd_utils: '../qd/qd_utils',
                     qd_board: '../qd/qd_board',
@@ -51,16 +54,13 @@ require([
                     nprogress: 'nprogress',
                     webix: 'webix',
                     fullscreen: 'jquery.fullscreen-min',
-                    //fenix-map-js
-//        'fenix-map' :'http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/fenix-map-min',
-//        'fenix-map-config' :'http://fenixapps.fao.org/repository/js/fenix-map-js/1.0/fenix-map-config',
-                    'chosen': '//fenixapps.fao.org/repository/js/chosen/1.0.0/chosen.jquery.min',
-                    'leaflet': '//fenixapps.fao.org/repository/js/leaflet/0.7.3/leaflet',
-                    'import-dependencies': '//fenixapps.fao.org/repository/js/FENIX/utils/import-dependencies-1.0',
-                    'jquery.power.tip': '//fenixapps.fao.org/repository/js/jquery.power.tip/1.1.0/jquery.powertip.min',
-                    'jquery-ui': '//fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
-                    'jquery.i18n.properties': '//fenixapps.fao.org/repository/js/jquery/1.0.9/jquery.i18n.properties-min',
-                    'jquery.hoverIntent': '//fenixapps.fao.org/repository/js/jquery.hoverIntent/1.0/jquery.hoverIntent'
+                    'chosen': '//fenixrepo.fao.org/cdn/js/chosen/1.0.0/chosen.jquery.min',
+                    'leaflet': '//fenixrepo.fao.org/cdn/js/leaflet/0.7.3/leaflet',
+                    'import-dependencies': '//fenixrepo.fao.org/cdn/js/FENIX/utils/import-dependencies-1.0',
+                    'jquery.power.tip': '//fenixrepo.fao.org/cdn/js/jquery.power.tip/1.1.0/jquery.powertip.min',
+                    'jquery-ui': '//fenixrepo.fao.org/cdn/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
+                    'jquery.i18n.properties': '//fenixrepo.fao.org/cdn/js/jquery/1.0.9/jquery.i18n.properties-min',
+                    'jquery.hoverIntent': '//fenixrepo.fao.org/cdn/js/jquery.hoverIntent/1.0/jquery.hoverIntent'
                 },
 
                 shim: {
@@ -105,8 +105,6 @@ require([
 // This is the case of domReady => will not be called until DOM is ready
 //require(['host', 'jquery', 'text!json/conf.json', 'domReady!'], function( Host, $, conf )
 require(['host', 'jquery', 'domReady!'], function( Host, $ ) {
-
-//require(['jquery','domReady!'], function( $ ) {
     var host = new Host({button_preview_action_type : "preview"});
     host.initQDComponent();
 

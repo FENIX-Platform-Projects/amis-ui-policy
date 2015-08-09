@@ -6,15 +6,18 @@ requirejs.config({
         jquery : '//code.jquery.com/jquery-1.11.0.min',
         bootstrap: 'bootstrap.min',
         jqueryui : 'jquery-ui.min',
-        jqueryuicustom : '//fenixapps.fao.org/repository/js/jquery-ui/1.9.2/jquery-ui.custom.min',
+        jqueryuicustom : '//fenixrepo.fao.org/cdn/js/jquery-ui/1.9.2/jquery-ui.custom.min',
         jqwidget : 'jqwidgets-ver3.4.0/jqwidgets/jqx-all',
         jQAllRangeSliders: 'jQAllRangeSliders-min',
-        highstock: '//fenixapps.fao.org/repository/js/highstock/2.0.1/highstock',
-        highcharts: '//fenixapps.fao.org/repository/js/highstock/2.0.1/highstock',
+        highstock: '//fenixrepo.fao.org/cdn/js/highstock/2.0.1/highstock',
+        highcharts: '//fenixrepo.fao.org/cdn/js/highstock/2.0.1/highstock',
         highstock_exporting: '//code.highcharts.com/stock/modules/exporting',
         highcharts_exporting: '//code.highcharts.com/stock/modules/exporting',
-        xDomainRequest: '//fenixapps.fao.org/repository/fenix/scripts/lib/jQuery.XDomainRequest',
-        sticky_plugin: '//fenixapps.fao.org/repository/js/stickyjs/1.0/jquery.sticky',
+        //xDomainRequest: '//fenixapps.fao.org/repository/fenix/scripts/lib/jQuery.XDomainRequest',
+        //sticky_plugin: '//fenixapps.fao.org/repository/js/stickyjs/1.0/jquery.sticky',
+        xDomainRequest: '//fenixrepo.fao.org/cdn/js/jQuery.XDomainRequest/jQuery.XDomainRequest',
+        sticky_plugin: '//fenixrepo.fao.org/cdn/js/stickyjs/1.0/jquery.sticky',
+
 //        Le HTML5 shim, for IE6-8 support of HTML5 elements
         html_5:'//html5shim.googlecode.com/svn/trunk/html5',
 

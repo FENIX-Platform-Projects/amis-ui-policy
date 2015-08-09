@@ -3,7 +3,9 @@
 
 @media(max-width:767px){
 
-.banner-links 			{position: absolute; right: 0px;}
+.banner-links 			{position: absolute; right: 0px; }
+
+
 
 .amis-sidebar-title		{margin-top: 20px;}
 	
@@ -15,9 +17,10 @@
 
 .central-chart::after	{height: 0;}
 
-.home-btn-box 			{height: 100px;}
+.home-btn-box 			{height: 175px;}
 
 }
+
 
 
 
@@ -35,7 +38,7 @@
 
 .central-chart::after	{height: 0;}
 
-.home-btn-box 			{height: 250px;}
+.home-btn-box 			{height: 370px;}
 
 }
 
@@ -54,7 +57,7 @@
 
 .central-chart::after	{height: 250px;}
 
-.home-btn-box 			{height: 175px;}
+.home-btn-box 			{height: 290px;}
     
 }
 
@@ -73,6 +76,6 @@
 
 .central-chart::after	{height: 200px;}
 
-.home-btn-box 			{height: 175px;}
+.home-btn-box 			{height: 216px;}
 
 }

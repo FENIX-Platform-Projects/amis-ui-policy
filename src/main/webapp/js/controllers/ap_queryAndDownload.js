@@ -10,7 +10,8 @@ define([
     'host_policyDataObject',
     'host_preview',
     'nprogress',
-    'fx-editor/start',
+    //'fx-editor/start',
+    'ap-dataEntry/start',
     'ap_util_variables',
 //    'fenix-map',
 //    'router',
@@ -20,7 +21,8 @@ define([
     'amplify'
 
 //], function(Backbone, Qd, conf , data_entry_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, Router){
-], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, DataEntryEditor, ap_util_variables){
+], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, AmisPolicyDataEntry, ap_util_variables){
+//], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, DataEntryEditor, AmisPolicyDataEntry, ap_util_variables){
 
     var optionsDefault = {
 
@@ -168,7 +170,8 @@ define([
 
         agricultural_policy_domain_code_order: [3,2,4,1,9,11,10,8,12],
         both_policy_domain_code_order: [6,7,5,3,2,4,1,9,11,10,8,12],
-        logged_user_code : 12,
+        //logged_user_code : 12,
+        logged_user_code : -1,
         logged_user_default_code : -1
     }
 
@@ -1139,7 +1142,6 @@ define([
         var self = this;
         //amplify.unsubscribe(self.options.CANCEL, self.actionToHideDataEditor);
 
-
         console.log(this)
         console.log(this.options.onEditActionObj);
         console.log(payload);
@@ -1215,9 +1217,14 @@ define([
 //                var guiObj = guiJson.panels[0];
 //                console.log(guiJson)
 //                console.log(guiJson.panels[0].properties.summary.properties.country.value.default);
-
+               // alert("ap_q&d Before properties before ")
+               // console.log(guiJson.panels[0].properties.summary.properties)
                 self.summaryDefaultValueSetting(guiJson, self.options.onEditActionObj, self);
-                console.log(guiJson.panels[0].properties.summary.properties);
+              //  alert("ap_q&d Before properties after ")
+              //  console.log(guiJson.panels[0].properties.summary.properties);
+              //  console.log("guiJson start")
+              //  console.log(guiJson)
+              //  console.log("guiJson end")
                 var userConfig = {
                     container: "div#metadataEditorContainer",
 //            source: sourceValues,
@@ -1268,9 +1275,22 @@ define([
                     //});
                 }
 
-                self.options.editor = new DataEntryEditor();
-                self.options.editor.init(userConfig);
+                //self.options.editor = new DataEntryEditor();
+                //self.options.editor.init(userConfig);
+                var options = {'properties': guiJson.panels[0].properties};
+                self.options.editor = new AmisPolicyDataEntry();
+                if(self.options.button_preview_action_type=="searchEditPolicy") {
+                    options.fileName = "searchEditPolicy";
+                }
+                else{
+                    options.fileName = "searchAddPolicy";
+                }
+                //alert("Before call editor")
+                //console.log("Before call editor")
+                //console.log(options)
+                self.options.editor.init(options);
                 $(".previous_content").hide();
+                $("#buttonBack").show();
                 $("#metadataEditorContainer").show();
                 //alert("AFTER INTI ")
                 console.log(self.options.editor)
@@ -1416,10 +1436,6 @@ define([
                 defaultValue = policydata.LinkPdf;
                 self.setDefaultValue_TextField(field, defaultValue);
 
-                field = guiJson.panels[0].properties.linkPdf;
-                defaultValue = policydata.LinkPdf;
-                self.setDefaultValue_TextField(field, defaultValue);
-
                 //Add check for value and value text
                 field = guiJson.panels[0].properties.valueText;
                 defaultValue = policydata.ValueText;
@@ -1511,32 +1527,60 @@ define([
                 self.setDefaultValue_List(field, defaultValue);
 
                 //Calendar
+                //field = guiJson.panels[0].properties.startDate;
+                //defaultValue = policydata.StartDate;
+                //newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                //if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
+                //    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                //}
+                //
+                //field = guiJson.panels[0].properties.endDate;
+                //defaultValue = policydata.EndDate;
+                //newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                //if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
+                //    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                //}
+                //
+                //field = guiJson.panels[0].properties.dateOfPublication;
+                //defaultValue = policydata.DateOfPublication;
+                //newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                //if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
+                //    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                //}
+                //
+                //field = guiJson.panels[0].properties.startDateTax;
+                //defaultValue = policydata.StartDateTax;
+                //newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                //if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
+                //    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                //}
+
                 field = guiJson.panels[0].properties.startDate;
                 defaultValue = policydata.StartDate;
-                newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.endDate;
                 defaultValue = policydata.EndDate;
-                newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.dateOfPublication;
                 defaultValue = policydata.DateOfPublication;
-                newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.startDateTax;
                 defaultValue = policydata.StartDateTax;
-                newFormat = self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue);
+                newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_mmDDyy(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
                 }
             }
         }
@@ -1583,8 +1627,6 @@ define([
 
     Host.prototype.dateFormatConverter_ddMMyyyy_mmDDyy = function(value){
 
-        console.log("dateFormatConverter_ddMMyyyy_mmDDyy 2222")
-        console.log(value)
         var stringNewFormat = '';
         if((value!=null)&&(typeof value!= "undefined")&&(value.length>0)){
             var d = new Date(value);
@@ -1592,7 +1634,31 @@ define([
             var month = parseInt(d.getMonth(), 10)+1;
             var stringNewFormat = d.getDate() + "/" + month + "/"+ d.getFullYear();
         }
-        console.log(stringNewFormat)
+        return stringNewFormat;
+    };
+
+    Host.prototype.dateFormatConverter_milliseconds = function(value){
+
+        //This is the original format "DD/MM/YYYY"
+        var original_string ='';
+        var stringNewFormat = '';
+        if((value!=null)&&(typeof value!= "undefined")&&(value.length>0)){
+
+            original_string = value.split("/");
+            var day = original_string[0];
+            var month = original_string[1];
+            var year = original_string[2];
+            if(!day.length>1){
+                day = "0"+day;
+            }
+            if(!month.length>1){
+                month = "0"+month;
+            }
+            //the original format "MM/DD/YYYY"
+            var d = new Date(month+"/"+day+"/"+year);
+            var milliseconds = d.getTime();
+            var stringNewFormat = ""+milliseconds;
+        }
         return stringNewFormat;
     };
 

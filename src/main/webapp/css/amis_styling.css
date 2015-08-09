@@ -13,7 +13,10 @@ a {
     height: 27px;
     padding-left: 5px;
     width: 198px;
+    font-size: 13px
 }
+
+.banner-links a {font-size: 13px}
 
 .amis-header {
     background-color: #FFFFFF;
@@ -49,8 +52,9 @@ a {
 .navbar-nav > li > a {
     padding-top: 5px;
     padding-bottom: 5px;
-    font-family: verdana;
+    font-family: "Open Sans Condensed",sans-serif !important;
     color: #FFFFFF;
+    font-size: 14px;
 }
 
 .navbar-nav > li{
@@ -74,7 +78,7 @@ a {
     color: #333;
 }
 
-.navbar-nav > li.active:hover:before{
+.navbar-nav > li.active:hover:before, .navbar-nav > li:hover:before{
     content: '';
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
@@ -86,15 +90,14 @@ a {
 }
 
 
+
+
 .amis-sidebar-title{
     border-bottom: 1px solid #2a5d9f;
 }
 
-.amis-bullet > li {
-    font-family: arial;
-    font-size: 12px;
-    color: #333333;
-}
+
+
 
 .amis-bullet {
     padding-left: 11px;
@@ -111,7 +114,7 @@ a {
 body {
     font-family: arial !important;
     color: #333;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 h1 {
@@ -143,7 +146,6 @@ h4 {
 p {
     font-family: arial;
     color: #333;
-    font-size: 12px;
 }
 
 .amis-bold-link{
@@ -264,6 +266,7 @@ p {
 .amis-footer-menu {
     padding-top: 18px;
     color: #FFFFFF;
+    font-size: 12px;
 }
 
 .amis-footer-sides {
@@ -364,7 +367,7 @@ h4.modal-title{
 .modal-body{
 
     color: #2a5d9f;
-    font-family: 'Open Sans Condensed', sans-serif;
+// font-family: 'Open Sans Condensed', sans-serif;
     font-size: 12px;
 }
 
@@ -380,7 +383,7 @@ h4.modal-title{
 div.footer {
     background: url("images/footer_bg.jpg") repeat-x scroll left bottom #fff;
     color: #fff;
-    font-size: 12px;
+
     padding: 0 28px;
     height: 220px;
 }
@@ -414,7 +417,6 @@ div.copyright p.bodytext {
     padding-left: 0;
 }
 #csstabs p.bodytext {
-    font-size: 13px;
     line-height: 18px;
     margin: 0;
     padding: 0 10px;
@@ -432,7 +434,7 @@ div.copyright p.bodytext {
     margin-top: 0;
     height: 130px;
     width: 940px;
-   color: #000;
+    color: #000;
 }
 .tabcontent p.bodytext {
     color: #000;
@@ -696,4 +698,8 @@ button::-moz-focus-inner,
 input::-moz-focus-inner {
     border: 0;
     padding: 0;
+}
+
+#metadataEditorContainer{
+    font-size: 12px;
 }

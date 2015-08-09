@@ -70,9 +70,6 @@
     font-size: 14px;
     margin-bottom: 5px; }
 
-/*.fx_selector_content {*/
-    /*padding: 0 25px; }*/
-
 .fx_selector_shadow {
     /*@include box-shadow(0, 2px, 3px, rgba(0, 0, 0, 0.1), $inset: false);*/
     padding-bottom: 20px; }
@@ -81,53 +78,24 @@
     display: inline-block;
     padding-right: 35px; }
 
-/* Table */
-.jqx-grid-column-header {
-    background-color: #f4f4f4;
 
 
-    font-weight: bold !important;
-}
+#commodityInfoContent.modal-body {
+    color: #333; }
+#commodityInfoContent.modal-body table:first-child tr td:first-child {
+    font-family: "Open Sans Condensed",sans-serif; }
+#commodityInfoContent.modal-body table:nth-child(even) {
+    border-collapse: collapse;
+    font-size: 11px; }
+#commodityInfoContent.modal-body table:nth-child(even) tr:first-child {
+    background-color: #ddd;
+    font-family: "Open Sans Condensed",sans-serif;
+    text-align: center;
+    line-height: 11px; }
+#commodityInfoContent.modal-body table:nth-child(even) tr:first-child td {
+    padding: 5px; }
+#commodityInfoContent.modal-body table:nth-child(even) tr td {
+    padding: 5px; }
 
-.jqx-grid-column-header >div >div{
-    text-align: center !important;
-    margin-top: 4px !important;
-}
-
-.jqx-widget {
-    color: #333 !important;
-}
-
-.jqx-window{
- position: fixed !important;
-}
-
-.amis_download_holder .col-xs-6 {
-   padding: 0 25px;
-}
-
-.fx_selector_button{
-    text-align: right;
-}
-
-.fx_selector_button button{
-    margin-left: 14px;
-    margin-top: 14px;
-}
-
-.fx_selector_checkbox{
-    top: 14px;
-}
-
-#fx_selector_5_checkbox_removeFromList .jqx-checkbox-default {
-    position: relative;
-}
-
-
-/* Red bullet point */
-
-#panel_standard_download .jqx-radiobutton-check-checked{
-    background: none repeat scroll 0 0 red;
-    border-color: darkred;
-}
-
+.form-group {
+    padding-bottom: 5px !important; }

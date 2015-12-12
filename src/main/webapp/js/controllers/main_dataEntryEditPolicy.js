@@ -37,6 +37,7 @@ require([
                     host_policyDataObject : '../controller_util/ap_queryAndDownload_policy_data_object',
                     host_buttonActions : '../controller_util/ap_queryAndDownload_button_actions',
                     host_preview : '../controller_util/ap_queryAndDownload_preview',
+                    ap_util_functions : '../controller_util/ap_util_functions',
                     json : "../../config/json",
                     jqueryui : 'jquery-ui.min',
                     jqueryuicustom : '//fenixrepo.fao.org/cdn/js/jquery-ui/1.9.2/jquery-ui.custom.min',
@@ -129,8 +130,7 @@ require([
         Layout.configure({
             manage: true
         });
-            require(["host" ], function ( Host ) {
-//DataEntry.initialize();
+            require(["host", 'ap_util_functions', 'text!json/auth_users.json' ], function ( Host, UtilityFunctions, authUsersFile ) {
 
             $("#buttonBack").click(function() {
                 $("#metadataEditorContainer").hide();
@@ -138,11 +138,10 @@ require([
                 $("#buttonBack").hide();
             });
 
-                var host = new Host({button_preview_action_type : "searchEditPolicy"});
-            //var dataEntry = new DataEntry();
-            //DataEntry.onDeleteAction();
-            console.log(host);
+            var host = new Host({button_preview_action_type : "searchEditPolicy"});
             host.initQDComponent();
+
+            UtilityFunctions.authentication(authUsersFile, host);
         });
     });
 });

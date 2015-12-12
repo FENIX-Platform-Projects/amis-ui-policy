@@ -1,4 +1,5 @@
 var ap_policiesAtaGlance = define([
+    'jquery',
     'ap_sidemenu',
     'ap_policiesAtaGlance_biofuelPolicyTypes_util',
     'ap_policiesAtaGlance_biofuelPolicyMeasures_util',
@@ -8,13 +9,13 @@ var ap_policiesAtaGlance = define([
     'ap_util_variables',
     'ap_util_functions',
     'structure',
-    'text!json/conf.json',
-    'jquery',
+    //'text!json/conf.json',
+    'text!json/confNoWto.json',
     'commons',
     'history',
     'bootstrap',
     'xDomainRequest'
-], function( ap_sidemenu, ap_policiesAtaGlance_biofuelPolicyTypes_util , ap_policiesAtaGlance_biofuelPolicyMeasures_util, ap_policiesAtaGlance_exportRestrictions_util, ap_policiesAtaGlance_exportSubsidies_util, ap_policiesAtaGlance_importTariffsQuotas_util, ap_utilVariables, ap_utilFunctions, Structure, conf){
+], function( $, ap_sidemenu, ap_policiesAtaGlance_biofuelPolicyTypes_util , ap_policiesAtaGlance_biofuelPolicyMeasures_util, ap_policiesAtaGlance_exportRestrictions_util, ap_policiesAtaGlance_exportSubsidies_util, ap_policiesAtaGlance_importTariffsQuotas_util, ap_utilVariables, ap_utilFunctions, Structure, conf){
 //var ap_policiesAtaGlance = (function() {
 
     var State       = {},
@@ -540,7 +541,10 @@ var ap_policiesAtaGlance = define([
                     if((page.type !=null)&&(typeof page.type!='undefined')){
                         switch (page.type){
                             case 'biofuelPolicyTypes':
-                                end_date_yy_int = 2016;
+                                //end_date_yy_int = 2016;
+                                end_date_yy_int = 2014;
+                                end_date_mm_int = 11;
+                                end_date_dd_int = 31;
 //                                console.log("biofuelPolicyTypes !!!!!!!!!!!!!!!!!!!!!");
 //                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
 //                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int)
@@ -548,10 +552,14 @@ var ap_policiesAtaGlance = define([
                                 page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_biofuelPolicy, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries_biofuelPolicy);
                                 page.instance.subMenu1();
                                 // ap_policiesAtaGlance_biofuelPolicyTypes_util.subMenu2();
+                                page.instance.buttonEventsSetting();
                                 page.instance.subMenu3(0);
                                 break;
                             case 'biofuelPolicyMeasures':
-                                end_date_yy_int = 2016;
+                                //end_date_yy_int = 2016;
+                                end_date_yy_int = 2014;
+                                end_date_mm_int = 11;
+                                end_date_dd_int = 31;
 //                                console.log("biofuelPolicyMeasures !!!!!!!!!!!!!!!!!!!!!!");
 //                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
 //                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
@@ -562,12 +570,16 @@ var ap_policiesAtaGlance = define([
                                 //page.instance.subMenu3();
                                 break;
                             case 'exportRestrictions':
-                                end_date_yy_int = 2016;
+                                //end_date_yy_int = 2016;
+                                end_date_yy_int = 2014;
+                                end_date_mm_int = 11;
+                                end_date_dd_int = 31;
 //                                console.log("exportRestrictions !!!!!!!!!!!!!!!!!!!!!!");
 //                                console.log(start_date_dd_int +"-"+start_date_mm_int+"-"+start_date_yy_int);
 //                                console.log(end_date_dd_int +"-"+end_date_mm_int+"-"+end_date_yy_int);
                                 //page.instance.subMenu0(start_date_dd_int, start_date_mm_int, start_date_yy_int, end_date_dd_int, end_date_mm_int, end_date_yy_int);
                                 page.instance.subMenu0(ap_utilVariables.CONFIG.start_date_dd_int_for_chart, ap_utilVariables.CONFIG.start_date_mm_int_for_chart, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_exportRestriction, end_date_dd_int, end_date_mm_int, end_date_yy_int, ap_utilVariables.CONFIG.start_date_yy_int_for_chart_timeSeries_exportRestriction);
+                                page.instance.buttonEventsSetting();
                                 // page.instance.subMenu1();
                                 // ap_policiesAtaGlance_biofuelPolicyTypes_util.subMenu2();
                                 //page.instance.subMenu3();

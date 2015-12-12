@@ -3,9 +3,10 @@ define([
     'selector_catalog/qd_selector_listbox',
     'selector_catalog/qd_selector_radiobuttongroup',
     'selector_catalog/qd_selector_sliderAndlistbox',
+    'selector_catalog/qd_selector_grid',
     'selector_catalog/qd_selector_button',
     'selector_catalog/qd_selector_menu_button'
-], function($, QDSelectorListbox, QDSelectorRadioButtonGroup, QDSelectorSliderAndListbox, QDSelectorButton, QDSelectorMenuButton) {
+], function($, QDSelectorListbox, QDSelectorRadioButtonGroup, QDSelectorSliderAndListbox, QDSelectorGrid, QDSelectorButton, QDSelectorMenuButton) {
 
     var optionsDefault = {
         selectors : [],
@@ -33,6 +34,9 @@ define([
                 break;
             case 'sliderAndlistbox':
                 selector_func = QDSelectorSliderAndListbox;
+                break;
+            case 'grid':
+                selector_func = QDSelectorGrid;
                 break;
             case 'button':
                 selector_func = QDSelectorButton;

@@ -43,10 +43,10 @@ define([
         selectedItems_fx_selector_6_b:[],
 
         //Clear Button for Commodity
-        fx_selector_5_button_clear:[],
+        //fx_selector_5_button_clear:[],
 
         //Clear Button for Subnational
-        fx_selector_6_button_clear:[],
+        //fx_selector_6_button_clear:[],
 
         //The array containing the model event that are raised by the model
         model_structure_event:[]
@@ -151,6 +151,9 @@ define([
     };
 
     QDPolicyModel.prototype.changeSelectedItems_fx_selector_5 = function(selected_items, properties){
+        console.log("In changeSelectedItems_fx_selector_5")
+        console.log(selected_items)
+        console.log(properties)
         this.setSelectedItems_fx_selector_5(selected_items);
         //Raise the commodities change event
 //        $('#fx_selector_5').trigger(this.options.model_structure_event["selected_fx_selector_5_changed"]);
@@ -166,6 +169,9 @@ define([
     };
 
     QDPolicyModel.prototype.changeSelectedItems_fx_selector_5_b = function(selected_items, properties){
+        console.log("In changeSelectedItems_fx_selector_5_b")
+        console.log(selected_items)
+        console.log(properties)
         this.setSelectedItems_fx_selector_5_b(selected_items);
         //Raise the commodities change event
 //        $('#fx_selector_5').trigger(this.options.model_structure_event["selected_fx_selector_5_changed"]);
@@ -265,6 +271,8 @@ define([
     //For example it can contain the 'menu item id' in the 'dropdown menu button'
     QDPolicyModel.prototype.update = function(selector_instance, new_selection, properties){
 
+        //console.log(new_selection)
+        //console.log(properties)
         if((selector_instance!=null)&&(typeof selector_instance != "undefined"))
         {
             if((new_selection == null)||(typeof new_selection == 'undefined')||(new_selection.length==0))
@@ -327,7 +335,6 @@ define([
                     this.changeSelectedItems_fx_selector_5_b(new_selection, properties);
                     break;
                 case this.options.fx_selector_5_button_clear ://Clear Button
-                    // console.log("In grid update properties  = "+properties);
                     this.changeSelectedItems_fx_selector_5_button_clear(properties, properties);
                     break;
                 case this.options.fx_selector_5_b_button_info ://Info Button
@@ -342,7 +349,8 @@ define([
                     this.changeSelectedItems_fx_selector_6_b(new_selection, properties);
                     break;
                 case this.options.fx_selector_6_button_clear ://Clear Button
-                    // console.log("In grid update properties  = "+properties);
+                //case 'fx_selector_6_button_clear':
+                    console.log( this.options.fx_selector_6_button_clear);
                     this.changeSelectedItems_fx_selector_6_button_clear(properties, properties);
                     break;
                 case this.options.fx_selector_7 :

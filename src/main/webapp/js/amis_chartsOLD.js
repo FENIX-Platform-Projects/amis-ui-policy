@@ -14,14 +14,14 @@ window.AMIS_home_charts = {
             }
         },
         "subtitle":{
-            "text":"Period 01-2011 until 01-2014"
+            "text":"Period 01-2010 until 01-2014"
         },
         "colors":[
             "#125824",
             "#255ba3",
             "#f6b539",
             "#199e34",
-            "#7f7f7f",
+            "#cccccc",
             "#67b7e3",
             "#dc3018"
         ],
@@ -50,7 +50,7 @@ window.AMIS_home_charts = {
         "labels":{
             "items":[
                 {
-                    "html":'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Import measures do not include import tariffs or tariff quotas.<br>Source: AMIS Policy Database',
+                    "html":'In Australia, Brazil, Canada, Mexico and US biofuel policies can be implemented at state-level. <br>Ethanol, biodiesel and biofuel (unspecified) are mutually exclusive categories. <br>Source: AMIS Policy Database',
                     "style":{
                         "left":"1px",
                         "top":"220px",
@@ -99,11 +99,11 @@ window.AMIS_home_charts = {
         },
         "series":[
             {
-                "name":'1: Biofuel targets',
+                "name":'1: Biofuel Target',
                 "data":[
-                    18,
+                    17,
                     12,
-                    8
+                    9
                 ]
             },
             {
@@ -119,31 +119,39 @@ window.AMIS_home_charts = {
                 "data":[
                     6,
                     4,
-                    0
+                    1
                 ]
             },
             {
                 "name":'4: Import measures',
                 "data":[
-                    4,
-                    3,
+                    23,
+                    23,
+                    0
+                ]
+            },
+            {
+                "name":'5: Other domestic measures',
+                "data":[
+                    0,
+                    1,
                     1
                 ]
             },
             {
-                "name":'5: Production measures',
+                "name":'6: Production payments',
                 "data":[
-                    5,
-                    3,
-                    2
+                    6,
+                    4,
+                    1
                 ]
             },
             {
-                "name":'6: Tax concessions',
+                "name":'7: Tax concession',
                 "data":[
                     18,
                     15,
-                    1
+                    2
                 ]
             }
         ]
@@ -273,7 +281,7 @@ window.AMIS_home_charts = {
             "#255ba3",
             "#f6b539",
             "#199e34",
-            "#7f7f7f",
+            "#cccccc",
             "#67b7e3",
             "#dc3018"
         ],
@@ -355,10 +363,10 @@ window.AMIS_home_charts = {
             {
                 "name":'1: Export prohibition',
                 "data":[
-                    2,
-                    2,
-                    2,
-                    2
+                    4,
+                    4,
+                    5,
+                    3
                 ]
             },
             {
@@ -367,16 +375,16 @@ window.AMIS_home_charts = {
                     3,
                     1,
                     3,
-                    0
+                    1
                 ]
             },
             {
                 "name":'3: Export tax',
                 "data":[
+                    4,
                     3,
-                    3,
-                    3,
-                    3
+                    4,
+                    4
                 ]
             },
             {
@@ -385,16 +393,16 @@ window.AMIS_home_charts = {
                     6,
                     5,
                     8,
-                    4
+                    3
                 ]
             },
             {
                 "name":'5: Minimum reference price',
                 "data":[
-                    0,
                     1,
                     2,
-                    1
+                    2,
+                    2
                 ]
             }
         ]

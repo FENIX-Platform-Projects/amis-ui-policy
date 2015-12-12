@@ -2,6 +2,7 @@ define([
     'jquery',
     'nprogress',
     'host_utility',
+    'ap_util_variables',
     'fullscreen',
     'jQAllRangeSliders',
     'xDomainRequest'
@@ -26,6 +27,7 @@ define([
         shared_group_window_once_open :false,
         shared_group_window :"shared_group_window",
         shared_group_grid :"shared_group_grid",
+        shared_group_info : "shared_group_info",
 
         additional_info_policy_window_once_open :false,
         additional_info_policy_window :"additional_info_window",
@@ -85,82 +87,82 @@ define([
 //cpl_id[i] = json[i][j];
                                 row["CplId"] = json[i][j];
                                 break;
+//                            case 1:
+////cpl_code[i] = json[i][j];
+//                                break;
                             case 1:
-//cpl_code[i] = json[i][j];
-                                break;
-                            case 2:
 //commodity_id[i] = json[i][j];
                                 row["CommodityId"] = json[i][j];
                                 break;
-                            case 3:
+                            case 2:
 //country_code[i] = json[i][j];
                                 row["CountryCode"] = json[i][j];
                                 break;
-                            case 4:
+                            case 3:
 // country_name[i] = json[i][j];
                                 row["CountryName"] = json[i][j];
                                 break;
-                            case 5:
+                            case 4:
 //subnational_code[i] = json[i][j];
                                 row["SubnationalCode"] = json[i][j];
                                 break;
-                            case 6:
+                            case 5:
 // subnational_name[i] = json[i][j];
                                 row["SubnationalName"] = json[i][j];
                                 break;
-                            case 7:
+                            case 6:
 //commoditydomain_code[i] = json[i][j];
                                 row["CommodityDomainCode"] = json[i][j];
                                 break;
-                            case 8:
+                            case 7:
 //commoditydomain_name[i] = json[i][j];
                                 row["CommodityDomainName"] = json[i][j];
                                 break;
-                            case 9:
+                            case 8:
 //commodityclass_code[i] = json[i][j];
                                 row["CommodityClassCode"] = json[i][j];
                                 break;
-                            case 10:
+                            case 9:
 //commodityclass_name[i] = json[i][j];
                                 row["CommodityClassName"] = json[i][j];
                                 break;
-                            case 11:
+                            case 10:
 //policydomain_code[i] = json[i][j];
                                 row["PolicyDomainCode"] = json[i][j];
                                 break;
-                            case 12:
+                            case 11:
 // policydomain_name[i] = json[i][j];
                                 row["PolicyDomainName"] = json[i][j];
                                 break;
-                            case 13:
+                            case 12:
 //policytype_code[i] = json[i][j];
                                 row["PolicyTypeCode"] = json[i][j];
                                 break;
-                            case 14:
+                            case 13:
 // policytype_name[i] = json[i][j];
                                 row["PolicyTypeName"] = json[i][j];
                                 break;
-                            case 15:
+                            case 14:
 //policymeasure_code[i] = json[i][j];
                                 row["PolicyMeasureCode"] = json[i][j];
                                 break;
-                            case 16:
+                            case 15:
 // policymeasure_name[i] = json[i][j];
                                 row["PolicyMeasureName"] = json[i][j];
                                 break;
-                            case 17:
+                            case 16:
 //condition_code[i] = json[i][j];
                                 row["PolicyConditionCode"] = json[i][j];
                                 break;
-                            case 18:
+                            case 17:
 // condition[i] = json[i][j];
                                 row["PolicyCondition"] = json[i][j];
                                 break;
-                            case 19:
+                            case 18:
 //individualpolicy_code[i] = json[i][j];
                                 row["IndividualPolicyCode"] = json[i][j];
                                 break;
-                            case 20:
+                            case 19:
 // individualpolicy_name[i] = json[i][j];
                                 row["IndividualPolicyName"] = json[i][j];
                                 break;
@@ -388,82 +390,82 @@ define([
                                                             //cpl_id[i] = json[i][j];
                                                             row["CplId"] = json[i][j];
                                                             break;
+                                                        //case 1:
+                                                        //    //cpl_code[i] = json[i][j];
+                                                        //    break;
                                                         case 1:
-                                                            //cpl_code[i] = json[i][j];
-                                                            break;
-                                                        case 2:
                                                             //commodity_id[i] = json[i][j];
                                                             row["CommodityId"] = json[i][j];
                                                             break;
-                                                        case 3:
+                                                        case 2:
                                                             //country_code[i] = json[i][j];
                                                             row["CountryCode"] = json[i][j];
                                                             break;
-                                                        case 4:
+                                                        case 3:
 //                                            country_name[i] = json[i][j];
                                                             row["CountryName"] = json[i][j];
                                                             break;
-                                                        case 5:
+                                                        case 4:
                                                             //subnational_code[i] = json[i][j];
                                                             row["SubnationalCode"] = json[i][j];
                                                             break;
-                                                        case 6:
+                                                        case 5:
 //                                            subnational_name[i] = json[i][j];
                                                             row["SubnationalName"] = json[i][j];
                                                             break;
-                                                        case 7:
+                                                        case 6:
                                                             //commoditydomain_code[i] = json[i][j];
                                                             row["CommodityDomainCode"] = json[i][j];
                                                             break;
-                                                        case 8:
+                                                        case 7:
                                                             //commoditydomain_name[i] = json[i][j];
                                                             row["CommodityDomainName"] = json[i][j];
                                                             break;
-                                                        case 9:
+                                                        case 8:
                                                             //commodityclass_code[i] = json[i][j];
                                                             row["CommodityClassCode"] = json[i][j];
                                                             break;
-                                                        case 10:
+                                                        case 9:
                                                             //commodityclass_name[i] = json[i][j];
                                                             row["CommodityClassName"] = json[i][j];
                                                             break;
-                                                        case 11:
+                                                        case 10:
                                                             //policydomain_code[i] = json[i][j];
                                                             row["PolicyDomainCode"] = json[i][j];
                                                             break;
-                                                        case 12:
+                                                        case 11:
 //                                            policydomain_name[i] = json[i][j];
                                                             row["PolicyDomainName"] = json[i][j];
                                                             break;
-                                                        case 13:
+                                                        case 12:
                                                             //policytype_code[i] = json[i][j];
                                                             row["PolicyTypeCode"] = json[i][j];
                                                             break;
-                                                        case 14:
+                                                        case 13:
 //                                            policytype_name[i] = json[i][j];
                                                             row["PolicyTypeName"] = json[i][j];
                                                             break;
-                                                        case 15:
+                                                        case 14:
                                                             //policymeasure_code[i] = json[i][j];
                                                             row["PolicyMeasureCode"] = json[i][j];
                                                             break;
-                                                        case 16:
+                                                        case 15:
 //                                            policymeasure_name[i] = json[i][j];
                                                             row["PolicyMeasureName"] = json[i][j];
                                                             break;
-                                                        case 17:
+                                                        case 16:
                                                             //condition_code[i] = json[i][j];
                                                             row["PolicyConditionCode"] = json[i][j];
                                                             break;
-                                                        case 18:
+                                                        case 17:
 //                                            condition[i] = json[i][j];
                                                             row["PolicyCondition"] = json[i][j];
                                                             break;
-                                                        case 19:
+                                                        case 18:
                                                             //individualpolicy_code[i] = json[i][j];
                                                             row["IndividualPolicyCode"] = json[i][j];
                                                             break;
-                                                        case 20:
+                                                        case 19:
 //                                            individualpolicy_name[i] = json[i][j];
                                                             row["IndividualPolicyName"] = json[i][j];
                                                             break;
@@ -471,6 +473,7 @@ define([
                                                 }
                                                 mastertable_data[i] = row;
                                             }
+
                                             self.master_grid_creation(mastertable_data, self, host);
                                             //self.map_creation(mastertable_data, self, host, forGetMasterData);
                                         },
@@ -1163,7 +1166,7 @@ define([
                     { text: 'Policy Domain', datafield: 'PolicyDomainName', width: '10%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer },
                     { text: 'Policy Type', datafield: 'PolicyTypeName', width: '15%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer },
                     { text: 'Policy Measure', datafield: 'PolicyMeasureName', width: '15%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer },
-                    { text: 'Policy Condition', datafield: 'PolicyCondition', width: '15%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer },
+                    { text: 'Condition', datafield: 'PolicyCondition', width: '15%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer },
                     { text: 'Individual Policy', datafield: 'IndividualPolicyName', width: '15%', filtertype: 'textbox', filtercondition: 'starts_with', cellsrenderer: renderer }
                 ]
             });
@@ -1246,15 +1249,16 @@ define([
                 var original_dataset = [];
                 var type_of_change_code = [];
                 var type_of_change_name = [];
-                var measure_descr = [];
+                var measure_description = [];
                 var product_original_hs = [];
                 var product_original_name = [];
-                var implementationprocedure = [];
-                var xs_yeartype = [];
+                //var implementationprocedure = [];
+                //var xs_yeartype = [];
                 var link_pdf = [];
                 var benchmark_link_pdf = [];
                 var short_description = [];
                 var shared_group_code = [];
+                var description = [];
 
                 var policytable_data = new Array();
                 for (var i = 0; i < json.length; i++) {
@@ -1397,7 +1401,7 @@ define([
                                 row["TypeOfChangeName"] = json[i][j];
                                 break;
                             case 33:
-                                measure_descr[i] = json[i][j];
+                                measure_description[i] = json[i][j];
                                 row["MeasureDescription"] = json[i][j];
                                 break;
                             case 34:
@@ -1408,29 +1412,33 @@ define([
                                 product_original_name[i] = json[i][j];
                                 row["ProductOriginalName"] = json[i][j];
                                 break;
+                            //case 36:
+                            //    implementationprocedure[i] = json[i][j];
+                            //    row["ImplementationProcedure"] = json[i][j];
+                            //    break;
+                            //case 37:
+                            //    xs_yeartype[i] = json[i][j];
+                            //    row["XsYearType"] = json[i][j];
+                            //    break;
                             case 36:
-                                implementationprocedure[i] = json[i][j];
-                                row["ImplementationProcedure"] = json[i][j];
-                                break;
-                            case 37:
-                                xs_yeartype[i] = json[i][j];
-                                row["XsYearType"] = json[i][j];
-                                break;
-                            case 38:
                                 link_pdf[i] = json[i][j];
                                 row["LinkPdf"] = json[i][j];
                                 break;
-                            case 39:
+                            case 37:
                                 benchmark_link_pdf[i] = json[i][j];
                                 row["BenchmarkLinkPdf"] = json[i][j];
                                 break;
-                            case 40:
+                            case 38:
                                 short_description[i] = json[i][j];
                                 row["ShortDescription"] = json[i][j];
                                 break;
-                            case 41:
+                            case 39:
                                 shared_group_code[i] = json[i][j];
                                 row["SharedGroupCode"] = json[i][j];
+                                break;
+                            case 40:
+                                shared_group_code[i] = json[i][j];
+                                row["Description"] = json[i][j];
                                 break;
                         }
                     }
@@ -1451,7 +1459,7 @@ define([
         //"HsVersion", "HsCode", "HsSuffix", "PolicyElement", "StartDate", "EndDate", "Unit", "Value", "ValueText", "Exemptions", "ShortDescription"
         var policy_source = "";
 
-        var info = host_preview.options.host_utility_instance.getPolicyTable_datafields(policytable_data, host);
+        var info = host_preview.options.host_utility_instance.getPolicyTable_datafields(policytable_data, host, host_preview.masterData);
         policy_source =
         {
             localdata: policytable_data,
@@ -1491,19 +1499,19 @@ define([
                     console.log(data_entry_obj)
                     host_preview.buildAdditionalPolicyTables(host_preview, policy_grid, event);
                 }
-                else if(event.args.datafield=="MetadataButton"){
-                    $('#close_metadata_fullscreen_button_container').children().remove();
-                    var s = "<div><button id ='close_metadata_fullscreen_button'>Close</button></div>";
-                    $('#close_metadata_fullscreen_button_container').append(s);
-                    $('#metadata_fullscreen').css("display", "block");
-                    $('#metadata_fullscreen').fullScreen(true);
-                    host_preview.fullScreenContent();
-
-                    $('#close_metadata_fullscreen_button').on('click', function () {
-                        $('#metadata_fullscreen').css("display", "none");
-                        $('#metadata_fullscreen').fullScreen(false);
-                    });
-                }
+                //else if(event.args.datafield=="MetadataButton"){
+                //    $('#close_metadata_fullscreen_button_container').children().remove();
+                //    var s = "<div><button id ='close_metadata_fullscreen_button'>Close</button></div>";
+                //    $('#close_metadata_fullscreen_button_container').append(s);
+                //    $('#metadata_fullscreen').css("display", "block");
+                //    $('#metadata_fullscreen').fullScreen(true);
+                //    host_preview.fullScreenContent();
+                //
+                //    $('#close_metadata_fullscreen_button').on('click', function () {
+                //        $('#metadata_fullscreen').css("display", "none");
+                //        $('#metadata_fullscreen').fullScreen(false);
+                //    });
+                //}
                 else if(event.args.datafield=="EditButton"){
                     var properties = {};
                     var policy_grid = $($(parentElement).children()[0]);
@@ -1511,8 +1519,6 @@ define([
                     var data_entry_obj = {};
                     data_entry_obj["policy_data"] = datarecord;
                     data_entry_obj["master_data"] = host_preview.masterData[datarecord["MasterIndex"]];
-                    console.log("Data entry obj")
-                    console.log(data_entry_obj)
                     $('.previous_content').hide();
                     $('body').trigger('EditSearchButton', data_entry_obj);
                 }
@@ -1527,11 +1533,14 @@ define([
     HostPreview.prototype.buildShareGroupPolicyTables = function(host_preview, policy_grid, event)
     {
         var data = policy_grid.jqxGrid('getrowdata', event.args.rowindex);
+        console.log(data)
+        var sharedGroupName = data.SharedGroupCode;
+        var sharedGroupDescription = data.Description;
         //Getting info about Share Group
         $.ajax({
 
             type: 'GET',
-            url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,//
+            url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,
             //   url: ap_queryAndDownload.CONFIG.shareGroupCommodities_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/' +1250,
 
             success : function(response) {
@@ -1598,12 +1607,14 @@ define([
                 }
 
                 $('#'+host_preview.options.shared_group_window).jqxWindow({
-                    showCollapseButton: true, height: 250, width: '100%', title: 'Shared Group Details', position: 'center', isModal: true,
+                    showCollapseButton: true, height: 350, width: '100%', title: 'Shared Group Details', position: 'center', isModal: true,
                     initContent: function () {
+                        $('#'+host_preview.options.shared_group_info).html("Shared Group: "+sharedGroupName +"<br>"+ "Description: "+ sharedGroupDescription+ "<br>"+"Note: this information can be downloaded in Excel from the "+ "<a href='../policy/resources.html' target='_self'>Resources page</a><br>");
+
                         $('#'+host_preview.options.shared_group_grid).jqxGrid(
                             {
                                 width: '100%',
-                                height: 200,
+                                height: 300,
                                 columnsheight: 40,
                                 rowsheight : 30,
                                 source: dataAdapter,
@@ -1623,10 +1634,12 @@ define([
 
                 if(host_preview.options.shared_group_window_once_open)
                 {
+                    $('#'+host_preview.options.shared_group_info).html("Shared Group: "+sharedGroupName +"<br>"+ "Description: "+ sharedGroupDescription+ "<br>"+"Note: this information can be downloaded in Excel from the "+ "<a href='../policy/resources.html' target='_self'>Resources page</a><br>");
+
                     $('#'+host_preview.options.shared_group_grid).jqxGrid(
                         {
                             width: '100%',
-                            height: 200,
+                            height: 300,
                             columnsheight: 40,
                             rowsheight : 30,
                             source: dataAdapter,
@@ -1661,9 +1674,10 @@ define([
         container.append(leftcolumn);
         container.append(rightcolumn);
 
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsVersion", leftcolumn, "HS Version", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsCode", leftcolumn, "HS Code", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsSuffix", leftcolumn, "HS Suffix", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("HsVersion", leftcolumn, "HS Version", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("SharedGroupCode", leftcolumn, "SharedGroupCode", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("PolicyElement", leftcolumn, "PolicyElement", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("StartDate", leftcolumn, "StartDate", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("EndDate", leftcolumn, "EndDate", datarecord);
@@ -1674,14 +1688,21 @@ define([
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Exemptions", leftcolumn, "Exemptions", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LocalCondition", leftcolumn, "LocalCondition", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Notes", leftcolumn, "Notes", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Link", leftcolumn, "Link", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Source", leftcolumn, "Source", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TitleOfNotice", leftcolumn, "TitleOfNotice", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LegalBasisName", leftcolumn, "LegalBasisName", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("DateOfPublication", leftcolumn, "DateOfPublication", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ImposedEndDate", leftcolumn, "ImposedEndDate", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("MeasureDescription", leftcolumn, "MeasureDescription", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalHs", leftcolumn, "ProductOriginalHS", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalName", leftcolumn, "ProductOriginalName", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TypeOfChangeName", leftcolumn, "TypeOfChange", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ShortDescription", leftcolumn, "ShortDescription", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Description", leftcolumn, "Description", datarecord);
 
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Link", rightcolumn, "Link", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LinkPdf", rightcolumn, "LinkPdfversion", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Source", rightcolumn, "Source", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("DateOfPublication", rightcolumn, "DateOfPublication", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TitleOfNotice", rightcolumn, "TitleOfNotice", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LegalBasisName", rightcolumn, "LegalBasisName", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("OriginalDataset", rightcolumn, "OriginalDataset", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ImposedEndDate", rightcolumn, "ImposedEndDate", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("MeasureDescription", rightcolumn, "MeasureDescription", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("SecondGenerationSpecific", rightcolumn, "SecondGenerationSpecific", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkTax", rightcolumn, "BenchmarkTax", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkProduct", rightcolumn, "BenchmarkProduct", datarecord);
@@ -1689,16 +1710,10 @@ define([
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TaxRateBenchmark", rightcolumn, "TaxRateBenchmark", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("StartDateTax", rightcolumn, "StartDateTax", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkLink", rightcolumn, "BenchmarkLink", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("OriginalDataset", rightcolumn, "OriginalDataset", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TypeOfChangeName", rightcolumn, "TypeOfChangeName", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalHs", rightcolumn, "ProductOriginalHs", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalName", rightcolumn, "ProductOriginalName", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ImplementationProcedure", rightcolumn, "ImplementationProcedure", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("XsYearType", rightcolumn, "XsYearType", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LinkPdf", rightcolumn, "LinkPdf", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkLinkPdf", rightcolumn, "BenchmarkLinkPdf", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ShortDescription", rightcolumn, "ShortDescription", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("SharedGroupCode", rightcolumn, "SharedGroupCode", datarecord);
+        //host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("XsYearType", rightcolumn, "XsYearType", datarecord);
+        //host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ImplementationProcedure", rightcolumn, "ImplementationProcedure", datarecord);
+
 
 //        var hs_version = "<div style='margin: 10px;'><b>Hs Version:</b> " + datarecord["HsVersion"] + "</div>";
 //            $(leftcolumn).append(hs_version);

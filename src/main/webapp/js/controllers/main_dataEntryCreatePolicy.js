@@ -19,7 +19,6 @@ require([
             //placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             placeholders:  {"FENIX_CDN": "//fenixrepo.fao.org/cdn"},
             config: {
-
                 baseUrl: 'js/libs',
 
                 paths : {
@@ -36,10 +35,11 @@ require([
                     host_policyDataObject : '../controller_util/ap_queryAndDownload_policy_data_object',
                     host_buttonActions : '../controller_util/ap_queryAndDownload_button_actions',
                     host_preview : '../controller_util/ap_queryAndDownload_preview',
+                    ap_util_functions : '../controller_util/ap_util_functions',
                     json : "../../config/json",
                     jqueryui : 'jquery-ui.min',
-                    jqueryuicustom : '//fenixapps.fao.org/repository/js/jquery-ui/1.9.2/jquery-ui.custom.min',
-                    xDomainRequest: '//fenixapps.fao.org/repository/fenix/scripts/lib/jQuery.XDomainRequest',
+                    jqueryuicustom : '//fenixrepo.fao.org/cdn/js/jquery-ui/1.9.2/jquery-ui.custom.min',
+                    xDomainRequest: '//fenixrepo.fao.org/cdn/js/jQuery.XDomainRequest/jQuery.XDomainRequest',
                     jqwidget : 'jqwidgets-ver3.4.0/jqwidgets/jqx-all',
                     bootstrap: 'bootstrap.min',
                     jQAllRangeSliders: 'jQAllRangeSliders-min',
@@ -128,8 +128,7 @@ require([
         Layout.configure({
             manage: true
         });
-  //      require(["host", "createdatasetPolicy" ], function ( Host, DataEntry ) {
-            require(["host"], function ( Host ) {
+            require(["host", 'ap_util_functions', 'text!json/auth_users.json'], function ( Host, UtilityFunctions, authUsersFile ) {
 
             $("#buttonBack").click(function() {
                 $("#metadataEditorContainer").hide();
@@ -138,10 +137,8 @@ require([
             });
 
             var host = new Host({button_preview_action_type : "searchCreatePolicy"});
-            //var dataEntry = new DataEntry();
-            //DataEntry.onDeleteAction();
-            console.log(host);
             host.initQDComponent();
+            UtilityFunctions.authentication(authUsersFile, host);
         });
     });
 });

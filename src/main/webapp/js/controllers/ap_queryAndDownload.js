@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'backbone',
     'qd_controller',
     'text!json/conf.json',
@@ -15,13 +16,12 @@ define([
     'ap_util_variables',
 //    'fenix-map',
 //    'router',
-    'jquery',
     'jQAllRangeSliders',
     'xDomainRequest',
     'amplify'
 
 //], function(Backbone, Qd, conf , data_entry_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, Router){
-], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, AmisPolicyDataEntry, ap_util_variables){
+], function($, Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, AmisPolicyDataEntry, ap_util_variables){
 //], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, DataEntryEditor, AmisPolicyDataEntry, ap_util_variables){
 
     var optionsDefault = {
@@ -64,14 +64,16 @@ define([
         fx_selector_8_2 : 'fx_selector_8_2',
         fx_selector_5_b_infoButton : 'fx_selector_5_b_button_info',
         fx_selector_5_b_selectButton : 'fx_selector_5_b_button_select',
+        fx_selector_6_b_selectButton : 'fx_selector_6_b_button_select',
+        fx_selector_7_selectButton : 'fx_selector_7_button_select',
 
         //Button Action id
         fx_selector_6_button_clear : 'fx_selector_6_button_clear',
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-       base_ip_address    :  '168.202.28.26',
-       base_ip_port    :  '10400',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '10400',
         //base_ip_address    :  'statistics.amis-outlook.org',
         //base_ip_port    :  '80',
         datasource      :   'POLICY',
@@ -85,6 +87,7 @@ define([
         policyTypes_url   :   '/wdspolicy/rest/policyservice/policyTypes',
         commodity_url   :   '/wdspolicy/rest/policyservice/commodity',
         commodityByClass_url :   '/wdspolicy/rest/policyservice/commodityByClass',
+        commodityIgnoringAssociatedPolicy_url : '/wdspolicy/rest/policyservice/commodityIgnoringAssociatedPolicy',
         condition_url   :   '/wdspolicy/rest/policyservice/condition',
         cplIdForCountry_url : '/wdspolicy/rest/policyservice/cplIdForCountry',
         individualPolicy_url    : '/wdspolicy/rest/policyservice/individualPolicy',
@@ -123,12 +126,15 @@ define([
         slider_end_date_dd : '',
         slider_end_date_mm : '',
         slider_end_date_yy : '',
+        slider_start_yy_default : '1995',
 
         //Commodity Domain Code
         commodity_domain_both : '1,2',
         commodity_domain_agricultural : '1',
         commodity_domain_biofuels : '2',
         commodity_domain_both_code : '-1',
+        commodity_domain_bothForPolicyMeasure : '0',
+        policy_domain_bothForPolicyMeasure : '0',
 
         //Policy Domain Code
         policy_domain_both : '1,2',
@@ -148,7 +154,8 @@ define([
         //1=Wheat 2=Rice 3=Maize 4=Soybeans
         commodity_parent_codes : ['1','2','3','4'],
         //8=Wheat+Maize 9=Maize+Rice 10=Maize+Soybean 11=Wheat+Maize+Rice 12=Wheat+Rice
-        commodity_children_codes : [['8','11','12'],['9','11','12'],['8','9','10','11'],['10']],
+        //commodity_children_codes : [['8','11','12'],['9','11','12'],['8','9','10','11'],['10']],
+        commodity_children_codes : [['8','18','11','14','16','12','17'],['9','13','18','11','15','16','12'],['8','9','13','10','18','11','14'],['13','10','18','14','15','16','17']],
 
         country_agricultural_domestic_codes : ['17','37','46','53','999000','116','126','202','132','162','204','249','254','259','227'],
 
@@ -165,14 +172,20 @@ define([
         onEditActionObj: '',
         editor: '',
         //This is the list of codes for the commodity used in the commodity list selector
-        commodity_codes_to_remove : ['8','9','10','11','12'],
-        commodity_parent : {'8':[1,3],'9':[2,3],'10':[3,4],'11':[1,2,3],'12':[1,2]},
+        //commodity_codes_to_remove : ['8','9','10','11','12'],
+        //commodity_parent : {'8':[1,3],'9':[2,3],'10':[3,4],'11':[1,2,3],'12':[1,2]},
+        commodity_codes_to_remove : ['8','9','10','11','12','13','14','15','16','17','18'],
+        commodity_parent : {'8':[1,3],'9':[2,3],'10':[3,4],'11':[1,2,3],'12':[1,2],'13':[2,3,4],'14':[1,3,4],'15':[2,4],'16':[1,2,4],'17':[1,4],'18':[1,2,3,4]},
 
         agricultural_policy_domain_code_order: [3,2,4,1,9,11,10,8,12],
         both_policy_domain_code_order: [6,7,5,3,2,4,1,9,11,10,8,12],
         //logged_user_code : 12,
         logged_user_code : -1,
-        logged_user_default_code : -1
+        logged_user_default_code : -1,
+        //This is the list of the Commodity that belong to a Shared Group
+        //This list is recreated everytime the user click on Add Commodity button
+        //in the Add Policy Section
+        add_commodity_popup_commodityList_sharedGroup : []
     }
 
     //text= Loads dependencies as plain text files.
@@ -349,13 +362,39 @@ define([
                                     policyDomaincCode = self.options.policy_domain_both;
                                 }
 
+                                var selecteditem_country_found = false;
+                                var selecteditem_country = '';
+                                var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+                                //console.log(selecteditem_country)
+                                if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                                    if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                                        if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                                            selecteditem_country_found = true;
+                                            selecteditem_country = selecteditem_country[0].originalItem.code;
+                                        }
+                                    }
+                                }
+
                                 var commodityClassCode = item.originalItem.code;
                                 var rest_url = {
-                                    'rest_url_type': self.options.commodity_url,
+                                    //'rest_url_type': self.options.commodity_url,
+                                    'rest_url_type': self.options.commodityIgnoringAssociatedPolicy_url,
                                     'rest_url_datasource': self.options.datasource
                                 };
-                                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode + '/' + policyDomaincCode + '/' + commodityClassCode;
-                                self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
+
+                                if(selecteditem_country_found==true){
+                                    //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode + '/' + policyDomaincCode + '/' + commodityClassCode+ '/' +selecteditem_country;
+                                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityClassCode+ '/' +selecteditem_country;
+                                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
+                                }else{
+                                    var mastertable_data = [];
+                                    var properties = {};
+                                    qd_instance.update_selector_domain(self.options.fx_selector_5_b, mastertable_data, properties);
+                                }
+
+                                //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode + '/' + policyDomaincCode + '/' + commodityClassCode;
+                                //self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
                             }
                         }
 
@@ -381,7 +420,6 @@ define([
             var select_first_enabled_elem = true;
             //Enable and disable Policy Measure
             var fx_selector_4_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_4);
-            console.log(fx_selector_4_selected_item)
             self.options.host_domain_parser.listbox_element_enable_and_disable(qd_instance, self.options.fx_selector_3, self.options.fx_selector_4, true, fx_selector_4_selected_item);
         });
 
@@ -503,7 +541,6 @@ define([
 //            //8=Wheat+Maize 9=Maize+Rice 10=Maize+Soybean 11=Wheat+Maize+Rice 12=Wheat+Rice
 //            commodity_children_codes : [[8,11,12],[9,11,12],[8,9,10,11],[10]]
                 if((item!=null)&&(typeof item!='undefined')) {
-                    //console.log("1111 ");
                     if ((item.value != null) && (typeof item.value != 'undefined') && (item.value.length > 0)) {
                         var code = item.value.substring(item.value.indexOf('_') + 1);
                         var parent_index = $.inArray(code, self.options.commodity_parent_codes);
@@ -534,7 +571,6 @@ define([
                         }
                     }
                 }
-
                 //Update Country list-> NO!!!
             }
             else{
@@ -544,6 +580,16 @@ define([
                 var event_type = '';
 
                 if((item!=null)&&(typeof item!= "undefined")&&((event_type = item.event_type) == 'select')){
+                    var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+                    if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                        if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+                            if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                                //This button has to be shown only if the user has selected a country and a commodity class
+                                $("#"+self.options.fx_selector_5_b_selectButton).show();
+                            }
+                        }
+                    }
+
                     var selecteditem_commodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
                     var selecteditem_policyDomain = qd_instance.getSelectedItems(self.options.fx_selector_2);
                     var selecteditem_commodityDomain_found = false;
@@ -559,7 +605,21 @@ define([
                         }
                     }
 
-                    if((selecteditem_commodityDomain_found)&&(selecteditem_policyDomain_found)){
+                    var selecteditem_country_found = false;
+                    var selecteditem_country = '';
+                    var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+                    //console.log(selecteditem_country)
+                    if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                        if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                            if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                                selecteditem_country_found = true;
+                                selecteditem_country = selecteditem_country[0].originalItem.code;
+                            }
+                        }
+                    }
+
+                    if((selecteditem_commodityDomain_found)&&(selecteditem_policyDomain_found)&&(selecteditem_country_found)){
                         var commodityDomaincCode = selecteditem_commodityDomain.code;
                         var policyDomaincCode = selecteditem_policyDomain.code;
                         if(selecteditem_commodityDomain.code== self.options.commodity_domain_both_code)
@@ -567,14 +627,29 @@ define([
                             //Both
                             commodityDomaincCode = self.options.commodity_domain_both;
                         }
+
                         if (selecteditem_policyDomain.code == self.options.policy_domain_both_code) {
                             //Both
                             policyDomaincCode = self.options.policy_domain_both;
                         }
 
                         var commodityClassCode = item.originalItem.code;
-                        var rest_url = {'rest_url_type':self.options.commodity_url, 'rest_url_datasource' : self.options.datasource};
-                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode+ '/' + policyDomaincCode+ '/'+commodityClassCode;
+                        var parentIndex = self.options.commodity_parent_codes.indexOf(''+commodityClassCode);
+                        if(parentIndex!= -1){
+                            var childrenArray = (self.options.commodity_children_codes[parentIndex]).toString();
+                            if((childrenArray!=null)&&(childrenArray.length>0))
+                            {
+                                commodityClassCode = commodityClassCode+','+childrenArray;
+                            }
+                        }
+                        var withSharedGroups = true;
+                        //var rest_url = {'rest_url_type':self.options.commodity_url, 'rest_url_datasource' : self.options.datasource};
+                        var rest_url = {'rest_url_type':self.options.commodityIgnoringAssociatedPolicy_url, 'rest_url_datasource' : self.options.datasource};
+
+                        //var rest_url = {'rest_url_type':self.options.commodityByClass_url, 'rest_url_datasource' : self.options.datasource};
+                        //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode+ '/' + policyDomaincCode+ '/'+commodityClassCode+ '/' +selecteditem_country+ '/'+withSharedGroups;
+                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+commodityClassCode+ '/' +selecteditem_country+ '/'+withSharedGroups;
+                        //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_poIrt + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + obj_code_country+ '/' + obj_code;
                         self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
                     }
                     else{
@@ -684,11 +759,19 @@ define([
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_5_b_changed"], function(event, properties){
             var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_5_b);
             if(self.options.button_preview_action_type == "searchCreatePolicy") {
-                if ((fx_selector_selected_item != null) && (typeof fx_selector_selected_item != "undefined") && (fx_selector_selected_item[0] != null) && (typeof fx_selector_selected_item[0] != "undefined") && ((event_type = fx_selector_selected_item[0].event_type) == 'select')) {
+                //console.log("selected_fx_selector_5_b_changed")
+                //console.log(fx_selector_selected_item)
+                //self.options.host_utility_instance.buttonShowHide(self.options.fx_selector_5_b_infoButton, true)
+                if ((fx_selector_selected_item != null) && (typeof fx_selector_selected_item != "undefined") && ((event_type = fx_selector_selected_item.event_type) == 'select')) {
+                    //console.log("Button show")
                     self.options.host_utility_instance.buttonShowHide(self.options.fx_selector_5_b_infoButton, true)
                 }
                 else{
-                    self.options.host_utility_instance.buttonShowHide(self.options.fx_selector_5_b_infoButton, false)
+                    //console.log(fx_selector_selected_item)
+                    if(((fx_selector_selected_item!=null)&&(fx_selector_selected_item.length==0))||(fx_selector_selected_item.rowindex!=-1)&&(fx_selector_selected_item.rowindex!=fx_selector_selected_item.selectedRowIndex)){
+                        //console.log("Button hide")
+                        self.options.host_utility_instance.buttonShowHide(self.options.fx_selector_5_b_infoButton, false)
+                    }
                 }
             }
         });
@@ -698,6 +781,7 @@ define([
             if(self.options.button_preview_action_type == "searchCreatePolicy"){
                 self.options.host_domain_parser.listbox_element_unselect(qd_instance, self.options.fx_selector_5_b);
 
+                $("#"+self.options.fx_selector_5_b_selectButton).hide();
                 //No commodity associated
                 var mastertable_data = [];
                 var properties = {};
@@ -708,11 +792,24 @@ define([
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_6_changed"], function(event, properties){
 
             if(self.options.button_preview_action_type == "searchCreatePolicy"){
+
                 //Get Subnational for the selected Country
                 var event_type = '';
                 var item = properties.changed_item;
                 if ((item != null) && (typeof item != "undefined") && ((event_type = item.event_type) == 'select')) {
+                    $("#"+self.options.fx_selector_6_b_selectButton).show();
                     self.options.host_domain_parser.subnationalInfo(qd_instance, self, item);
+
+                    var selecteditem_commodityClass = qd_instance.getSelectedItems(self.options.fx_selector_5);
+                    if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass.length>0)){
+                        if((selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
+
+                            if((selecteditem_commodityClass[0].originalItem.code!=null)&&(typeof selecteditem_commodityClass[0].originalItem.code!="undefined")){
+                                //This button has to be shown only if the user has selected a country and a commodity class
+                                $("#"+self.options.fx_selector_5_b_selectButton).show();
+                            }
+                        }
+                    }
                 }
 
                 var selecteditem_commodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
@@ -762,6 +859,7 @@ define([
                         }
                     }
                 }
+
                 if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass.length>0)){
                     if((selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
 
@@ -770,6 +868,51 @@ define([
                         }
                     }
                 }
+
+                if(selecteditem_commodityDomain_found&&selecteditem_policyDomain_found&&selecteditem_commodityClass_found&&selecteditem_country_found){
+                    //Commodity Selector Reload
+                    var commodityDomaincCode = selecteditem_commodityDomain.code;
+                    var policyDomaincCode = selecteditem_policyDomain.code;
+                    if(selecteditem_commodityDomain.code== self.options.commodity_domain_both_code)
+                    {
+                        //Both
+                        commodityDomaincCode = self.options.commodity_domain_both;
+                    }
+                    if (selecteditem_policyDomain.code == self.options.policy_domain_both_code) {
+                        //Both
+                        policyDomaincCode = self.options.policy_domain_both;
+                    }
+
+                    var commodityClassCode = selecteditem_commodityClass[0].originalItem.code;
+                    var selecteditemCountryCode = selecteditem_country[0].originalItem.code;
+                    var withSharedGroups = true;
+
+                    var rest_url = {
+                        //'rest_url_type': self.options.commodity_url,
+                        'rest_url_type': self.options.commodityIgnoringAssociatedPolicy_url,
+                        'rest_url_datasource': self.options.datasource
+                    };
+
+                    var parentIndex = self.options.commodity_parent_codes.indexOf(''+commodityClassCode);
+                    if(parentIndex!= -1){
+                        var childrenArray = (self.options.commodity_children_codes[parentIndex]).toString();
+                        //console.log(childrenArray)
+                        if((childrenArray!=null)&&(childrenArray.length>0))
+                        {
+                            commodityClassCode = commodityClassCode+','+childrenArray;
+                        }
+                    }
+
+                    //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode + '/' + policyDomaincCode + '/' + commodityClassCode+ '/' +selecteditemCountryCode+ '/'+withSharedGroups;
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityClassCode+ '/' +selecteditemCountryCode+ '/'+withSharedGroups;
+                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
+                }
+                else{
+                    var mastertable_data = [];
+                    var properties = {};
+                    qd_instance.update_selector_domain(self.options.fx_selector_5_b, mastertable_data, properties);
+                }
+
                 if(selecteditem_commodityDomain_found&&selecteditem_policyDomain_found&&selecteditem_policyType_found&&selecteditem_policyMeasure_found&&selecteditem_country_found&&selecteditem_commodityClass_found&&selecteditem_policyMeasure[0].event_type == "select"){
 
                     //Condition
@@ -821,7 +964,10 @@ define([
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_6_button_clear"], function(event, properties){
 
+            ///fx_selector_6_button_clear
             if(self.options.button_preview_action_type == "searchCreatePolicy"){
+                $("#"+self.options.fx_selector_6_b_selectButton).hide();
+                $("#"+self.options.fx_selector_5_b_selectButton).hide();
                 self.options.host_domain_parser.listbox_element_unselect(qd_instance, self.options.fx_selector_6_b);
 
                 //No info in GAUL for the selected country
@@ -871,13 +1017,43 @@ define([
             if(self.options.button_preview_action_type == "searchCreatePolicy") {
 
                 $('#' + self.options.fx_selector_5_b_infoButton).click(function(e){
+                    //alert("fx_selector_5_b_infoButton click!!!")
+                    //console.log("fx_selector_5_b_infoButton click!!!")
+                    var grid = qd_instance.getSelector(self.options.fx_selector_5_b);
+                    //console.log(grid.getSelectedRows())
+                    //console.log(qd_instance.getBoard());
+                    //console.log(qd_instance.getBoard().keep_track_get_item(self.options.fx_selector_5_b));
+                    //this.options.board.keep_track_get_item(grid);
+                    //var row = $("#fx_selector_5_b").jqxGrid('getselectedrowindex');
+                    //console.log($("#fx_selector_5_b"))
+                    var row = $("#fx_selector_5_b").jqxGrid('hidecolumn', 'code');
+                    //console.log(row)
                     var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_5_b);
+                    //console.log(fx_selector_selected_item)
                     self.options.host_domain_parser.createCommodityInfoPopup(qd_instance, fx_selector_selected_item, self);
                 });
 
+                self.options.host_domain_parser.createCommodityAddPopup_buttonEvents(qd_instance, self.options.fx_selector_6, self.options.fx_selector_2, self.options.fx_selector_5, self.options.fx_selector_4, self);
+
                 $('#' + self.options.fx_selector_5_b_selectButton).click(function(e){
+                    var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+                    var selecteditem_commodityClass = qd_instance.getSelectedItems(self.options.fx_selector_5);
                     var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_5_b);
-                    self.options.host_domain_parser.createCommodityAddPopup(qd_instance, fx_selector_selected_item, self);
+                    self.options.host_domain_parser.createCommodityAddPopup(qd_instance, selecteditem_country, selecteditem_commodityClass, fx_selector_selected_item, self);
+                });
+
+                //Condition
+                $('#' + self.options.fx_selector_7_selectButton).click(function(e){
+                    var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_7);
+                    //console.log(fx_selector_selected_item);
+                    self.options.host_domain_parser.createConditionAddPopup(qd_instance, fx_selector_selected_item, self);
+                });
+
+                //Subnational
+                $('#' + self.options.fx_selector_6_b_selectButton).click(function(e){
+                    var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_6_b);
+                    var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+                    self.options.host_domain_parser.createSubnationalAddPopup(qd_instance, fx_selector_selected_item, selecteditem_country, self);
                 });
             }
             //-> Generic Component
@@ -988,8 +1164,18 @@ define([
             var hsVersion = 'n.a.';
             var description = 'n.a.';
             var shortDescription = 'n.a.';
-            if((selecteditem_selector5b[0]!=null)&&(typeof selecteditem_selector5b[0]!= "undefined")&&(selecteditem_selector5b[0].originalItem!=null)&&(typeof selecteditem_selector5b[0].originalItem!= "undefined")){
-                value = selecteditem_selector5b[0].originalItem.value;
+            //if((selecteditem_selector5b[0]!=null)&&(typeof selecteditem_selector5b[0]!= "undefined")&&(selecteditem_selector5b[0].originalItem!=null)&&(typeof selecteditem_selector5b[0].originalItem!= "undefined")){
+            //    value = selecteditem_selector5b[0].originalItem.value;
+            //    commodityId = value.substring(value.indexOf("CommodityDetail_COMMODITYID:")+28, value.indexOf("_HSCODE"));
+            //    hsCode = value.substring(value.indexOf("_HSCODE:")+8, value.indexOf("_HSSUFFIX"));
+            //    hsSuffix = value.substring(value.indexOf("_HSSUFFIX:")+10, value.indexOf("_HSVERSION:"));
+            //    hsVersion = value.substring(value.indexOf("_HSVERSION:")+11, value.indexOf("_DESCRIPTION:"));
+            //    description = value.substring(value.indexOf("_DESCRIPTION:")+13, value.indexOf("_SHORTDESCRIP:"));
+            //    shortDescription = value.substring(value.indexOf("_SHORTDESCRIP:")+14);
+            //}
+
+            if((selecteditem_selector5b!=null)&&(typeof selecteditem_selector5b!= "undefined")&&(selecteditem_selector5b.changed_item!=null)&&(typeof selecteditem_selector5b.changed_item!= "undefined")){
+                value = selecteditem_selector5b.changed_item.value;
                 commodityId = value.substring(value.indexOf("CommodityDetail_COMMODITYID:")+28, value.indexOf("_HSCODE"));
                 hsCode = value.substring(value.indexOf("_HSCODE:")+8, value.indexOf("_HSSUFFIX"));
                 hsSuffix = value.substring(value.indexOf("_HSSUFFIX:")+10, value.indexOf("_HSVERSION:"));
@@ -1010,6 +1196,7 @@ define([
             if((selecteditem_selector7b[0]!=null)&&(typeof selecteditem_selector7b[0]!= "undefined")){
                 this.options.onEditActionObj.master_data.IndividualPolicyCode = selecteditem_selector7b[0].originalItem.code;
                 this.options.onEditActionObj.master_data.IndividualPolicyName = selecteditem_selector7b[0].originalItem.label;
+                //console.log(this.options.onEditActionObj.master_data);
             }
             else{
                 this.options.onEditActionObj.master_data.IndividualPolicyCode = 'n.a.';
@@ -1114,7 +1301,6 @@ define([
 
     Host.prototype.dataEntryaddEventListener = function(self){
         $('body').on("EditSearchButton", $.proxy(this.onEditAction, this));
-
         //document.body.addEventListener(this.options.CANCEL, function (e) {
         //    alert("In cancel 953")
         //    console.log(self)
@@ -1125,11 +1311,6 @@ define([
     };
 
     Host.prototype.actionToHideDataEditor = function(obj){
-        alert("In actionToHideDataEditor")
-        console.log("In actionToHideDataEditor START")
-        console.log(this)
-        console.log(obj)
-        console.log("In actionToHideDataEditor END")
         obj.destroy();
         //console.log(obj.selfObj.options.editor)
         $("#metadataEditorContainer").hide();
@@ -1142,13 +1323,12 @@ define([
         var self = this;
         //amplify.unsubscribe(self.options.CANCEL, self.actionToHideDataEditor);
 
-        console.log(this)
-        console.log(this.options.onEditActionObj);
-        console.log(payload);
+        //console.log(payload)
         if((payload!=null)&&(typeof payload!="undefined")){
             this.options.onEditActionObj = {};
             this.options.onEditActionObj = payload;
         }
+
         //payload contains policy_data and master_data
 
         //Host.prototype.onEditAction = function (e, payload) {
@@ -1219,6 +1399,8 @@ define([
 //                console.log(guiJson.panels[0].properties.summary.properties.country.value.default);
                // alert("ap_q&d Before properties before ")
                // console.log(guiJson.panels[0].properties.summary.properties)
+                //console.log(self.options.onEditActionObj)
+                //console.log(guiJson)
                 self.summaryDefaultValueSetting(guiJson, self.options.onEditActionObj, self);
               //  alert("ap_q&d Before properties after ")
               //  console.log(guiJson.panels[0].properties.summary.properties);
@@ -1257,9 +1439,7 @@ define([
                     //amplify.subscribe(self.options.CANCEL, {'obj':'obj'}, self.actionToHideDataEditor);
                     amplify.subscribe(self.options.CANCEL, function p(obj){
                         //alert("In actionToHideDataEditor")
-                        console.log(obj)
                         obj.destroy();
-
                         $("#metadataEditorContainer").hide();
                         $(".previous_content").show();
 
@@ -1285,54 +1465,255 @@ define([
                 else{
                     options.fileName = "searchAddPolicy";
                 }
+
+                options.base_ip_address = ap_util_variables.CONFIG.base_ip_address;
+                options.base_ip_port = ap_util_variables.CONFIG.base_ip_port;
+                options.datasource = ap_util_variables.CONFIG.datasource;
                 //alert("Before call editor")
+                //alert("credential")
+                //console.log(self.options.logged_user_code);
+                //console.log(self.options.logged_user_default_code);
                 //console.log("Before call editor")
                 //console.log(options)
-                self.options.editor.init(options);
+                if(sessionStorage.getItem("superUser")=="OECD"){
+                    self.options.onEditActionObj.LOGGED_USER = "OECD";
+                }
+                else{
+                    self.options.onEditActionObj.LOGGED_USER = self.options.logged_user_code;
+                }
+                //console.log(self.options.onEditActionObj)
+                self.options.editor.init(options, self.options.onEditActionObj);
                 $(".previous_content").hide();
                 $("#buttonBack").show();
                 $("#metadataEditorContainer").show();
                 //alert("AFTER INTI ")
-                console.log(self.options.editor)
+                //console.log(self.options.editor)
             });
     };
 
-    Host.prototype.summaryDefaultValueSetting = function(guiJson, payload, self){
+    Host.prototype.reloadCommodityList = function(self, qd_instance){
 
+        //Get Commodity for the selected Commodity Class
+        //var policy_measure_selector_id = self.options.fx_selector_4;
+        //var item = properties.changed_item;
+        //var event_type = '';
+
+        var itemSelector = qd_instance.getSelectedItems(self.options.fx_selector_5);
+
+        //if((item!=null)&&(typeof item!= "undefined")&&((event_type = item.event_type) == 'select')){
+        if((itemSelector!=null)&&(typeof itemSelector!= "undefined")){
+
+            var item = itemSelector[0];
+            //console.log(item)
+
+            var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+            if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+                    if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                        //This button has to be shown only if the user has selected a country and a commodity class
+                        $("#"+self.options.fx_selector_5_b_selectButton).show();
+                    }
+                }
+            }
+
+            var selecteditem_commodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
+            var selecteditem_policyDomain = qd_instance.getSelectedItems(self.options.fx_selector_2);
+            var selecteditem_commodityDomain_found = false;
+            var selecteditem_policyDomain_found = false;
+            if((selecteditem_commodityDomain!=null)&&(typeof selecteditem_commodityDomain!="undefined")){
+                if((selecteditem_commodityDomain.code!=null)&&(typeof selecteditem_commodityDomain.code!="undefined")){
+                    selecteditem_commodityDomain_found = true;
+                }
+            }
+            if((selecteditem_policyDomain!=null)&&(typeof selecteditem_policyDomain!="undefined")){
+                if((selecteditem_policyDomain.code!=null)&&(typeof selecteditem_policyDomain.code!="undefined")){
+                    selecteditem_policyDomain_found = true;
+                }
+            }
+
+            var selecteditem_country_found = false;
+            var selecteditem_country = '';
+            var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+            //console.log(selecteditem_country)
+            if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                    if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                        selecteditem_country_found = true;
+                        selecteditem_country = selecteditem_country[0].originalItem.code;
+                    }
+                }
+            }
+
+            if((selecteditem_commodityDomain_found)&&(selecteditem_policyDomain_found)&&(selecteditem_country_found)){
+                var commodityDomaincCode = selecteditem_commodityDomain.code;
+                var policyDomaincCode = selecteditem_policyDomain.code;
+                if(selecteditem_commodityDomain.code== self.options.commodity_domain_both_code)
+                {
+                    //Both
+                    commodityDomaincCode = self.options.commodity_domain_both;
+                }
+
+                if (selecteditem_policyDomain.code == self.options.policy_domain_both_code) {
+                    //Both
+                    policyDomaincCode = self.options.policy_domain_both;
+                }
+
+                //TEST
+                var commodityClassCode = item.originalItem.code;
+                var parentIndex = self.options.commodity_parent_codes.indexOf(''+commodityClassCode);
+                if(parentIndex!= -1){
+                    var childrenArray = (self.options.commodity_children_codes[parentIndex]).toString();
+                    if((childrenArray!=null)&&(childrenArray.length>0))
+                    {
+                        commodityClassCode = commodityClassCode+','+childrenArray;
+                    }
+                }
+                var withSharedGroups = true;
+                //var rest_url = {'rest_url_type':self.options.commodity_url, 'rest_url_datasource' : self.options.datasource};
+                //commodityIgnoringAssociatedPolicy_url
+                var rest_url = {'rest_url_type':self.options.commodityIgnoringAssociatedPolicy_url, 'rest_url_datasource' : self.options.datasource};
+                //var rest_url = {'rest_url_type':self.options.commodityByClass_url, 'rest_url_datasource' : self.options.datasource};
+                //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityDomaincCode+ '/' + policyDomaincCode+ '/'+commodityClassCode+ '/' +selecteditem_country+ '/'+withSharedGroups;
+                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+commodityClassCode+ '/' +selecteditem_country+ '/'+withSharedGroups;
+                //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_poIrt + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + obj_code_country+ '/' + obj_code;
+                self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_5_b, url, self);
+            }
+            else{
+                var mastertable_data = [];
+                var properties = {};
+                qd_instance.update_selector_domain(self.options.fx_selector_5_b, mastertable_data, properties);
+            }
+
+            var selecteditem_commodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
+            var selecteditem_policyDomain = qd_instance.getSelectedItems(self.options.fx_selector_2);
+            var selecteditem_policyType = qd_instance.getSelectedItems(self.options.fx_selector_3);
+            var selecteditem_policyMeasure = qd_instance.getSelectedItems(self.options.fx_selector_4);
+            var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+            var selecteditem_commodityClass = qd_instance.getSelectedItems(self.options.fx_selector_5);
+            var selecteditem_commodityDomain_found = false;
+            var selecteditem_policyDomain_found = false;
+            var selecteditem_policyType_found = false;
+            var selecteditem_policyMeasure_found = false;
+            var selecteditem_country_found = false;
+            var selecteditem_commodityClass_found = false;
+            if((selecteditem_commodityDomain!=null)&&(typeof selecteditem_commodityDomain!="undefined")){
+                if((selecteditem_commodityDomain.code!=null)&&(typeof selecteditem_commodityDomain.code!="undefined")){
+                    selecteditem_commodityDomain_found = true;
+                }
+            }
+            if((selecteditem_policyDomain!=null)&&(typeof selecteditem_policyDomain!="undefined")){
+                if((selecteditem_policyDomain.code!=null)&&(typeof selecteditem_policyDomain.code!="undefined")){
+                    selecteditem_policyDomain_found = true;
+                }
+            }
+
+            if((selecteditem_policyType!=null)&&(typeof selecteditem_policyType!="undefined")&&(selecteditem_policyType.length>0)){
+                if((selecteditem_policyType[0].originalItem!=null)&&(typeof selecteditem_policyType[0].originalItem!="undefined")){
+
+                    if((selecteditem_policyType[0].originalItem.code!=null)&&(typeof selecteditem_policyType[0].originalItem.code!="undefined")){
+                        selecteditem_policyType_found = true;
+                    }
+                }
+            }
+            if((selecteditem_policyMeasure!=null)&&(typeof selecteditem_policyMeasure!="undefined")&&(selecteditem_policyMeasure.length>0)){
+                if((selecteditem_policyMeasure[0].originalItem!=null)&&(typeof selecteditem_policyMeasure[0].originalItem!="undefined")){
+
+                    if((selecteditem_policyMeasure[0].originalItem.code!=null)&&(typeof selecteditem_policyMeasure[0].originalItem.code!="undefined")){
+                        selecteditem_policyMeasure_found = true;
+                    }
+                }
+            }
+            if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                    if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                        selecteditem_country_found = true;
+                    }
+                }
+            }
+            if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass.length>0)){
+                if((selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
+
+                    if((selecteditem_commodityClass[0].originalItem.code!=null)&&(typeof selecteditem_commodityClass[0].originalItem.code!="undefined")){
+                        selecteditem_commodityClass_found = true;
+                    }
+                }
+            }
+            if(selecteditem_commodityDomain_found&&selecteditem_policyDomain_found&&selecteditem_policyType_found&&selecteditem_policyMeasure_found&&selecteditem_country_found&&selecteditem_commodityClass_found&&selecteditem_policyMeasure[0].event_type == "select"){
+
+                //Condition
+                var commodityDomaincCode = selecteditem_commodityDomain.code;
+                var policyDomainCode = selecteditem_policyDomain.code;
+                if(selecteditem_commodityDomain.code== self.options.commodity_domain_both_code)
+                {
+                    //Both
+                    commodityDomaincCode = self.options.commodity_domain_both;
+                }
+                if (selecteditem_policyDomain.code == self.options.policy_domain_both_code) {
+                    //Both
+                    policyDomainCode = self.options.policy_domain_both;
+                }
+
+                var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7, url, self);
+
+                //Individual Policy
+                if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
+                    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
+                }
+                else{
+                    var data = [];
+                    var properties = [];
+                    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                }
+            }
+            else{
+                var data = [];
+                var properties = [];
+                //Condition
+                qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                //Individual Policy
+                qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+            }
+        }
+    }
+
+    Host.prototype.summaryDefaultValueSetting = function(guiJson, payload, self){
         var masterdata = payload.master_data;
         var policydata = payload.policy_data;
-        //this.options.onEditActionObj.master_data.CommodityId = commodityId;
-        //this.options.onEditActionObj.master_data.hsCode = hsCode;
-        //this.options.onEditActionObj.master_data.hsVersion = hsVersion;
-        //this.options.onEditActionObj.master_data.hsSuffix = hsSuffix;
-        //this.options.onEditActionObj.master_data.shortDescription = shortDescription;
-        //this.options.onEditActionObj.master_data.description = description;
+        //console.log(masterdata)
 
-        console.log("Before PAYLOAD")
-        console.log(payload)
         if((guiJson!=null)&&(typeof guiJson!='undefined')){
             if((guiJson.panels[0].properties.summary.properties.country)&&(typeof guiJson.panels[0].properties.summary.properties.country)){
                 guiJson.panels[0].properties.summary.properties.country.value = {};
                 //guiJson.panels[0].properties.summary.properties.country.value.default = "Argentina";
                 guiJson.panels[0].properties.summary.properties.country.value.default = masterdata.CountryName;
+                guiJson.panels[0].properties.summary.properties.country.value.code = masterdata.CountryCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.subnational!=null)&&(typeof guiJson.panels[0].properties.summary.properties.subnational!='undefined')){
                 guiJson.panels[0].properties.summary.properties.subnational.value = {};
                 //guiJson.panels[0].properties.summary.properties.subnational.value.default = "n.a";
                 guiJson.panels[0].properties.summary.properties.subnational.value.default = masterdata.SubnationalName;
+                guiJson.panels[0].properties.summary.properties.subnational.value.code = masterdata.SubnationalCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.commodityDomain!=null)&&(typeof guiJson.panels[0].properties.summary.properties.commodityDomain!='undefined')){
                 guiJson.panels[0].properties.summary.properties.commodityDomain.value = {};
                 //guiJson.panels[0].properties.summary.properties.commodityClass.value.default = "Wheat";
                 guiJson.panels[0].properties.summary.properties.commodityDomain.value.default = masterdata.CommodityDomainName;
+                guiJson.panels[0].properties.summary.properties.commodityDomain.value.code = masterdata.CommodityDomainCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.commodityClass!=null)&&(typeof guiJson.panels[0].properties.summary.properties.commodityClass!='undefined')){
                 guiJson.panels[0].properties.summary.properties.commodityClass.value = {};
                 //guiJson.panels[0].properties.summary.properties.commodityClass.value.default = "Wheat";
                 guiJson.panels[0].properties.summary.properties.commodityClass.value.default = masterdata.CommodityClassName;
+                guiJson.panels[0].properties.summary.properties.commodityClass.value.code = masterdata.CommodityClassCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.commodityId!=null)&&(typeof guiJson.panels[0].properties.summary.properties.commodityId!='undefined')){
@@ -1375,18 +1756,22 @@ define([
                 guiJson.panels[0].properties.summary.properties.policyDomain.value = {};
                 //guiJson.panels[0].properties.summary.properties.policyDomain.value.default = "Trade";
                 guiJson.panels[0].properties.summary.properties.policyDomain.value.default = masterdata.PolicyDomainName;
+                guiJson.panels[0].properties.summary.properties.policyDomain.value.code = masterdata.PolicyDomainCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.policyType!=null)&&(typeof guiJson.panels[0].properties.summary.properties.policyType!='undefined')){
                 guiJson.panels[0].properties.summary.properties.policyType.value = {};
                 //guiJson.panels[0].properties.summary.properties.policyType.value.default = "Export measures";
                 guiJson.panels[0].properties.summary.properties.policyType.value.default = masterdata.PolicyTypeName;
+                guiJson.panels[0].properties.summary.properties.policyType.value.code = masterdata.PolicyTypeCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.policyMeasure!=null)&&(typeof guiJson.panels[0].properties.summary.properties.policyMeasure!='undefined')){
                 guiJson.panels[0].properties.summary.properties.policyMeasure.value = {};
                 //guiJson.panels[0].properties.summary.properties.policyMeasure.value.default = "Licensing requirement";
                 guiJson.panels[0].properties.summary.properties.policyMeasure.value.default = masterdata.PolicyMeasureName;
+                //Added
+                guiJson.panels[0].properties.summary.properties.policyMeasure.value.code = masterdata.PolicyMeasureCode;
             }
 
             if((guiJson.panels[0].properties.summary.properties.policyCondition!=null)&&(typeof guiJson.panels[0].properties.summary.properties.policyCondition!='undefined')){
@@ -1410,8 +1795,9 @@ define([
             if((guiJson.panels[0].properties.source.source.url!=null)&&(typeof guiJson.panels[0].properties.source.source.url!='undefined')){
                 var countryCode = masterdata.CountryCode;
                 //var cplId = masterdata.CplId;
-                var cplId = '118';
-                guiJson.panels[0].properties.source.source.url+= "/"+countryCode+"/"+cplId;
+                //var cplId = '118';
+                //guiJson.panels[0].properties.source.source.url+= "/"+countryCode+"/"+cplId;
+                guiJson.panels[0].properties.source.source.url+= "/"+countryCode;
             }
 
             self.options.host_utility_instance.checkFieldsByPolicySelection(guiJson, payload);
@@ -1439,6 +1825,10 @@ define([
                 //Add check for value and value text
                 field = guiJson.panels[0].properties.valueText;
                 defaultValue = policydata.ValueText;
+                self.setDefaultValue_TextField(field, defaultValue);
+
+                field = guiJson.panels[0].properties.value;
+                defaultValue = policydata.Value;
                 self.setDefaultValue_TextField(field, defaultValue);
 
                 field = guiJson.panels[0].properties.exemptions;
@@ -1559,28 +1949,32 @@ define([
                 defaultValue = policydata.StartDate;
                 newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    //self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_ddMMyyyy(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.endDate;
                 defaultValue = policydata.EndDate;
                 newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    //self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_ddMMyyyy(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.dateOfPublication;
                 defaultValue = policydata.DateOfPublication;
                 newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    //self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_ddMMyyyy(defaultValue));
                 }
 
                 field = guiJson.panels[0].properties.startDateTax;
                 defaultValue = policydata.StartDateTax;
                 newFormat = self.dateFormatConverter_milliseconds(defaultValue);
                 if((newFormat!=null)&&(typeof newFormat!= "undefined")&&(newFormat.length>0)){
-                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    //self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
+                    self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_ddMMyyyy(defaultValue));
                 }
             }
         }
@@ -1612,8 +2006,6 @@ define([
     };
 
     Host.prototype.setDefaultValue_Calendar = function(field, value){
-        console.log(field)
-        console.log(value)
         if((field!=null)&&(typeof field!='undefined')){
             if((field.value!=null)&&(typeof field.value!='undefined')){
                 field.value.defaultValue= value;
@@ -1648,16 +2040,39 @@ define([
             var day = original_string[0];
             var month = original_string[1];
             var year = original_string[2];
-            if(!day.length>1){
+            if(day.length==1){
                 day = "0"+day;
             }
-            if(!month.length>1){
+            if(month.length==1){
                 month = "0"+month;
             }
             //the original format "MM/DD/YYYY"
             var d = new Date(month+"/"+day+"/"+year);
             var milliseconds = d.getTime();
             var stringNewFormat = ""+milliseconds;
+        }
+        return stringNewFormat;
+    };
+
+    Host.prototype.dateFormatConverter_ddMMyyyy_ddMMyyyy = function(value){
+
+        //This is the original format "DD/MM/YYYY"
+        var original_string ='';
+        var stringNewFormat = '';
+        if((value!=null)&&(typeof value!= "undefined")&&(value.length>0)){
+
+            original_string = value.split("/");
+            var day = original_string[0];
+            var month = original_string[1];
+            var year = original_string[2];
+            if(day.length==1){
+                day = "0"+day;
+            }
+            if(month.length==1){
+                month = "0"+month;
+            }
+            //the original format "MM/DD/YYYY"
+            stringNewFormat = day + "-"+ month + "-"+year;
         }
         return stringNewFormat;
     };

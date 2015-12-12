@@ -478,8 +478,6 @@ define([
         this.$menu = $(this.options.menu.container);
         this.$toAffix = $(this.options.menu.toAffix);
 
-        console.log( this.$toAffix )
-
         this.initHistory();
 
         this.createMenu();

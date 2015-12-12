@@ -64,6 +64,10 @@ define([
         var properties = {};
         properties.changed_item= changed_item;
         //Call the controller to update the model for this component
+        //console.log("modelUpdate LISTBOX start")
+        //console.log(changed_item)
+        //console.log(properties)
+        //console.log("modelUpdate LISTBOX end")
         self.options.controller.modelUpdate(self, items, properties);
     };
 
@@ -179,6 +183,21 @@ define([
                     //This variable is used in the checkbox
                     self.options.select_all_button_pressed = false;
                     //Deselect All
+                    console.log(self)
+                    var buttonUpdateObj = {};
+                    if((self.options.buttons!=null)&&(typeof self.options.buttons!='undefined')){
+                        for(var i=0; i< self.options.buttons.length; i++){
+                            if(self.options.buttons[i].type == 'clear'){
+                                buttonUpdateObj.options = {};
+                                buttonUpdateObj.options.id = self.options.buttons[i].id;
+                                buttonUpdateObj.options.list_id = self.options.list_id;
+                                buttonUpdateObj.options.controller = self.options.controller;
+                                self.modelUpdate(buttonUpdateObj);
+                                break;
+                            }
+                        }
+                    }
+                    //selector_instance.options.id
                     var source_domain = self.getDomain(true);
                     var properties = [];
                     if ((source_domain != null) && (typeof source_domain != 'undefined')) {
@@ -464,7 +483,6 @@ define([
         //$('#'+this.options.list_id).jqxListBox({width:"99%", height: 250, multipleextended: this.options.multipleextended});
 
         $('#'+this.options.list_id).jqxListBox({width:"99%", height: this.options.style.heigth, multipleextended: this.options.multipleextended});
-
 
         //This is not the right event
         this.changeListBox();

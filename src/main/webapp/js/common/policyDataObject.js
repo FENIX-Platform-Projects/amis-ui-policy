@@ -12,6 +12,7 @@ define([
         data.commodity_class_code = "";
         data.policy_type_code = [];
         data.policy_measure_code = [];
+        data.policyTypesMeasureInfo = "";
         data.country_code = "";
         //it could be 'slider' or 'classic'
         data.yearTab ="";
@@ -33,6 +34,17 @@ define([
         data.subnational_for_coutry_lev_3 = "";
         //key=subnational_code -> subnational_name
         data.subnational_lev_3 = "";
+
+        data.commodity_class_code = "";
+        data.commodity_class_name = "";
+        data.country_code = "";
+        data.country_name = "";
+        data.hs_code = "";
+        data.hs_version = "";
+        data.description = "";
+        data.short_description = "";
+        data.shared_group_code = '';
+        data.commodity_list = [];
 
 //        data.showNull = true;
 //        data.showZeroes = true;

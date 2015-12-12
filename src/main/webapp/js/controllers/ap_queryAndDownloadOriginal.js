@@ -10,10 +10,10 @@ var ap_queryAndDownload = (function() {
         theme           :   'faostat',
         datasource      :   'POLICY',
 //       base_ip_address    :  'localhost',//168.202.28.56
-//        base_ip_address    :  '168.202.28.26',
-//        base_ip_port    :  '8090',
-        base_ip_address    :  'statistics.amis-outlook.org',
-        base_ip_port    :  '80',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '8090',
+        //base_ip_address    :  'statistics.amis-outlook.org',
+        //base_ip_port    :  '80',
         commodityPolicyDomain_url   :   '/wds/rest/policyservice/commodityPolicyDomain',
         startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
         commodityPolicyTypes_url   :   '/wds/rest/policyservice/policyTypes',
@@ -2119,11 +2119,11 @@ var ap_queryAndDownload = (function() {
                     row["original_dataset"] = ap_policyTableObject.CONFIG.original_dataset[i];
                     row["type_of_change_code"] = ap_policyTableObject.CONFIG.type_of_change_code[i];
                     row["type_of_change_name"] = ap_policyTableObject.CONFIG.type_of_change_name[i];
-                    row["measure_descr"] = ap_policyTableObject.CONFIG.measure_descr[i];
+                    row["measure_description"] = ap_policyTableObject.CONFIG.measure_description[i];
                     row["product_original_hs"] = ap_policyTableObject.CONFIG.product_original_hs[i];
                     row["product_original_name"] = ap_policyTableObject.CONFIG.product_original_name[i];
-                    row["implementationprocedure"] = ap_policyTableObject.CONFIG.implementationprocedure[i];
-                    row["xs_yeartype"] = ap_policyTableObject.CONFIG.xs_yeartype[i];
+                    //row["implementationprocedure"] = ap_policyTableObject.CONFIG.implementationprocedure[i];
+                    //row["xs_yeartype"] = ap_policyTableObject.CONFIG.xs_yeartype[i];
                     row["link_pdf"] = ap_policyTableObject.CONFIG.link_pdf[i];
                     row["benchmark_link_pdf"] = ap_policyTableObject.CONFIG.benchmark_link_pdf[i];
                     row["short_description"] = ap_policyTableObject.CONFIG.short_description[i];
@@ -2223,17 +2223,17 @@ var ap_queryAndDownload = (function() {
                     //$(rightcolumn).append(type_of_change_code);
                     var type_of_change_name = "<div style='margin: 10px;'><b>"+$.i18n.prop('_type_of_change_name') +":</b> " + datarecord.type_of_change_name[index] + "</div>";
                     $(rightcolumn).append(type_of_change_name);
-                    var measure_descr = "<div style='margin: 10px;'><b>"+$.i18n.prop('_measure_descr') +":</b> " + datarecord.measure_descr[index] + "</div>";
+                    var measure_descr = "<div style='margin: 10px;'><b>"+$.i18n.prop('_measure_description') +":</b> " + datarecord.measure_descr[index] + "</div>";
                     $(leftcolumn).append(measure_descr);
                     var product_original_hs = "<div style='margin: 10px;'><b>"+$.i18n.prop('_product_original_hs') +":</b> " + datarecord.product_original_hs[index] + "</div>";
                     $(rightcolumn).append(product_original_hs);
                     var product_original_name = "<div style='margin: 10px;'><b>"+$.i18n.prop('_product_original_name') +":</b> " + datarecord.product_original_name[index] + "</div>";
                     $(rightcolumn).append(product_original_name);
 
-                    var implementationprocedure = "<div style='margin: 10px;'><b>"+$.i18n.prop('_implementationprocedure') +":</b> " + datarecord.implementationprocedure[index] + "</div>";
-                    $(rightcolumn).append(implementationprocedure);
-                    var xs_yeartype = "<div style='margin: 10px;'><b>"+$.i18n.prop('_xs_yeartype') +":</b> " + datarecord.xs_yeartype[index] + "</div>";
-                    $(rightcolumn).append(xs_yeartype);
+                    //var implementationprocedure = "<div style='margin: 10px;'><b>"+$.i18n.prop('_implementationprocedure') +":</b> " + datarecord.implementationprocedure[index] + "</div>";
+                    //$(rightcolumn).append(implementationprocedure);
+                    //var xs_yeartype = "<div style='margin: 10px;'><b>"+$.i18n.prop('_xs_yeartype') +":</b> " + datarecord.xs_yeartype[index] + "</div>";
+                    //$(rightcolumn).append(xs_yeartype);
                     var link_pdf = "<div style='margin: 10px;'><b>"+$.i18n.prop('_link_pdf') +":</b> " + datarecord.link_pdf[index] + "</div>";
                     $(rightcolumn).append(link_pdf);
                     var benchmark_link_pdf = "<div style='margin: 10px;'><b>"+$.i18n.prop('_benchmark_link_pdf') +":</b> " + datarecord.benchmark_link_pdf[index] + "</div>";

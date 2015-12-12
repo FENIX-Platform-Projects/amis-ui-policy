@@ -31,6 +31,10 @@ define([
         exportSubsidiesPolicyElementLineChart_url : '/wdspolicy/rest/policyservice/exportSubsidiesPolicyElementLineChart',
         importTariffsPolicyMeasuresBarChart : '/wdspolicy/rest/policyservice/importTariffsPolicyMeasuresBarChart',
         startAndEndDate_url   :   '/wdspolicy/rest/policyservice/startEndDate',
+        createNewSingleCommodity    : '/wdspolicy/rest/policyservice/createNewSingleCommodity',
+        createNewSharedGroup    : '/wdspolicy/rest/policyservice/createNewSharedGroup',
+        subnationalMaxCodeNotGaul : '/wdspolicy/rest/policyservice/subnationalMaxCodeNotGaul',
+        conditionMaxCode : '/wdspolicy/rest/policyservice/conditionMaxCode',
 
         biofuel_commodity_domain_code   :  2,
         //The order in biofuel_commodity_class_codes is important
@@ -70,6 +74,7 @@ define([
         domestic_policyDomain_code : 2,
         export_measure_policyType_code : 1,
         export_subsidies_policyMeasure_code : 3,
+        export_restrictions_policyType_code : "Export Measures",
 
         //To D3S
         codelist_url    :   'http://faostat3.fao.org/d3sp/service/msd/cl/system',
@@ -88,7 +93,59 @@ define([
         start_date_yy_int_for_chart_exportRestriction : 2007,
         start_date_yy_int_for_chart_timeSeries : 1983,
         start_date_yy_int_for_chart_timeSeries_biofuelPolicy : 2011,
-        start_date_yy_int_for_chart_timeSeries_exportRestriction : 2007
+        start_date_yy_int_for_chart_timeSeries_exportRestriction : 2007,
+        importTariffs : 11,
+        tariffQuotas : 12,
+        commodityClassParent : [{3: 'Maize'}, {2: 'Rice'}, {4: 'Soybeans'}, {1: 'Wheat'}],
+        //commodityClassChildren :{ 3: [{code: 9, label: 'Maize + Rice'},{code: 10, label: 'Maize + Soybeans'},{code: 8, label: 'Wheat + Maize'},{code: 11, label: 'Wheat + Maize + Rice'}],
+        //    2 : [{code: 9, label: 'Maize + Rice'},{code: 11, label: 'Wheat + Maize + Rice'},{code: 12, label: 'Wheat + Rice'}],
+        //    4 : [{code: 10, label: 'Maize + Soybeans'}],
+        //    1 : [{code: 8, label: 'Wheat + Maize'}, {code: 11, label: 'Wheat + Maize + Rice'}, {code: 12, label: 'Wheat + Rice'}]
+        //},
+        commodityClassChildren :{ 3: [{code: 8, label: 'Maize + Wheat'},{code: 9, label: 'Maize + Rice'},{code: 13, label: 'Maize + Rice + Soybeans'},{code: 10, label: 'Maize + Soybeans'},{code: 18, label: 'Maize + Rice + Soybeans + Wheat'},{code: 11, label: 'Maize + Rice + Wheat'},{code: 14, label: 'Maize + Soybeans + Wheat'}],
+            2 : [{code: 9, label: 'Maize + Rice'},{code: 13, label: 'Maize + Rice + Soybeans'},{code: 18, label: 'Maize + Rice + Soybeans + Wheat'},{code: 11, label: 'Maize + Rice + Wheat'},{code: 15, label: 'Rice + Soybeans'},{code: 16, label: 'Rice + Soybeans + Wheat'},{code: 12, label: 'Rice + Wheat'}],
+            4 : [{code: 13, label: 'Maize + Rice + Soybeans'},{code: 10, label: 'Maize + Soybeans'},{code: 18, label: 'Maize + Rice + Soybeans + Wheat'},{code: 14, label: 'Maize + Soybeans + Wheat'},{code: 15, label: 'Rice + Soybeans'},{code: 16, label: 'Rice + Soybeans + Wheat'},{code: 17, label: 'Soybeans + Wheat'}],
+            1 : [{code: 8, label: 'Maize + Wheat'},{code: 18, label: 'Maize + Rice + Soybeans + Wheat'},{code: 11, label: 'Maize + Rice + Wheat'},{code: 14, label: 'Maize + Soybeans + Wheat'},{code: 16, label: 'Rice + Soybeans + Wheat'},{code: 12, label: 'Rice + Wheat'},{code: 17, label: 'Soybeans + Wheat'}]
+        },
+        commodityClassInArray : {6:['Biodiesel'], 7:['Biofuel (unspecified)'], 5:['Ethanol'], 3:['Maize'], 8:[['Maize'],['Wheat']], 9:[['Maize'],['Rice']], 13:[['Maize'],['Rice'],['Soybeans']],
+            10:[['Maize'],['Soybeans']],18:[['Maize'],['Rice'],['Soybeans'],['Wheat']],11:[['Maize'],['Rice'],['Wheat']],14:[['Maize'],['Soybeans'],['Wheat']],2:['Rice'],15:[['Rice'],['Soybeans']],
+            16:[['Rice'],['Soybeans'],['Wheat']],12:[['Rice'],['Wheat']],4:[['Soybeans']],17:[['Soybeans'],['Wheat']],1:[['Wheat']]},
+
+        commodityClassInArray_originalName : {6:'Biodiesel', 7:'Biofuel (unspecified)', 5:'Ethanol', 3:'Maize', 8:'Maize + Wheat', 9:'Maize + Rice', 13:'Maize + Rice + Soybeans',
+            10:'Maize + Soybeans', 18:'Maize + Rice + Soybeans + Wheat',11:'Maize + Rice + Wheat',14:'Maize + Soybeans + Wheat',2:'Rice',15:'Rice + Soybeans',
+            16:'Rice + Soybeans + Wheat',12:'Rice + Wheat',4:'Soybeans',17:'Soybeans + Wheat',1:'Wheat'},
+
+        //6;Biodiesel
+        //7;Biofuel (unspecified)
+        //5;Ethanol
+        //3;Maize
+        //8;Maize + Wheat
+        //9;Maize + Rice
+        //13;Maize + Rice + Soybeans
+        //10;Maize + Soybeans
+        //18;Maize + Rice + Soybeans + Wheat
+        //11;Maize + Rice + Wheat
+        //14;Maize + Soybeans + Wheat
+        //2;Rice
+        //15;Rice + Soybeans
+        //16;Rice + Soybeans + Wheat
+        //12;Rice + Wheat
+        //4;Soybeans
+        //17;Soybeans + Wheat
+        //1;Wheat
+
+        //WTO CODES
+        //They are used to eliminate WTO data from the application
+        //11;Import tariffs  12;Tariff quotas
+        WTOImportCodes : ['11','12','3'],
+        commodity_domain_bothForPolicyMeasure : '0',
+        commodity_domain_agriculturalForPolicyMeasure : '1',
+        commodity_domain_biofuelsForPolicyMeasure : '2',
+        policy_domain_bothForPolicyMeasure : '0',
+
+        export_quota_code : '2',
+        export_subsidies_code : '3',
+        tariff_quotas_code : '12'
     };
 
     function init(){

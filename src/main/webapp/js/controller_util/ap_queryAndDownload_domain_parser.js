@@ -1,13 +1,16 @@
 define([
     'jquery',
     'ap_policyDataObject',
+    'ap_util_variables',
+    'ap_util_functions',
     'nprogress',
     'jQAllRangeSliders',
-    'xDomainRequest'
-], function($, ap_policyDataObject, NProgress) {
+    'xDomainRequest',
+    'jqwidget'
+], function($, ap_policyDataObject, ap_util_variables, ap_util_functions, NProgress) {
 
     var optionsDefault = {
-
+        singleCommodityPopup : true
     }
 
     //text= Loads dependencies as plain text files.
@@ -53,6 +56,7 @@ define([
                 var jsonCodes = json.rootCodes;
                 var data = new Array();
                 var none_index=-1;
+                var type = qd_controller_instance.getSelector_domainType(selector_id);
                 if((jsonCodes!=null)&&(typeof jsonCodes!="undefined")&&(jsonCodes.length>0))
                 {
                     jsonCodes.sort(function (a, b) {
@@ -74,13 +78,14 @@ define([
 //                    toRemove = true;
 //                }
 
-                    if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
+                    //if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
+                    if(json.system.indexOf('CommodityClass')!=-1)
                     {
                         toRemove = true;
                     }
 
                     //-> Generic Component..can be Commodity or Country
-                    var type = qd_controller_instance.getSelector_domainType(selector_id);
+                    //var type = qd_controller_instance.getSelector_domainType(selector_id);
 
                     var language = qd_controller_instance.getSelector_language(selector_id);
 
@@ -126,8 +131,9 @@ define([
                     //In this case is used to show or hide the elements that belong to the "Mixed"
 //                var properties = {'removeFromList': [{'label': 'Id1', 'value': 'ValueId1'}, {'label': 'Id2', 'value': 'ValueId2'}]};
                     var properties ='';
-                    if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
-                    // if(json.system.contains('CommodityClass'))
+                    //if((json.system.indexOf('CommodityClass')!=-1)&&(self.options.button_preview_action_type != "searchCreatePolicy"))
+                     //if(json.system.contains('CommodityClass'))
+                    if(json.system.indexOf('CommodityClass')!=-1)
                     {
                         properties = {'removeFromList': to_remove, 'parent':parent};
                     }
@@ -138,7 +144,7 @@ define([
                 }
                 else{
 
-                    var type = qd_controller_instance.getSelector_domainType(selector_id);
+                    //var type = qd_controller_instance.getSelector_domainType(selector_id);
 
                     if((type==self.options.condition_selector_type)||(type==self.options.individualPolicy_selector_type)){
                         var dataI = 0;
@@ -172,6 +178,7 @@ define([
                             var app = '';
                             //commodity_id, country_name, hs_code, hs_suffix, hs_version, target_code, description, short_description, commodityclass_code, commodityclass_name, shared_group_code
 
+                            //commodity_id, country_name, hs_code, hs_suffix, hs_version, description, commodityclass_code, commodityclass_name, short_description, shared_group_code, country_code FROM commlistwithid
                             if((json[i][0]!=null)&&(typeof json[i][0]!= "undefined")&&(json[i][0].length>0)){
                                 commodityId = json[i][0];
                                 if(commodityId==self.options.none){
@@ -206,18 +213,21 @@ define([
                                 app += "["+hsVersion+"]";
                             }
 
-                            if((json[i][6]!=null)&&(typeof json[i][6]!= "undefined")&&(json[i][6].length>0)){
-                                longDescription = json[i][6];
+                            if((json[i][5]!=null)&&(typeof json[i][5]!= "undefined")&&(json[i][5].length>0)){
+                                longDescription = json[i][5];
                             }
 
-                            if((json[i][7]!=null)&&(typeof json[i][7]!= "undefined")&&(json[i][7].length>0)){
-                                shortDescription = json[i][7];
+                            if((json[i][6]!=null)&&(typeof json[i][6]!= "undefined")&&(json[i][6].length>0)){
+                                shortDescription = json[i][6];
                                 app += shortDescription;
                             }
                             var value = ""+type + "_COMMODITYID:"+commodityId+"_HSCODE:"+hsCode+"_HSSUFFIX:"+hsSuffix+"_HSVERSION:"+hsVersion+"_DESCRIPTION:"+longDescription+"_SHORTDESCRIP:"+shortDescription;
                             //var obj = {"value": value, "label": app, "code" : hsCode, "type": type};
-                            var obj = {"value": value, "label": app, "code" : hsCode, "type": type, "labelToVisualize": "<img width='16' height='16' style='float: left; margin-top: 2px; margin-right: 5px;' src='../../img/btn-notes.png'/><span>"+app+"</span>"};
+                            var obj = {"hsVersion":hsVersion, "shortDescription": shortDescription, "value": value, "label": app, "code" : hsCode, "type": type, "labelToVisualize": "<img width='16' height='16' style='float: left; margin-top: 2px; margin-right: 5px;' src='../../img/btn-notes.png'/><span>"+app+"</span>"};
                             data[i] = obj;
+                            //console.log("COMMODITY CLASS START!!!!")
+                            //console.log(data)
+                            //console.log("COMMODITY CLASS END!!!!")
                         }
                     }
                 }
@@ -385,7 +395,66 @@ define([
                         qd_controller_instance.update_selector_selection(selector_id, properties_to_select, true);
                     }
                     else{
-                        qd_controller_instance.update_selector_domain(selector_id, data, properties);
+                        //"hsVersion":hsVersion, "shortDescription": shortDescription, "value": value, "label": app, "code" : hsCode,
+                        if(type== "CommodityDetail"){
+                            //console.log("COMMODITY DETAIL!!")
+                            //console.log(data)
+                            //var data = new Array();
+                            //for(var iSource= 0; iSource<10; iSource++){
+                            //    var obj = {};
+                            //    obj['code'] = data[iSource].code;
+                            //    obj['commodity'] = "LabelCommodity"+iSource;
+                            //    obj['originalHsCode'] = "LabelOriginalHsCode"+iSource;
+                            //    obj['originalHsVersion'] = "LabelOriginalHsVersion"+iSource;
+                            //    obj['originalHsSuffix'] = "LabelOriginalHsSuffix"+iSource;
+                            //    data.push(obj);
+                            //}
+
+                            var gridSource =
+                            {
+                                localdata: data,
+                                datatype: "array",
+                                datafields:
+                                    [
+                                        { name: 'code', type: 'string' },
+                                        { name: 'hsVersion', type: 'string' },
+                                        { name: 'shortDescription', type: 'string' },
+                                        { name: 'value', type: 'string' }
+                                    ],
+                                selectedrowindex: 0
+
+                            };
+                            //for(var iSource= 0; iSource<10; iSource++){
+                            //    var obj = {};
+                            //    obj['selected'] = false;
+                            //    obj['commodity'] = "LabelCommodity"+iSource;
+                            //    obj['originalHsCode'] = "LabelOriginalHsCode"+iSource;
+                            //    obj['originalHsVersion'] = "LabelOriginalHsVersion"+iSource;
+                            //    obj['originalHsSuffix'] = "LabelOriginalHsSuffix"+iSource;
+                            //    data.push(obj);
+                            //}
+                            //
+                            //var gridSource =
+                            //{
+                            //    localdata: data,
+                            //    datatype: "array",
+                            //    datafields:
+                            //        [
+                            //            { name: 'selected', type: 'bool' },
+                            //            { name: 'commodity', type: 'string' },
+                            //            { name: 'originalHsCode', type: 'string' },
+                            //            { name: 'originalHsVersion', type: 'string' },
+                            //            { name: 'originalHsSuffix', type: 'string' }
+                            //        ]
+                            //};
+
+                            //data = gridSource;
+                            qd_controller_instance.update_selector_domain(selector_id, gridSource, properties);
+                        }
+                        else{
+                            qd_controller_instance.update_selector_domain(selector_id, data, properties);
+                        }
+
                     }
                 }
             },
@@ -424,15 +493,22 @@ define([
             if((selecteditem!=null)&&(typeof selecteditem!="undefined")&&(typeof selecteditem.code != 'undefined')){
                 policy_domain = selecteditem.code;
                 selecteditem = qd_controller_instance.getSelectedItems(self.options.fx_selector_3);
-                console.log("selecteditem");
-                console.log(selecteditem);
                 if((selecteditem!=null)&&(typeof selecteditem!="undefined")&&(typeof selecteditem[0]!="undefined")&&(typeof selecteditem[0].originalItem != 'undefined')&&(typeof selecteditem[0].originalItem.code != 'undefined')){
-                    policy_type = selecteditem[0].originalItem.code;
+                    //policy_type = selecteditem[0].originalItem.code;
+                    if (commodity_domain == self.options.commodity_domain_both_code) {
+                        //Both
+                        commodity_domain = self.options.commodity_domain_bothForPolicyMeasure;
+                    }
+                    if (policy_domain == self.options.policy_domain_both_code) {
+                        //Both
+                        policy_domain = self.options.policy_domain_bothForPolicyMeasure;
+                    }
+                    policy_type= url_type_var.rest_url_specific_code;
 
                     $.ajax({
                         type: 'GET',
-                        url: "http://fenixservices.fao.org/d3s/msd/resources/OECD_PolicyType0_0_8/1.0",
-                        //url: "http://fenixservices.fao.org/d3s/msd/resources/OECD_PolicyType"+commodity_domain+"_"+policy_domain+"_"+policy_type+"/1.0",
+                        //url: "http://fenixservices.fao.org/d3s/msd/resources/OECD_PolicyType0_0_8/1.0",
+                        url: "http://fenixservices.fao.org/d3s/msd/resources/OECD_PolicyType"+commodity_domain+"_"+policy_domain+"_"+policy_type+"/1.0",
 
                         success: function (response) {
                             /* Convert the response in an object, if needed. */
@@ -546,6 +622,24 @@ define([
                                                 }
                                             }
                                         }
+
+                                        var newArray = [];
+                                        if((self.options.policy_measure_actual_data!=null)&&(typeof self.options.policy_measure_actual_data!="undefined")){
+                                            var indexArray = [];
+                                            var j =0;
+                                            for(var i=0; i<self.options.policy_measure_actual_data.length; i++){
+                                                if(($.inArray(self.options.policy_measure_actual_data[i].code, ap_util_variables.CONFIG.WTOImportCodes))!=-1){
+                                                    indexArray[j] = i;
+                                                    j++;
+                                                }
+                                            }
+
+                                            if(indexArray.length>0){
+                                                for(j=(indexArray.length-1); j>=0; j--){
+                                                    self.options.policy_measure_actual_data.splice(indexArray[j],1);
+                                                }
+                                            }
+                                        }
                                         qd_controller_instance.update_selector_domain(self.options.fx_selector_4, self.options.policy_measure_actual_data, properties);
                                         self.options.policy_measure_actual_calls= 0;
                                         self.options.policy_measure_actual_data =[];
@@ -561,7 +655,6 @@ define([
                                 NProgress.done();
                             }
                         },
-
                         error: function (err, b, c) {
                             alert(err.status + ", " + b + ", " + c);
                         }
@@ -1133,82 +1226,82 @@ define([
                                                 //cpl_id[i] = json[i][j];
                                                 row["CplId"] = json[i][j];
                                                 break;
+                                            //case 1:
+                                            //    //cpl_code[i] = json[i][j];
+                                            //    break;
                                             case 1:
-                                                //cpl_code[i] = json[i][j];
-                                                break;
-                                            case 2:
                                                 //commodity_id[i] = json[i][j];
                                                 row["CommodityId"] = json[i][j];
                                                 break;
-                                            case 3:
+                                            case 2:
                                                 //country_code[i] = json[i][j];
                                                 row["CountryCode"] = json[i][j];
                                                 break;
-                                            case 4:
+                                            case 3:
 //                                            country_name[i] = json[i][j];
                                                 row["CountryName"] = json[i][j];
                                                 break;
-                                            case 5:
+                                            case 4:
                                                 //subnational_code[i] = json[i][j];
                                                 row["SubnationalCode"] = json[i][j];
                                                 break;
-                                            case 6:
+                                            case 5:
 //                                            subnational_name[i] = json[i][j];
                                                 row["SubnationalName"] = json[i][j];
                                                 break;
-                                            case 7:
+                                            case 6:
                                                 //commoditydomain_code[i] = json[i][j];
                                                 row["CommodityDomainCode"] = json[i][j];
                                                 break;
-                                            case 8:
+                                            case 7:
                                                 //commoditydomain_name[i] = json[i][j];
                                                 row["CommodityDomainName"] = json[i][j];
                                                 break;
-                                            case 9:
+                                            case 8:
                                                 //commodityclass_code[i] = json[i][j];
                                                 row["CommodityClassCode"] = json[i][j];
                                                 break;
-                                            case 10:
+                                            case 9:
                                                 //commodityclass_name[i] = json[i][j];
                                                 row["CommodityClassName"] = json[i][j];
                                                 break;
-                                            case 11:
+                                            case 10:
                                                 //policydomain_code[i] = json[i][j];
                                                 row["PolicyDomainCode"] = json[i][j];
                                                 break;
-                                            case 12:
+                                            case 11:
 //                                            policydomain_name[i] = json[i][j];
                                                 row["PolicyDomainName"] = json[i][j];
                                                 break;
-                                            case 13:
+                                            case 12:
                                                 //policytype_code[i] = json[i][j];
                                                 row["PolicyTypeCode"] = json[i][j];
                                                 break;
-                                            case 14:
+                                            case 13:
 //                                            policytype_name[i] = json[i][j];
                                                 row["PolicyTypeName"] = json[i][j];
                                                 break;
-                                            case 15:
+                                            case 14:
                                                 //policymeasure_code[i] = json[i][j];
                                                 row["PolicyMeasureCode"] = json[i][j];
                                                 break;
-                                            case 16:
+                                            case 15:
 //                                            policymeasure_name[i] = json[i][j];
                                                 row["PolicyMeasureName"] = json[i][j];
                                                 break;
-                                            case 17:
+                                            case 16:
                                                 //condition_code[i] = json[i][j];
                                                 row["PolicyConditionCode"] = json[i][j];
                                                 break;
-                                            case 18:
+                                            case 17:
 //                                            condition[i] = json[i][j];
                                                 row["PolicyCondition"] = json[i][j];
                                                 break;
-                                            case 19:
+                                            case 18:
                                                 //individualpolicy_code[i] = json[i][j];
                                                 row["IndividualPolicyCode"] = json[i][j];
                                                 break;
-                                            case 20:
+                                            case 19:
 //                                            individualpolicy_name[i] = json[i][j];
                                                 row["IndividualPolicyName"] = json[i][j];
                                                 break;
@@ -1336,9 +1429,8 @@ define([
                 for (var i = 0; i < data.length; i++) {
                     var obj_code = data[i].code;
                     rest_url = {'rest_url_type':self.options.codelist_url_PolicyType, 'rest_url_specific_code': obj_code};
-                    //alert("Test")
-                    //self.options.host_domain_parser.getDomainPolicyMeasure(qd_controller_instance, policy_measure_selector_id, rest_url, self);
-                    self.options.host_domain_parser.getDomain(qd_controller_instance, policy_measure_selector_id, rest_url, self);
+                    self.options.host_domain_parser.getDomainPolicyMeasure(qd_controller_instance, policy_measure_selector_id, rest_url, self);
+                    //self.options.host_domain_parser.getDomain(qd_controller_instance, policy_measure_selector_id, rest_url, self);
                 }
             },
 
@@ -1449,6 +1541,14 @@ define([
                 self.options.slider_start_date_mm = start_date_mm;
                 self.options.slider_start_date_yy = start_date_yy;
                 self.options.slider_end_date = final_end_date;
+
+                if((self.options.button_preview_action_type=="preview")||(self.options.button_preview_action_type=="searchEditPolicy")){
+                    //This has been added to force the start date to a specific year
+                    //Removing this line the value is taken from the db
+                    //This happen for the Query and Download page
+                    start_date_yy = self.options.slider_start_yy_default;
+                    self.options.slider_start_date_yy = start_date_yy;
+                }
 
                 //Setting Information For the Years Slider
                 var properties = {"bounds" : {min: new Date(start_date_yy, ''+start_date_mm_int, start_date_dd), max: new Date(end_date_yy, ''+end_date_mm_int, end_date_dd)}, "formatter" :function(val){
@@ -1718,14 +1818,20 @@ define([
     }
 
     HostDomainParser.prototype.createCommodityInfoPopup = function(qd_instance, selectorItem, host){
-        var value = selectorItem[0].originalItem.value;
+        console.log(selectorItem)
+        //var value = selectorItem[0].originalItem.value;
+        var value = selectorItem.changed_item.value;
         var commodityId = value.substring(value.indexOf("CommodityDetail_COMMODITYID:")+28, value.indexOf("_HSCODE"));
         var data = ap_policyDataObject.init();
         data.datasource = host.options.datasource;
         //data.commodity_id = "1951";
         data.commodity_id = commodityId;
 
+        //var grid = qd_instance.getSelector(self.options.fx_selector_5_b);
+        //console.log(grid.getSelectedRows())
+
         var payloadrest = JSON.stringify(data);
+        //alert("Before Post!!!")
         $.ajax({
 
             type: 'POST',
@@ -1756,8 +1862,8 @@ define([
                 var hsVersion = value.substring(value.indexOf("_HSVERSION:")+11, value.indexOf("_DESCRIPTION:"));
                 var description = value.substring(value.indexOf("_DESCRIPTION:")+13, value.indexOf("_SHORTDESCRIP:"));
                 var shortDescription = value.substring(value.indexOf("_SHORTDESCRIP:")+14);
-                console.log("Before Value")
-                console.log(value)
+                //console.log("Before Value")
+                //console.log(value)
                 var htmlTable = '<table style="width:100%">';
                 htmlTable += '<tr><td>Commodity Id</td><td>'+commodityId+'</td></tr>';
                 htmlTable += '<tr><td>HS Code</td><td>'+hsCode+'</td></tr>';
@@ -1808,7 +1914,272 @@ define([
     });
     }
 
-        HostDomainParser.prototype.createCommodityAddPopup = function(qd_instance, selectorItem, host){
+    HostDomainParser.prototype.createCommodityAddPopup_buttonEvents = function(qd_instance, countrySelector, policyDomainSelector, commodityClassSelector, policyMeasureSelector, q_a_d_instance){
+        var self = this;
+        $('#CommodityCancel').click(function(e){
+            self.clearElementsInCommodityPopup();
+        });
+
+        $('#CommoditySave').click(function(e){
+            //var newCondition = document.getElementById("new_condition").value;
+            console.log("Value in newCommodity")
+            if(self.options.singleCommodityPopup){
+                var result = {};
+                result.hsCode= false;
+                result.description= false;
+                result.shortDescription= false;
+                console.log("singleCommodityPopup start ")
+                var hsCode = document.getElementById("hsCode_input").value;
+                console.log("hsCode = "+hsCode)
+                var index = $("#hsVersion_input").jqxComboBox('getSelectedIndex');
+                var hsVersion = $("#hsVersion_input").jqxComboBox('getItem', index);
+                if((hsVersion!=null)&&(typeof hsVersion!='undefined')){
+                    hsVersion = hsVersion.label;
+                    console.log(hsVersion)
+                }
+                else{
+                    console.log(hsVersion)
+                }
+                console.log("hsVersion = "+hsVersion)
+                var description = document.getElementById("description_input").value;
+                console.log("description = "+description)
+                var shortDescription = document.getElementById("shortDescription_input").value;
+                console.log("shortDescription = "+shortDescription)
+                index = $("#commodityClass_input").jqxComboBox('getSelectedIndex');
+                var commodityClass = $("#commodityClass_input").jqxComboBox('getItem', index);
+                console.log(commodityClass);
+                //console.log("commodityClass = "+commodityClass)
+                var commodityClassObj = {};
+                if((commodityClass!=null)&&(typeof commodityClass!='undefined')){
+                    commodityClassObj = {code:commodityClass.value, label:commodityClass.label};
+                }
+                console.log(commodityClassObj)
+
+                var selecteditem_country = qd_instance.getSelectedItems(countrySelector);
+                console.log("SELECTED COUNTRY 1!")
+                console.log(selecteditem_country)
+                var country = {};
+                if((selecteditem_country!=null)&&(typeof selecteditem_country!='undefined')&&(selecteditem_country.length)){
+                    var value = selecteditem_country[0].value;
+                    if((value!=null)&&(typeof value!='undefined')&&(value.length)){
+                        var index = value.indexOf('_')+1;
+                        value = value.substring(index);
+                        country.code = value;
+                        country.label = selecteditem_country[0].label;
+                    }
+                }
+                console.log("SELECTED COUNTRY!")
+                console.log(country)
+
+                var selecteditem_policyDomain = qd_instance.getSelectedItems(policyDomainSelector);
+                console.log(selecteditem_policyDomain)
+                //Hs code is mandatory for Policy Domain TRADE(1) while is OPTIONAL for Policy Domain DOMESTIC(2)
+                var errorMsg = false;
+                if(selecteditem_policyDomain.code!=2){
+                    if((hsCode!=null)&&(typeof hsCode!='undefined')&&(hsCode.length>0)){
+                        result.hsCode= true;
+                    }
+                }
+                else{
+                    result.hsCode= true;
+                }
+                if((description!=null)&&(typeof description!= 'undefined')&&(description.length>0)){
+                    result.description = true;
+                }
+                if((shortDescription!=null)&&(typeof shortDescription!= 'undefined')&&(description.length>0)){
+                    result.shortDescription = true;
+                }
+
+                if((result.hsCode)&&(result.description)&&(result.shortDescription)){
+                    //No error ... the commodity can be saved
+                    var data = ap_policyDataObject.init();
+                    data.datasource = ap_util_variables.CONFIG.datasource;
+                    data.commodity_class_code = ''+commodityClassObj.code;
+                    data.commodity_class_name = commodityClassObj.label;
+                    data.country_code = ''+country.code;
+                    data.country_name = country.label;
+                    data.hs_code = ''+hsCode;
+                    data.hs_version = hsVersion;
+                    data.description = description;
+                    data.short_description = shortDescription;
+                    data.shared_group_code = 'NULL';
+                    console.log(data)
+
+                    var payloadrest = JSON.stringify(data);
+
+                    $.ajax({
+                        type: 'POST',
+                        url : 'http://'+ap_util_variables.CONFIG.base_ip_address+':'+ap_util_variables.CONFIG.base_ip_port+ap_util_variables.CONFIG.createNewSingleCommodity,
+                        data: {"pdObj": payloadrest},
+
+                        success : function(response) {
+                            self.clearElementsInCommodityPopup();
+                            //Reload the list in the Commodity Selector
+                            q_a_d_instance.reloadCommodityList(q_a_d_instance, qd_instance);
+                            $('#commodityAdd').modal('hide');
+                        },
+                        error : function(response) {
+                            console.log(response)
+                            alert("error ")
+                        }});
+                }
+                else{
+                    $("#singleCommodityErrorMsg").text("Please fill the fields: HS Code, Description and Short Description.");
+                }
+            }
+            else{
+                console.log("sharedGroupPopup start ")
+                var descriptionSharedGroup = document.getElementById("sharedGroupDescription_input").value;
+                console.log("descriptionSharedGroup = "+descriptionSharedGroup)
+                var shortDescriptionSharedGroup = document.getElementById("sharedGroupShortDescription_input").value;
+                console.log("shortDescriptionSharedGroup = "+shortDescriptionSharedGroup)
+
+                var selectedrowindexes = $('#sharedGroupCommodityList_grid').jqxGrid('selectedrowindexes');
+                var sharedGroupGridData = {};
+                var commodityClassCode_allCommodities = [];
+                var commodityClassName_allCommodities = [];
+                var commodityClassName_allCommoditiesArray = [];
+                if((selectedrowindexes!=null)&&(selectedrowindexes!='undefined')&&(selectedrowindexes.length>0)){
+                    console.log(selectedrowindexes)
+                    for(var i=0; i<selectedrowindexes.length; i++){
+                        var data = $('#sharedGroupCommodityList_grid').jqxGrid('getrowdata', selectedrowindexes[i]);
+                        //console.log(data)
+                        var obj = {hsCode: data.code, hsVersion:data.hsVersion, shortDescription:data.shortDescription, originalHsCode:data.originalHsCode, originalHsVersion:data.originalHsVersion, originalHsSuffix: data.originalHsSuffix, commodityId: data.commodityId, commodityClassCode: data.commodityclassCode, commodityClassName: data.commodityclassName };
+                        commodityClassCode_allCommodities.push(data.commodityclassCode);
+                        commodityClassName_allCommodities.push(data.commodityclassName);
+                        sharedGroupGridData[i]= obj;
+                    }
+                    console.log(commodityClassCode_allCommodities)
+                    console.log(commodityClassName_allCommodities)
+
+                    var iComm =0;
+                    var sgCommodityClassName = '';
+                    var sgCommodityClassCode = '';
+                    sgCommodityClassName = commodityClassName_allCommodities[0];
+                    //commodityClassName_allCommoditiesArray[0] = sgCommodityClassName.trim().split("+");
+                    var firstElement= [];
+                    firstElement = sgCommodityClassName.trim().split("+");
+                    var app= [];
+                    for(iComm= 1; iComm<commodityClassName_allCommodities.length; iComm++){
+                        app = commodityClassName_allCommodities[iComm].trim().split("+");
+                        for(var iApp=0; iApp<app.length; iApp++){
+                            var appCommodity = app[iApp];
+                            var found = false;
+                            for(var iFirst=0; iFirst<firstElement.length; iFirst++){
+                                var firstEl = firstElement[iFirst];
+                                if(firstEl.trim()==appCommodity.trim()){
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if(!found){
+                                firstElement.push(appCommodity.trim());
+                            }
+                        }
+                    }
+                    firstElement.sort();
+                }
+
+                var i= 0, j=0;
+                // Get the keys
+                console.log(ap_util_variables.CONFIG.commodityClassInArray)
+                var keys = Object.keys(ap_util_variables.CONFIG.commodityClassInArray);
+                console.log(keys);
+                //var keys = Object.keys(ap_util_variables.CONFIG.commodityClassInArray)[0];
+                for(i = 0; i<keys.length; i++){
+                    console.log(keys[i])
+                    var commodityClass = ap_util_variables.CONFIG.commodityClassInArray[keys[i]];
+                    //console.log("commodityClass")
+                    //console.log(commodityClass)
+                    //console.log("firstElement")
+                    //console.log(firstElement)
+                    if(commodityClass.length==firstElement.length){
+                        for(j = 0; j<firstElement.length; j++){
+                            var firstElementI = firstElement[j];
+                            //console.log("commodityClass[j]= "+commodityClass[j]+" firstElementI= "+firstElementI)
+                            if(commodityClass[j]!=firstElementI){
+                                break;
+                            }
+                        }
+                    }
+
+                    if(j<firstElement.length){
+                        console.log("Not found")
+                        //Not found
+                    }
+                    else{
+                        //Found
+                        console.log("Found")
+                        break;
+                    }
+                }
+                if(i<keys.length){
+                    sgCommodityClassName = ap_util_variables.CONFIG.commodityClassInArray_originalName[keys[i]];
+                    sgCommodityClassCode = keys[i];
+                }
+                console.log("sharedGroupGridData");
+                console.log(sharedGroupGridData);
+
+                if((descriptionSharedGroup!=null)&&(typeof descriptionSharedGroup!='undefined')&&(descriptionSharedGroup.length>0)&&(shortDescriptionSharedGroup!=null)&&(typeof shortDescriptionSharedGroup!='undefined')&&(shortDescriptionSharedGroup.length>0)&&(sharedGroupGridData!=null)&&(typeof sharedGroupGridData!='undefined')){
+                    var data = ap_policyDataObject.init();
+                    data.datasource = ap_util_variables.CONFIG.datasource;
+                    data.commodity_class_code = ''+sgCommodityClassCode;
+                    data.commodity_class_name = ''+sgCommodityClassName;
+
+                    var selecteditem_country = qd_instance.getSelectedItems(countrySelector);
+                    var country = {};
+                    if((selecteditem_country!=null)&&(typeof selecteditem_country!='undefined')&&(selecteditem_country.length)){
+                        var value = selecteditem_country[0].value;
+                        if((value!=null)&&(typeof value!='undefined')&&(value.length)){
+                            var index = value.indexOf('_')+1;
+                            value = value.substring(index);
+                            country.code = value;
+                            country.label = selecteditem_country[0].label;
+                        }
+                    }
+
+                    data.country_code = ''+country.code;
+                    data.country_name = country.label;
+                    data.description = descriptionSharedGroup;
+                    data.short_description = shortDescriptionSharedGroup;
+                    //Shared Group Code Creation
+                    var countryIsoCode = ap_util_functions.countryToISO3conversion({code: parseInt(data.country_code)});
+
+                    var selecteditem_policyMeasure = qd_instance.getSelectedItems(policyMeasureSelector);
+
+                    var letterForSharedGroup = ap_util_functions.sharedGroupCode_letter(selecteditem_policyMeasure[0].originalItem.code);
+                    data.shared_group_code = ''+countryIsoCode + letterForSharedGroup;
+                    data.commodity_list = sharedGroupGridData;
+
+                    console.log(data)
+
+                    var payloadrest = JSON.stringify(data);
+
+                    $.ajax({
+                        type: 'POST',
+                        url : 'http://'+ap_util_variables.CONFIG.base_ip_address+':'+ap_util_variables.CONFIG.base_ip_port+ap_util_variables.CONFIG.createNewSharedGroup,
+                        data: {"pdObj": payloadrest},
+
+                        success : function(response) {
+                            //Reload the list in the Commodity Selector
+                            self.clearElementsInCommodityPopup();
+                            //Reload the list in the Commodity Selector
+                            q_a_d_instance.reloadCommodityList(q_a_d_instance, qd_instance);
+                            $('#commodityAdd').modal('hide');
+                        },
+                        error : function(response) {
+                            console.log(response)
+                            alert("error ")
+                        }});
+                }
+                else{
+                    $("#sharedGroupErrorMsg").text("Please fill the fields: Description and Short Description.");
+                }
+            }
+        });
+    }
+
+        HostDomainParser.prototype.createCommodityAddPopup = function(qd_instance, selecteditem_country, selecteditem_commodityClass, selectorItem, host){
 
             var htmlTable = '<table style="width:100%">';
             htmlTable += '<tr><td>Commodity Id</td><td>1</td></tr>';
@@ -1824,46 +2195,301 @@ define([
                 $('#commodityAddTitle').html("Commodity Add");
                 $("#jqxRadioButton_singleCommodity").jqxRadioButton({ width: 250, height: 25, checked: true});
                 $("#jqxRadioButton_sharedGroup").jqxRadioButton({ width: 250, height: 25});
-                self.createSingleCommodityPopup();
+                self.createSingleCommodityPopup(selecteditem_country, selecteditem_commodityClass);
                 //$('#commodityAddContentSecondPart').html(htmlTable);
                 $("#jqxRadioButton_singleCommodity").on('change', function (event) {
                     var checked = event.args.checked;
                     if (checked) {
-                        self.createSingleCommodityPopup();
+                        self.options.singleCommodityPopup = true;
+                        self.createSingleCommodityPopup(selecteditem_country, selecteditem_commodityClass);
                     }
                 });
 
                 $("#jqxRadioButton_sharedGroup").on('change', function (event) {
                     var checked = event.args.checked;
                     if (checked) {
-                        self.createSharedGroupPopup(qd_instance, host);
+                        self.options.singleCommodityPopup = false;
+                        self.createSharedGroupPopup(qd_instance, host, selecteditem_country, selecteditem_commodityClass);
                     }
                 });
             })
     }
 
-    HostDomainParser.prototype.createSingleCommodityPopup = function(){
+    HostDomainParser.prototype.clearElementsInCommodityPopup = function(){
+
+        //Single Commodity
+        $("#hsCode_input").val('');
+        $("#description_input").val('');
+        $("#shortDescription_input").val('');
+
+        //Shared Group
+        $("#sharedGroupDescription_input").val('');
+        $("#sharedGroupShortDescription_input").val('');
+        $("#sharedGroupCommodityList_grid").jqxGrid('clearselection');
+
+        $("#singleCommodityErrorMsg").text("");
+    }
+
+    HostDomainParser.prototype.createConditionAddPopup = function(qd_instance, selectorItem, host){
+        var self = this;
+        //$('#conditionAdd').on('shown.bs.modal', function () {
+            $('#conditionAddTitle').html("Condition Add");
+        //})
+        $('#conditionSave').click(function(e){
+            var newCondition = document.getElementById("new_condition").value;
+            console.log("Value in newCondition")
+            console.log(newCondition)
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + ap_util_variables.CONFIG.conditionMaxCode + '/' + host.options.datasource,
+                dataType: 'json',
+
+                success: function (response) {
+
+                    /* Convert the response in an object, i fneeded. */
+                    var json = response;
+                    if (typeof(response) == 'string')
+                        json = $.parseJSON(response);
+
+                    var conditionCode = json[0][0];
+                    var app = (parseInt(conditionCode,10))+1;
+
+                    host.options.conditionCode = ''+app;
+                    console.log("host.options.conditionCode "+host.options.conditionCode)
+                    console.log("host.options.conditionName "+host.options.conditionName)
+                }
+            });
+
+            host.options.conditionName = newCondition;
+        });
+    }
+
+    HostDomainParser.prototype.createSubnationalAddPopup = function(qd_instance, selectorItem, selecteditem_country, host){
+
+        var selecteditem_country_found = false;
+        if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+            if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                    selecteditem_country_found = true;
+                    $('#subnationalAddLabelContent').html("Specify the new subnational for "+selecteditem_country[0].originalItem.label);
+                }
+            }
+        }
+
+        if(selecteditem_country_found==false){
+            $('#subnationalAddLabelContent').html("Specify the new subnational");
+        }
+        $('#subnationalAddTitle').html("Subnational Add");
+        $('#SubnationalSave').click(function(e){
+            var newSubnationalName = document.getElementById("new_subnational").value;
+            $.ajax({
+                type: 'GET',
+                url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + ap_util_variables.CONFIG.subnationalMaxCodeNotGaul + '/' + host.options.datasource,
+                dataType: 'json',
+
+                success: function (response) {
+
+                    /* Convert the response in an object, i fneeded. */
+                    var json = response;
+                    if (typeof(response) == 'string')
+                        json = $.parseJSON(response);
+
+                    var subnationalCode = json[0][0];
+                    var app = (parseInt(subnationalCode,10))-1;
+                    host.options.subnationalCode = ''+app;
+                    console.log("host.options.subnationalCode "+host.options.subnationalCode)
+                    console.log("host.options.subnationalName "+host.options.subnationalName)
+                }
+                });
+            host.options.subnationalName = newSubnationalName;
+        });
+        //http://stackoverflow.com/questions/29471368/how-to-open-close-react-bootstrap-modal-programmatically
+    }
+
+    HostDomainParser.prototype.createSingleCommodityPopup = function(selecteditem_country, selecteditem_commodityClass){
+
+        var selecteditem_country_found = false;
+        var selecteditem_commodityClass_found = false;
+        var selecteditem_country_label = '';
+        var selecteditem_commodityClass_label = '';
+        var selecteditem_commodityClass_code = '';
+        if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+            if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                    selecteditem_country_found = true;
+                    selecteditem_country_label = selecteditem_country[0].originalItem.label;
+                }
+            }
+        }
+
+        if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass.length>0)){
+            if((selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
+
+                if((selecteditem_commodityClass[0].originalItem.code!=null)&&(typeof selecteditem_commodityClass[0].originalItem.code!="undefined")){
+                    selecteditem_commodityClass_found = true;
+                    selecteditem_commodityClass_label = selecteditem_commodityClass[0].originalItem.label;
+                    selecteditem_commodityClass_code = selecteditem_commodityClass[0].originalItem.code;
+                }
+            }
+        }
+
+        if(selecteditem_country_found&&selecteditem_commodityClass_found){
+
+            var commodityClassListContent = ap_util_variables.CONFIG.commodityClassChildren[selecteditem_commodityClass_code];
+            if((commodityClassListContent!= null)&&(typeof commodityClassListContent!="undefined")){
+                var commodityClassParentLabel = '';
+                var commodityClassParentObj = {};
+                for(var iParent=0; iParent<ap_util_variables.CONFIG.commodityClassParent.length; iParent++){
+                    var obj = ap_util_variables.CONFIG.commodityClassParent[iParent];
+                    var keyObj = Object.keys(obj)[0];
+                    if(keyObj==selecteditem_commodityClass_code){
+                        commodityClassParentObj = obj;
+                    }
+                }
+                for(var j=0; j<ap_util_variables.CONFIG.commodityClassParent.length; j++){
+                    var commodityClassCode = ap_util_variables.CONFIG.commodityClassParent[j][selecteditem_commodityClass_code];
+                    if((commodityClassCode!=null)&&(typeof commodityClassCode!= "undefined"))
+                    {
+                        commodityClassParentLabel = commodityClassCode;
+                        break;
+                    }
+                }
+                var data = new Array();
+                var key = Object.keys(commodityClassParentObj)[0];
+                //data[0] = commodityClassParentLabel;
+                data[0] = {code: key, label:commodityClassParentObj[key]};
+                var j=1;
+                for(var i=0; i< commodityClassListContent.length; i++){
+                    data[j] = commodityClassListContent[i];
+                    j++;
+                }
+                var source = {
+                    localdata: data,
+                    datatype: "array"
+                }
+                var dataAdapter = new $.jqx.dataAdapter(source);
+                $('#commodityClass_input').jqxComboBox({source: dataAdapter, displayMember: "label", valueMember: "code"});
+                $("#commodityClass_input").jqxComboBox('selectIndex',0);
+
+                var hsVersionData = new Array();
+                hsVersionData[0] = '';
+                hsVersionData[1] = 'HS2012';
+                hsVersionData[2] = 'HS2007';
+                var sourceHsVersion = {
+                    localdata: hsVersionData,
+                    datatype: "array"
+                }
+                var dataAdapterHsVersion = new $.jqx.dataAdapter(sourceHsVersion);
+                $('#hsVersion_input').jqxComboBox({source: dataAdapterHsVersion});
+
+                $("#commodityClass_row").show();
+            }
+            else{
+                $("#commodityClass_row").hide();
+            }
+            $("#commodityAddLabelContent").html("Add a commodity/shared group for "+ selecteditem_country_label + "-"+ selecteditem_commodityClass_label);
+        }
+        else{
+            $("#commodityAddLabelContent").html("Add a commodity/shared group");
+        }
 
         $("#sharedGroupContent").hide();
         $("#singleCommodityContent").show();
+
       //  $("#singleCommodityContent").html('Checked Single');
     }
 
-    HostDomainParser.prototype.createSharedGroupPopup = function(qd_instance, self){
+    HostDomainParser.prototype.createSharedGroupPopup = function(qd_instance, self, selecteditem_country, selecteditem_commodityClass){
         $("#singleCommodityContent").hide();
         $("#sharedGroupContent").show();
+
+        var selecteditem_commodityClass_found = false;
+        var selecteditem_commodityClass_label = '';
+        var selecteditem_commodityClass_code = '';
+
+        if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass.length>0)){
+            if((selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
+
+                if((selecteditem_commodityClass[0].originalItem.code!=null)&&(typeof selecteditem_commodityClass[0].originalItem.code!="undefined")){
+                    selecteditem_commodityClass_found = true;
+                    selecteditem_commodityClass_label = selecteditem_commodityClass[0].originalItem.label;
+                    selecteditem_commodityClass_code = selecteditem_commodityClass[0].originalItem.code;
+                }
+            }
+        }
+
+        var commodityClassListContent = ap_util_variables.CONFIG.commodityClassChildren[selecteditem_commodityClass_code];
+        if((commodityClassListContent!= null)&&(typeof commodityClassListContent!="undefined")){
+            var commodityClassParentLabel = '';
+            for(var j=0; j<ap_util_variables.CONFIG.commodityClassParent.length; j++){
+                var commodityClassCode = ap_util_variables.CONFIG.commodityClassParent[j][selecteditem_commodityClass_code];
+                if((commodityClassCode!=null)&&(typeof commodityClassCode!= "undefined"))
+                {
+                    commodityClassParentLabel = commodityClassCode;
+                    break;
+                }
+            }
+            //var data = new Array();
+            //data[0] = commodityClassParentLabel;
+            //var j=1;
+            //for(var i=0; i< commodityClassListContent.length; i++){
+            //    data[j] = commodityClassListContent[i];
+            //    j++;
+            //}
+            //var source = {
+            //    localdata: data,
+            //    datatype: "array"
+            //}
+            //var dataAdapter = new $.jqx.dataAdapter(source);
+
+            //$("#sharedGroupCommodityClass_input").jqxComboBox({source: dataAdapter, displayMember: "label", valueMember: "code"});
+            //$("#sharedGroupCommodityClass_input").jqxComboBox('selectIndex',0);
+            $("#sharedGroupCommodityClass_row").show();
+        }
+        else{
+            $("#sharedGroupCommodityClass_row").hide();
+        }
+
         var source = [];
+
+        //ap_util_variables.CONFIG.domestic_policyDomain_code
+
         //Commodity Class
-        console.log(self)
-        console.log(qd_instance)
         var selecteditem_commodityClass = qd_instance.getSelectedItems(self.options.fx_selector_5);
-        var obj_code = selecteditem_commodityClass[0].originalItem.code;
-        console.log('obj_code '+obj_code)
+        var selecteditem_commodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
+        var selecteditem_policyDomain = qd_instance.getSelectedItems(self.options.fx_selector_2);
+
+        var commodityDomaincCode = selecteditem_commodityDomain.code;
+        var policyDomaincCode = selecteditem_policyDomain.code;
+        if (selecteditem_commodityDomain.code == self.options.commodity_domain_both_code) {
+            //Both
+            commodityDomaincCode = self.options.commodity_domain_both;
+        }
+        if (selecteditem_policyDomain.code == self.options.policy_domain_both_code) {
+            //Both
+            policyDomaincCode = self.options.policy_domain_both;
+        }
+        //var obj_code = selecteditem_commodityClass[0].originalItem.code;
+        var commodityClassCode = selecteditem_commodityClass[0].originalItem.code;
         var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
         var obj_code_country = selecteditem_country[0].originalItem.code;
-        var rest_url = {'rest_url_type':self.options.commodityByClass_url, 'rest_url_datasource' : self.options.datasource};
-        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + obj_code_country+ '/' + obj_code;
-        console.log(url)
+        //var rest_url = {'rest_url_type':self.options.commodityByClass_url, 'rest_url_datasource' : self.options.datasource};
+        //var rest_url = {'rest_url_type':self.options.commodity_url, 'rest_url_datasource' : self.options.datasource};
+        var rest_url = {'rest_url_type':self.options.commodityIgnoringAssociatedPolicy_url, 'rest_url_datasource' : self.options.datasource}
+        var parentIndex = self.options.commodity_parent_codes.indexOf(''+commodityClassCode);
+        if(parentIndex!= -1){
+            var childrenArray = (self.options.commodity_children_codes[parentIndex]).toString();
+            if((childrenArray!=null)&&(childrenArray.length>0))
+            {
+                commodityClassCode = commodityClassCode+','+childrenArray;
+            }
+        }
+
+        var withSharedGroups = false;
+        //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + obj_code_country+ '/' + obj_code;
+        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/' + commodityClassCode+ '/' +obj_code_country+ '/'+withSharedGroups;
         $.ajax({
             type: 'GET',
             url:  url,
@@ -1875,8 +2501,6 @@ define([
                 if (typeof(response) == 'string')
                     json = $.parseJSON(response);
                 //To order the json elements based on the title(label)
-                console.log("SUCCESS")
-
                 if((json!=null)&&(typeof json!="undefined")&&(json.length>0))
                 {
                     for (var i = 0; i < json.length; i++) {
@@ -1887,6 +2511,8 @@ define([
                         var hsSuffix = '';
                         var shortDescription = '';
                         var longDescription = '';
+                        var commodityClassCode = '';
+                        var commodityClassName = '';
                         var app = '';
                         //commodity_id, country_name, hs_code, hs_suffix, hs_version, target_code, description, short_description, commodityclass_code, commodityclass_name, shared_group_code
 
@@ -1924,22 +2550,94 @@ define([
                             app += "["+hsVersion+"]";
                         }
 
+                        if((json[i][5]!=null)&&(typeof json[i][5]!= "undefined")&&(json[i][5].length>0)){
+                            longDescription = json[i][5];
+                        }
+
                         if((json[i][6]!=null)&&(typeof json[i][6]!= "undefined")&&(json[i][6].length>0)){
-                            longDescription = json[i][6];
+                            shortDescription = json[i][6];
+                            app += shortDescription;
                         }
 
                         if((json[i][7]!=null)&&(typeof json[i][7]!= "undefined")&&(json[i][7].length>0)){
-                            shortDescription = json[i][7];
-                            app += shortDescription;
+                            commodityClassCode = json[i][7];
+                        }
+
+                        if((json[i][8]!=null)&&(typeof json[i][8]!= "undefined")&&(json[i][8].length>0)){
+                            commodityClassName = json[i][8];
                         }
                         var type = 'addCommodityPopup';
                         var value = ""+type + "_COMMODITYID:"+commodityId+"_HSCODE:"+hsCode+"_HSSUFFIX:"+hsSuffix+"_HSVERSION:"+hsVersion+"_DESCRIPTION:"+longDescription+"_SHORTDESCRIP:"+shortDescription;
                         //var obj = {"value": value, "label": app, "code" : hsCode, "type": type};
-                        var obj = {"value": value, "label": app, "code" : hsCode, "type": 'addCommodityPopup'};
+                        //var obj = {"value": value, "label": app, "code" : hsCode, "type": 'addCommodityPopup'};
+                        var obj = {"hsVersion":hsVersion, "shortDescription": shortDescription, "value": value, "label": app, "code" : hsCode, "commodityId": commodityId, "type": 'addCommodityPopup', "commodityClassCode": commodityClassCode, "commodityClassName": commodityClassName, "labelToVisualize": "<img width='16' height='16' style='float: left; margin-top: 2px; margin-right: 5px;' src='../../img/btn-notes.png'/><span>"+app+"</span>"};
                         source[i] = obj;
                     }
                 }
-                $("#sharedGroupCommodityList_listbox").jqxListBox({source: source, checkboxes: true, height: 150, width: 500});
+                //$("#sharedGroupCommodityList_listbox").jqxListBox({source: source, checkboxes: true, height: 150, width: 500});
+
+                //This list is used to retrive all the info related to each commodity listed in the commodity grid
+                self.options.add_commodity_popup_commodityList_sharedGroup = source;
+                var data = [];
+                if((source!=null)&&(typeof source!="undefined")){
+                    for(var iSource= 0; iSource<source.length; iSource++){
+                        var obj = {};
+                        //obj['commodity'] = source[iSource].label;
+                        obj['code'] = source[iSource].code;
+                        obj['hsVersion'] = source[iSource].hsVersion;
+                        obj['shortDescription'] = source[iSource].shortDescription;
+                        obj['originalHsCode'] = '';
+                        obj['originalHsVersion'] = '';
+                        obj['originalHsSuffix'] = '';
+                        obj['commodityId'] = source[iSource].commodityId;
+                        obj['commodityclassCode'] = source[iSource].commodityClassCode;
+                        obj['commodityclassName'] = source[iSource].commodityClassName;
+                        data.push(obj);
+                    }
+                    //data.push({'selected': true, 'commodity': source[0].label, 'originalHsCode': 'origHScode1', 'originalHsVersion': 'origHSVersion1', 'originalHsSuffix': 'origHSsuffix1'},
+                    //    {'selected': false, 'commodity': 'comm2', 'originalHsCode': 'origHScode2', 'originalHsVersion': 'origHSVersion2', 'originalHsSuffix': 'origHSsuffix2'},
+                    //    {'selected': false, 'commodity': 'comm3', 'originalHsCode': 'origHScode3', 'originalHsVersion': 'origHSVersion3', 'originalHsSuffix': 'origHSsuffix3'});
+                    var gridSource =
+                    {
+                        localdata: data,
+                        datatype: "array",
+                        datafields:
+                            [
+                                { name: 'code', type: 'string' },
+                                { name: 'hsVersion', type: 'string' },
+                                { name: 'shortDescription', type: 'string' },
+                                { name: 'originalHsCode', type: 'string' },
+                                { name: 'originalHsVersion', type: 'string' },
+                                { name: 'originalHsSuffix', type: 'string' },
+                                { name: 'commodityId', type: 'string' },
+                                { name: 'commodityclassCode', type: 'string' },
+                                { name: 'commodityclassName', type: 'string' }
+                            ]
+                    };
+
+                    var dataAdapter = new $.jqx.dataAdapter(gridSource);
+                    // initialize jqxGrid
+                    $("#sharedGroupCommodityList_grid").jqxGrid(
+                        {
+                            height: 200,
+                            width: '100%',
+                            source: dataAdapter,
+                            editable: true,
+                            enabletooltips: true,
+                            selectionmode: 'multiplecellsadvanced',
+                            showfilterrow: true,
+                            filterable: true,
+                            columns: [
+                                { text: 'HS Code', datafield: 'code', columntype: 'textbox', width: '10%' , editable: false},
+                                { text: 'HS Version', datafield: 'hsVersion', columntype: 'textbox', width: '10%' , editable: false},
+                                { text: 'Short Description', datafield: 'shortDescription', columntype: 'textbox', width: '25%' , editable: false},
+                                { text: 'Original Hs Code', datafield: 'originalHsCode', columntype: 'textbox', width: '15%' },
+                                { text: 'Original Hs Version', datafield: 'originalHsVersion', columntype: 'textbox', width: '20%' },
+                                { text: 'Original Hs Suffix', datafield: 'originalHsSuffix', columntype: 'textbox', width: '15%' }
+                            ],
+                            selectionmode: 'checkbox'
+                        });
+                }
             },
 
             error: function (err, b, c) {

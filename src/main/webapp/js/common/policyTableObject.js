@@ -75,15 +75,15 @@ define([
         //character varying(510)
         type_of_change_name  :   [],
         //character varying(510)
-        measure_descr  :   [],
+        measure_description  :   [],
         //character varying(510)
         product_original_hs  :   [],
         //character varying(510)
         product_original_name  :   [],
-        //character varying(510)
-        implementationprocedure  :   [],
-        //character varying(510)
-        xs_yeartype  :   [],
+        ////character varying(510)
+        //implementationprocedure  :   [],
+        ////character varying(510)
+        //xs_yeartype  :   [],
         //character varying(510)
         link_pdf  :   [],
         //character varying(510)
@@ -106,8 +106,8 @@ define([
     function init(metadata_id, policy_id, cpl_id, commodity_id, hs_version, hs_code, hs_suffix, policy_element, start_date, end_date, units, value, value_text,
                   value_type, exemptions, location_condition, notes, link, source, title_of_notice, legal_basis_name, date_of_publication, imposed_end_date,
                   second_generation_specific, benchmark_tax, benchmark_product, tax_rate_biofuel, tax_rate_benchmark, start_date_tax, benchmark_link,
-                  original_dataset, type_of_change_code, type_of_change_name, measure_descr, product_original_hs, product_original_name,
-                  implementationprocedure, xs_yeartype, link_pdf, benchmark_link_pdf, short_description, shared_group_code)
+                  original_dataset, type_of_change_code, type_of_change_name, measure_description, product_original_hs, product_original_name,
+                  link_pdf, benchmark_link_pdf, short_description, shared_group_code)
     {
 //        ap_policyTableObject.CONFIG.metadata_id = metadata_id;
 //        ap_policyTableObject.CONFIG.policy_id = policy_id;
@@ -192,11 +192,11 @@ define([
         this.CONFIG.original_dataset = original_dataset;
         this.CONFIG.type_of_change_code = type_of_change_code;
         this.CONFIG.type_of_change_name = type_of_change_name;
-        this.CONFIG.measure_descr = measure_descr;
+        this.CONFIG.measure_description = measure_description;
         this.CONFIG.product_original_hs = product_original_hs;
         this.CONFIG.product_original_name = product_original_name;
-        this.CONFIG.implementationprocedure = implementationprocedure;
-        this.CONFIG.xs_yeartype = xs_yeartype;
+        //this.CONFIG.implementationprocedure = implementationprocedure;
+        //this.CONFIG.xs_yeartype = xs_yeartype;
         this.CONFIG.link_pdf = link_pdf;
         this.CONFIG.benchmark_link_pdf = benchmark_link_pdf;
 

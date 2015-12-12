@@ -16,6 +16,7 @@ requirejs.config({
         host_policyDataObject : '../controller_util/ap_queryAndDownload_policy_data_object',
         host_buttonActions : '../controller_util/ap_queryAndDownload_button_actions',
         host_preview : '../controller_util/ap_queryAndDownload_preview',
+        ap_util_functions : '../controller_util/ap_util_functions',
         json : "../../config/json",
 //        jqueryui : '//code.jquery.com/ui/1.10.3/jquery-ui.min',
         jqueryui : 'jquery-ui.min',
@@ -133,14 +134,10 @@ require([
     Layout.configure({
         manage: true
     });
-    require(["host", "createdatasetPolicy" ], function ( Host, DataEntry ) {
-    //require(["host" ], function ( Host ) {
-//DataEntry.initialize();
-        var host = new Host({button_preview_action_type : "searchEditPolicy"});
+    require(["host", "createdatasetPolicy", 'ap_util_functions', 'text!json/auth_users.json' ], function ( Host, DataEntry, UtilityFunctions, authUsersFile ) {
 
-        //var dataEntry = new DataEntry();
-        //DataEntry.onDeleteAction();
-        console.log(host);
+        var host = new Host({button_preview_action_type : "searchEditPolicy"});
         host.initQDComponent();
+        UtilityFunctions.authentication(authUsersFile, host);
     });
 });

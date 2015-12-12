@@ -1,16 +1,17 @@
 //var ap_policiesAtaGlance_exportRestrictions_util = (function() {
 define([
+    'jquery',
+    'jqueryui',
+    'highcharts',
+    'highcharts_exporting',
     'ap_util_variables',
     'ap_policyDataObject',
     'ap_util_functions',
-    'highcharts',
-    'highcharts_exporting',
-    'jquery',
     'jQAllRangeSliders',
     'jqwidget',
     'bootstrap',
     'xDomainRequest'
-], function(ap_utilVariables, ap_policyDataObject, ap_utilFunctions, highcharts ){
+], function($, ui, highcharts, highcharts_exporting, ap_utilVariables, ap_policyDataObject, ap_utilFunctions ){
 
     var from = '16-02-2014';
     var to = '18-02-2014';

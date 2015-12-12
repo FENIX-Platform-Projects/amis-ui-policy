@@ -1,8 +1,9 @@
 define([
+    'ap_util_variables',
     'jquery',
     'jQAllRangeSliders',
     'xDomainRequest'
-], function($) {
+], function(ap_util_variables, $) {
 
     var optionsDefault = {
         fieldsToHide : ''
@@ -178,6 +179,7 @@ define([
 
         if(action){
             //True = Show
+            console.log(buttonId)
             $("#"+buttonId).show();
         }
         else{
@@ -260,7 +262,9 @@ define([
     }
 
 //    HostUtility.prototype.getPolicyTable_datafields = function(data, export_type) {
-    HostUtility.prototype.getPolicyTable_datafields = function(data, host) {
+    HostUtility.prototype.getPolicyTable_datafields = function(data, host, masterData) {
+        //Master data for the policy table element(upper line)
+        var masterData = masterData[data[0]["MasterIndex"]];
         var info= new Object();
         var self = this;
 
@@ -312,10 +316,14 @@ define([
             datafields.push(obj);
             obj2 = { text: 'HS Version', datafield: 'HsVersion', rendered: tooltiprenderer };
             columns.push(obj2);
-            obj = { name: 'HsSuffix' };
-            datafields.push(obj);
-            obj2 = { text: 'HS Suffix', datafield: 'HsSuffix', rendered: tooltiprenderer };
-            columns.push(obj2);
+            //11;Import tariffs and 12;Tariff quotas
+            if((masterData["PolicyMeasureCode"]!=null)&&(typeof masterData["PolicyMeasureCode"]!="undefined")&&((masterData["PolicyMeasureCode"]==ap_util_variables.CONFIG.importTariffs)||(masterData["PolicyMeasureCode"]==ap_util_variables.CONFIG.tariffQuotas)))
+            {
+                obj = { name: 'HsSuffix' };
+                datafields.push(obj);
+                obj2 = { text: 'HS Suffix', datafield: 'HsSuffix', rendered: tooltiprenderer };
+                columns.push(obj2);
+            }
         }
 
         obj = { name: 'StartDate' };
@@ -404,7 +412,9 @@ define([
 
         obj = { name: 'MetadataButton' };
         datafields.push(obj);
-        obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+        //obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+        //columns.push(obj2);
+        obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer };
         columns.push(obj2);
 
         if((host.options.button_preview_action_type == "searchEditPolicy")||(host.options.button_preview_action_type == "searchCreatePolicy"))
@@ -470,10 +480,10 @@ define([
         datafields.push(obj);
         obj = { name: 'ProductOriginalName'};
         datafields.push(obj);
-        obj = { name: 'ImplementationProcedure'};
-        datafields.push(obj);
-        obj = { name: 'XsYearType'};
-        datafields.push(obj);
+        //obj = { name: 'ImplementationProcedure'};
+        //datafields.push(obj);
+        //obj = { name: 'XsYearType'};
+        //datafields.push(obj);
         obj = { name: 'LinkPdf'};
         datafields.push(obj);
         obj = { name: 'BenchmarkLinkPdf'};
@@ -481,6 +491,8 @@ define([
         obj = { name: 'ShortDescription'};
         datafields.push(obj);
         obj = { name: 'SharedGroupCode'};
+        datafields.push(obj);
+        obj = { name: 'Description'};
         datafields.push(obj);
 
         obj = { name: 'MasterIndex'};
@@ -515,10 +527,44 @@ define([
 
         if((datarecord[type]!=null)||(typeof datarecord[type]!= "undefined"))
         {
-            if(type == "Link")
+            if((type == "Link")||(type == "LinkPdf"))
             {
+                var linkPdf_directory = '../../policy/doc/query_download/LinkPdf/';
                 //It has to be an hyperlink
-                element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + " <a href="+datarecord[type]+" target='_self'>"+datarecord[type]+"</a>" + "</div>";
+                var linkSet = datarecord[type];
+                //if(linkSet.contains(";")){
+                if(linkSet.indexOf("; ")>-1){
+                    var res = linkSet.split("; ");
+                    var link = '';
+                    if(type == "Link"){
+                        for(var i=0; i< res.length; i++){
+                            if(link.length>0)
+                            {
+                                link+=';';
+                            }
+                            link += "<a href='"+res[i]+"' target='_self'>"+res[i]+"</a>";
+                        }
+                    }
+                    else if(type == "LinkPdf"){
+                        for(var i=0; i< res.length; i++){
+                            if(link.length>0)
+                            {
+                                link+=';';
+                            }
+                            link += "<a href='"+linkPdf_directory+res[i]+"' target='_blank'>"+res[i]+"</a>";
+                        }
+                    }
+                    element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + link + "</div>";
+                }
+                else{
+                    if(type == "Link")
+                    {
+                        element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + " <a href='"+datarecord[type]+"' target='_self'>"+datarecord[type]+"</a>" + "</div>";
+                    }
+                    else if(type == "LinkPdf"){
+                        element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + " <a href='"+linkPdf_directory+datarecord[type]+"' target='_blank'>"+datarecord[type]+"</a>" + "</div>";
+                    }
+                }
             }
             else{
                 element = "<div class='fx_additional_info_content_element'><b>"+title+":</b> " + datarecord[type] + "</div>";
@@ -592,7 +638,6 @@ define([
 
     HostUtility.prototype.checkFieldsByPolicySelection = function(guiJson, payload) {
        var masterdata = payload.master_data;
-        console.log(masterdata)
        //var policydata = payload.policy_data;
        //This is an array
        this.setFieldsForConfigurationObj();
@@ -1009,7 +1054,6 @@ define([
         switch (true){
             //case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,25,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,50,51,52:
             case one_case_result:
-                //alert("CASE 0")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
@@ -1021,7 +1065,6 @@ define([
                 delete guiJson.panels[0].properties.startDateTax;
                 break;
             case two_case_result:
-                //alert("CASE 1")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
@@ -1036,12 +1079,10 @@ define([
                 delete guiJson.panels[0].properties.valueText;
                 break;
             case three_case_result:
-                //alert("CASE 2")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.secondGenerationSpecific;
                 break;
             case four_case_result:
-                //alert("CASE 3")
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
                 delete guiJson.panels[0].properties.benchmarkLinkPdf;
@@ -1052,7 +1093,6 @@ define([
                 delete guiJson.panels[0].properties.startDateTax;
                 break;
             case five_case_result:
-                //alert("CASE 4")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
@@ -1063,7 +1103,6 @@ define([
                 delete guiJson.panels[0].properties.startDateTax;
                 break;
             case six_case_result:
-                //alert("CASE 5")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
@@ -1074,7 +1113,6 @@ define([
                 delete guiJson.panels[0].properties.startDateTax;
                 break;
             case seven_case_result:
-                //alert("CASE 6")
                 delete guiJson.panels[0].properties.policyElement;
                 delete guiJson.panels[0].properties.taxRateBenchmark;
                 delete guiJson.panels[0].properties.benchmarkLink;
@@ -1088,10 +1126,8 @@ define([
                 delete guiJson.panels[0].properties.valueText;
                 break;
             case eight_case_result:
-                //alert("CASE 7")
                 delete guiJson.panels[0].properties.policyElement;
                 break;
-
         }
 
      /*   switch (index){
@@ -1181,6 +1217,8 @@ define([
                 break;
 
         }*/
+        console.log("guiJson.panels[0].properties")
+        console.log(guiJson.panels[0].properties)
     }
 
     return HostUtility;

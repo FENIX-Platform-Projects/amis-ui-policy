@@ -47,7 +47,7 @@ define([
         //integer
         cpl_id  : [],
         //character varying(255)
-        cpl_code  : [],
+        //cpl_code  : [],
         //integer
         commodity_id    :   [],
         //integer
@@ -89,7 +89,10 @@ define([
 
 }
 
-    function init(cpl_id, cpl_code, commodity_id, country_code, country_name, subnational_code, subnational_name, commoditydomain_code, commoditydomain_name,
+    //function init(cpl_id, cpl_code, commodity_id, country_code, country_name, subnational_code, subnational_name, commoditydomain_code, commoditydomain_name,
+    //              commodityclass_code, commodityclass_name, policydomain_code, policydomain_name, policytype_code, policytype_name, policymeasure_code, policymeasure_name,
+    //              condition_code, condition, individualpolicy_code, individualpolicy_name)
+    function init(cpl_id, commodity_id, country_code, country_name, subnational_code, subnational_name, commoditydomain_code, commoditydomain_name,
                   commodityclass_code, commodityclass_name, policydomain_code, policydomain_name, policytype_code, policytype_name, policymeasure_code, policymeasure_name,
                   condition_code, condition, individualpolicy_code, individualpolicy_name)
     {
@@ -116,7 +119,7 @@ define([
 //        ap_masterTableObject.CONFIG.individualpolicy_name = individualpolicy_name;
 
         this.CONFIG.cpl_id = cpl_id;
-        this.CONFIG.cpl_code = cpl_code;
+        //this.CONFIG.cpl_code = cpl_code;
         this.CONFIG.commodity_id = commodity_id;
         this.CONFIG.country_code = country_code;
         this.CONFIG.country_name = country_name;

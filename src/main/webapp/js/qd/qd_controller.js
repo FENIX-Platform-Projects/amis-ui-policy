@@ -203,7 +203,10 @@ define([
     //The properties object is used in the selector update selection function for specific field
     //select_deselect= boolean to select or deselect items
     QD.prototype.update_selector_selection = function (selector_id, properties, select_deselect) {
+        console.log(selector_id)
         var selector_instance = this.getSelector(selector_id);
+        console.log(selector_instance)
+        console.log(properties)
         if(select_deselect)
         {
             selector_instance.selectItems(properties);
@@ -254,6 +257,11 @@ define([
         var selector_instance = this.getSelector(selector_id);
         selector_instance.enableItems(properties);
     };
+
+    QD.prototype.getBoard = function () {
+        return this.options.board;
+    };
+
 
     return QD;
 

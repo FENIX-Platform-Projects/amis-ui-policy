@@ -30,6 +30,7 @@ require([
                     host_policyDataObject: '../controller_util/ap_queryAndDownload_policy_data_object',
                     host_buttonActions: '../controller_util/ap_queryAndDownload_button_actions',
                     host_preview: '../controller_util/ap_queryAndDownload_preview',
+                    ap_util_functions : '../controller_util/ap_util_functions',
                     ap_policyDataObject : '../common/policyDataObject',
                     json: "../../config/json",
                     jqueryui: 'jquery-ui.min',
@@ -82,13 +83,18 @@ require([
                     },
                     jQAllRangeSliders: {
                         deps: ['jquery', 'jqueryui', 'jqueryuicustom']
-                        // deps: ['jquery', 'jqueryuicustom']
                     },
                     pnotify: {
                         deps: ['bootstrap']
                     },
                     xDomainRequest: {
                         deps: ['jquery']
+                    },
+                    jqueryui:{
+                        deps: ['jquery']
+                    },
+                    jqueryuicustom:{
+                        deps: ['jqueryui']
                     }
                 }
             }
@@ -104,34 +110,11 @@ require([
 // but are still important for a script to have loaded before it can do its work.
 // This is the case of domReady => will not be called until DOM is ready
 //require(['host', 'jquery', 'text!json/conf.json', 'domReady!'], function( Host, $, conf )
-require(['host', 'jquery', 'domReady!'], function( Host, $ ) {
+require(['host', 'ap_util_functions', 'jquery', 'text!json/auth_users.json', 'domReady!'], function( Host, UtilityFunctions, $, authUsersFile ) {
+
     var host = new Host({button_preview_action_type : "preview"});
     host.initQDComponent();
 
-    //Fake login
-    //$(".protected").hide();
-    //$('#sign-in-btn').on('click', function(){
-    //    $('#signInModal').modal('hide');
-    //    $(".protected").show();
-    //});
-
-    //$(".protected").addClass("disabled");
-    var sessionStorageValueAttr = sessionStorage.getItem("value")
-    if((sessionStorageValueAttr!=null)&&(typeof sessionStorageValueAttr!="undefined")&&(sessionStorageValueAttr=='login')){
-    }else{
-        $(".protected").addClass("disabled");
-        $("#dataentry_editPolicy").hide();
-        $("#dataentry_addPolicy").hide();
-    }
-    $('#sign-in-btn').on('click', function(){
-        $('#signInModal').modal('hide');
-        $(".protected").removeClass("disabled");
-        $("#dataentry_editPolicy").show();
-        $("#dataentry_addPolicy").show();
-        if (typeof(Storage) != "undefined") {
-            // Store
-            sessionStorage.setItem("value", "login");
-        }
-    });
+    UtilityFunctions.authentication(authUsersFile, host);
 });
 });

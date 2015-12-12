@@ -33,6 +33,8 @@ define([
         //The format is this: 'code1', 'code2', 'code3'
         data.cpl_id = "";
         data.commodity_id = "";
+        //This is an array of array with the association between policyType Code and array of policy measure code
+        data.policyTypesInfo = [];
 
 
 //        data.showNull = true;

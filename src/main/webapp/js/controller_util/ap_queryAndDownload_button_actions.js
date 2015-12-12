@@ -97,24 +97,24 @@ define([
                 stop = true;
             }
         }
-        console.log("Result Start");
-        console.log("commodity_domain = "+commodity_domain);
-        console.log("policy_domain = "+policy_domain);
-        console.log("policy_type = "+policy_type);
-        if((policy_type!=null)&&(policy_type!='undefined'))
-        {
-            for(var i=0; i< policy_type.length; i++)
-            {
-                console.log("Policy_type: "+policy_type[i]);
-                //console.log("Policy_Measure: "+policy_measure[policy_type[i]]);
-                console.log("Policy_Measure: "+policy_measure[i]);
-            }
-        }
-        //console.log("policy_measure = "+policy_measure);
-        console.log("commodity_class = "+commodity_class);
-        console.log("country = "+country);
-        console.log("years = "+year);
-        console.log("Result End");
+        //console.log("Result Start");
+        //console.log("commodity_domain = "+commodity_domain);
+        //console.log("policy_domain = "+policy_domain);
+        //console.log("policy_type = "+policy_type);
+        //if((policy_type!=null)&&(policy_type!='undefined'))
+        //{
+        //    for(var i=0; i< policy_type.length; i++)
+        //    {
+        //        console.log("Policy_type: "+policy_type[i]);
+        //        //console.log("Policy_Measure: "+policy_measure[policy_type[i]]);
+        //        console.log("Policy_Measure: "+policy_measure[i]);
+        //    }
+        //}
+        ////console.log("policy_measure = "+policy_measure);
+        //console.log("commodity_class = "+commodity_class);
+        //console.log("country = "+country);
+        //console.log("years = "+year);
+        //console.log("Result End");
 
         if(!stop)
         {

@@ -1,10 +1,12 @@
-var AMIS_controller = (function () {
+//var AMIS_controller = (function () {
+define([
+    'swiper',
+    'highcharts'
+], function(Swiper){
 
     function initCharts() {
 
         $('#grafico1').highcharts({
-
-            //MTY �
 
             chart: {
                 type: 'column',  //Tipo di grafico:  area, areaspline, boxplot, bubble, column, line, pie, scatter, spline
@@ -652,6 +654,7 @@ var AMIS_controller = (function () {
         function renderChart(  activeSlide  ) {
 
             if (activeSlide.data('chart') !== current){
+                console.log(current)
                 current = activeSlide.data('chart')
                 $(activeSlide).find('.chart-container').highcharts( AMIS_home_charts[current])
             }
@@ -660,14 +663,14 @@ var AMIS_controller = (function () {
 
     function init() {
 
-        initLogin();
+        //initLogin();
         //initCharts();
-        initFeedbackSystem();
+        //initFeedbackSystem();
         initSwiper();
     }
 
     return { init: init }
 
-})();
+});
 
-window.addEventListener('load', AMIS_controller.init, false);
+//window.addEventListener('load', AMIS_controller.init, false);

@@ -1,16 +1,17 @@
 //var ap_policiesAtaGlance_exportSubsidies_util = (function() {
 define([
+    'jquery',
+    'jqueryui',
+    'highcharts',
+    'highcharts_exporting',
     'ap_util_variables',
     'ap_policyDataObject',
     'ap_util_functions',
-    'highcharts',
-    'highcharts_exporting',
-    'jquery',
     'jQAllRangeSliders',
     'jqwidget',
     'bootstrap',
     'xDomainRequest'
-], function(ap_utilVariables, ap_policyDataObject, ap_utilFunctions, highcharts ){
+], function($, ui, highcharts, highcharts_exporting, ap_utilVariables, ap_policyDataObject, ap_utilFunctions ){
 
     var start_date_dd = '';
     var start_date_mm = '';
@@ -464,7 +465,8 @@ define([
                                         {
                                             text: 'As PNG image',
                                             onclick: function () {
-                                                this.exportChart({filename: 'Export-subsidies'});
+                                                var today = currentDate();
+                                                this.exportChart({filename: 'Export-subsidies' }, {subtitle: {text: this.subtitle.textStr+today}});
 //                                    this.exportChart(null, {  chart: {
 //                                        style: {
 //                                            fontFamily: '"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif', // default font
@@ -488,29 +490,32 @@ define([
                                         {
                                             text: 'As JPEG image',
                                             onclick: function () {
+                                                var today = currentDate();
                                                 this.exportChart({
                                                     type: 'image/jpeg',
                                                     filename: 'Export-subsidies'
-                                                });
+                                                }, {subtitle: {text: this.subtitle.textStr+today}});
                                             }
                                         },
                                         {
                                             text: 'As SVG vector image',
                                             onclick: function () {
+                                                var today = currentDate();
                                                 this.exportChart({
                                                     type: 'image/svg+xml',
                                                     filename: 'Export-subsidies'
-                                                });
+                                                }, {subtitle: {text: this.subtitle.textStr+today}});
                                             }
 
                                         },
                                         {
                                             text: 'To PDF document',
                                             onclick: function () {
+                                                var today = currentDate();
                                                 this.exportChart({
                                                     type: 'application/pdf',
                                                     filename: 'Export-subsidies'
-                                                });
+                                                }, {subtitle: {text: this.subtitle.textStr+today}});
                                             }
                                         }
                                     ]
@@ -532,8 +537,74 @@ define([
         });
     }
 
+    // create the chart when all data is loaded
+    function currentDate() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd
+        }
+        if(mm<10) {
+            mm='0'+mm
+        }
+
+        var month = monthToAlph(mm);
+
+        //today = month+'/'+dd+'/'+yyyy;
+        today = dd+'/'+month+'/'+yyyy;
+        today = "[Created on:"+today+"]";
+
+        return today;
+    };
+
+    function monthToAlph(mm){
+        var month = 'Jan';
+        if(mm=='01'){
+            month = 'Jan';
+        }
+        else if(mm=='02'){
+            month = 'Feb';
+        }
+        else if(mm=='03'){
+            month = 'Mar';
+        }
+        else if(mm=='04'){
+            month = 'Apr';
+        }
+        else if(mm=='05'){
+            month = 'May';
+        }
+        else if(mm=='06'){
+            month = 'Jun';
+        }
+        else if(mm=='07'){
+            month = 'Jul';
+        }
+        else if(mm=='08'){
+            month = 'Aug';
+        }
+        else if(mm=='09'){
+            month = 'Sep';
+        }
+        else if(mm=='10'){
+            month = 'Oct';
+        }
+        else if(mm=='11'){
+            month = 'Nov';
+        }
+        else if(mm=='12'){
+            month = 'Dec';
+        }
+
+        return month;
+    };
+
     return {
         subMenu0 : subMenu0,
-        subMenu1 : subMenu1
+        subMenu1 : subMenu1,
+        currentDate : currentDate
     }
 });

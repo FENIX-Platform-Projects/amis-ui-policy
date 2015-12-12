@@ -1,0 +1,202 @@
+{
+  "oecd@fao.org" : {
+      "name" : "Oecd",
+      "password" : "oecd"
+  },
+  "argentinaCountry@fao.org" : {
+    "name" : "Argentina",
+    "password" : "argentina",
+    "country" : {
+          "code" : 12
+    }
+  },
+  "australiaCountry@fao.org" : {
+    "name" : "Australia",
+    "password" : "australia",
+    "country" : {
+      "code" : 17
+    }
+  },
+  "brazilCountry@fao.org" : {
+    "name" : "Brazil",
+    "password" : "brazil",
+    "country" : {
+      "code" : 37
+    }
+  },
+  "canadaCountry@fao.org" : {
+    "name" : "Canada",
+    "password" : "canada",
+    "country" : {
+      "code" : 46
+    }
+  },
+  "chinaCountry@fao.org" : {
+    "name" : "China",
+    "password" : "china",
+    "country" : {
+      "code" : 53
+    }
+  },
+  "franceCountry@fao.org" : {
+    "name" : "France",
+    "password" : "france",
+    "country" : {
+      "code" : 85
+    }
+  },
+  "germanyCountry@fao.org" : {
+    "name" : "Germany",
+    "password" : "germany",
+    "country" : {
+      "code" : 93
+    }
+  },
+  "indiaCountry@fao.org" : {
+    "name" : "India",
+    "password" : "india",
+    "country" : {
+      "code" : 115
+    }
+  },
+  "indonesiaCountry@fao.org" : {
+    "name" : "Indonesia",
+    "password" : "indonesia",
+    "country" : {
+      "code" : 116
+    }
+  },
+  "italyCountry@fao.org" : {
+    "name" : "Italy",
+    "password" : "italy",
+    "country" : {
+      "code" : 122
+    }
+  },
+  "japanCountry@fao.org" : {
+    "name" : "Japan",
+    "password" : "japan",
+    "country" : {
+      "code" : 126
+    }
+  },
+  "kazakhstanCountry@fao.org" : {
+    "name" : "Kazakhstan",
+    "password" : "kazakhstan",
+    "country" : {
+      "code" : 132
+    }
+  },
+  "mexicoCountry@fao.org" : {
+    "name" : "Mexico",
+    "password" : "mexico",
+    "country" : {
+      "code" : 162
+    }
+  },
+  "nigeriaCountry@fao.org" : {
+    "name" : "Nigeria",
+    "password" : "nigeria",
+    "country" : {
+      "code" : 182
+    }
+  },
+  "philippinesCountry@fao.org" : {
+    "name" : "Philippines",
+    "password" : "philippines",
+    "country" : {
+      "code" : 196
+    }
+  },
+  "koreaCountry@fao.org" : {
+    "name" : "Republic of Korea",
+    "password" : "korea",
+    "country" : {
+      "code" : 202
+    }
+  },
+  "russianFederationCountry@fao.org" : {
+    "name" : "Russian Federation",
+    "password" : "russianFederation",
+    "country" : {
+      "code" : 204
+    }
+  },
+  "saudiArabiaCountry@fao.org" : {
+    "name" : "Saudi Arabia",
+    "password" : "saudiArabia",
+    "country" : {
+      "code" : 215
+    }
+  },
+  "southAfricaCountry@fao.org" : {
+    "name" : "South Africa",
+    "password" : "southAfrica",
+    "country" : {
+      "code" : 227
+    }
+  },
+  "spainCountry@fao.org" : {
+    "name" : "Spain",
+    "password" : "spain",
+    "country" : {
+      "code" : 229
+    }
+  },
+  "thailandCountry@fao.org" : {
+    "name" : "Thailand",
+    "password" : "thailand",
+    "country" : {
+      "code" : 240
+    }
+  },
+  "turkeyCountry@fao.org" : {
+    "name" : "Turkey",
+    "password" : "turkey",
+    "country" : {
+      "code" : 249
+    }
+  },
+  "ukraineCountry@fao.org" : {
+    "name" : "Ukraine",
+    "password" : "ukraine",
+    "country" : {
+      "code" : 254
+    }
+  },
+  "unitedKingdomCountry@fao.org" : {
+    "name" : "United Kingdom",
+    "password" : "unitedKingdom",
+    "country" : {
+      "code" : 256
+    }
+  },
+  "unitedStatesOfAmericaCountry@fao.org" : {
+    "name" : "United States of America",
+    "password" : "unitedStatesOfAmerica",
+    "country" : {
+      "code" : 259
+    }
+  },
+  "vietNamCountry@fao.org" : {
+    "name" : "Viet Nam",
+    "password" : "vietNam",
+    "country" : {
+      "code" : 264
+    }
+  },
+  "egyptCountry@fao.org" : {
+    "name" : "Egypt",
+    "password" : "egypt",
+    "country" : {
+      "code" : 40765
+    }
+  },
+  "europeanUnionCountry@fao.org" : {
+    "name" : "European Union",
+    "password" : "europeanUnion",
+    "country" : {
+      "code" : 999000
+    }
+  }
+}

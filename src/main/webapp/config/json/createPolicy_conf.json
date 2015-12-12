@@ -68,7 +68,7 @@
             "list_id":"fx_selector_5_listbox",
             "language"  :   "EN",
             "title" :   {"value":"Commodity Class"},
-            "style":{"heigth":100},
+            "style":{"heigth":130},
             "domain":[{"value":"fouth","id":"4"}],
             "default_selected_items":[0],
             "buttons":[{"type":"clear", "id": "fx_selector_5_button_clear", "title": "Clear Selection", "color": "red"}],
@@ -76,14 +76,20 @@
         },
         {
           "id":"fx_selector_5_b",
-          "type":"listbox",
+          "type":"grid",
           "domain_type" : "CommodityDetail",
           "list_id":"fx_selector_5_b_listbox",
           "language"  :   "EN",
           "title" :   {"value":"Commodity"},
-          "style":{"heigth":100},
+          "style":{"heigth":130, "showfilterrow": true, "filterable": true},
           "domain":[{"value":"fouth","id":"4"}],
-          "buttons":[{"type":"info", "id": "fx_selector_5_b_button_info", "title": "Info", "color": "green", "show":false},{"type":"add", "id": "fx_selector_5_b_button_select", "title": "Add", "color": "blue"}, {"type":"clear", "id": "fx_selector_5_b_button_clear", "title": "Clear Selection", "color": "red"}],
+          "columns": [
+            { "text": "HS Code", "datafield": "code", "columntype": "textbox", "width": "25%" , "editable": false},
+            { "text": "HS Version", "datafield": "hsVersion", "columntype": "textbox", "width": "25%" , "editable": false},
+            { "text": "Short Description", "datafield": "shortDescription", "columntype": "textbox", "width": "50%" , "editable": false}
+          ],
+          "default_selected_items":[0],
+          "buttons":[{"type":"info", "id": "fx_selector_5_b_button_info", "title": "Info", "color": "green", "show":true},{"type":"add", "id": "fx_selector_5_b_button_select", "title": "Add", "color": "blue"}],
           "multipleextended" : false
         },
         {

@@ -221,11 +221,40 @@
         <h5 class='fx_section_title' id="bd0_submenu3_title">Time series of biofuel policies - disaggregated by policy type</h5>
         <hr class="fx-hr">
         <div class='row'>
+            <!--<div class='col-xs-12'>-->
+                <!--<button id ="bd0_submenu3-chart_one_download" type="button" class="btn btn-default dropdown-toggle policy-button"></button>-->
+                <!--&lt;!&ndash;<div class="btn-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button id ="" type="button" class="btn btn-default dropdown-toggle policy-button" data-toggle="dropdown"></button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ul id='bd0_submenu3-chart_one_download_menu' class="dropdown-menu" role="menu">&ndash;&gt;-->
+                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <div class='col-xs-12'>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button id ="bd0_submenu3-chart_two_download" type="button" class="btn_policy_highstock_tab">Ethanol Download</button>
+                    <button id ="bd0_submenu3-chart_three_download" type="button" class="btn_policy_highstock_tab">Biodiesel Download</button>
+                    <button id ="bd0_submenu3-chart_four_download" type="button" class="btn_policy_highstock_tab">Biofuel (unspecified) Download</button>
+                    <button id ="bd0_submenu3-chart_one_download" type="button" class="btn_policy_highstock_tab">All Download</button>
+                </div>
+            </div>
+            <br>
+            <form style='display: none;' name='biofuelPoliciesTimeSeriesExcel' method='POST' action='http://168.202.28.26:10400/wdspolicy/rest/policyservice/biofuelPoliciesTimeSeriesExcel' target='_self'>
+                <!--<form style='display: none;' name='biofuelPoliciesTimeSeriesExcel' method='POST' action='http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/biofuelPoliciesTimeSeriesExcel' target='_self'>-->
+                <div><input type='text' value='faostat' name='cssFilename_PT' id='cssFilename_PT'/></div>
+                <div><input type='text' value='' name='datasource_PT' id='datasource_PT'/></div>
+                <div><input type='text' value='2' name='decimalNumbers_PT' id='decimalNumbers_PT'/></div>
+                <div><input type='text' value='.' name='decimalSeparator_PT' id='decimalSeparator_PT'/></div>
+                <div><input type='text' value=',' name='thousandSeparator_PT' id='thousandSeparator_PT'/></div>
+                <div><input type='text' value='6' name='valueIndex_PT' id='valueIndex_PT'/></div>
+                <div><input type='text' value='' name='json_PT' id='json_PT'/></div>
+                <div><input type='text' value='' name='quote_PT' id='quote_PT'/></div>
+                <div><input type='text' value='' name='title_PT' id='title_PT'/></div>
+                <div><input type='text' value='' name='subtitle_PT' id='subtitle_PT'/></div>
+            </form>
+        </div>
+        <div class='row'>
             <div class='col-xs-12'>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li>
-                        <div><button id="bd0_submenu3-chart_one_title" class="btn_policy_highstock_tab"></button></div>
-                    </li>
                     <li>
                         <div><button id="bd0_submenu3-chart_two_title" class="btn_policy_highstock_tab"></button></div>
                     </li>
@@ -235,9 +264,10 @@
                     <li>
                         <div><button id="bd0_submenu3-chart_four_title" class="btn_policy_highstock_tab"></button></div>
                     </li>
+                    <li>
+                        <div><button id="bd0_submenu3-chart_one_title" class="btn_policy_highstock_tab"></button></div>
+                    </li>
                 </ul>
-
-
 
         <!-- Nav tabs -->
                 <!--<ul class="nav nav-tabs" role="tablist">-->
@@ -249,15 +279,6 @@
 
                 <!-- Tab panes -->
                 <!--<div class="tab-content">-->
-                    <div id="panel_bd0_submenu3-chart_one">
-                        <div class='row'>
-                            <div class='col-xs-12'>
-                                <!--<div id="bd0_submenu3-chart_one" style="height:500px;"></div>-->
-                                <div id="bd0_submenu3-chart_one" style="height:600px;"></div>
-                            <!--<div>Text 1</div>-->
-                            </div>
-                        </div>
-                    </div>
                     <div id="panel_bd0_submenu3-chart_two">
                         <div class='row'>
                             <div class='col-xs-12'>
@@ -282,6 +303,15 @@
                                 <!--<div id="bd0_submenu3-chart_four" style="height:500px;"></div>-->
                                 <div id="bd0_submenu3-chart_four" style="height:600px;"></div>
                                 <!--<div>Text 3</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="panel_bd0_submenu3-chart_one">
+                        <div class='row'>
+                            <div class='col-xs-12'>
+                                <!--<div id="bd0_submenu3-chart_one" style="height:500px;"></div>-->
+                                <div id="bd0_submenu3-chart_one" style="height:600px;"></div>
+                                <!--<div>Text 1</div>-->
                             </div>
                         </div>
                     </div>

@@ -219,10 +219,33 @@
     <hr class="fx-hr">
     <div class='row'>
         <div class='col-xs-12'>
+            <div class="btn-group" role="group" aria-label="...">
+                <button id ="bd2_submenu3-chart_two_download" type="button" class="btn_policy_highstock_tab">Wheat Download</button>
+                <button id ="bd2_submenu3-chart_three_download" type="button" class="btn_policy_highstock_tab">Maize Download</button>
+                <button id ="bd2_submenu3-chart_four_download" type="button" class="btn_policy_highstock_tab">Rice Download</button>
+                <button id ="bd2_submenu3-chart_five_download" type="button" class="btn_policy_highstock_tab">Soybeans Download</button>
+                <button id ="bd2_submenu3-chart_one_download" type="button" class="btn_policy_highstock_tab">All Download</button>
+            </div>
+        </div>
+        <br>
+        <form style='display: none;' name='exportRestrictionsTimeSeriesExcel' method='POST' action='http://168.202.28.26:10400/wdspolicy/rest/policyservice/exportRestrictionsTimeSeriesExcel' target='_self'>
+        <!--<form style='display: none;' name='exportRestrictionsTimeSeriesExcel' method='POST' action='http://statistics.amis-outlook.org:80/wdspolicy/rest/policyservice/exportRestrictionsTimeSeriesExcel' target='_self'>-->
+            <div><input type='text' value='faostat' name='cssFilename_ER' id='cssFilename_ER'/></div>
+            <div><input type='text' value='' name='datasource_ER' id='datasource_ER'/></div>
+            <div><input type='text' value='2' name='decimalNumbers_ER' id='decimalNumbers_ER'/></div>
+            <div><input type='text' value='.' name='decimalSeparator_ER' id='decimalSeparator_ER'/></div>
+            <div><input type='text' value=',' name='thousandSeparator_ER' id='thousandSeparator_ER'/></div>
+            <div><input type='text' value='6' name='valueIndex_ER' id='valueIndex_ER'/></div>
+            <div><input type='text' value='' name='json_ER' id='json_ER'/></div>
+            <div><input type='text' value='' name='quote_ER' id='quote_ER'/></div>
+            <div><input type='text' value='' name='title_ER' id='title_ER'/></div>
+            <div><input type='text' value='' name='subtitle_ER' id='subtitle_ER'/></div>
+        </form>
+    </div>
+
+    <div class='row'>
+        <div class='col-xs-12'>
             <ul class="nav nav-tabs" role="tablist">
-                <li>
-                    <div><button id="bd2_submenu3-chart_one_title" class="btn_policy_highstock_tab"></button></div>
-                </li>
                 <li>
                     <div><button id="bd2_submenu3-chart_two_title" class="btn_policy_highstock_tab"></button></div>
                 </li>
@@ -234,6 +257,9 @@
                 </li>
                 <li>
                     <div><button id="bd2_submenu3-chart_five_title" class="btn_policy_highstock_tab"></button></div>
+                </li>
+                <li>
+                    <div><button id="bd2_submenu3-chart_one_title" class="btn_policy_highstock_tab"></button></div>
                 </li>
             </ul>
 
@@ -248,16 +274,6 @@
 
             <!-- Tab panes -->
             <!--<div class="tab-content">-->
-                <div id="panel_bd2_submenu3-chart_one">
-                    <div class='row'>
-                        <div class='col-xs-12'>
-                            <!--<div id="bd2_submenu3-chart_one" style="height:500px;"></div>-->
-                            <!--<div id="bd2_submenu3-chart_one" style="height:400px;"></div>-->
-                            <div id="bd2_submenu3-chart_one" style="height:600px;"></div>
-                            <!--<div>Text 1</div>-->
-                        </div>
-                    </div>
-                </div>
                 <div id="panel_bd2_submenu3-chart_two">
                     <div class='row'>
                         <div class='col-xs-12'>
@@ -295,6 +311,16 @@
                             <!--<div id="bd2_submenu3-chart_five" style="height:400px;"></div>-->
                             <div id="bd2_submenu3-chart_five" style="height:600px;"></div>
                             <!--<div>Text 3</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div id="panel_bd2_submenu3-chart_one">
+                    <div class='row'>
+                        <div class='col-xs-12'>
+                            <!--<div id="bd2_submenu3-chart_one" style="height:500px;"></div>-->
+                            <!--<div id="bd2_submenu3-chart_one" style="height:400px;"></div>-->
+                            <div id="bd2_submenu3-chart_one" style="height:600px;"></div>
+                            <!--<div>Text 1</div>-->
                         </div>
                     </div>
                 </div>

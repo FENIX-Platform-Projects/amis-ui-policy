@@ -26,16 +26,6 @@
                     "function": "policiesAtaGlance_biofuelPolicyMeasures"
                 }
             },
-            "view_sidemenu_2_event": {
-                "content": {
-                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_importTariffsQuotas-en.html"
-                },
-                "callback": {
-                    "frequency": "always",
-                    "function": "policiesAtaGlance_importTariffsQuotas"
-                }
-            },
-          come stai? news? Sabato sera sarà il mio compleanno! A tal proposito ho invitato un po' di amici per bere un drink e ballare al Lian Club, Lungotevere dei Mellini num. 7! si trova esattamente sotto Ponte Cavour anche se il navigatore potrebbe indicarlo più avanti!Appuntamento alle 23! mi farebbe molto piacere se ci fossi anche tu! Emoticon smile  potresti darmi conferma entro giovedì sera per favore? grazie! Baci baci
             "view_sidemenu_4_event": {
                 "content": {
                     "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportRestrictions-en.html"
@@ -89,36 +79,6 @@
                         "target": "#bd1_submenu3-title",
                         "label": {
                             "EN": "Time series"
-                        }
-                    }
-                ]
-            },
-            {
-                "id": "view-sidemenu-2",
-                "page": "view_sidemenu_2_event",
-                "label": {
-                    "EN": "Import tariffs"
-                },
-                "children": [
-                    {
-                        "target": "#bd4_submenu1-title",
-                        "label": {
-                            "EN": ""
-                        }
-                    }
-                ]
-            },
-            {
-                "id": "view-sidemenu-3",
-                "page": "view_sidemenu_3_event",
-                "label": {
-                    "EN": "Export subsidies"
-                },
-                "children": [
-                    {
-                        "target": "#bd3_submenu1_title",
-                        "label": {
-                            "EN": ""
                         }
                     }
                 ]

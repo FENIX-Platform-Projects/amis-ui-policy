@@ -691,7 +691,6 @@ div.copyright p.bodytext {
     margin-right: 2px;
     background-color: #2a5d9f;
     border-color: #dddddd;
-
 }
 
 button::-moz-focus-inner,
@@ -701,5 +700,26 @@ input::-moz-focus-inner {
 }
 
 #metadataEditorContainer{
+    font-size: 12px;
+}
+
+/*Grid*/
+.jqx-grid-group-collapse{
+    background-image:  url(../img/plusBlue.png);
+}
+
+.jqx-grid-group-expand{
+    background-image:  url(../img/minusBlue.png);
+}
+
+label.control-label{
+    color: #2a5d9f;
+    font-family: "Open Sans Condensed",sans-serif;
+    font-size: 14px;
+}
+
+.well .well label.control-label{
+    color: #666666;
+    font-family: "arial";
     font-size: 12px;
 }

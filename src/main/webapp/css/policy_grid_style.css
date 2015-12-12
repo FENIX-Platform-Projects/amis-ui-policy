@@ -41,7 +41,12 @@
 
 .fx_additional_info_content_left_column {
     float: left;
-    width: 45%;
+    width: 50%;
+}
+
+.fx_additional_info_content_right_column {
+    float: right;
+    width: 50%;
 }
 
 .fx_additional_info_content_element {

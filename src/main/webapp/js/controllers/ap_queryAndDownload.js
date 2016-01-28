@@ -72,10 +72,10 @@ define([
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-        base_ip_address    :  '168.202.28.26',
-        base_ip_port    :  '10400',
-        //base_ip_address    :  'statistics.amis-outlook.org',
-        //base_ip_port    :  '80',
+        //base_ip_address    :  '168.202.28.26',
+        //base_ip_port    :  '10400',
+        base_ip_address    :  'statistics.amis-outlook.org',
+        base_ip_port    :  '80',
         datasource      :   'POLICY',
 //        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
 //        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
@@ -1017,8 +1017,6 @@ define([
             if(self.options.button_preview_action_type == "searchCreatePolicy") {
 
                 $('#' + self.options.fx_selector_5_b_infoButton).click(function(e){
-                    //alert("fx_selector_5_b_infoButton click!!!")
-                    //console.log("fx_selector_5_b_infoButton click!!!")
                     var grid = qd_instance.getSelector(self.options.fx_selector_5_b);
                     //console.log(grid.getSelectedRows())
                     //console.log(qd_instance.getBoard());
@@ -1203,12 +1201,12 @@ define([
                 this.options.onEditActionObj.master_data.IndividualPolicyName = 'n.a.';
             }
             if((selecteditem_selector7[0]!=null)&&(typeof selecteditem_selector7[0]!= "undefined")){
-                this.options.onEditActionObj.master_data.PolicyCondition = selecteditem_selector7[0].originalItem.label;
                 this.options.onEditActionObj.master_data.PolicyConditionCode = selecteditem_selector7[0].originalItem.code;
+                this.options.onEditActionObj.master_data.PolicyCondition = selecteditem_selector7[0].originalItem.label;
             }
             else{
-                this.options.onEditActionObj.master_data.PolicyCondition = 'n.a.';
                 this.options.onEditActionObj.master_data.PolicyConditionCode = 'n.a.';
+                this.options.onEditActionObj.master_data.PolicyCondition = 'n.a.';
             }
             this.options.onEditActionObj.master_data.PolicyDomainCode = selecteditem_selector2.code;
             this.options.onEditActionObj.master_data.PolicyDomainName = selecteditem_selector2.label;
@@ -1302,7 +1300,6 @@ define([
     Host.prototype.dataEntryaddEventListener = function(self){
         $('body').on("EditSearchButton", $.proxy(this.onEditAction, this));
         //document.body.addEventListener(this.options.CANCEL, function (e) {
-        //    alert("In cancel 953")
         //    console.log(self)
         //    self.options.editor.destroy();
         //    $("#metadataEditorContainer").hide();
@@ -1323,7 +1320,7 @@ define([
         var self = this;
         //amplify.unsubscribe(self.options.CANCEL, self.actionToHideDataEditor);
 
-        //console.log(payload)
+        console.log(payload)
         if((payload!=null)&&(typeof payload!="undefined")){
             this.options.onEditActionObj = {};
             this.options.onEditActionObj = payload;
@@ -1389,7 +1386,6 @@ define([
             ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config-noMenu.json";
         }
 
-
         var guiJson = $.getJSON(guiJsonFile);
         $.when($.getJSON(guiJsonFile))
             .done(function( guiJson) {
@@ -1401,6 +1397,27 @@ define([
                // console.log(guiJson.panels[0].properties.summary.properties)
                 //console.log(self.options.onEditActionObj)
                 //console.log(guiJson)
+                if((self.options.onEditActionObj!=null)&&(typeof self.options.onEditActionObj!='undefined')&&(self.options.onEditActionObj.master_data!=null)&&(typeof self.options.onEditActionObj.master_data!='undefined')){
+                   if((self.options.onEditActionObj.master_data.PolicyMeasureName!=null)&&(typeof self.options.onEditActionObj.master_data.PolicyMeasureName!='undefined')){
+                       var squareBrkindex = self.options.onEditActionObj.master_data.PolicyMeasureName.indexOf('[');
+                       if(squareBrkindex>0){
+                           self.options.onEditActionObj.master_data.PolicyMeasureName = self.options.onEditActionObj.master_data.PolicyMeasureName.substring(0, squareBrkindex);
+                       }
+                   }
+                    //Case Subnational
+                    if((self.options.onEditActionObj.master_data.SubnationalCode!=null)&&(typeof self.options.onEditActionObj.master_data.SubnationalCode!='undefined')){
+                        //"-4_LevelNeg"
+                        var squareBrkindex = self.options.onEditActionObj.master_data.SubnationalCode.indexOf('_');
+                        if(squareBrkindex>0){
+                            self.options.onEditActionObj.master_data.SubnationalCode = self.options.onEditActionObj.master_data.SubnationalCode.substring(0, squareBrkindex);
+                        }
+                    }
+                    //Case Master Commodity id ... coping in Policy Commodity id
+                    if((self.options.onEditActionObj.master_data.CommodityId!=null)&&(typeof self.options.onEditActionObj.master_data.CommodityId!='undefined')){
+                        self.options.onEditActionObj.policy_data.CommodityId = self.options.onEditActionObj.master_data.CommodityId;
+                    }
+                }
+
                 self.summaryDefaultValueSetting(guiJson, self.options.onEditActionObj, self);
               //  alert("ap_q&d Before properties after ")
               //  console.log(guiJson.panels[0].properties.summary.properties);
@@ -1481,15 +1498,16 @@ define([
                 else{
                     self.options.onEditActionObj.LOGGED_USER = self.options.logged_user_code;
                 }
-                //console.log(self.options.onEditActionObj)
+
+                console.log(options)
+                console.log(self.options.onEditActionObj)
                 self.options.editor.init(options, self.options.onEditActionObj);
                 $(".previous_content").hide();
                 $("#buttonBack").show();
                 $("#metadataEditorContainer").show();
-                //alert("AFTER INTI ")
-                //console.log(self.options.editor)
             });
     };
+
 
     Host.prototype.reloadCommodityList = function(self, qd_instance){
 
@@ -1685,7 +1703,8 @@ define([
     Host.prototype.summaryDefaultValueSetting = function(guiJson, payload, self){
         var masterdata = payload.master_data;
         var policydata = payload.policy_data;
-        //console.log(masterdata)
+        console.log(masterdata)
+        console.log(policydata)
 
         if((guiJson!=null)&&(typeof guiJson!='undefined')){
             if((guiJson.panels[0].properties.summary.properties.country)&&(typeof guiJson.panels[0].properties.summary.properties.country)){
@@ -1810,6 +1829,7 @@ define([
             //    "multilingual": true,
             //        "default": "FENIX"
             //},
+
             if(self.options.button_preview_action_type=="searchEditPolicy"){
 
                 //Text field

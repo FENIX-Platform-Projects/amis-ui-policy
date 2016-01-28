@@ -849,11 +849,6 @@ define([
                         self.subnationalNegativeInfo(qd_controller_instance, host, item, mastertable_data);
 
                         var properties = {};
-                        //console.log("Before update selectorDomain")
-                        //console.log("Len = "+mastertable_data.length)
-                        //console.log(mastertable_data)
-                        //console.log("Before update selectorDomain 2")
-                        //alert("11")
                         qd_controller_instance.update_selector_domain(host.options.fx_selector_6_b, mastertable_data, properties);
 //                            }
 //                            console.log("To get Subnational info START");
@@ -937,9 +932,7 @@ define([
 
                 //Case Search
                 //Case Query and Download
-                //console.log("url "+ap_queryAndDownload.CONFIG.masterFromCplId_url+ '/' + ap_queryAndDownload.CONFIG.datasource+ '/'+ ap_queryAndDownload.CONFIG.cpl_id_list[0]);
-                //alert("Before call masterFromCplIdAndNegativeSubnational")
-                //console.log(payloadrestMasterData)
+
                 $.ajax({
                     type: 'POST',
 //                            url: ap_queryAndDownload.CONFIG.masterFromCplId_url,
@@ -951,7 +944,6 @@ define([
                         var json = response;
                         if (typeof(response) == 'string')
                             json = $.parseJSON(response);
-
                         //console.log("subnationalInfo 3")
                         //var mastertable_data = new Array();
                         var subnationalCount = 0;
@@ -974,22 +966,44 @@ define([
 
                             var index=0;
                             var count = 0;
-                            if((json[i][6]!= "n.a")&&(json[i][6].indexOf(",")>0)){
 
-                                while(json[i][6].substring(index).indexOf(",")>0){
-                                    var commaIndex = json[i][6].substring(index).indexOf(",");
-                                    var sub_name = json[i][6].substring(index, commaIndex);
+                            //if((json[i][6]!= "n.a")&&(json[i][6].indexOf(",")>0)){
+                            //
+                            //    console.log(json[i][6]);
+                            //    while(json[i][6].substring(index).indexOf(",")>0){
+                            //        var commaIndex = json[i][6].substring(index).indexOf(",");
+                            //        var sub_name = json[i][6].substring(index, commaIndex);
+                            //        //console.log("if IN FOR sub_name = "+sub_name)
+                            //        subnationalLabelArray.push(sub_name);
+                            //        index = commaIndex+1;
+                            //    }
+                            //    subnationalLabelArray.push(json[i][6].substring(index));
+                            //    subnationalCodeArray = json[i][5].split(",");
+                            //}
+                            //else{
+                            //    subnationalLabel = json[i][6];
+                            //    subnationalLabelArray.push(subnationalLabel);
+                            //    subnationalCode = json[i][5];
+                            //    subnationalCodeArray.push(subnationalCode);
+                            //}
+
+                            if((json[i][5]!= "n.a")&&(json[i][5].indexOf(",")>0)){
+
+                                console.log(json[i][5]);
+                                while(json[i][5].substring(index).indexOf(",")>0){
+                                    var commaIndex = json[i][5].substring(index).indexOf(",");
+                                    var sub_name = json[i][5].substring(index, commaIndex);
                                     //console.log("if IN FOR sub_name = "+sub_name)
                                     subnationalLabelArray.push(sub_name);
                                     index = commaIndex+1;
                                 }
-                                subnationalLabelArray.push(json[i][6].substring(index));
-                                subnationalCodeArray = json[i][5].split(",");
+                                subnationalLabelArray.push(json[i][5].substring(index));
+                                subnationalCodeArray = json[i][4].split(",");
                             }
                             else{
-                                subnationalLabel = json[i][6];
+                                subnationalLabel = json[i][5];
                                 subnationalLabelArray.push(subnationalLabel);
-                                subnationalCode = json[i][5];
+                                subnationalCode = json[i][4];
                                 subnationalCodeArray.push(subnationalCode);
                             }
 
@@ -1008,7 +1022,10 @@ define([
                                     }
                                     if(found==false){
                                         //The subnational has to be inserted only if it's not in the list
-                                        mastertable_data[subnationalCount] = obj;
+                                        console.log("subnationalCount = "+subnationalCount + " ")
+                                        console.log(obj)
+                                        //mastertable_data[subnationalCount] = obj;
+                                        mastertable_data.push(obj);
                                         subnationalCount++;
                                     }
 
@@ -1027,14 +1044,7 @@ define([
                         }
 
                         var properties = {};
-                        //console.log("Before update selectorDomain")
-                        //console.log(mastertable_data)
-
-                       // alert("33")
                         qd_controller_instance.update_selector_domain(host.options.fx_selector_6_b, mastertable_data, properties);
-                        //console.log("To get Subnational info START");
-                        //console.log(mastertable_data)
-                        //console.log("To get Subnational info END");
 
                         //self.master_grid_creation(mastertable_data, self, host);
                     },
@@ -1366,9 +1376,7 @@ define([
                                     });
 
                                     var properties = {};
-                                    //console.log("Before update selectorDomain")
-                                    //console.log(mastertable_data)
-                                   // alert("44")
+
                                     qd_controller_instance.update_selector_domain(host.options.fx_selector_6_b, mastertable_data, properties);
                                 }
                             },
@@ -2020,7 +2028,6 @@ define([
                         },
                         error : function(response) {
                             console.log(response)
-                            alert("error ")
                         }});
                 }
                 else{
@@ -2169,7 +2176,6 @@ define([
                         },
                         error : function(response) {
                             console.log(response)
-                            alert("error ")
                         }});
                 }
                 else{
@@ -2257,6 +2263,29 @@ define([
                     host.options.conditionCode = ''+app;
                     console.log("host.options.conditionCode "+host.options.conditionCode)
                     console.log("host.options.conditionName "+host.options.conditionName)
+
+                    var properties = {};
+                    var type = host.options.condition_selector_type;
+                    var source_domain = qd_instance.getSelector_domain(host.options.fx_selector_7, true);
+                    console.log(source_domain)
+                    var obj = {"value": type + "_" + host.options.conditionCode + "_LevelX", "label": '' + host.options.conditionName, "code" : host.options.conditionCode, "type": type};
+                    source_domain.push(obj);
+                    console.log("After push")
+                    console.log(source_domain)
+                    source_domain.sort(function (a, b) {
+                        if (a.label < b.label)
+                            return -1;
+                        if (a.label > b.label)
+                            return 1;
+                        return 0;
+                    });
+                    console.log("After sort")
+                    console.log(source_domain)
+
+                    qd_instance.update_selector_domain(host.options.fx_selector_7, source_domain, properties);
+                    document.getElementById("new_condition").value ='';
+                    //$("#subnationalAdd").hide();
+                    $('#conditionAdd').modal('hide');
                 }
             });
 
@@ -2283,26 +2312,50 @@ define([
         $('#subnationalAddTitle').html("Subnational Add");
         $('#SubnationalSave').click(function(e){
             var newSubnationalName = document.getElementById("new_subnational").value;
-            $.ajax({
-                type: 'GET',
-                url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + ap_util_variables.CONFIG.subnationalMaxCodeNotGaul + '/' + host.options.datasource,
-                dataType: 'json',
+            if((newSubnationalName!=null)&&(typeof newSubnationalName!='undefined')){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://' + host.options.base_ip_address + ':' + host.options.base_ip_port + ap_util_variables.CONFIG.subnationalMaxCodeNotGaul + '/' + host.options.datasource,
+                    dataType: 'json',
 
-                success: function (response) {
+                    success: function (response) {
 
-                    /* Convert the response in an object, i fneeded. */
-                    var json = response;
-                    if (typeof(response) == 'string')
-                        json = $.parseJSON(response);
+                        /* Convert the response in an object, i fneeded. */
+                        var json = response;
+                        if (typeof(response) == 'string')
+                            json = $.parseJSON(response);
 
-                    var subnationalCode = json[0][0];
-                    var app = (parseInt(subnationalCode,10))-1;
-                    host.options.subnationalCode = ''+app;
-                    console.log("host.options.subnationalCode "+host.options.subnationalCode)
-                    console.log("host.options.subnationalName "+host.options.subnationalName)
-                }
+                        var subnationalCode = json[0][0];
+                        var app = (parseInt(subnationalCode,10))-1;
+                        host.options.subnationalCode = ''+app;
+                        console.log("host.options.subnationalCode "+host.options.subnationalCode)
+                        console.log("host.options.subnationalName "+host.options.subnationalName)
+                        var properties = {};
+                        var type = host.options.subnational_selector_type;
+                        var source_domain = qd_instance.getSelector_domain(host.options.fx_selector_6_b, true);
+                        console.log(source_domain)
+                        var obj = {"value": type + "_" + host.options.subnationalCode + "_Level2", "label": '' + host.options.subnationalName, "code" : host.options.subnationalCode, "type": type};
+                        source_domain.push(obj);
+                        console.log("After push")
+                        console.log(source_domain)
+                        source_domain.sort(function (a, b) {
+                            if (a.label < b.label)
+                                return -1;
+                            if (a.label > b.label)
+                                return 1;
+                            return 0;
+                        });
+                        console.log("After sort")
+                        console.log(source_domain)
+
+                        qd_instance.update_selector_domain(host.options.fx_selector_6_b, source_domain, properties);
+                        document.getElementById("new_subnational").value ='';
+                        //$("#subnationalAdd").hide();
+                        $('#subnationalAdd').modal('hide');
+                    }
                 });
-            host.options.subnationalName = newSubnationalName;
+                host.options.subnationalName = newSubnationalName;
+            }
         });
         //http://stackoverflow.com/questions/29471368/how-to-open-close-react-bootstrap-modal-programmatically
     }

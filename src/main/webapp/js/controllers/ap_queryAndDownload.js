@@ -72,10 +72,10 @@ define([
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-        //base_ip_address    :  '168.202.28.26',
-        //base_ip_port    :  '10400',
-        base_ip_address    :  'statistics.amis-outlook.org',
-        base_ip_port    :  '80',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '10400',
+        //base_ip_address    :  'statistics.amis-outlook.org',
+        //base_ip_port    :  '80',
         datasource      :   'POLICY',
 //        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
 //        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
@@ -496,29 +496,52 @@ define([
                         policyDomainCode = self.options.policy_domain_both;
                     }
 
-                    var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    //{countryCode}/{commodityClassCode}
+                    var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode,  'rest_url_countryCode' : selecteditem_country[0].originalItem.code,  'rest_url_commodityClassCode' : selecteditem_commodityClass[0].originalItem.code };
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode +'/'+rest_url.rest_url_countryCode +'/'+rest_url.rest_url_commodityClassCode;
                     self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7, url, self);
 
                     //Individual Policy
-                    if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
-                        var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
-                        self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
-                    }
-                    else{
-                        var data = [];
-                        var properties = [];
-                        qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
-                    }
+                    //if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
+                    //    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    //    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    //    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
+                    //}
+                    //else{
+                    //    var data = [];
+                    //    var properties = [];
+                    //    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                    //}
+                    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
                 }
                 else{
                     var data = [];
                     var properties = [];
+                    //The list is empty
+                    var none_code = '105';
+                    var none_label = 'n.a.';
+                    var dataI = 0;
+                    var noneObj = {};
+                    noneObj = {"value": self.options.condition_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.condition_selector_type};
+                    data.push(noneObj);
                     //Condition
                     qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                    var properties_to_select = [];
+                    //"none" is in the first position
+                    properties_to_select.push(0);
+                    qd_instance.update_selector_selection(self.options.fx_selector_7, properties_to_select, true);
                     //Individual Policy
+                    noneObj = {};
+                    none_code = '999';
+                    noneObj = {"value": self.options.individualPolicy_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.individualPolicy_selector_type};
+                    data.push(noneObj);
                     qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                    var properties_to_select = [];
+                    //"none" is in the first position
+                    properties_to_select.push(0);
+                    qd_instance.update_selector_selection(self.options.fx_selector_7_b, properties_to_select, true);
                 }
             }
             else{
@@ -728,29 +751,62 @@ define([
                             policyDomainCode = self.options.policy_domain_both;
                         }
 
-                        var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                        //{countryCode}/{commodityClassCode}
+                        var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode,  'rest_url_countryCode' : selecteditem_country[0].originalItem.code,  'rest_url_commodityClassCode' : selecteditem_commodityClass[0].originalItem.code };
+                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode +'/'+rest_url.rest_url_countryCode +'/'+rest_url.rest_url_commodityClassCode;
+
+                        //var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                        //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
                         self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7, url, self);
 
                         //Individual Policy
-                        if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
-                            var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                            var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
-                            self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
-                        }
-                        else{
-                            var data = [];
-                            var properties = [];
-                            qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
-                        }
+                        //if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
+                        //    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                        //    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                        //    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
+                        //}
+                        //else{
+                        //    var data = [];
+                        //    var properties = [];
+                        //    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                        //}
+                        var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                        self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
                     }
                     else{
+                        //var data = [];
+                        //var properties = [];
+                        ////Condition
+                        //qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                        ////Individual Policy
+                        //qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+
                         var data = [];
                         var properties = [];
+                        //The list is empty
+                        var none_code = '105';
+                        var none_label = 'n.a.';
+                        var dataI = 0;
+                        var noneObj = {};
+                        noneObj = {"value": self.options.condition_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.condition_selector_type};
+                        data.push(noneObj);
                         //Condition
                         qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                        var properties_to_select = [];
+                        //"none" is in the first position
+                        properties_to_select.push(0);
+                        qd_instance.update_selector_selection(self.options.fx_selector_7, properties_to_select, true);
                         //Individual Policy
+                        noneObj = {};
+                        none_code = '999';
+                        noneObj = {"value": self.options.individualPolicy_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.individualPolicy_selector_type};
+                        data.push(noneObj);
                         qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                        var properties_to_select = [];
+                        //"none" is in the first position
+                        properties_to_select.push(0);
+                        qd_instance.update_selector_selection(self.options.fx_selector_7_b, properties_to_select, true);
                     }
                 }
             }
@@ -928,29 +984,62 @@ define([
                         policyDomainCode = self.options.policy_domain_both;
                     }
 
-                    var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    //{countryCode}/{commodityClassCode}
+                    var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode,  'rest_url_countryCode' : selecteditem_country[0].originalItem.code,  'rest_url_commodityClassCode' : selecteditem_commodityClass[0].originalItem.code };
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode +'/'+rest_url.rest_url_countryCode +'/'+rest_url.rest_url_commodityClassCode;
+
+                    //var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
                     self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7, url, self);
 
                     //Individual Policy
-                    if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
-                        var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                        var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
-                        self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
-                    }
-                    else{
-                        var data = [];
-                        var properties = [];
-                        qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
-                    }
+                    //if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
+                    //    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    //    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    //    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
+                    //}
+                    //else{
+                    //    var data = [];
+                    //    var properties = [];
+                    //    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                    //}
+                    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
                 }
                 else{
+                    //var data = [];
+                    //var properties = [];
+                    ////Condition
+                    //qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                    ////Individual Policy
+                    //qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+
                     var data = [];
                     var properties = [];
+                    //The list is empty
+                    var none_code = '105';
+                    var none_label = 'n.a.';
+                    var dataI = 0;
+                    var noneObj = {};
+                    noneObj = {"value": self.options.condition_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.condition_selector_type};
+                    data.push(noneObj);
                     //Condition
                     qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                    var properties_to_select = [];
+                    //"none" is in the first position
+                    properties_to_select.push(0);
+                    qd_instance.update_selector_selection(self.options.fx_selector_7, properties_to_select, true);
                     //Individual Policy
+                    noneObj = {};
+                    none_code = '999';
+                    noneObj = {"value": self.options.individualPolicy_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.individualPolicy_selector_type};
+                    data.push(noneObj);
                     qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                    var properties_to_select = [];
+                    //"none" is in the first position
+                    properties_to_select.push(0);
+                    qd_instance.update_selector_selection(self.options.fx_selector_7_b, properties_to_select, true);
                 }
             }
         });
@@ -1673,29 +1762,62 @@ define([
                     policyDomainCode = self.options.policy_domain_both;
                 }
 
-                var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                //{countryCode}/{commodityClassCode}
+                var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode,  'rest_url_countryCode' : selecteditem_country[0].originalItem.code,  'rest_url_commodityClassCode' : selecteditem_commodityClass[0].originalItem.code };
+                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode +'/'+rest_url.rest_url_countryCode +'/'+rest_url.rest_url_commodityClassCode;
+
+                //var rest_url = {'rest_url_type':self.options.condition_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                //var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
                 self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7, url, self);
 
                 //Individual Policy
-                if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
-                    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
-                    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
-                    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
-                }
-                else{
-                    var data = [];
-                    var properties = [];
-                    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
-                }
+                //if(((selecteditem_policyDomain.code==ap_util_variables.CONFIG.domestic_policyDomain_code)||(selecteditem_policyDomain.code==self.options.policy_domain_both_code))&&(selecteditem_policyType[0].originalItem.code==ap_util_variables.CONFIG.tax_concession_policyType_code)&&((selecteditem_commodityDomain.code==ap_util_variables.CONFIG.biofuel_commodity_domain_code)||(selecteditem_commodityDomain.code==self.options.commodity_domain_both_code))){
+                //    var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                //    var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                //    self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
+                //}
+                //else{
+                //    var data = [];
+                //    var properties = [];
+                //    qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                //}
+                var rest_url = {'rest_url_type':self.options.individualPolicy_url, 'rest_url_datasource' : self.options.datasource, 'rest_url_policyDomainCode' : policyDomainCode, 'rest_url_policyTypeCode' : selecteditem_policyType[0].originalItem.code, 'rest_url_commodityDomainCode' : commodityDomaincCode};
+                var url = 'http://' + self.options.base_ip_address + ':' + self.options.base_ip_port + rest_url.rest_url_type + '/' + rest_url.rest_url_datasource + '/'+ rest_url.rest_url_policyDomainCode +'/'+ rest_url.rest_url_policyTypeCode +'/'+rest_url.rest_url_commodityDomainCode;
+                self.options.host_domain_parser.getDomain(qd_instance, self.options.fx_selector_7_b, url, self);
             }
             else{
+                //var data = [];
+                //var properties = [];
+                ////Condition
+                //qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                ////Individual Policy
+                //qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+
                 var data = [];
                 var properties = [];
+                //The list is empty
+                var none_code = '105';
+                var none_label = 'n.a.';
+                var dataI = 0;
+                var noneObj = {};
+                noneObj = {"value": self.options.condition_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.condition_selector_type};
+                data.push(noneObj);
                 //Condition
                 qd_instance.update_selector_domain(self.options.fx_selector_7, data, properties);
+                var properties_to_select = [];
+                //"none" is in the first position
+                properties_to_select.push(0);
+                qd_instance.update_selector_selection(self.options.fx_selector_7, properties_to_select, true);
                 //Individual Policy
+                noneObj = {};
+                none_code = '999';
+                noneObj = {"value": self.options.individualPolicy_selector_type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": self.options.individualPolicy_selector_type};
+                data.push(noneObj);
                 qd_instance.update_selector_domain(self.options.fx_selector_7_b, data, properties);
+                var properties_to_select = [];
+                //"none" is in the first position
+                properties_to_select.push(0);
+                qd_instance.update_selector_selection(self.options.fx_selector_7_b, properties_to_select, true);
             }
         }
     }

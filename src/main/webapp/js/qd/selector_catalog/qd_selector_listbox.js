@@ -566,8 +566,8 @@ define([
             for(var i=0 ; i< properties.length; i++)
             {
                 var items = $('#'+this.options.list_id).jqxListBox('getSelectedItems');
-                //console.log("i= "+i)
-                //console.log(items)
+                console.log("i= "+'#'+this.options.list_id)
+                console.log(items)
                 if((items!=null)&&(typeof items != 'undefined'))
                 {
                     var j=0;
@@ -584,13 +584,13 @@ define([
                     {
                         //The element is not selected
                         //So... can be selected
-                        //console.log("Selecting 1 properties[i] "+properties[i] )
+                        console.log("Selecting 1 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
                         $('#'+this.options.list_id).jqxListBox('selectIndex', properties[i]);
                     }
                 }
                 else{
                     //So... can be selected
-                    //console.log("Selecting 2 properties[i] "+properties[i] )
+                    console.log("Selecting 2 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
                     $('#'+this.options.list_id).jqxListBox('selectIndex', properties[i]);
                 }
             }

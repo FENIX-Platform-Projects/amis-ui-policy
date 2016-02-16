@@ -56,9 +56,13 @@ define([
                 var jsonCodes = json.rootCodes;
                 var data = new Array();
                 var none_index=-1;
+                console.log("In success")
+                console.log(response);
+                console.log(jsonCodes);
                 var type = qd_controller_instance.getSelector_domainType(selector_id);
                 if((jsonCodes!=null)&&(typeof jsonCodes!="undefined")&&(jsonCodes.length>0))
                 {
+                    console.log("IN");
                     jsonCodes.sort(function (a, b) {
                         if (a.title.EN < b.title.EN)
                             return -1;
@@ -143,27 +147,75 @@ define([
                     }
                 }
                 else{
-
                     //var type = qd_controller_instance.getSelector_domainType(selector_id);
-
                     if((type==self.options.condition_selector_type)||(type==self.options.individualPolicy_selector_type)){
                         var dataI = 0;
-                        for (var i = 0; i < json.length; i++) {
-                           // console.log(json[i][1])
-                            if(json[i][1]=='none'){
-                                var obj = {"value": type + "_" + json[i][0], "label": '' + json[i][1], "code" : json[i][0], "type": type};
-                                data[dataI] = obj;
-                                none_index=i;
-                                dataI++;
-                                break;
+                        var noneObj = {};
+
+                        if((json!=null)&&(typeof json!='undefined')&&(json.length>0)){
+                            for (var i = 0; i < json.length; i++) {
+                                // console.log(json[i][1])
+                                if((json[i][1]=='none')||(json[i][1]=='n.a.')){
+                                    noneObj = {"value": type + "_" + json[i][0], "label": '' + json[i][1], "code" : json[i][0], "type": type};
+                                    //data[dataI] = obj;
+                                    none_index=i;
+                                    //dataI++;
+                                    break;
+                                }
                             }
+
+                            data.push(noneObj);
+                            dataI++;
+                            for (var i = 0; i < json.length; i++) {
+                                if(i!=none_index){
+                                    var obj = {"value": type + "_" + json[i][0], "label": '' + json[i][1], "code" : json[i][0], "type": type};
+                                    data[dataI] = obj;
+                                    dataI++;
+                                }
+                            }
+                            //var none_code = '';
+                            //if(type==self.options.condition_selector_type){
+                            //    none_code = '105';
+                            //}
+                            //else if(type==self.options.individualPolicy_selector_type){
+                            //    none_code = '999';
+                            //}
+
+                            //Condition or Individual Policy
+                            //Put 'n.a.' in the first position
+                            //var dataApp = [];
+                            //for(var i=0; i<data.length; i++){
+                            //    if((data[i]!=null)&&(typeof data[i]!="undefined")){
+                            //        //105 is the code(in condition) for 'n.a.'
+                            //        if(data[i].code=='105'){
+                            //            dataApp.push(data[i]);
+                            //            data.splice(i,1);
+                            //        }
+                            //    }
+                            //}
+                            //dataApp.push(noneObj);
+                            //for(var i=0; i<data.length; i++){
+                            //    dataApp.push(data[i]);
+                            //}
+                            //data = dataApp;
                         }
-                        for (var i = 0; i < json.length; i++) {
-                            if(i!=none_index){
-                                var obj = {"value": type + "_" + json[i][0], "label": '' + json[i][1], "code" : json[i][0], "type": type};
-                                data[dataI] = obj;
-                                dataI++;
+                        else{
+                            //The list is empty
+                            var none_code = '';
+                            var none_label = 'n.a.';
+                            if(type==self.options.condition_selector_type){
+                                none_code = '105';
                             }
+                            else if(type==self.options.individualPolicy_selector_type){
+                                none_code = '999';
+                            }
+                            var dataI = 0;
+                            var noneObj = {};
+                            noneObj = {"value": type + "_" + none_code, "label": '' + none_label, "code" : none_code, "type": type};
+                            data.push(noneObj);
+                            none_index = 0;
+                            console.log(type)
+                            console.log(data)
                         }
                     }
                     else if(type==self.options.commodityDetail_selector_type){
@@ -387,14 +439,17 @@ define([
                             self.options.host_domain_parser.listbox_country_element_enable_and_disable(qd_controller_instance, self.options.fx_selector_1, self.options.fx_selector_2, self.options.fx_selector_6, self, true);
                         }
                     }
-                    else if(((qd_controller_instance.getSelector_domainType(selector_id))==self.options.condition_selector_type)&&(none_index!=-1)){
+                    else if((((qd_controller_instance.getSelector_domainType(selector_id))==self.options.condition_selector_type)||((qd_controller_instance.getSelector_domainType(selector_id))==self.options.individualPolicy_selector_type))&&(none_index!=-1)){
                         qd_controller_instance.update_selector_domain(selector_id, data, properties);
                         var properties_to_select = [];
                         //If "none" has been found it's in the first position
                         properties_to_select.push(0);
+                        console.log("Before update_selector_selection "+selector_id)
                         qd_controller_instance.update_selector_selection(selector_id, properties_to_select, true);
                     }
                     else{
+                        console.log(qd_controller_instance.getSelector_domainType(selector_id))
+                        console.log(none_index)
                         //"hsVersion":hsVersion, "shortDescription": shortDescription, "value": value, "label": app, "code" : hsCode,
                         if(type== "CommodityDetail"){
                             //console.log("COMMODITY DETAIL!!")
@@ -2011,6 +2066,15 @@ define([
                     data.description = description;
                     data.short_description = shortDescription;
                     data.shared_group_code = 'NULL';
+                    if(sessionStorage.getItem("superUser")=="OECD"){
+                        data.loggedUser = "OECD";
+                    }
+                    else{
+                        data.loggedUser = q_a_d_instance.options.logged_user_code;
+                    }
+                    data.saveAction = "ADD";
+                    //objToSave.policyN = options.policyN;
+                    //objToSave.policyN_1 = options.policyN_1;
                     console.log(data)
 
                     var payloadrest = JSON.stringify(data);
@@ -2157,6 +2221,14 @@ define([
                     var letterForSharedGroup = ap_util_functions.sharedGroupCode_letter(selecteditem_policyMeasure[0].originalItem.code);
                     data.shared_group_code = ''+countryIsoCode + letterForSharedGroup;
                     data.commodity_list = sharedGroupGridData;
+
+                    if(sessionStorage.getItem("superUser")=="OECD"){
+                        data.loggedUser = "OECD";
+                    }
+                    else{
+                        data.loggedUser = q_a_d_instance.options.logged_user_code;
+                    }
+                    data.saveAction = "ADD";
 
                     console.log(data)
 

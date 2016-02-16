@@ -3,10 +3,10 @@ define([
 ], function(){
 
     var CONFIG ={
-        //base_ip_address    :  '168.202.28.26',
-        //base_ip_port    :  '10400',
-       base_ip_address    :  'statistics.amis-outlook.org',
-       base_ip_port    :  '80',
+        base_ip_address    :  '168.202.28.26',
+        base_ip_port    :  '10400',
+       //base_ip_address    :  'statistics.amis-outlook.org',
+       //base_ip_port    :  '80',
         datasource      :   'POLICY',
 //        biofuel_pt_url   :   '/wds/rest/policyservice/policyTypesFromDomain',
 //        biofuelTimeSeries_url   :   '/wds/rest/policyservice/biofuelPoliciesTimeSeries',

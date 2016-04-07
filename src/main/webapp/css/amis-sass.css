@@ -64,6 +64,13 @@
     font-size: 14px;
     margin-bottom: 5px; }
 
+.amis-step-subtitle-bluetext {
+    font-family: 'Open Sans Condensed',sans-serif;
+    color: #2a5d9f;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-left: 25px;}
+
 .jqx-tabs-titleContentWrapper {
     font-family: 'Open Sans Condensed',sans-serif;
     color: #666666;

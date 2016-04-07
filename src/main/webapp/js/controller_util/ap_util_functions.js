@@ -92,6 +92,7 @@ define([
         if((sessionStorageValueAttr!=null)&&(typeof sessionStorageValueAttr!="undefined")&&(sessionStorageValueAttr=='login')){
             //The user is already logged in
             var sessionStorageUserCodeAttr = sessionStorage.getItem("userCode");
+            var sessionStorageSuperUser = sessionStorage.getItem("superUser");
             setLogginProperties(caller, sessionStorageUserCodeAttr, true);
             $('#fx-login-modal').modal('hide');
             $("#loginButtonId").hide();
@@ -124,7 +125,14 @@ define([
                     var email = $("#fx-login-form-inputEmail").val();
                     if(email=="oecd@fao.org"){
                         sessionStorage.setItem("superUser", "OECD");
+                        $("#fx_selector_8_3").show();
+                        $("#fx_selector_8_4").show();
                     }
+                    else{
+                        $("#fx_selector_8_3").hide();
+                        $("#fx_selector_8_4").hide();
+                    }
+
                     if(typeof countryCodeValue!= 'undefined'){
                         sessionStorage.setItem("value", "login");
                         sessionStorage.setItem("userCode", countryCodeValue);
@@ -154,6 +162,8 @@ define([
             sessionStorage.setItem("value", "logout");
             sessionStorage.setItem("userCode", logoutUserCode);
             sessionStorage.setItem("superUser", "");
+            $("#fx_selector_8_3").hide();
+            $("#fx_selector_8_4").hide();
             var sessionStorageUserCodeAttr = sessionStorage.getItem("userCode");
             setLogginProperties(caller, sessionStorageUserCodeAttr, false);
             $('.modal-backdrop').remove();

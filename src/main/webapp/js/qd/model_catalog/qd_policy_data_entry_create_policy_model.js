@@ -249,6 +249,18 @@ define([
         $('#'+ this.options.fx_selector_8_1).trigger(this.options.model_structure_event["selected_fx_selector_8_1_changed"]);
     };
 
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_8_3 = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_8_3).trigger(this.options.model_structure_event["selected_fx_selector_8_3_changed"]);
+    };
+
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_8_4 = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_8_4).trigger(this.options.model_structure_event["selected_fx_selector_8_4_changed"]);
+    };
+
     QDPolicyModel.prototype.changeSelectedItems_fx_selector_5_button_clear = function(selected_items){
         //Raise the commodities change event
 //        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);

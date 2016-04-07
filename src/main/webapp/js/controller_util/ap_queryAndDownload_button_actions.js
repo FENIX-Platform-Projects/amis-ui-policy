@@ -2,9 +2,10 @@ define([
     'jquery',
     'pnotify',
     'host_preview',
+    'nprogress',
     'jQAllRangeSliders',
     'xDomainRequest'
-], function($, PNotify, HostPreview) {
+], function($, PNotify, HostPreview, NProgress) {
 
     var optionsDefault = {
         host_preview : ''
@@ -301,6 +302,107 @@ define([
         }
     }
 
+    HostButtonActions.prototype.historical_download_action = function(qd_instance, self, export_type)
+    {
+        if((export_type!=null)&&(typeof export_type!='undefined')) {
+            //Loading Bar
+            NProgress.start();
+            var forGetMasterData = self.options.host_policy_data_object.voObjectConstruction();
+            forGetMasterData.datasource = self.options.datasource;
+            if (export_type == 'policy') {
+                var body = {};
+                body.uid = "GAUL";
+                body.version = "2014";
+                body.codes = ["12", "17", "37", "46", "53", "40765", "999000", "85", "93", "115", "116", "122", "126", "132", "162", "182", "196", "202", "204", "215", "227", "229", "240", "249", "254", "256", "259", "264"];
+                //body.codes = ["12","17","37"];
+                var body2 = JSON.stringify(body);
+                //Getting GAUL code
+                $.ajax({
+                    type: 'POST',
+                    url: '' + self.options.codelist_url_2,
+                    data: body2,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (response) {
+                        //console.log(response)
+                        var json = response;
+                        if (typeof(response) == 'string')
+                            json = $.parseJSON(response);
+                        var i = 0;
+                        //Subnational level 2
+                        forGetMasterData.subnational = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_for_coutry = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_lev_3 = {};
+                        //Subnational level 2
+                        forGetMasterData.subnational_for_coutry_lev_3 = {};
+
+                        //Country
+                        forGetMasterData.country = {};
+
+                        for (i = 0; i < json.length; i++) {
+                            var country = json[i].code;
+                            var country_title = json[i].title["EN"];
+                            forGetMasterData.country[country] = country_title;
+                            var children = json[i].children;
+                            //Subnational level 2
+                            for (var ichild = 0; ichild < children.length; ichild++) {
+                                var child = children[ichild];
+                                var child_code = child.code;
+                                var child_name = child.title['EN'];
+                                forGetMasterData.subnational[child_code] = child_name;
+                                //console.log("country = "+country);
+                                if ((forGetMasterData.subnational_for_coutry[country] != null) && (typeof forGetMasterData.subnational_for_coutry[country] != 'undefined')) {
+                                    forGetMasterData.subnational_for_coutry[country][child_code] = child_name;
+                                }
+                                else {
+                                    forGetMasterData.subnational_for_coutry[country] = {};
+                                    forGetMasterData.subnational_for_coutry[country][child_code] = child_name;
+                                }
+
+                                //Check if there are children of the third level
+                                var children_lev_3 = json[i].children[ichild].children;
+                                if ((children_lev_3 != null) && (typeof children_lev_3 != "undefined")) {
+                                    for (var ichild_lev_3 = 0; ichild_lev_3 < children_lev_3.length; ichild_lev_3++) {
+                                        var child_lev_3 = children_lev_3[ichild_lev_3];
+                                        var child_code_lev_3 = child_lev_3.code;
+                                        var child_name_lev_3 = child_lev_3.title['EN'];
+                                        forGetMasterData.subnational_lev_3[child_code_lev_3] = child_name_lev_3;
+                                        //console.log("country = "+country);
+                                        if ((forGetMasterData.subnational_for_coutry_lev_3[country] != null) && (typeof forGetMasterData.subnational_for_coutry_lev_3[country] != 'undefined')) {
+                                            //forGetMasterData.subnational_for_coutry[country] = {};
+                                            forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3] = child_name_lev_3;
+                                        }
+                                        else {
+                                            forGetMasterData.subnational_for_coutry_lev_3[country] = {};
+                                            forGetMasterData.subnational_for_coutry_lev_3[country][child_code_lev_3] = child_name_lev_3;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //Policy Data
+                        //The Loading Window
+                        NProgress.done();
+                        self.options.host_utility_instance.download_export(forGetMasterData, 'policyHistorical');
+                    },
+                    error : function(error){
+                        //The Loading Window
+                        NProgress.done();
+                    }
+                });
+            }
+            else {
+                //Commodity Data
+                console.log("Before download export export_type= " + export_type);
+                //The Loading Window
+                NProgress.done();
+                self.options.host_utility_instance.download_export(forGetMasterData, 'commodityHistorical');
+            }
+        }
+        }
     return HostButtonActions;
 
 });

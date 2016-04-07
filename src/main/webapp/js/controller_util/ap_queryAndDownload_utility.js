@@ -246,7 +246,7 @@ define([
             $('#subtitle_WQ').val('');
             document.excelFormWithQuotes.submit();
         }
-        else{
+        else if(export_type == 'ShareGroupData'){
             $('#datasource_WQ2').val(data.datasource);
             $('#thousandSeparator_WQ2').val(',');
             $('#decimalSeparator_WQ2').val('.');
@@ -258,6 +258,33 @@ define([
             $('#title_WQ2').val(export_type);
             $('#subtitle_WQ2').val('');
             document.excelFormWithQuotes2.submit();
+        }
+        else if(export_type == 'policyHistorical'){
+            $('#datasource_WQ3').val(data.datasource);
+            $('#thousandSeparator_WQ3').val(',');
+            $('#decimalSeparator_WQ3').val('.');
+            $('#decimalNumbers_WQ3').val('2');
+            $('#json_WQ3').val(JSON.stringify(data));
+            $('#cssFilename_WQ3').val('');
+            $('#valueIndex_WQ3').val(null);
+            $('#quote_WQ3').val('');
+            $('#title_WQ3').val(export_type);
+            $('#subtitle_WQ3').val('');
+            document.excelFormWithQuotes3.submit();
+        }
+        else if(export_type == 'commodityHistorical'){
+            console.log("commodityHistorical")
+            $('#datasource_WQ4').val(data.datasource);
+            $('#thousandSeparator_WQ4').val(',');
+            $('#decimalSeparator_WQ4').val('.');
+            $('#decimalNumbers_WQ4').val('2');
+            $('#json_WQ4').val(JSON.stringify(data));
+            $('#cssFilename_WQ4').val('');
+            $('#valueIndex_WQ4').val(null);
+            $('#quote_WQ4').val('');
+            $('#title_WQ4').val(export_type);
+            $('#subtitle_WQ4').val('');
+            document.excelFormWithQuotes4.submit();
         }
     }
 
@@ -530,6 +557,9 @@ define([
             if((type == "Link")||(type == "LinkPdf"))
             {
                 var linkPdf_directory = '../../policy/doc/query_download/LinkPdf/';
+                var policyId = datarecord['Policy_id'];
+                //Each pdf is stored inside its policy id directory
+                linkPdf_directory+=policyId+"/";
                 //It has to be an hyperlink
                 var linkSet = datarecord[type];
                 //if(linkSet.contains(";")){
@@ -542,7 +572,8 @@ define([
                             {
                                 link+=';';
                             }
-                            link += "<a href='"+res[i]+"' target='_self'>"+res[i]+"</a>";
+                            //link += "<a href='"+res[i]+"' target='_self'>"+res[i]+"</a>";
+                            link += "<a href='"+res[i]+"' target='_blank'>"+res[i]+"</a>";
                         }
                     }
                     else if(type == "LinkPdf"){

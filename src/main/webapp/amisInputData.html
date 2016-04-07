@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>AMIS - Data Entry tool</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,13 +8,8 @@
     <meta name="author" content="Daniele Salvatore <daniele.salvatore[at]fao.org>">
     <!-- Google Font-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
-
-    <!-- Bootstrap  -->
-    <!--<link rel="stylesheet" href="css/lib/bootstrap.css">-->
     <link rel="stylesheet" href="css/bootstrap-theme.3.2.0.min.css">
     <link rel="stylesheet" href="css/bootstrap.3.2.0.min.css">
-    <!-- JQwidgets  -->
-    <!--<link rel="stylesheet" href='css/lib/jqx.base.css'/>-->
     <link rel="stylesheet" href='js/libs/jqwidgets-ver3.4.0/jqwidgets/styles/jqx.base.css'/>
     <!--Jquery-ui-->
     <link rel="stylesheet" href="css/jquery-ui.min.css">
@@ -24,61 +18,72 @@
     <!--Qd Generic Component Css-->
     <link rel="stylesheet" href="css/qd_component.css">
     <link href="css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css"/>
-
-    <!-- JQwidgets  -->
-    <!--<link rel="stylesheet" href='http://fenixrepo.fao.org/cdn/js/jqwidgets/3.2.2/styles/jqx.base.css'/>-->
-    <!-- nprogress js-->
     <link rel="stylesheet" href="css/nprogress.css">
     <!--jQAllRangeSliders-->
     <link rel="stylesheet" href="css/iThing_Modified.css">
-
     <link href='http://glyphicons.com/' rel='stylesheet' type='text/css'>
     <link href="css/ap_queryAndDownload.css" rel="stylesheet" type="text/css">
     <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
     <link href="css/amis-sass.css" rel="stylesheet" type="text/css">
-
     <link rel="stylesheet" href="submodules/fenix-ui-common/css/fenix-style.css">
     <link rel="stylesheet" href='submodules/fenix-ui-metadata-editor/css/fenix-metadata-editor.css'/>
-
 </head>
 <body>
-
-<!-- Sign in modal -->
-<div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Login Modal -->
+<div id='fx-login-modal' class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">FENIX Login in</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Login User</h4>
             </div>
             <div class="modal-body">
-                <form role="form" class="form-signin">
+                <form id="fx-login-form" class="form-signin" onsubmit="return false;">
                     <h2 class="form-signin-heading">Please sign in</h2>
-                    <input id="modal-mail" type="email" autofocus="" required="" placeholder="Email address"
-                           class="form-control">
-                    <input type="password" required="" placeholder="Password" class="form-control">
-                    <label class="checkbox">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+                    <label for="fx-login-form-inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="fx-login-form-inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                    <br>
+                    <label for="fx-login-form-inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="fx-login-form-inputPassword" class="form-control" placeholder="Password" required="">
+                    <div class="checkbox">
+                    </div>
+                    <button id="fx-login-form-submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <div id="fx-login-form-error-container"></div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button id="sign-in-btn" type="submit" class="btn btn-lg btn-default btn-block">Sign in</button>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /Login Modal -->
+
+<!-- logout Modal -->
+<div id='fx-logout-modal' class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Logout User</h4>
             </div>
-        </div>
-    </div>
-</div>
+            <div class="modal-body">
+                <form id="fx-logout-form" class="form-signin" onsubmit="return false;">
+                    <h2 class="form-signin-heading">Are you sure to logout?</h2>
+                    <div class="checkbox">
+                    </div>
+                    <button id="fx-logout-form-cancel" class="btn btn-lg btn-primary btn-block" type="button">Cancel</button>
+                    <button id="fx-logout-form-submit" class="btn btn-lg btn-primary btn-block" type="button">Logout</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /Login Modal -->
 
 <!-- Page Header-->
 <div class="container amis-header">
     <div class="amis-tag pull-left"></div>
-
-    <div class="pull-right banner-links"><a href="#" target='_self'> Send by email </a> | <a href="#"
-                                                                                             target='_self'>Print
-        this page</a></div>
+    <div class="pull-right banner-links"><a href="#" target='_self'> Send by email </a> | <a href="#" target='_self'>Print this page</a></div>
 </div>
 
-<!-- Top menu-->
 <!-- Top menu-->
 <div class="container amis-menu">
     <!-- Main menu-->
@@ -87,19 +92,17 @@
             <li class="active"><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
             <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
             <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
-            <li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>
-            <li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>
+            <!--<li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>-->
+            <li><a href='../policy/resources.html' target='_self'>RESOURCES</a></li>
             <li class="dropdown protected">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA MANAGEMENT <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <!--<li><a href="../policyinput">Input Data</a></li>-->
-                    <!--<li><a href="../policy/dataEntry.html">Input Data</a></li>-->
-                    <!--<li><a href="../policy/amisInputData.html">Input Data</a></li>-->
                     <li id="dataentry_editPolicy"><a href="../policy/editPolicy.html">Edit Policy</a></li>
                     <li id="dataentry_addPolicy"><a href="../policy/createPolicy.html">Add Policy</a></li>
                 </ul>
             </li>
-            <li data-toggle="modal" data-target="#signInModal"><a class="amis-log-btn">Login</a></li>
+            <li data-toggle="modal" data-target="#fx-login-modal" id="loginButtonId"><a class="amis-log-btn" id="loginLabel">Login</a></li>
+            <li data-toggle="modal" data-target="#fx-logout-modal" style="display: none" id="logoutButtonId"><a class="amis-log-btn" id="logoutLabel">Logout</a></li>
         </ul>
     </nav>
     <nav class="navbar navbar-right">
@@ -136,10 +139,6 @@
                     <img src="css/img/dataEntry/edit_policy.png" alt="Edit Policy" class="img-responsive">
                 </a>
             </div>
-
-            <!--<a href='../policy/policiesAtaGlance.html' target='_self'>-->
-            <!--<img src="css/img/crowd.png" alt="Browse Data" class="img-responsive">-->
-            <!--</a>-->
             <div class='col-xs-3 col-xs-offset-2'>
                 <a href='../policy/createPolicy.html' target='_self'>
                     <img src="css/img/dataEntry/create_policy.png" alt="Create Policy" class="img-responsive">
@@ -161,20 +160,16 @@
                 class="amis-footer-menu" href='../policy/index.html' target='_self'>POLICY HOME</a> | <a
                 class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a>
             | <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a> |
-            <a class="amis-footer-menu" href='../policy/analysis.html' target='_self'>ANALYSES</a> | <a
-                class="amis-footer-menu" href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a>
+            <a class="amis-footer-menu" href='../policy/resources.html' target='_self'>RESOURCES</a>
         </div>
-
         <div class="col-xs-2 amis-footer-sides">
             <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe"
                  href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
                 <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
-
                 <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

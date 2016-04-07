@@ -127,6 +127,12 @@ define([
                 case 'Download':
                     self.modelUpdate(self);
                     break;
+                case 'HistoricPolicy':
+                    self.modelUpdate(self);
+                    break;
+                case 'HistoricCommodity':
+                    self.modelUpdate(self);
+                    break;
                 default :
                     break;
             }

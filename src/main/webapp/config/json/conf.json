@@ -103,6 +103,22 @@
               "language"  :   "EN",
               "title" :   "Download",
               "color" :   "green"
+            },
+            {
+                "id":"fx_selector_8_3",
+                "type":"button",
+                "domain_type" : "HistoricPolicy",
+                "language"  :   "EN",
+                "title" :   "Historic Policy",
+                "color" :   "blue"
+            },
+            {
+                "id":"fx_selector_8_4",
+                "type":"button",
+                "domain_type" : "HistoricCommodity",
+                "language"  :   "EN",
+                "title" :   "Historic Commodity",
+                "color" :   "red"
             }
         ]
     }

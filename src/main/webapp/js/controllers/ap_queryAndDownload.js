@@ -62,6 +62,8 @@ define([
         fx_selector_7_b : 'fx_selector_7_b',
         fx_selector_8_1 : 'fx_selector_8_1',
         fx_selector_8_2 : 'fx_selector_8_2',
+        fx_selector_8_3 : 'fx_selector_8_3',
+        fx_selector_8_4 : 'fx_selector_8_4',
         fx_selector_5_b_infoButton : 'fx_selector_5_b_button_info',
         fx_selector_5_b_selectButton : 'fx_selector_5_b_button_select',
         fx_selector_6_b_selectButton : 'fx_selector_6_b_button_select',
@@ -72,10 +74,10 @@ define([
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-        base_ip_address    :  '168.202.28.26',
-        base_ip_port    :  '10400',
-        //base_ip_address    :  'statistics.amis-outlook.org',
-        //base_ip_port    :  '80',
+        //base_ip_address    :  '168.202.28.26',
+        //base_ip_port    :  '10400',
+        base_ip_address    :  'statistics.amis-outlook.org',
+        base_ip_port    :  '80',
         datasource      :   'POLICY',
 //        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
 //        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
@@ -220,6 +222,8 @@ define([
         this.options.generic_component_structure_event["selected_fx_selector_7_changed"] = "selected_fx_selector_7_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_1_changed"] = "selected_fx_selector_8_1_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_changed"] = "selected_fx_selector_8_2_changed";
+        this.options.generic_component_structure_event["selected_fx_selector_8_3_changed"] = "selected_fx_selector_8_3_changed";
+        this.options.generic_component_structure_event["selected_fx_selector_8_4_changed"] = "selected_fx_selector_8_4_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_menu_item1_changed"] = "selected_fx_selector_8_2_menu_item1_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_menu_item2_changed"] = "selected_fx_selector_8_2_menu_item2_changed";
     };
@@ -269,6 +273,9 @@ define([
             qd_instance = new Qd({
                 container :  document.querySelector('#qd_component')
             }).initialize(JSON.parse(conf), obj);
+            //self.options.onEditActionObj.LOGGED_USER = "OECD";
+            console.log(self.options.onEditActionObj.LOGGED_USER)
+            console.log(self.options.logged_user_code);
         }
 
         //It's possible to put this listener here because the "selectors_added" event is called just once
@@ -1070,6 +1077,16 @@ define([
             var export_type = 'AllData';
             self.options.host_button_actions.download_action(qd_instance, self, export_type);
         });
+
+        $('body').on(self.options.generic_component_structure_event["selected_fx_selector_8_3_changed"], function(){
+            var export_type = 'policy';
+            self.options.host_button_actions.historical_download_action(qd_instance, self, export_type);
+        });
+
+        $('body').on(self.options.generic_component_structure_event["selected_fx_selector_8_4_changed"], function(){
+            var export_type = 'commodity';
+            self.options.host_button_actions.historical_download_action(qd_instance, self, export_type);
+        });
 //        Old Download with the menu containing: Policy Data and Shared Group Data START
 //        $('body').on(self.options.generic_component_structure_event["selected_fx_selector_8_2_menu_item1_changed"], function(){
 //            //console.log('Host selected_fx_selector_8_2_menu_item1_changed ');
@@ -1102,6 +1119,19 @@ define([
 
         //This callback is called when all the selectors have been added
         $(qd_instance.options.qd_component_main_div).on(qd_instance.options.generic_component_structure_event["selectors_added"], function(){
+
+            if(self.options.button_preview_action_type == "preview") {
+                //The user is already logged in
+                var sessionStorageSuperUser = sessionStorage.getItem("superUser");
+                if((sessionStorageSuperUser!=null)&&(typeof sessionStorageSuperUser!='undefined')&&(sessionStorageSuperUser=='OECD')){
+                    $("#fx_selector_8_3").show();
+                    $("#fx_selector_8_4").show();
+                }
+                else{
+                    $("#fx_selector_8_3").hide();
+                    $("#fx_selector_8_4").hide();
+                }
+            }
 
             if(self.options.button_preview_action_type == "searchCreatePolicy") {
 
@@ -1962,7 +1992,7 @@ define([
 
                 field = guiJson.panels[0].properties.linkPdf;
                 defaultValue = policydata.LinkPdf;
-                self.setDefaultValue_TextField(field, defaultValue);
+                self.setDefaultValue_ArrayField(field, defaultValue);
 
                 //Add check for value and value text
                 field = guiJson.panels[0].properties.valueText;
@@ -2131,6 +2161,42 @@ define([
                 field.value = {};
                 field.value.default = value;
             }
+        }
+    };
+
+    //"linkPdf2": {
+    //    "type": "array",
+    //        "format": "table",
+    //        "title": DataEntry['linkPdf'],
+    //        "uniqueItems": true,
+    //        "items": {
+    //        "type": "object",
+    //            "title": "File",
+    //            "properties": {
+    //            "File": {
+    //                "type": "string"
+    //            }
+    //        }
+    //    },
+    //    "default": [
+    //        {
+    //            "File": "Walter"
+    //        }
+    //    ]
+    //}
+
+    Host.prototype.setDefaultValue_ArrayField = function(field, value){
+        if((field!=null)&&(typeof field!='undefined')){
+            console.log(field)
+            console.log(value)
+            if((field.value!=null)&&(typeof field.value!='undefined')){
+                field.value.default= value;
+            }
+            else{
+                field.value = {};
+                field.value.default = value;
+            }
+            console.log(field)
         }
     };
 

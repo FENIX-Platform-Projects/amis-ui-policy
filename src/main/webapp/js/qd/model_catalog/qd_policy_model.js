@@ -17,6 +17,8 @@ define([
         fx_selector_7 : 'fx_selector_7',
         fx_selector_8_1 : 'fx_selector_8_1',
         fx_selector_8_2 : 'fx_selector_8_2',
+        fx_selector_8_3 : 'fx_selector_8_3',
+        fx_selector_8_4 : 'fx_selector_8_4',
 
         //They are single element
         //Contains the code and the label
@@ -63,6 +65,8 @@ define([
         this.options.model_structure_event["selected_fx_selector_7_changed"] = "selected_fx_selector_7_changed";
         this.options.model_structure_event["selected_fx_selector_8_1_changed"] = "selected_fx_selector_8_1_changed";
         this.options.model_structure_event["selected_fx_selector_8_2_changed"] = "selected_fx_selector_8_2_changed";
+        this.options.model_structure_event["selected_fx_selector_8_3_changed"] = "selected_fx_selector_8_3_changed";
+        this.options.model_structure_event["selected_fx_selector_8_4_changed"] = "selected_fx_selector_8_4_changed";
         this.options.model_structure_event["selected_fx_selector_8_2_menu_item1_changed"] = "selected_fx_selector_8_2_menu_item1_changed";
         this.options.model_structure_event["selected_fx_selector_8_2_menu_item2_changed"] = "selected_fx_selector_8_2_menu_item2_changed";
     };
@@ -184,6 +188,18 @@ define([
         $('#'+ this.options.fx_selector_8_2).trigger(this.options.model_structure_event["selected_fx_selector_8_2_changed"]);
     };
 
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_8_3 = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_8_3).trigger(this.options.model_structure_event["selected_fx_selector_8_3_changed"]);
+    };
+
+    QDPolicyModel.prototype.changeSelectedItems_fx_selector_8_4 = function(selected_items){
+        //Raise the commodities change event
+//        $('#fx_selector_8').trigger(this.options.model_structure_event["selected_fx_selector_8_changed"]);
+        $('#'+ this.options.fx_selector_8_4).trigger(this.options.model_structure_event["selected_fx_selector_8_4_changed"]);
+    };
+
 //    Old Download with the menu containing: Policy Data and Shared Group Data START
 //    QDPolicyModel.prototype.changeSelectedItems_fx_selector_8_2 = function(properties){
 //        //Raise the commodities change event
@@ -267,6 +283,12 @@ define([
                    // console.log("In grid update properties = "+properties);
                     this.changeSelectedItems_fx_selector_8_2(properties, properties);
                     break;
+                case this.options.fx_selector_8_3 ://Policy Historic
+                    this.changeSelectedItems_fx_selector_8_3(properties, properties);
+                    break;
+                case this.options.fx_selector_8_4 ://Commodity Historic
+                    this.changeSelectedItems_fx_selector_8_4(properties, properties);
+                    break;
                 default :
                     break;
             }
@@ -284,7 +306,7 @@ define([
 //            case 'fx_selector_2' :
 //                selected_elements = this.getSelectedItems_fx_selector_2();
 //                break;
-//            case 'fx_selector_3' :
+//         update   case 'fx_selector_3' :
 //                selected_elements = this.getSelectedItems_fx_selector_3();
 //                break;
 //            case 'fx_selector_4' :

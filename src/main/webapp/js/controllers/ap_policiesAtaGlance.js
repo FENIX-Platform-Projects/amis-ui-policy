@@ -10,7 +10,8 @@ var ap_policiesAtaGlance = define([
     'ap_util_functions',
     'structure',
     //'text!json/conf.json',
-    'text!json/confNoWto.json',
+    //'text!json/confNoWto.json',
+    'text!json/confWithWto.json',
     'commons',
     'history',
     'bootstrap',
@@ -423,8 +424,10 @@ var ap_policiesAtaGlance = define([
     function browseData_sideMenu4(){
 //        console.log("browseData_sideMenu4");
         var obj = new Object();
-        obj.start_date_yy = '2010';
-        obj.end_date_yy = '2013';
+        //obj.start_date_yy = '2010';
+        //obj.end_date_yy = '2013';
+        obj.start_date_yy = '2012';
+        obj.end_date_yy = '2015';
         ap_policiesAtaGlance_importTariffsQuotas_util.subMenu1(obj);
         //ap_policiesAtaGlance_importTariffsQuotas_util.subMenu2(obj);
       //  ap_policiesAtaGlance_importTariffsQuotas_util.subMenu2();

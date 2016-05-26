@@ -1,10 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.fao.fenix</groupId>
   <artifactId>policy</artifactId>
   <version>1.0</version>
+  <!--<modules>-->
+    <!--<module>../upload-manager-test</module>-->
+  <!--</modules>-->
+  <!--<packaging>pom</packaging>-->
   <packaging>war</packaging>
 
   <name>Amis Policy</name>
@@ -22,16 +26,16 @@
           <packagingExcludes>**/.svn</packagingExcludes>
         </configuration>
       </plugin>
-        <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>1.6</source>
-                <target>1.6</target>
-            </configuration>
-        </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-  
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -39,6 +43,11 @@
       <version>4.8.2</version>
       <scope>test</scope>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>javax.servlet</groupId>-->
+      <!--<artifactId>servlet-api</artifactId>-->
+      <!--<version>2.5</version>-->
+    <!--</dependency>-->
   </dependencies>
 
 </project>

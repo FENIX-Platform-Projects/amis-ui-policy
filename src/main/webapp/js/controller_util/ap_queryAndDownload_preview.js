@@ -1231,7 +1231,7 @@ define([
                 var value_text = [];
                 var value_type = [];
                 var exemptions = [];
-                var location_condition = [];
+                var MinAVTariffValue = [];
                 var notes = [];
                 var link = [];
                 var source = [];
@@ -1259,6 +1259,9 @@ define([
                 var short_description = [];
                 var shared_group_code = [];
                 var description = [];
+                var MaxAVTariffValue = [];
+                var CountAVTariff = [];
+                var CountNAVTariff = [];
 
                 var policytable_data = new Array();
                 for (var i = 0; i < json.length; i++) {
@@ -1334,8 +1337,8 @@ define([
                                 row["Exemptions"] = json[i][j];
                                 break;
                             case 15:
-                                location_condition[i] = json[i][j];
-                                row["LocalCondition"] = json[i][j];
+                                MinAVTariffValue[i] = json[i][j];
+                                row["MinAVTariffValue"] = json[i][j];
                                 break;
                             case 16:
                                 notes[i] = json[i][j];
@@ -1439,6 +1442,18 @@ define([
                             case 40:
                                 shared_group_code[i] = json[i][j];
                                 row["Description"] = json[i][j];
+                                break;
+                            case 41:
+                                shared_group_code[i] = json[i][j];
+                                row["MaxAVTariffValue"] = json[i][j];
+                                break;
+                            case 42:
+                                shared_group_code[i] = json[i][j];
+                                row["CountAVTariff"] = json[i][j];
+                                break;
+                            case 43:
+                                shared_group_code[i] = json[i][j];
+                                row["CountNAVTariff"] = json[i][j];
                                 break;
                         }
                     }
@@ -1686,7 +1701,6 @@ define([
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ValueText", leftcolumn, "ValueText", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ValueType", leftcolumn, "ValueType", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Exemptions", leftcolumn, "Exemptions", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LocalCondition", leftcolumn, "LocalCondition", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Notes", leftcolumn, "Notes", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalHs", leftcolumn, "ProductOriginalHS", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ProductOriginalName", leftcolumn, "ProductOriginalName", datarecord);
@@ -1694,8 +1708,9 @@ define([
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ShortDescription", leftcolumn, "ShortDescription", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Description", leftcolumn, "Description", datarecord);
 
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Link", rightcolumn, "Link", datarecord);
-        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LinkPdf", rightcolumn, "LinkPdfversion", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Link", leftcolumn, "Link", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("LinkPdf", leftcolumn, "LinkPdfversion", datarecord);
+
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("Source", rightcolumn, "Source", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("DateOfPublication", rightcolumn, "DateOfPublication", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("TitleOfNotice", rightcolumn, "TitleOfNotice", datarecord);
@@ -1711,6 +1726,11 @@ define([
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("StartDateTax", rightcolumn, "StartDateTax", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkLink", rightcolumn, "BenchmarkLink", datarecord);
         host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("BenchmarkLinkPdf", rightcolumn, "BenchmarkLinkPdf", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("MinAVTariffValue", rightcolumn, "MinAVTariffValue", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("MaxAVTariffValue", rightcolumn, "MaxAVTariffValue", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("CountAVTariff", rightcolumn, "CountAVTariff", datarecord);
+        host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("CountNAVTariff", rightcolumn, "CountNAVTariff", datarecord);
+
         //host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("XsYearType", rightcolumn, "XsYearType", datarecord);
         //host_preview.options.host_utility_instance.checkAdditional_info_window_Datafield("ImplementationProcedure", rightcolumn, "ImplementationProcedure", datarecord);
 

@@ -173,48 +173,48 @@ define([
                         var policy_measure_names = [];
                         var pm_name_timeSeries_highcharts = [];
                         //REMOVE THIS CODE TO MANAGE WTO DATA START
-                        var j = 0;
-                        for (var i = 0; i < jsonCodes.length; i++) {
-//                        var c = json.rootCodes[i].code;
-//                        var l = json.rootCodes[i].title['EN'];
-                            if (policy_type_code == '2') {
-                                //WTO DATA have to be removed
-                                if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
-                                    var pm_code_accepted = $.inArray(policy_measure_codes[j], ap_utilVariables.CONFIG.export_measures_codes);
-                                    if(pm_code_accepted!=-1) {
-                                        policy_measure_codes[j] = jsonCodes[i].code;
-                                        pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                        policy_measure_names[j] = jsonCodes[i].title['EN'];
-                                        policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
-                                        j++;
-                                    }
-                                }
-                            }
-                            else {
-                                //console.log(jsonCodes[i].code)
-                                //console.log(ap_utilVariables.CONFIG.export_measures_codes)
-
-                                var pm_code_accepted = $.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.export_measures_codes);
-                                if(pm_code_accepted!=-1){
-                                    policy_measure_codes[j] = jsonCodes[i].code;
-                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                    policy_measure_names[j] = jsonCodes[i].title['EN'];
-                                    policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
-                                    j++;
-                                }
-                            }
-                        }
+//                        var j = 0;
+//                        for (var i = 0; i < jsonCodes.length; i++) {
+////                        var c = json.rootCodes[i].code;
+////                        var l = json.rootCodes[i].title['EN'];
+//                            if (policy_type_code == '2') {
+//                                //WTO DATA have to be removed
+//                                if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
+//                                    var pm_code_accepted = $.inArray(policy_measure_codes[j], ap_utilVariables.CONFIG.export_measures_codes);
+//                                    if(pm_code_accepted!=-1) {
+//                                        policy_measure_codes[j] = jsonCodes[i].code;
+//                                        pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                        policy_measure_names[j] = jsonCodes[i].title['EN'];
+//                                        policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
+//                                        j++;
+//                                    }
+//                                }
+//                            }
+//                            else {
+//                                //console.log(jsonCodes[i].code)
+//                                //console.log(ap_utilVariables.CONFIG.export_measures_codes)
+//
+//                                var pm_code_accepted = $.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.export_measures_codes);
+//                                if(pm_code_accepted!=-1){
+//                                    policy_measure_codes[j] = jsonCodes[i].code;
+//                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                    policy_measure_names[j] = jsonCodes[i].title['EN'];
+//                                    policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
+//                                    j++;
+//                                }
+//                            }
+//                        }
                         //console.log(policy_measure_codes)
                         //console.log(policy_measure_names)
                         //REMOVE THIS CODE TO MANAGE WTO DATA END
 
                         //REOPEN THIS CODE TO MANAGE WTO DATA START
-//                for (var i = 0; i < json.rootCodes.length; i++) {
-////                        var c = json.rootCodes[i].code;
-////                        var l = json.rootCodes[i].title['EN'];
-//                    policy_measure_codes[i] = jsonCodes[i].code;
-//                    pm_name_timeSeries_highcharts[""+(i+1)] = jsonCodes[i].title['EN'];
-//                }
+                for (var i = 0; i < json.rootCodes.length; i++) {
+//                        var c = json.rootCodes[i].code;
+//                        var l = json.rootCodes[i].title['EN'];
+                    policy_measure_codes[i] = jsonCodes[i].code;
+                    pm_name_timeSeries_highcharts[""+(i+1)] = jsonCodes[i].title['EN'];
+                }
                         //REOPEN THIS CODE TO MANAGE WTO DATA END
                         //policyTypesInfo[z] = policy_measure_codes;
                         //policyTypesInfoName[z]= policy_measure_names;
@@ -609,7 +609,7 @@ define([
                                 },
                                 title: {
                                     text: 'Number of AMIS countries with export restriction policies, disaggregated by policy measure',
-                                    style: {"fontSize": "11px"}
+                                    style: {"fontSize": "15px"}
                                 },
 
                                 subtitle: {

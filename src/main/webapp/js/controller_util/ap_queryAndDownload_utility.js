@@ -467,7 +467,13 @@ define([
         datafields.push(obj);
         obj = { name: 'ValueType'};
         datafields.push(obj);
-        obj = { name: 'LocalCondition'};
+        obj = { name: 'MinAVTariffValue'};
+        datafields.push(obj);
+        obj = { name: 'MaxAVTariffValue'};
+        datafields.push(obj);
+        obj = { name: 'CountAVTariff'};
+        datafields.push(obj);
+        obj = { name: 'CountNAVTariff'};
         datafields.push(obj);
         obj = { name: 'Notes'};
         datafields.push(obj);
@@ -563,8 +569,10 @@ define([
                 //It has to be an hyperlink
                 var linkSet = datarecord[type];
                 //if(linkSet.contains(";")){
-                if(linkSet.indexOf("; ")>-1){
-                    var res = linkSet.split("; ");
+                //if(linkSet.indexOf("; ")>-1){
+                //    var res = linkSet.split("; ");
+                if(linkSet.indexOf(";")>-1){
+                    var res = linkSet.split(";");
                     var link = '';
                     if(type == "Link"){
                         for(var i=0; i< res.length; i++){

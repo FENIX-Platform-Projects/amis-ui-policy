@@ -23,6 +23,7 @@ define([
         data.cpl_id = "";
         data.commodity_id = "";
         data.policy_element = [];
+        data.policy_element_code = [];
         data.unit="";
         data.chart_type= false;
 

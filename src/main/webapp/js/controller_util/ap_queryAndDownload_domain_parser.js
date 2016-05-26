@@ -679,22 +679,24 @@ define([
                                         }
 
                                         var newArray = [];
-                                        if((self.options.policy_measure_actual_data!=null)&&(typeof self.options.policy_measure_actual_data!="undefined")){
-                                            var indexArray = [];
-                                            var j =0;
-                                            for(var i=0; i<self.options.policy_measure_actual_data.length; i++){
-                                                if(($.inArray(self.options.policy_measure_actual_data[i].code, ap_util_variables.CONFIG.WTOImportCodes))!=-1){
-                                                    indexArray[j] = i;
-                                                    j++;
-                                                }
-                                            }
-
-                                            if(indexArray.length>0){
-                                                for(j=(indexArray.length-1); j>=0; j--){
-                                                    self.options.policy_measure_actual_data.splice(indexArray[j],1);
-                                                }
-                                            }
-                                        }
+                                        //REMOVE THIS CODE TO MANAGE WTO DATA START
+                                        //if((self.options.policy_measure_actual_data!=null)&&(typeof self.options.policy_measure_actual_data!="undefined")){
+                                        //    var indexArray = [];
+                                        //    var j =0;
+                                        //    for(var i=0; i<self.options.policy_measure_actual_data.length; i++){
+                                        //        if(($.inArray(self.options.policy_measure_actual_data[i].code, ap_util_variables.CONFIG.WTOImportCodes))!=-1){
+                                        //            indexArray[j] = i;
+                                        //            j++;
+                                        //        }
+                                        //    }
+                                        //
+                                        //    if(indexArray.length>0){
+                                        //        for(j=(indexArray.length-1); j>=0; j--){
+                                        //            self.options.policy_measure_actual_data.splice(indexArray[j],1);
+                                        //        }
+                                        //    }
+                                        //}
+                                        //REMOVE THIS CODE TO MANAGE WTO DATA END
                                         qd_controller_instance.update_selector_domain(self.options.fx_selector_4, self.options.policy_measure_actual_data, properties);
                                         self.options.policy_measure_actual_calls= 0;
                                         self.options.policy_measure_actual_data =[];

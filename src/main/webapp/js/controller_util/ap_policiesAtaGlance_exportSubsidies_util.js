@@ -204,6 +204,7 @@ define([
 //        data.country_code = country_code;//commodity_class_combobox1
         data.country_code = country_combobox2;
         data.policy_element = ap_utilVariables.CONFIG.export_subsidies_policy_element;
+        data.policy_element_code = ap_utilVariables.CONFIG.export_subsidies_policy_element_code;
         var payloadrest = JSON.stringify(data);
         /* Retrive UI structure from DB. */
         $.ajax({
@@ -276,7 +277,7 @@ define([
                         },
                         title: {
                             text: 'Quantity and budgetary outlay export subsidies in '+country_combobox2_label+' for '+commodity_class_combobox1_label+', commitments and notifications',
-                            style: {"fontSize": "11px"}
+                            style: {"fontSize": "15px"}
                         },
                         subtitle: {
                             text: ''+start_date_yy+'-'+end_date_yy

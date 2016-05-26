@@ -74,7 +74,7 @@ define([
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-        //base_ip_address    :  '168.202.28.26',
+        //base_ip_address    :  '168.202.36.186',
         //base_ip_port    :  '10400',
         base_ip_address    :  'statistics.amis-outlook.org',
         base_ip_port    :  '80',
@@ -1351,13 +1351,13 @@ define([
             $cplid = $modal.find("#delMod_cplid"),
             $commid = $modal.find("#delMod_commid"),
             $polid = $modal.find("#delMod_polid"),
-            $locid = $modal.find("#delMod_loc"),
+            //$locid = $modal.find("#delMod_loc"),
             $text = $modal.find("#delMod_text");
         $submit.attr("disabled", "disabled");
         $cplid.html(payload.CplId);
         $commid.html(payload.Policy_id);
         $polid.html(payload.CommodityId);
-        $locid.html(payload.location_condition);
+        //$locid.html(payload.location_condition);
         $text.on('change paste keyup', function () {
             if ($text.val() !== ''){
                 $submit.removeAttr('disabled')
@@ -2080,8 +2080,8 @@ define([
                 defaultValue = policydata.SecondGenerationSpecific;
                 self.setDefaultValue_List(field, defaultValue);
 
-                field = guiJson.panels[0].properties.localCondition;
-                defaultValue = policydata.LocalCondition;
+                field = guiJson.panels[0].properties.MinAVTariffValue;
+                defaultValue = policydata.MinAVTariffValue;
                 self.setDefaultValue_List(field, defaultValue);
 
                 field = guiJson.panels[0].properties.imposedEndDate;
@@ -2148,6 +2148,18 @@ define([
                     //self.setDefaultValue_Calendar(field, self.dateFormatConverter_milliseconds(defaultValue));
                     self.setDefaultValue_Calendar(field, self.dateFormatConverter_ddMMyyyy_ddMMyyyy(defaultValue));
                 }
+
+                field = guiJson.panels[0].properties.MaxAVTariffValue;
+                defaultValue = policydata.MaxAVTariffValue;
+                self.setDefaultValue_List(field, defaultValue);
+
+                field = guiJson.panels[0].properties.CountAVTariff;
+                defaultValue = policydata.CountAVTariff;
+                self.setDefaultValue_List(field, defaultValue);
+
+                field = guiJson.panels[0].properties.CountNAVTariff;
+                defaultValue = policydata.CountNAVTariff;
+                self.setDefaultValue_List(field, defaultValue);
             }
         }
     };

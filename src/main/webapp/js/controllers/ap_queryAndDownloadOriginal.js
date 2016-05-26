@@ -10,7 +10,7 @@ var ap_queryAndDownload = (function() {
         theme           :   'faostat',
         datasource      :   'POLICY',
 //       base_ip_address    :  'localhost',//168.202.28.56
-        base_ip_address    :  '168.202.28.26',
+        base_ip_address    :  '168.202.36.186',
         base_ip_port    :  '8090',
         //base_ip_address    :  'statistics.amis-outlook.org',
         //base_ip_port    :  '80',
@@ -2101,7 +2101,7 @@ var ap_queryAndDownload = (function() {
                     row["value_text"] = ap_policyTableObject.CONFIG.value_text[i];
                     row["value_type"] = ap_policyTableObject.CONFIG.value_type[i];
                     row["exemptions"] = ap_policyTableObject.CONFIG.exemptions[i];
-                    row["location_condition"] = ap_policyTableObject.CONFIG.location_condition[i];
+                    row["MinAVTariffValue"] = ap_policyTableObject.CONFIG.MinAVTariffValue[i];
                     row["notes"] = ap_policyTableObject.CONFIG.notes[i];
                     row["link"] = ap_policyTableObject.CONFIG.link[i];
                     row["source"] = ap_policyTableObject.CONFIG.source[i];
@@ -2128,6 +2128,9 @@ var ap_queryAndDownload = (function() {
                     row["benchmark_link_pdf"] = ap_policyTableObject.CONFIG.benchmark_link_pdf[i];
                     row["short_description"] = ap_policyTableObject.CONFIG.short_description[i];
                     row["shared_group_code"] = ap_policyTableObject.CONFIG.shared_group_code[i];
+                    row["MaxAVTariffValue"] = ap_policyTableObject.CONFIG.MaxAVTariffValue[i];
+                    row["CountAVTariff"] = ap_policyTableObject.CONFIG.CountAVTariff[i];
+                    row["CountNAVTariff"] = ap_policyTableObject.CONFIG.CountNAVTariff[i];
 
                     dataPolicyTable[i] = row;
                     k++;

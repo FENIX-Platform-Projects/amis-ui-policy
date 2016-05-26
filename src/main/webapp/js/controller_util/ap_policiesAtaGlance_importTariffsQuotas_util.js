@@ -259,6 +259,7 @@ define([
         //The order is important
         data.policy_type_code = policy_type_codes_array;
         data.policy_measure_code = policy_measure_codes_array;
+        data.hs_code = ap_utilVariables.CONFIG.import_tariffs_hsCode_list;
         data.year_list = ap_utilVariables.CONFIG.import_tariffs_year_list;
         data.unit = ap_utilVariables.CONFIG.import_tariffs_unit;
         data.policy_element = ap_utilVariables.CONFIG.import_tariffs_policy_element;
@@ -288,7 +289,8 @@ define([
                     marginBottom: 170,
                     events: {
                         load: function () {
-                            var label = this.renderer.label('Graph excludes mixed commodity classes. Not all countries notify each year. Graph only considers ad valorem<br>tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Source: AMIS Policy Database.')
+                            var label = this.renderer.label('Graph only considers tariffs on raw agricultural commodities (HS codes 1001, 1005, 1006, 1201)<br>Non-ad valorem tariffs were excluded in the calculation of the averages<br>Source: AMIS Policy Database.')
+                            //var label = this.renderer.label('Graph excludes mixed commodity classes. Not all countries notify each year. Graph only considers ad valorem<br>tariffs for which notifications were made for both the MFN applied tariff and the Final bound tariff.<br>Source: AMIS Policy Database.')
                                 .css({
                                     width: '500px',
                                     //color: '#222',
@@ -322,11 +324,17 @@ define([
                         text: 'Period '+ obj.start_date_yy+'/'+obj.end_date_yy
                     },
                     xAxis: {
+                        //categories: [
+                        //    '2010',
+                        //    '2011',
+                        //    '2012',
+                        //    '2013'
+                        //]
                         categories: [
-                            '2010',
-                            '2011',
                             '2012',
-                            '2013'
+                            '2013',
+                            '2014',
+                            '2015'
                         ]
                     },
                     yAxis: {

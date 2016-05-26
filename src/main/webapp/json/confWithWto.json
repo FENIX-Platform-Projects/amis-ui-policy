@@ -1,10 +1,10 @@
 {
     "offset": 70,
     "affix" : {
-       "offset": {
-          "delta" : 0,
-          "top" : ["div.amis-menu", "div.amis-header"]
-       }
+        "offset": {
+            "delta" : 0,
+            "top" : ["div.amis-menu", "div.amis-header"]
+        }
     },
     "views": {
         "#container_1": {
@@ -33,6 +33,15 @@
                 "callback": {
                     "frequency": "always",
                     "function": "policiesAtaGlance_importTariffsQuotas"
+                }
+            },
+            "view_sidemenu_3_event": {
+                "content": {
+                    "EN": "html/pages/policiesAtaGlance/content/policiesAtaGlance_exportSubsidies-en.html"
+                },
+                "callback": {
+                    "frequency": "always",
+                    "function": "policiesAtaGlance_exportSubsidies"
                 }
             },
             "view_sidemenu_4_event": {

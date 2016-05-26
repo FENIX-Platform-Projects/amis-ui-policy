@@ -364,7 +364,7 @@ define([
                         },
                             title: {
                                 text: 'Number of AMIS countries with export restriction policies, disaggregated by policy measure',
-                                style: {"fontSize": "11px"}
+                                style: {"fontSize": "15px"}
                             },
 
                             subtitle: {
@@ -1083,7 +1083,8 @@ define([
 
             title : {
 //                                    text : 'Time Series of the frequency of the Policy Type'
-                text : 'Number of AMIS countries with export restrictions on '+title
+                text : 'Number of AMIS countries with export restrictions on '+title,
+                style: {"fontSize": "15px"}
             },
 
             tooltip: {

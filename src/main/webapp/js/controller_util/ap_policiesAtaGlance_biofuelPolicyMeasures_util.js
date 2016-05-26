@@ -168,39 +168,42 @@ define([
                         var policy_measure_names = [];
                         var pm_name_timeSeries_highcharts = [];
                         //REMOVE THIS CODE TO MANAGE WTO DATA START
-                        var j = 0;
-                        for (var i = 0; i < jsonCodes.length; i++) {
-//                        var c = json.rootCodes[i].code;
-//                        var l = json.rootCodes[i].title['EN'];
-                            if (policy_type_code == '2') {
-                                //WTO DATA have to be removed
-                                if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
-                                    policy_measure_codes[j] = jsonCodes[i].code;
-                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                    policy_measure_names[j] = jsonCodes[i].title['EN'];
-                                    policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
-                                    j++;
-                                }
-                            }
-                            else {
-                                policy_measure_codes[j] = jsonCodes[i].code;
-                                pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                policy_measure_names[j] = jsonCodes[i].title['EN'];
-                                policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
-                                j++;
-                            }
-                        }
+//                        var j = 0;
+//                        for (var i = 0; i < jsonCodes.length; i++) {
+////                        var c = json.rootCodes[i].code;
+////                        var l = json.rootCodes[i].title['EN'];
+//                            //Code part to ignore WTO Data
+//                            if (policy_type_code == '2') {
+//                                //WTO DATA have to be removed
+//                                if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
+//                                    policy_measure_codes[j] = jsonCodes[i].code;
+//                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                    policy_measure_names[j] = jsonCodes[i].title['EN'];
+//                                    policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
+//                                    j++;
+//                                }
+//                            }
+//                            else {
+//                                policy_measure_codes[j] = jsonCodes[i].code;
+//                                pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                policy_measure_names[j] = jsonCodes[i].title['EN'];
+//                                policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
+//                                j++;
+//                            }
+//                        }
                         //console.log(policy_measure_codes)
                         //console.log(policy_measure_names)
                         //REMOVE THIS CODE TO MANAGE WTO DATA END
 
                         //REOPEN THIS CODE TO MANAGE WTO DATA START
-//                for (var i = 0; i < json.rootCodes.length; i++) {
-////                        var c = json.rootCodes[i].code;
-////                        var l = json.rootCodes[i].title['EN'];
-//                    policy_measure_codes[i] = jsonCodes[i].code;
-//                    pm_name_timeSeries_highcharts[""+(i+1)] = jsonCodes[i].title['EN'];
-//                }
+                        var j = 0;
+                        for (var i = 0; i < jsonCodes.length; i++) {
+                            policy_measure_codes[j] = jsonCodes[i].code;
+                            pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+                            policy_measure_names[j] = jsonCodes[i].title['EN'];
+                            policyTypesInfo[policy_types_array[z].value][policy_measure_codes[j]] = policy_measure_names[j];
+                            j++;
+                        }
                         //REOPEN THIS CODE TO MANAGE WTO DATA END
                         //policyTypesInfo[z] = policy_measure_codes;
                         //policyTypesInfoName[z]= policy_measure_names;
@@ -494,33 +497,34 @@ define([
 //                }
 
                             //REMOVE THIS CODE TO MANAGE WTO DATA START
-                            var j = 0;
-                            for (var i = 0; i < jsonCodes.length; i++) {
-//                        var c = json.rootCodes[i].code;
-//                        var l = json.rootCodes[i].title['EN'];
-                                if (policy_type_code == '2') {
-                                    //WTO DATA have to be removed
-                                    if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
-                                        policy_measure_codes[j] = jsonCodes[i].code;
-                                        pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                        j++;
-                                    }
-                                }
-                                else {
-                                    policy_measure_codes[j] = jsonCodes[i].code;
-                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                    j++;
-                                }
-                            }
+//                            var j = 0;
+//                            for (var i = 0; i < jsonCodes.length; i++) {
+////                        var c = json.rootCodes[i].code;
+////                        var l = json.rootCodes[i].title['EN'];
+//                               // This code is to remove WTO Data
+//                                if (policy_type_code == '2') {
+//                                    //WTO DATA have to be removed
+//                                    if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
+//                                        policy_measure_codes[j] = jsonCodes[i].code;
+//                                        pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                        j++;
+//                                    }
+//                                }
+//                                else {
+//                                    policy_measure_codes[j] = jsonCodes[i].code;
+//                                    pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                    j++;
+//                                }
+//                            }
                             //REMOVE THIS CODE TO MANAGE WTO DATA END
 
                             //REOPEN THIS CODE TO MANAGE WTO DATA START
-//                for (var i = 0; i < json.rootCodes.length; i++) {
-////                        var c = json.rootCodes[i].code;
-////                        var l = json.rootCodes[i].title['EN'];
-//                    policy_measure_codes[i] = jsonCodes[i].code;
-//                    pm_name_timeSeries_highcharts[""+(i+1)] = jsonCodes[i].title['EN'];
-//                }
+                            var j = 0;
+                            for (var i = 0; i < jsonCodes.length; i++) {
+                                policy_measure_codes[j] = jsonCodes[i].code;
+                                pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+                                j++;
+                            }
                             //REOPEN THIS CODE TO MANAGE WTO DATA END
 
                             var policy_type_codes_array = [];
@@ -632,7 +636,7 @@ define([
                                             allowDecimals: false,
                                             title: {
                                                 text: 'Number of AMIS Countries'
-                                            }
+                      }
                                         }, tooltip: {
                                             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                                             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
@@ -887,33 +891,34 @@ define([
                     var policy_measure_names = [];
                     var pm_name_timeSeries_highcharts = [];
                     //REMOVE THIS CODE TO MANAGE WTO DATA START
-                    var j = 0;
-                    for (var i = 0; i < jsonCodes.length; i++) {
-//                        var c = json.rootCodes[i].code;
-//                        var l = json.rootCodes[i].title['EN'];
-                        if (policy_type_code == '2') {
-                            //WTO DATA have to be removed
-                            if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
-                                policy_measure_codes[j] = jsonCodes[i].code;
-                                pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                                j++;
-                            }
-                        }
-                        else {
-                            policy_measure_codes[j] = jsonCodes[i].code;
-                            pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
-                            j++;
-                        }
-                    }
+//                    var j = 0;
+//                    for (var i = 0; i < jsonCodes.length; i++) {
+////                        var c = json.rootCodes[i].code;
+////                        var l = json.rootCodes[i].title['EN'];
+//
+//                        if (policy_type_code == '2') {
+//                            //WTO DATA have to be removed
+//                            if ($.inArray(jsonCodes[i].code, ap_utilVariables.CONFIG.WTOImportCodes) == -1) {
+//                                policy_measure_codes[j] = jsonCodes[i].code;
+//                                pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                                j++;
+//                            }
+//                        }
+//                        else {
+//                            policy_measure_codes[j] = jsonCodes[i].code;
+//                            pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+//                            j++;
+//                        }
+//                    }
                     //REMOVE THIS CODE TO MANAGE WTO DATA END
 
                     //REOPEN THIS CODE TO MANAGE WTO DATA START
-//                for (var i = 0; i < json.rootCodes.length; i++) {
-////                        var c = json.rootCodes[i].code;
-////                        var l = json.rootCodes[i].title['EN'];
-//                    policy_measure_codes[i] = jsonCodes[i].code;
-//                    pm_name_timeSeries_highcharts[""+(i+1)] = jsonCodes[i].title['EN'];
-//                }
+                    var j = 0;
+                    for (var i = 0; i < jsonCodes.length; i++) {
+                        policy_measure_codes[j] = jsonCodes[i].code;
+                        pm_name_timeSeries_highcharts["" + (j + 1)] = jsonCodes[i].title['EN'];
+                        j++;
+                    }
                     //REOPEN THIS CODE TO MANAGE WTO DATA END
                     var policy_type_codes_array = [];
                     policy_type_codes_array.push(policy_type_code);

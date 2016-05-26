@@ -3,7 +3,7 @@ define([
 ], function(){
 
     var CONFIG ={
-        //base_ip_address    :  '168.202.28.26',
+        //base_ip_address    :  '168.202.36.186',
         //base_ip_port    :  '10400',
        base_ip_address    :  'statistics.amis-outlook.org',
        base_ip_port    :  '80',
@@ -58,7 +58,9 @@ define([
         import_tariffs_commodity_class_names    :   "Wheat-Maize-Rice-Soybeans",
         import_tariffs_policy_type_code : '2',
         import_tariffs_policy_measure_code : '11',
-        import_tariffs_year_list : '2010,2011,2012,2013',
+        //import_tariffs_year_list : '2010,2011,2012,2013',
+        import_tariffs_year_list : '2012,2013,2014,2015',
+        import_tariffs_hsCode_list : "'1001','1005','1006','1201'",
         import_tariffs_unit : '%',
         import_tariffs_policy_element : ['Final bound tariff','MFN applied tariff'],
 
@@ -66,6 +68,7 @@ define([
         export_measure_obj_array : [],
 
         export_subsidies_policy_element : ['BudgetaryOutlay_Commitment', 'BudgetaryOutlay_Notified', 'Quantity_Commitment', 'Quantity_Notified'],
+        export_subsidies_policy_element_code : ['1', '2', '11', '12'],
         export_subsidies_policy_element_for_legend : ['Budgetary commitments', 'Budgetary notifications', 'Quantity commitments', 'Quantity notifications'],
         export_subsidies_units : ['USD', 'USD', 'Tonnes', 'Tonnes'],
         export_subsidies_units_y : [0, 0, 1, 1],

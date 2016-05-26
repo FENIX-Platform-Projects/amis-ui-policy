@@ -37,7 +37,13 @@ define([
         //character varying(510)
         exemptions  :   [],
         //character varying(510)
-        location_condition  :   [],
+        MinAVTariffValue  :   [],
+        //character varying(510)
+        MaxAVTariffValue  :   [],
+        //character varying(510)
+        CountAVTariff  :   [],
+        //character varying(510)
+        CountNAVTariff  :   [],
         //character varying(510)
         notes  :   [],
         //character varying(510)
@@ -104,7 +110,7 @@ define([
 
     //Second table
     function init(metadata_id, policy_id, cpl_id, commodity_id, hs_version, hs_code, hs_suffix, policy_element, start_date, end_date, units, value, value_text,
-                  value_type, exemptions, location_condition, notes, link, source, title_of_notice, legal_basis_name, date_of_publication, imposed_end_date,
+                  value_type, exemptions, MinAVTariffValue, MaxAVTariffValue, CountAVTariff, CountNAVTariff, notes, link, source, title_of_notice, legal_basis_name, date_of_publication, imposed_end_date,
                   second_generation_specific, benchmark_tax, benchmark_product, tax_rate_biofuel, tax_rate_benchmark, start_date_tax, benchmark_link,
                   original_dataset, type_of_change_code, type_of_change_name, measure_description, product_original_hs, product_original_name,
                   link_pdf, benchmark_link_pdf, short_description, shared_group_code)
@@ -172,7 +178,10 @@ define([
         this.CONFIG.value_text = value_text;
         this.CONFIG.value_type = value_type;
         this.CONFIG.exemptions = exemptions;
-        this.CONFIG.location_condition = location_condition;
+        this.CONFIG.MinAVTariffValue = MinAVTariffValue;
+        this.CONFIG.MaxAVTariffValue = MaxAVTariffValue;
+        this.CONFIG.CountAVTariff = CountAVTariff;
+        this.CONFIG.CountNAVTariff = CountNAVTariff;
         this.CONFIG.notes = notes;
         this.CONFIG.link = link;
         this.CONFIG.source = source;

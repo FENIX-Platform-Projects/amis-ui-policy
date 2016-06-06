@@ -2,13 +2,14 @@
 // relative or absolute path of Components' main.js
 require([
     '../../submodules/fenix-ui-common/js/Compiler',
-    '../../submodules/fenix-ui-metadata-editor/js/paths',
+    //'../../submodules/fenix-ui-metadata-editor/js/paths',
     '../../submodules/amis-ui-policy-data-entry/js/paths',
     '../../submodules/fenix-ui-common/js/paths'
-], function (Compiler, MetadataEditor, AmisPolicyDataEntry, FenixUiCommon) {
+//], function (Compiler, MetadataEditor, AmisPolicyDataEntry, FenixUiCommon) {
+], function (Compiler, AmisPolicyDataEntry, FenixUiCommon) {
 
-    var metadataEditorConfig = MetadataEditor;
-    metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
+    //var metadataEditorConfig = MetadataEditor;
+    //metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
     var amisPolicyDataEntry = AmisPolicyDataEntry;
     amisPolicyDataEntry['baseUrl'] = '../../submodules/amis-ui-policy-data-entry/js/';
     var menuConfig = AmisPolicyDataEntry;
@@ -16,6 +17,7 @@ require([
     var fenixUiCommon = FenixUiCommon;
     fenixUiCommon['baseUrl'] = '../../submodules/fenix-ui-common/js/';
 
+    //Compiler.resolve([fenixUiCommon],
     Compiler.resolve([fenixUiCommon, amisPolicyDataEntry],
         {
             //placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},

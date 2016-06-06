@@ -2,14 +2,16 @@
 // relative or absolute path of Components' main.js
 require([
     '../../submodules/fenix-ui-common/js/Compiler',
-    '../../submodules/fenix-ui-metadata-editor/js/paths'
-], function (Compiler, MetadataEditor, Menu) {
+    //'../../submodules/fenix-ui-metadata-editor/js/paths'
+//], function (Compiler, MetadataEditor, Menu) {
+], function (Compiler, Menu) {
 
-    var metadataEditorConfig = MetadataEditor;
-    metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
+    //var metadataEditorConfig = MetadataEditor;
+    //metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
 
 
-    Compiler.resolve([metadataEditorConfig],
+    //Compiler.resolve([metadataEditorConfig],
+    Compiler.resolve([],
         {
             placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             config: {
@@ -110,16 +112,27 @@ require([
         var jsonMappingFile = '';
         var ajaxEventCallsFile = '';
         if(leftSideMenu){
-            guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config.json";
-            validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config.json";
-            jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config.json";
-            ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config.json";
+            //guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config.json";
+            //validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config.json";
+            //jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config.json";
+            //ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config.json";
+
+            guiJsonFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-gui-config.json";
+            validationFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-validation-config.json";
+            jsonMappingFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-mapping-config.json";
+            ajaxEventCallsFile =  "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-ajax-config.json";
+
         }
         else{
-            guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu.json";
-            validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config-noMenu.json";
-            jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config-noMenu.json";
-            ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config-noMenu.json";
+            //guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu.json";
+            //validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config-noMenu.json";
+            //jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config-noMenu.json";
+            //ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config-noMenu.json";
+
+            guiJsonFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-gui-config-noMenu.json";
+            validationFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-validation-config-noMenu.json";
+            jsonMappingFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-mapping-config-noMenu.json";
+            ajaxEventCallsFile =  "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-ajax-config-noMenu.json";
         }
 
         var guiJson = $.getJSON(guiJsonFile);
@@ -148,7 +161,8 @@ require([
                         validation: validationFile,
                         jsonMapping: jsonMappingFile,
                         ajaxEventCalls: ajaxEventCallsFile,
-                        dates: "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-dates-config.json"
+                        //dates: "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-dates-config.json"
+                        dates: "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-dates-config.json"
                     },
                     leftSideMenu:leftSideMenu,
                     submit_default_action:"overwrite"

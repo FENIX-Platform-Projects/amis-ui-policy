@@ -1488,27 +1488,41 @@ define([
         var jsonMappingFile = '';
         var ajaxEventCallsFile = '';
         if(leftSideMenu){
-            guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config.json";
-            validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config.json";
-            jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config.json";
-            ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config.json";
+
+            //guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config.json";
+            //validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config.json";
+            //jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config.json";
+            //ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config.json";
+
+            guiJsonFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-gui-config.json";
+            validationFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-validation-config.json";
+            jsonMappingFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-mapping-config.json";
+            ajaxEventCallsFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-ajax-config.json";
         }
         else{
+
             if(this.options.button_preview_action_type=="searchEditPolicy") {
-                guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu_Original.json";
+                //guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu_Original.json";
+                guiJsonFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-gui-config-noMenu_Original.json";
             }
             else{
-                guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu.json";
+                //guiJsonFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-gui-config-noMenu.json";
+                guiJsonFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-gui-config-noMenu.json";
             }
-            validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config-noMenu.json";
-            jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config-noMenu.json";
-            ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config-noMenu.json";
+            //validationFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-validation-config-noMenu.json";
+            //jsonMappingFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-mapping-config-noMenu.json";
+            //ajaxEventCallsFile = "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-ajax-config-noMenu.json";
+            validationFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-validation-config-noMenu.json";
+            jsonMappingFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-mapping-config-noMenu.json";
+            ajaxEventCallsFile = "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-ajax-config-noMenu.json";
         }
-
+console.log(guiJsonFile)
         var guiJson = $.getJSON(guiJsonFile);
+        console.log("After first call");
         $.when($.getJSON(guiJsonFile))
             .done(function( guiJson) {
-//                console.log(guiJson.panels[0]);
+                console.log(guiJson);
+                console.log(guiJson.panels[0]);
 //                var guiObj = guiJson.panels[0];
 //                console.log(guiJson)
 //                console.log(guiJson.panels[0].properties.summary.properties.country.value.default);
@@ -1537,6 +1551,7 @@ define([
                     }
                 }
 
+                console.log("Before summaryDefaultValueSetting")
                 self.summaryDefaultValueSetting(guiJson, self.options.onEditActionObj, self);
               //  alert("ap_q&d Before properties after ")
               //  console.log(guiJson.panels[0].properties.summary.properties);
@@ -1559,7 +1574,8 @@ define([
                         validation: validationFile,
                         jsonMapping: jsonMappingFile,
                         ajaxEventCalls: ajaxEventCallsFile,
-                        dates: "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-dates-config.json"
+                        //dates: "./submodules/fenix-ui-metadata-editor/conf/json/fx-editor-dates-config.json"
+                        dates: "./submodules/amis-ui-policy-data-entry/config/metadataEditorSubmodule/fx-editor-dates-config.json"
                     },
                     leftSideMenu:leftSideMenu,
                     submit_default_action:"overwrite"
@@ -1624,7 +1640,7 @@ define([
                 $(".previous_content").hide();
                 $("#buttonBack").show();
                 $("#metadataEditorContainer").show();
-            });
+            }).fail(function( e) {console.log(e)})
     };
 
 

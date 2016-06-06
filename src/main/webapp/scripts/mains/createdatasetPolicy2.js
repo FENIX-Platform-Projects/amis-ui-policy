@@ -2,14 +2,16 @@
 // relative or absolute path of Components' main.js
 require([
     '../../submodules/fenix-ui-common/js/Compiler',
-    '../../submodules/fenix-ui-metadata-editor/js/paths'
-], function (Compiler, MetadataEditor, Menu) {
+    //'../../submodules/fenix-ui-metadata-editor/js/paths'
+//], function (Compiler, MetadataEditor, Menu) {
+], function (Compiler, Menu) {
 
-    var metadataEditorConfig = MetadataEditor;
-    metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
+    //var metadataEditorConfig = MetadataEditor;
+    //metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
 
 
-    Compiler.resolve([metadataEditorConfig],
+    //Compiler.resolve([metadataEditorConfig],
+    Compiler.resolve([],
         {
             placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             config: {

@@ -7,3 +7,12 @@
 [submodule "src/main/webapp/submodules/amis-ui-policy-data-entry"]
 	path = src/main/webapp/submodules/amis-ui-policy-data-entry
 	url = ../amis-ui-policy-data-entry.git
+[submodule "fenix-ui-data-management"]
+	path = fenix-ui-data-management
+	url = ../../FENIX-Platform/fenix-ui-data-management.git
+[submodule "src/main/webapp/submodules/fenix-ui-data-management"]
+	path = src/main/webapp/submodules/fenix-ui-data-management
+	url = ../../FENIX-Platform/fenix-ui-data-management.git
+[submodule "src/main/webapp/submodules/fenix-ui-datamanagement-commons"]
+	path = src/main/webapp/submodules/fenix-ui-datamanagement-commons
+	url = ../../FENIX-Platform/fenix-ui-datamanagement-commons.git

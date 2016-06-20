@@ -148,6 +148,14 @@
             "language"  :   "EN",
             "title" :   "Create Policy",
             "color" :   "orange"
+        },
+        {
+          "id":"fx_selector_8_5",
+          "type":"button",
+          "domain_type" : "Metadata",
+          "language"  :   "EN",
+          "title" :   "Create Metadata",
+          "color" :   "green"
         }
         ]
     }

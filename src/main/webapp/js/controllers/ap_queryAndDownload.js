@@ -14,6 +14,8 @@ define([
     //'fx-editor/start',
     'ap-dataEntry/start',
     'ap_util_variables',
+    'fx-MetaEditor2/start',
+    'fx-md-v/start',
 //    'fenix-map',
 //    'router',
     'jQAllRangeSliders',
@@ -21,7 +23,7 @@ define([
     'amplify'
 
 //], function(Backbone, Qd, conf , data_entry_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, Router){
-], function($, Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, AmisPolicyDataEntry, ap_util_variables){
+], function($, Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, AmisPolicyDataEntry, ap_util_variables, MetadataEditor, MetadataViewer){
 //], function(Backbone, Qd, conf , data_entry_edit_policy_conf, data_entry_create_policy_conf, HostUtility, HostDomainParser, HostButtonActions, HostPolicyDataObject, HostPreview, NProgress, DataEntryEditor, AmisPolicyDataEntry, ap_util_variables){
 
     var optionsDefault = {
@@ -64,6 +66,7 @@ define([
         fx_selector_8_2 : 'fx_selector_8_2',
         fx_selector_8_3 : 'fx_selector_8_3',
         fx_selector_8_4 : 'fx_selector_8_4',
+        fx_selector_8_5 : 'fx_selector_8_5',
         fx_selector_5_b_infoButton : 'fx_selector_5_b_button_info',
         fx_selector_5_b_selectButton : 'fx_selector_5_b_button_select',
         fx_selector_6_b_selectButton : 'fx_selector_6_b_button_select',
@@ -74,10 +77,10 @@ define([
         fx_selector_5_button_clear : 'fx_selector_5_button_clear',
 
         //To WDS
-        //base_ip_address    :  '168.202.36.186',
-        //base_ip_port    :  '10400',
-        base_ip_address    :  'statistics.amis-outlook.org',
-        base_ip_port    :  '80',
+        base_ip_address    :  '168.202.36.186',
+        base_ip_port    :  '10400',
+        //base_ip_address    :  'statistics.amis-outlook.org',
+        //base_ip_port    :  '80',
         datasource      :   'POLICY',
 //        policyTypes_url   :   '/wds/rest/policyservice/policyTypes',
 //        startAndEndDate_url   :   '/wds/rest/policyservice/startEndDate',
@@ -99,6 +102,7 @@ define([
         masterFromCplId_url     :   '/wdspolicy/rest/policyservice/masterFromCplId',
         masterFromCplIdAndSubnational     :   '/wdspolicy/rest/policyservice/masterFromCplIdAndSubnational',
         masterFromCplIdAndNegativeSubnational     :   '/wdspolicy/rest/policyservice/masterFromCplIdAndNegativeSubnational',
+        metadataExisting    :   '/wdspolicy/rest/policyservice/metadataExisting',
         policyTable_url     :   '/wdspolicy/rest/policyservice/downloadPreviewPolicyTable',
         shareGroupCommodities_url     :   '/wdspolicy/rest/policyservice/shareGroupInfo',
         mapData     :   '/wdspolicy/rest/policyservice/mapData',
@@ -205,6 +209,9 @@ define([
                 self.initRouter(Router, self);
             });
         }
+        //else{
+        //    $('body').on("MetadataButton", $.proxy(this.onMetadataAction, this));
+        //}
     }
 
     Host.prototype.map_event_creation = function(){
@@ -220,10 +227,12 @@ define([
         this.options.generic_component_structure_event["selected_fx_selector_6_b_changed"] = "selected_fx_selector_6_b_changed";
         this.options.generic_component_structure_event["selected_fx_selector_6_button_clear"] = "selected_fx_selector_6_button_clear";
         this.options.generic_component_structure_event["selected_fx_selector_7_changed"] = "selected_fx_selector_7_changed";
+        this.options.generic_component_structure_event["selected_fx_selector_7_b_changed"] = "selected_fx_selector_7_b_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_1_changed"] = "selected_fx_selector_8_1_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_changed"] = "selected_fx_selector_8_2_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_3_changed"] = "selected_fx_selector_8_3_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_4_changed"] = "selected_fx_selector_8_4_changed";
+        this.options.generic_component_structure_event["selected_fx_selector_8_5_changed"] = "selected_fx_selector_8_5_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_menu_item1_changed"] = "selected_fx_selector_8_2_menu_item1_changed";
         this.options.generic_component_structure_event["selected_fx_selector_8_2_menu_item2_changed"] = "selected_fx_selector_8_2_menu_item2_changed";
     };
@@ -250,6 +259,30 @@ define([
         var obj ='';
 
         var qd_instance = '';
+
+        $("#buttonBack").click(function() {
+            $("#metadataEditorContainer").hide();
+            $("#metadataEditorContainer2").hide();
+            $(".previous_content").show();
+            $("#buttonBack").hide();
+            $("#buttonSaveMetadata").hide();
+            //self.Metadatadispose();
+            if(self.options.button_preview_action_type == "searchCreatePolicy") {
+                self.metadataButtonOnChangeSelection(obj, qd_instance, self);
+            }
+        });
+
+        $("#buttonSaveMetadata").click(function() {
+            $("#metadataEditorContainer").hide();
+            $("#metadataEditorContainer2").hide();
+            $(".previous_content").show();
+            $("#buttonBack").hide();
+            $("#buttonSaveMetadata").hide();
+            $("#fx_selector_8_1").show();
+            $("#fx_selector_8_5").hide();
+            //self.Metadatadispose();
+            //self.metadataButtonOnChangeSelection(obj, qd_instance, self);
+        });
 
         if(this.options.button_preview_action_type == "searchEditPolicy"){
             //Data Entry
@@ -1056,6 +1089,10 @@ define([
             //var fx_selector_selected_item = qd_instance.getSelectedItems(self.options.fx_selector_6_b);
             //console.log("Selected")
             //console.log(fx_selector_selected_item);
+            var obj = {type:'subnational'};
+            if(self.options.button_preview_action_type == "searchCreatePolicy") {
+                self.metadataButtonOnChangeSelection(obj, qd_instance, self);
+            }
         });
 
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_6_button_clear"], function(event, properties){
@@ -1114,7 +1151,47 @@ define([
             }
         });
 
+        $('body').on(self.options.generic_component_structure_event["selected_fx_selector_8_5_changed"], function(){
+            //console.log("selected_fx_selector_8_5_changed");
+
+            $(".previous_content").hide();
+            $("#buttonBack").show();
+            $("#buttonSaveMetadata").show();
+            $("#metadataEditorContainer2").show();
+            //var MetaInitCallB = function () {
+            //    $.ajax({
+            //
+            //        type: 'GET',
+            //        //url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,
+            //        //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/POLICY_115_99_1_10_1_1_2_0?full=true',
+            //        url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+            //
+            //        success : function(response) {
+            //            MetadataEditor.set(response);
+            //            $("#metadataEditorContainer2").show();
+            //        },
+            //        error : function(err,b,c) {
+            //            alert(err.status + ", " + b + ", " + c);
+            //        }
+            //    });
+            //};
+
+            MetadataEditor.init("#metadataEditorContainer2", null, null);
+
+        });
+
         $('body').on(self.options.generic_component_structure_event["selected_fx_selector_7_changed"], function(){
+            var obj = {type:'condition'};
+            if(self.options.button_preview_action_type == "searchCreatePolicy") {
+                self.metadataButtonOnChangeSelection(obj, qd_instance, self);
+            }
+        });
+
+        $('body').on(self.options.generic_component_structure_event["selected_fx_selector_7_b_changed"], function(){
+            var obj = {type:'individualPolicy'};
+            if(self.options.button_preview_action_type == "searchCreatePolicy") {
+                self.metadataButtonOnChangeSelection(obj, qd_instance, self);
+            }
         });
 
         //This callback is called when all the selectors have been added
@@ -1418,6 +1495,8 @@ define([
 
     Host.prototype.dataEntryaddEventListener = function(self){
         $('body').on("EditSearchButton", $.proxy(this.onEditAction, this));
+
+        $('body').on("MetadataButton", $.proxy(this.onMetadataAction, this));
         //document.body.addEventListener(this.options.CANCEL, function (e) {
         //    console.log(self)
         //    self.options.editor.destroy();
@@ -1431,6 +1510,295 @@ define([
         //console.log(obj.selfObj.options.editor)
         $("#metadataEditorContainer").hide();
         $(".previous_content").show();
+    };
+
+    Host.prototype.bindEventListeners= function () {
+        var me = this;
+
+        //$(h.btnSaveMeta).on('click', function () {
+        //
+        //    var toSave = MetadataEditor.get();
+        //    if (!toSave) {
+        //        Notif.showError("ERROR", 'Please fill the minimum set of metadata in the "Identification" and "Contacts" sections');
+        //        return;
+        //    }
+        //    //console.log("toSave",toSave);
+        //    //toSave.uid = "dan401b";
+        //    var succNew = function (retVal) {
+        //        var resToLoad = { metadata: { uid: retVal.uid } };
+        //        if (retVal.version)
+        //            resToLoad.version = retVal.version;
+        //        ResourceManager.loadResource(resToLoad,
+        //            function (d) {
+        //                me.resource = ResourceManager.getCurrentResource();
+        //                MetadataEditor.set(d.metadata);
+        //                Notif.showSuccess(MLRes.success, MLRes.resourceSaved);
+        //                Chaplin.utils.redirectTo({ url: 'resume' });
+        //            });
+        //    };
+        //    var succUpd = function () {
+        //        var resToLoad = { metadata: { uid: me.resource.metadata.uid } };
+        //        if (me.resource.metadata.version)
+        //            resToLoad.version = me.resource.metadata.version;
+        //
+        //        ResourceManager.loadResource(resToLoad,
+        //            function (d) {
+        //                me.resource = ResourceManager.getCurrentResource();
+        //                MetadataEditor.set(d.metadata);
+        //                Notif.showSuccess(MLRes.success, MLRes.resourceSaved);
+        //
+        //                Chaplin.utils.redirectTo({ url: 'resume' });
+        //            });
+        //    }
+        //
+        //    var err = function () {
+        //        Notif.showError("ERROR", 'Error saving resource, please try again.')
+        //    };
+        //    var complete = function () { };
+        //
+        //    var datasources = C.DSD_EDITOR_DATASOURCES || DC.DSD_EDITOR_DATASOURCES;
+        //    var contextSys = C.DSD_EDITOR_CONTEXT_SYSTEM || DC.DSD_EDITOR_CONTEXT_SYSTEM;
+        //    //Add the context system if a new resource is created
+        //    if (me.newResource) {
+        //        toSave.dsd = { contextSystem: contextSys };
+        //        ResourceManager.saveMeta(toSave, succNew, err, complete);
+        //    }
+        //    else {
+        //
+        //        if (me.resource && me.resource.metadata && me.resource.metadata.dsd) {
+        //            toSave.dsd = { rid: me.resource.metadata.dsd.rid };
+        //        }
+        //        ResourceManager.updateMeta(toSave, succUpd, err, complete);
+        //    }
+        //});
+    };
+
+    //Host.prototype.dispose= function () {
+    //   // $(h.btnSaveMeta).off('click');
+    //};
+
+    Host.prototype.Metadatadispose= function () {
+        MetadataEditor.destroy();
+        this.unbindEventListeners();
+        //View.prototype.dispose.call(this, arguments);
+    };
+
+    Host.prototype.unbindEventListeners= function () {
+        //$(h.btnSaveMeta).off('click');
+    };
+
+    Host.prototype.onMetadataAction = function(e, payload) {
+
+        $(".previous_content").hide();
+        $("#buttonBack").show();
+        $("#buttonSaveMetadata").show();
+        var metadata_id = '';
+        if((payload!=null)&&(typeof payload!='undefined'))
+        {
+            if((payload.policy_data!=null)&&(typeof payload.policy_data!='undefined'))
+            {
+                if((payload.policy_data.Metadata_id!=null)&&(typeof payload.policy_data.Metadata_id!='undefined'))
+                {
+                    metadata_id = payload.policy_data.Metadata_id;
+                }
+            }
+        }
+        if((this.options.button_preview_action_type == "searchEditPolicy")||(this.options.button_preview_action_type == "searchCreatePolicy"))
+        {
+//console.log("On metadata action");
+            ////console.log(e);
+            ////console.log(payload);
+            ////console.log(this)
+
+            var MetaInitCallB = function () {
+                $.ajax({
+
+                    type: 'GET',
+                    //url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,
+                    //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/POLICY_115_99_1_10_1_1_2_0?full=true',
+                    //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+                    url:  'http://fenix.fao.org/d3s_dev/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+
+                    success : function(response) {
+                        MetadataEditor.set(response);
+                        $("#metadataEditorViewer").show();
+                    },
+                    error : function(err,b,c) {
+                        alert(err.status + ", " + b + ", " + c);
+                    }
+                });
+            };
+
+            MetadataEditor.init("#metadataEditorContainer2", null, MetaInitCallB);
+
+            this.bindEventListeners();
+        }
+        else{
+            //Query and download
+            var metadataViewer = new MetadataViewer();
+            $.ajax({
+
+                type: 'GET',
+                //url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,
+                //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/POLICY_115_99_1_10_1_1_2_0?full=true',
+                //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+                url:  'http://fenix.fao.org/d3s_dev/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+
+                success : function(response) {
+
+                    console.log(response);
+                    metadataViewer.render({
+                        model: {"metadata": response},
+                        lang: 'en',
+                        el: $("#metadataEditorContainer2")
+                    });
+                },
+                error : function(err,b,c) {
+                    alert(err.status + ", " + b + ", " + c);
+                }
+            });
+        }
+
+
+    };
+
+    Host.prototype.metadataButtonOnChangeSelection = function(obj, qd_instance, self){
+        //To identify a Metadata
+        //POLICY_Country_Code_Subnational_Code_CommodityDomain_Code_CommodityClass_Code_PolicyDomain_Code_PolicyType_Code_PolicyMeasure_Code_Condition_Exists
+        //The button Metadata has to be shown only if there is no metadata associated with that selection
+        if((obj!=null)&&(typeof obj!='undefined')){
+
+            var selecteditemSubnational = qd_instance.getSelectedItems(self.options.fx_selector_6_b);
+            var subnationalCode = '';
+            var subnational_found = false;
+            if((selecteditemSubnational!=null)&&(typeof selecteditemSubnational!="undefined")&&(selecteditemSubnational.length>0)&&(selecteditemSubnational[0]!=null)&&(typeof selecteditemSubnational[0]!="undefined")&&(selecteditemSubnational[0].originalItem!=null)&&(typeof selecteditemSubnational[0].originalItem!="undefined")){
+                subnationalCode = selecteditemSubnational[0].originalItem.code;
+            }
+            else{
+                subnationalCode = '99';
+            }
+            subnational_found = true;
+
+            //Condition None code = 999
+            var selecteditemCondition = qd_instance.getSelectedItems(self.options.fx_selector_7);
+            var conditionCode = '';
+            var condition_found = false;
+            if((selecteditemCondition!=null)&&(typeof selecteditemCondition!="undefined")&&(selecteditemCondition[0]!=null)&&(typeof selecteditemCondition[0]!="undefined")&&(selecteditemCondition[0].originalItem!=null)&&(typeof selecteditemCondition[0].originalItem!="undefined")){
+                conditionCode = selecteditemCondition[0].originalItem.code;
+                condition_found = true;
+            }
+            }
+            //Policy Domain and Commodity Domain
+            var commodity_domain = '';
+            var commodityDomain_found = false;
+            var selecteditemCommodityDomain = qd_instance.getSelectedItems(self.options.fx_selector_1);
+            if((selecteditemCommodityDomain!=null)&&(typeof selecteditemCommodityDomain!='undefined')) {
+                commodity_domain = '' + selecteditemCommodityDomain.code;
+                if (commodity_domain == self.options.commodity_domain_both_code) {
+                    //Both
+                    commodity_domain = self.options.commodity_domain_both;
+                }
+                commodityDomain_found = true;
+            }
+
+            var selecteditemPolicyDomain = qd_instance.getSelectedItems(self.options.fx_selector_2);
+            var policy_domain = '';
+            var policyDomain_found = false;
+            if((selecteditemPolicyDomain!=null)&&(typeof selecteditemPolicyDomain!='undefined')) {
+                var policy_domain = '' + selecteditemPolicyDomain.code;
+                if (policy_domain == self.options.policy_domain_both_code) {
+                    //Both
+                    policy_domain = self.options.policy_domain_both;
+                }
+                policyDomain_found = true;
+            }
+
+            var selecteditem_policyType = qd_instance.getSelectedItems(self.options.fx_selector_3);
+            var policyType_found = false;
+            var policy_type = '';
+            if((selecteditem_policyType!=null)&&(typeof selecteditem_policyType!="undefined")&&(selecteditem_policyType.length>0)){
+                if((selecteditem_policyType[0]!=null)&&(typeof selecteditem_policyType[0]!="undefined")&&(selecteditem_policyType[0].originalItem!=null)&&(typeof selecteditem_policyType[0].originalItem!="undefined")){
+                    policy_type = selecteditem_policyType[0].originalItem.code;
+                    policyType_found = true;
+                }
+            }
+
+            var policyMeasure_found = false;
+            var selecteditem_policyMeasure = qd_instance.getSelectedItems(self.options.fx_selector_4);
+            var policy_measure = '';
+            if((selecteditem_policyMeasure!=null)&&(typeof selecteditem_policyMeasure!="undefined")&&(selecteditem_policyMeasure.length>0)){
+                if((selecteditem_policyMeasure[0].originalItem!=null)&&(typeof selecteditem_policyMeasure[0].originalItem!="undefined")){
+                    policy_measure = selecteditem_policyMeasure[0].originalItem.code;
+                    policyMeasure_found = true;
+                }
+            }
+
+            var commodityClass_found = false;
+            var selecteditem_commodityClass = qd_instance.getSelectedItems(self.options.fx_selector_5);
+            var commodityClass = '';
+            if((selecteditem_commodityClass!=null)&&(typeof selecteditem_commodityClass!="undefined")&&(selecteditem_commodityClass[0]!=null)&&(typeof selecteditem_commodityClass[0]!="undefined")&&(selecteditem_commodityClass[0].originalItem!=null)&&(typeof selecteditem_commodityClass[0].originalItem!="undefined")){
+                commodityClass = selecteditem_commodityClass[0].originalItem.code;
+                commodityClass_found = true;
+            }
+
+            //Country
+            var country_found = false;
+            var country = '';
+            var selecteditem_country = qd_instance.getSelectedItems(self.options.fx_selector_6);
+            if((selecteditem_country!=null)&&(typeof selecteditem_country!="undefined")&&(selecteditem_country.length>0)){
+                if((selecteditem_country[0].originalItem!=null)&&(typeof selecteditem_country[0].originalItem!="undefined")){
+
+                    if((selecteditem_country[0].originalItem.code!=null)&&(typeof selecteditem_country[0].originalItem.code!="undefined")){
+                        country = selecteditem_country[0].originalItem.code;
+                        country_found = true;
+                    }
+                }
+            }
+
+        if((subnational_found)&&(condition_found)&&(commodityDomain_found)&&(policyDomain_found)&&(policyType_found)&&(policyMeasure_found)&&(commodityClass_found)&&(country_found)){
+            //POLICY_Country_Code_Subnational_Code_CommodityDomain_Code_CommodityClass_Code_PolicyDomain_Code_PolicyType_Code_PolicyMeasure_Code_Condition_Exists
+            var objForMetadata = self.options.host_policy_data_object.voObjectConstruction();
+            objForMetadata.datasource = self.options.datasource;
+            objForMetadata.subnational_code = subnationalCode;
+            objForMetadata.condition_code = conditionCode;
+            objForMetadata.commodity_domain_code = commodity_domain;
+            objForMetadata.policy_domain_code = policy_domain;
+            objForMetadata.policy_type_code = [];
+            objForMetadata.policy_type_code[0] = policy_type;
+            objForMetadata.policy_measure_code = [];
+            objForMetadata.policy_measure_code[0] = policy_measure;
+            objForMetadata.commodity_class_code = commodityClass;
+            objForMetadata.country_code = country;
+
+            var payloadrestMetadata = JSON.stringify(objForMetadata);
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://'+self.options.base_ip_address+':'+self.options.base_ip_port+self.options.metadataExisting,
+                data : {"pdObj": payloadrestMetadata},
+
+                success : function(response) {
+                    /* Convert the response in an object, i needed. */
+                    var json = response;
+                    if (typeof(response) == 'string')
+                        json = $.parseJSON(response);
+                    if(json[0] == 'FOUND'){
+                        //The metadata is already stored
+                        //The user can create the Policy without creating the Metadata
+                        $("#fx_selector_8_5").hide();
+                        $("#fx_selector_8_1").show();
+                    }
+                    else{
+                        //The metadata has to be created
+                        $("#fx_selector_8_5").show();
+                        $("#fx_selector_8_1").hide();
+                    }
+                },
+                error : function(err,b,c) {
+                    alert(err.status + ", " + b + ", " + c);
+                }
+            });
+        }
     }
 
     Host.prototype.onEditAction = function(e, payload){
@@ -1439,7 +1807,6 @@ define([
         var self = this;
         //amplify.unsubscribe(self.options.CANCEL, self.actionToHideDataEditor);
 
-        console.log(payload)
         if((payload!=null)&&(typeof payload!="undefined")){
             this.options.onEditActionObj = {};
             this.options.onEditActionObj = payload;
@@ -1642,7 +2009,6 @@ console.log(guiJsonFile)
                 $("#metadataEditorContainer").show();
             }).fail(function( e) {console.log(e)})
     };
-
 
     Host.prototype.reloadCommodityList = function(self, qd_instance){
 

@@ -60,13 +60,13 @@ define([
 
     QDSelectorListbox.prototype.modelUpdate = function(self, changed_item){
         var items = $('#'+self.options.list_id).jqxListBox('getSelectedItems');
-
         var properties = {};
         properties.changed_item= changed_item;
         //Call the controller to update the model for this component
         //console.log("modelUpdate LISTBOX start")
         //console.log(changed_item)
         //console.log(properties)
+        //console.log(items)
         //console.log("modelUpdate LISTBOX end")
         self.options.controller.modelUpdate(self, items, properties);
     };
@@ -183,7 +183,7 @@ define([
                     //This variable is used in the checkbox
                     self.options.select_all_button_pressed = false;
                     //Deselect All
-                    console.log(self)
+                    //console.log(self)
                     var buttonUpdateObj = {};
                     if((self.options.buttons!=null)&&(typeof self.options.buttons!='undefined')){
                         for(var i=0; i< self.options.buttons.length; i++){
@@ -566,8 +566,8 @@ define([
             for(var i=0 ; i< properties.length; i++)
             {
                 var items = $('#'+this.options.list_id).jqxListBox('getSelectedItems');
-                console.log("i= "+'#'+this.options.list_id)
-                console.log(items)
+                //console.log("i= "+'#'+this.options.list_id)
+                //console.log(items)
                 if((items!=null)&&(typeof items != 'undefined'))
                 {
                     var j=0;
@@ -584,13 +584,13 @@ define([
                     {
                         //The element is not selected
                         //So... can be selected
-                        console.log("Selecting 1 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
+                        //console.log("Selecting 1 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
                         $('#'+this.options.list_id).jqxListBox('selectIndex', properties[i]);
                     }
                 }
                 else{
                     //So... can be selected
-                    console.log("Selecting 2 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
+                    //console.log("Selecting 2 properties[i] this.options.list_id = "+this.options.list_id+" propert "+properties[i] )
                     $('#'+this.options.list_id).jqxListBox('selectIndex', properties[i]);
                 }
             }

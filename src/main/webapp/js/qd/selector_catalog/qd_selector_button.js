@@ -127,6 +127,9 @@ define([
                 case 'Download':
                     self.modelUpdate(self);
                     break;
+                case 'Metadata':
+                    self.modelUpdate(self);
+                    break;
                 case 'HistoricPolicy':
                     self.modelUpdate(self);
                     break;

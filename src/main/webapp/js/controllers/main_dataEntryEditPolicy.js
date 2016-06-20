@@ -4,9 +4,13 @@ require([
     '../../submodules/fenix-ui-common/js/Compiler',
     //'../../submodules/fenix-ui-metadata-editor/js/paths',
     '../../submodules/amis-ui-policy-data-entry/js/paths',
-    '../../submodules/fenix-ui-common/js/paths'
+    '../../submodules/fenix-ui-common/js/paths',
+    '../../submodules/fenix-ui-metadata-editor/js/paths',
+    '../../submodules/fenix-ui-datamanagement-commons/js/paths',
+    '../../submodules/fenix-ui-data-management/src/js/paths',
+    '../../submodules/fenix-ui-metadata-viewer/src/js/paths'
 //], function (Compiler, MetadataEditor, AmisPolicyDataEntry, FenixUiCommon) {
-], function (Compiler, AmisPolicyDataEntry, FenixUiCommon) {
+], function (Compiler, AmisPolicyDataEntry, FenixUiCommon, MetadataEditor, DataManagementCommon, DataManagement, MetadataViewer) {
 
     //var metadataEditorConfig = MetadataEditor;
     //metadataEditorConfig['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
@@ -16,9 +20,17 @@ require([
     menuConfig['baseUrl'] = '../../submodules/amis-ui-policy-data-entry/js/';
     var fenixUiCommon = FenixUiCommon;
     fenixUiCommon['baseUrl'] = '../../submodules/fenix-ui-common/js/';
+    var metadataEditor = MetadataEditor;
+    metadataEditor['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
+    var dataManagementCommon = DataManagementCommon;
+    dataManagementCommon['baseUrl'] = '../../submodules/fenix-ui-datamanagement-commons/js/';
+    var dataManagement = DataManagement;
+    dataManagement['baseUrl'] = '../../submodules/fenix-ui-data-management/src/js/';
+    var metadataViewer = MetadataViewer;
+    metadataViewer['baseUrl'] = '../../submodules/fenix-ui-metadata-viewer/src/js/';
 
     //Compiler.resolve([fenixUiCommon],
-    Compiler.resolve([fenixUiCommon, amisPolicyDataEntry],
+    Compiler.resolve([fenixUiCommon, amisPolicyDataEntry, metadataEditor,dataManagementCommon, dataManagement, metadataViewer],
         {
             //placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             placeholders:  {"FENIX_CDN": "//fenixrepo.fao.org/cdn"},
@@ -29,7 +41,7 @@ require([
                 paths : {
                     underscore: "{FENIX_CDN}/js/underscore/1.7.0/underscore.min",
                     backbone: "{FENIX_CDN}/js/backbone/1.1.2/backbone.min",
-                    handlebars: "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
+                    handlebars: "{FENIX_CDN}/js/handlebars/4.0.5/handlebars.min",
                     chaplin: "{FENIX_CDN}/js/chaplin/1.0.1/chaplin.min",
                     amplify : '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
                     jquery : '//code.jquery.com/jquery-1.11.0.min',
@@ -67,8 +79,11 @@ require([
                     models: '../models',
                     views: '../views',
                     collections: '../collections',
+                    moment : '{FENIX_CDN}/js/moment/2.12.0/min/moment.min',
                     createdatasetPolicy: '../../scripts/mains/createdatasetPolicy3',
-                    ap_policyDataObject : '../common/policyDataObject'
+                    ap_policyDataObject : '../common/policyDataObject',
+                    'fx-d-m/config/config' : "../../config/submodules/fx-data-mng/Config",
+                    'fx-submodules/config/baseConfig' : '../../config/submodules/config_base'
                 },
 
                 shim: {
@@ -136,8 +151,10 @@ require([
 
             $("#buttonBack").click(function() {
                 $("#metadataEditorContainer").hide();
+                $("#metadataEditorContainer2").hide();
                 $(".previous_content").show();
                 $("#buttonBack").hide();
+                $("#buttonSaveMetadata").hide();
             });
 
             var host = new Host({button_preview_action_type : "searchEditPolicy"});

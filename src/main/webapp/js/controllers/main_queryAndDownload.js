@@ -4,8 +4,12 @@ require([
     '../../submodules/fenix-ui-common/js/Compiler',
     //'../../submodules/fenix-ui-metadata-editor/js/paths',
     '../../submodules/amis-ui-policy-data-entry/js/paths',
-    '../../submodules/fenix-ui-common/js/paths'
-], function (Compiler, AmisPolicyDataEntry, FenixUiCommon) {
+    '../../submodules/fenix-ui-common/js/paths',
+    '../../submodules/fenix-ui-metadata-editor/js/paths',
+    '../../submodules/fenix-ui-datamanagement-commons/js/paths',
+    '../../submodules/fenix-ui-data-management/src/js/paths',
+    '../../submodules/fenix-ui-metadata-viewer/src/js/paths'
+], function (Compiler, AmisPolicyDataEntry, FenixUiCommon, MetadataEditor, DataManagementCommon, DataManagement, MetadataViewer) {
 //], function (Compiler, MetadataEditor, AmisPolicyDataEntry, FenixUiCommon) {
 
     //var metadataEditorConfig = MetadataEditor;
@@ -16,7 +20,16 @@ require([
     menuConfig['baseUrl'] = '../../submodules/amis-ui-policy-data-entry/js/';
     var fenixUiCommon = FenixUiCommon;
     fenixUiCommon['baseUrl'] = '../../submodules/fenix-ui-common/js/';
-    Compiler.resolve([fenixUiCommon, amisPolicyDataEntry],
+    var metadataEditor = MetadataEditor;
+    metadataEditor['baseUrl'] = '../../submodules/fenix-ui-metadata-editor/js/';
+    var dataManagementCommon = DataManagementCommon;
+    dataManagementCommon['baseUrl'] = '../../submodules/fenix-ui-datamanagement-commons/js/';
+    var dataManagement = DataManagement;
+    dataManagement['baseUrl'] = '../../submodules/fenix-ui-data-management/src/js/';
+    var metadataViewer = MetadataViewer;
+    metadataViewer['baseUrl'] = '../../submodules/fenix-ui-metadata-viewer/src/js/';
+
+    Compiler.resolve([fenixUiCommon, amisPolicyDataEntry, metadataEditor,dataManagementCommon, dataManagement, metadataViewer],
     {
             placeholders:  {"FENIX_CDN": "//fenixrepo.fao.org/cdn"},
             config: {
@@ -26,6 +39,7 @@ require([
                 paths: {
                     jquery: '//code.jquery.com/jquery-1.11.0.min',
                     host: '../controllers/ap_queryAndDownload',
+                    handlebars: "{FENIX_CDN}/js/handlebars/4.0.5/handlebars.min",
                     host_utility: '../controller_util/ap_queryAndDownload_utility',
                     host_domainParser: '../controller_util/ap_queryAndDownload_domain_parser',
                     host_policyDataObject: '../controller_util/ap_queryAndDownload_policy_data_object',

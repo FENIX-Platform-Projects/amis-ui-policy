@@ -191,7 +191,6 @@ define([
             {
                 new_selection = [];
             }
-//            console.log("In grid update  = "+selector_instance.options.id);
             switch(selector_instance.options.id)
             {
 //                case 'fx_selector_1' :

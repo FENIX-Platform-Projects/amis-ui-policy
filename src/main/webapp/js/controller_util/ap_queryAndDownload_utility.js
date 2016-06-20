@@ -179,7 +179,6 @@ define([
 
         if(action){
             //True = Show
-            console.log(buttonId)
             $("#"+buttonId).show();
         }
         else{
@@ -290,6 +289,8 @@ define([
 
 //    HostUtility.prototype.getPolicyTable_datafields = function(data, export_type) {
     HostUtility.prototype.getPolicyTable_datafields = function(data, host, masterData) {
+        //console.log(data)
+        //console.log(masterData)
         //Master data for the policy table element(upper line)
         var masterData = masterData[data[0]["MasterIndex"]];
         var info= new Object();
@@ -441,14 +442,15 @@ define([
         datafields.push(obj);
         //obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
         //columns.push(obj2);
-        obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer };
+        obj2 = { text: 'Metadata', datafield: 'MetadataButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton };
         columns.push(obj2);
 
         if((host.options.button_preview_action_type == "searchEditPolicy")||(host.options.button_preview_action_type == "searchCreatePolicy"))
         {
             obj = { name: 'EditButton' };
             datafields.push(obj);
-            obj2 = { text: 'Edit', datafield: 'EditButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+            //obj2 = { text: 'Edit', datafield: 'EditButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
+            obj2 = { text: 'Policy', datafield: 'EditButton', rendered: tooltiprenderer, cellsrenderer: linkrendererButton  };
             columns.push(obj2);
 
             obj = { name: 'DeleteButton' };
@@ -464,6 +466,8 @@ define([
         obj = { name: 'CplId'};
         datafields.push(obj);
         obj = { name: 'Policy_id'};
+        datafields.push(obj);
+        obj = { name: 'Metadata_id'};
         datafields.push(obj);
         obj = { name: 'ValueType'};
         datafields.push(obj);

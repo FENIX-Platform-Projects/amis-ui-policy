@@ -83,10 +83,10 @@ define([
         //console.log("selectedRow = "+selectedRow)
 
         var properties = {};
-        console.log("changed_item")
-        console.log(changed_item)
-        console.log("datarecord")
-        console.log(datarecord)
+        //console.log("changed_item")
+        //console.log(changed_item)
+        //console.log("datarecord")
+        //console.log(datarecord)
         //properties.changed_item= changed_item;
         properties.changed_item= datarecord;
         //Call the controller to update the model for this component
@@ -101,7 +101,7 @@ define([
                 changed_item.changed_item= datarecord;
             }
         }
-        console.log("modelUpdate GRID end")
+        //console.log("modelUpdate GRID end")
         //console.log(changed_item)
         //console.log(properties)
         self.options.controller.modelUpdate(self, changed_item, properties);
@@ -214,7 +214,7 @@ define([
                     }
                     //selector_instance.options.id
                     var source_domain = self.getDomain(true);
-                    console.log(source_domain)
+                    //console.log(source_domain)
                     if ((source_domain != null) && (typeof source_domain != 'undefined')) {
                         source_domain = source_domain.localdata;
                         var properties = [];
@@ -503,8 +503,8 @@ define([
     //Properties contains the index of elements to deselect
     QDSelectorGrid.prototype.deselectItems = function(properties){
 
-        console.log("!!!!!!!!!!!!!!deselectItems start")
-        console.log(properties)
+        //console.log("!!!!!!!!!!!!!!deselectItems start")
+        //console.log(properties)
         if((properties!=null)&&(typeof properties!='undefined'))
         {
             for(var i=0 ; i< properties.length; i++)

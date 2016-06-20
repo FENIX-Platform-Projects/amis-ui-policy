@@ -2,11 +2,12 @@ define([
     'jquery',
     'nprogress',
     'host_utility',
+    'fx-md-v/start',
     'ap_util_variables',
     'fullscreen',
     'jQAllRangeSliders',
     'xDomainRequest'
-], function($, NProgress, HostUtility) {
+], function($, NProgress, HostUtility, MetadataViewer) {
 
     var optionsDefault = {
         //Instance of the Host
@@ -32,6 +33,10 @@ define([
         additional_info_policy_window_once_open :false,
         additional_info_policy_window :"additional_info_window",
         additional_info_policy_container :"additional_info_container",
+
+        metadata_viewer_window_once_open :false,
+        metadata_viewer_policy_window :"metadata_viewer_window",
+        metadata_viewer_policy_container :"metadata_viewer_container",
 
         "cached_map" : {
             "l" : null,
@@ -1267,8 +1272,20 @@ define([
                 for (var i = 0; i < json.length; i++) {
                     var row = {};
                     //row["CountryCode"] = record
+                    //row["AdditionalInfoButton"] = "Show";
+                    //row["AdditionalInfoButton"] = "Show";
+                    //row["MetadataButton"] = "Show";
+                    //row["EditButton"] = "Edit";
+                    //row["DeleteButton"] = "Delete";
                     row["AdditionalInfoButton"] = "Show";
-                    row["MetadataButton"] = "Show";
+                    if((host.options.button_preview_action_type == "searchEditPolicy")||(host.options.button_preview_action_type == "searchCreatePolicy"))
+                    {
+                        row["MetadataButton"] = "Edit";
+                    }
+                    else{
+                        row["MetadataButton"] = "Show";
+                    }
+                    //row["MetadataButton"] = "Edit";
                     row["EditButton"] = "Edit";
                     row["DeleteButton"] = "Delete";
                     for (var j = 0; j < json[i].length; j++) {
@@ -1278,6 +1295,7 @@ define([
                         switch (j) {
                             case 0:
                                 metadata_id[i] = json[i][j];
+                                row["Metadata_id"] = metadata_id[i];
                                 break;
                             case 1:
                                 policy_id[i] = json[i][j];
@@ -1541,6 +1559,16 @@ define([
                     var properties = {};
                     $('body').trigger('DeleteSearchButton', properties);
                 }
+                else if(event.args.datafield=="MetadataButton"){
+                    var policy_grid = $($(parentElement).children()[0]);
+                    var policy_grid2 = $($(parentElement).children()[0]);
+                    var datarecord = policy_grid2.jqxGrid('getrowdata', event.args.rowindex);
+                    var data_entry_obj = {};
+                    data_entry_obj["policy_data"] = datarecord;
+                    data_entry_obj["master_data"] = host_preview.masterData[datarecord["MasterIndex"]];
+                    $('body').trigger('MetadataButton', data_entry_obj);
+                    host_preview.buildMetadataViewerTables(host_preview, policy_grid, event);
+                }
             });
         }
     };
@@ -1680,6 +1708,7 @@ define([
 
     HostPreview.prototype.additional_info_container_build = function(host_preview, datarecord)
     {
+        console.log(datarecord)
 //        var container = $('<div style="margin: 5px;"></div>')
 //        var leftcolumn = $('<div style="float: left; width: 45%;"></div>');
 //        var rightcolumn = $('<div style="float: left; width: 40%;"></div>');
@@ -1819,6 +1848,39 @@ define([
         $('#'+host_preview.options.additional_info_policy_container).html(container.html());
     };
 
+    HostPreview.prototype.metadata_viewer_container_build = function(host_preview, datarecord) {
+        console.log(datarecord)
+        var container = $('<div id = "fx_metadata_viewer_content_container"></div>')
+
+        var metadataViewer = new MetadataViewer();
+        var metadata_id = datarecord["Metadata_id"];
+        $('#'+host_preview.options.metadata_viewer_policy_container).children().remove();
+        //$('#'+host_preview.options.metadata_viewer_policy_container).html(container.html());
+        $('#'+host_preview.options.metadata_viewer_policy_container).append(container);
+        $.ajax({
+
+            type: 'GET',
+            //url: 'http://'+host_preview.options.host_instance.options.base_ip_address+':'+host_preview.options.host_instance.options.base_ip_port+ host_preview.options.host_instance.options.shareGroupCommodities_url+ '/' + host_preview.options.host_instance.options.datasource+ '/' +data.CommodityId,
+            //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/POLICY_115_99_1_10_1_1_2_0?full=true',
+            //url: 'http://168.202.36.205:7777/v2/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+            url:  'http://fenix.fao.org/d3s_dev/msd/resources/metadata/uid/'+metadata_id+'?full=true',
+
+            success : function(response) {
+
+                console.log(response);
+                metadataViewer.render({
+                    model: {"metadata": response},
+                    lang: 'en',
+                    el: $("#fx_metadata_viewer_content_container")
+                });
+            },
+            error : function(err,b,c) {
+                alert(err.status + ", " + b + ", " + c);
+            }
+        });
+
+    }
+
     HostPreview.prototype.buildAdditionalPolicyTables = function(host_preview, policy_grid, event)
     {
         var datarecord = policy_grid.jqxGrid('getrowdata', event.args.rowindex);
@@ -1839,6 +1901,28 @@ define([
         host_preview.options.additional_info_policy_window_once_open = true;
 
         $('#'+host_preview.options.additional_info_policy_window).jqxWindow('open');
+    };
+
+    HostPreview.prototype.buildMetadataViewerTables = function(host_preview, policy_grid, event)
+    {
+        var datarecord = policy_grid.jqxGrid('getrowdata', event.args.rowindex);
+
+        $('#'+host_preview.options.metadata_viewer_policy_window).jqxWindow({
+//            showCollapseButton: true, height: 400, width: '100%', title: 'Shared Group Details', position: 'bottom', isModal: true,
+            showCollapseButton: true, height: 400, width: '100%', title: 'Metadata', isModal: true,
+            initContent: function () {
+                host_preview.metadata_viewer_container_build(host_preview, datarecord);
+                $('#'+host_preview.options.metadata_viewer_policy_window).jqxWindow('focus');
+            }
+        });
+
+        if(host_preview.options.metadata_viewer_window_once_open)
+        {
+            host_preview.metadata_viewer_container_build(host_preview, datarecord);
+        }
+        host_preview.options.metadata_viewer_window_once_open = true;
+
+        $('#'+host_preview.options.metadata_viewer_policy_window).jqxWindow('open');
     };
 
     HostPreview.prototype.standard_tab_preview_creation = function(data, host)

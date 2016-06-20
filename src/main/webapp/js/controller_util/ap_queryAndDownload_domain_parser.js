@@ -56,13 +56,12 @@ define([
                 var jsonCodes = json.rootCodes;
                 var data = new Array();
                 var none_index=-1;
-                console.log("In success")
-                console.log(response);
-                console.log(jsonCodes);
+                //console.log("In success")
+                //console.log(response);
+                //console.log(jsonCodes);
                 var type = qd_controller_instance.getSelector_domainType(selector_id);
                 if((jsonCodes!=null)&&(typeof jsonCodes!="undefined")&&(jsonCodes.length>0))
                 {
-                    console.log("IN");
                     jsonCodes.sort(function (a, b) {
                         if (a.title.EN < b.title.EN)
                             return -1;
@@ -444,12 +443,9 @@ define([
                         var properties_to_select = [];
                         //If "none" has been found it's in the first position
                         properties_to_select.push(0);
-                        console.log("Before update_selector_selection "+selector_id)
                         qd_controller_instance.update_selector_selection(selector_id, properties_to_select, true);
                     }
                     else{
-                        console.log(qd_controller_instance.getSelector_domainType(selector_id))
-                        console.log(none_index)
                         //"hsVersion":hsVersion, "shortDescription": shortDescription, "value": value, "label": app, "code" : hsCode,
                         if(type== "CommodityDetail"){
                             //console.log("COMMODITY DETAIL!!")

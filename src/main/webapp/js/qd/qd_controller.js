@@ -170,6 +170,9 @@ define([
         //console.log(selector_instance.options.id)
         if((selector_instance!=null)&&(typeof selector_instance!="undefined"))
         {
+            //console.log(selector_instance)
+            //console.log(new_selection)
+            //console.log(properties)
             this.options.model.update(selector_instance, new_selection, properties);
         }
     };
@@ -203,10 +206,10 @@ define([
     //The properties object is used in the selector update selection function for specific field
     //select_deselect= boolean to select or deselect items
     QD.prototype.update_selector_selection = function (selector_id, properties, select_deselect) {
-        console.log(selector_id)
+        //console.log(selector_id)
         var selector_instance = this.getSelector(selector_id);
-        console.log(selector_instance)
-        console.log(properties)
+        //console.log(selector_instance)
+        //console.log(properties)
         if(select_deselect)
         {
             selector_instance.selectItems(properties);

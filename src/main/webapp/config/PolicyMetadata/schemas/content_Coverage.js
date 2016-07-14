@@ -8,16 +8,8 @@ define({
         "properties": {
             "sector": {
                 "title": "Sector",
-                "type": "object"
-            },
-            "demoStats": {
-                "title": "Demographic and social statistics"
-            },
-            "ecoStats": {
-                "title": "Economic statistics"
-            },
-            "envStats": {
-                "title": "Environmental and multi-Domain statistics"
+                "type": "object",
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_CRS_purpose_codes_firstLevel.json"
             },
             "coverageSectorsDetails": {
                 "title": "Main sector(s)",
@@ -44,8 +36,8 @@ define({
             }
         },
         "dependencies": {
-            "demoStats": ["sector"],
-            "ecoStats": ["sector"],
+            "111": ["sector"],
+            "112": ["sector"],
             "envStats": ["sector"]
         }
     },
@@ -53,23 +45,26 @@ define({
         "fields": {
             "sector": {
                 "type": "select",
-                "dataSource": {
-                    "Demographic and social statistics": "Demographic and social statistics",
-                    "Economic statistics": "Economic statistics",
-                    "Environment and multi-domain statistics": "Environment and multi-domain statistics"
-                },
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_CRS_purpose_codes_firstLevel.json",
+                //"dataSource": {
+                //    "Demographic and social statistics": "Demographic and social statistics",
+                //    "Economic statistics": "Economic statistics",
+                //    "Environment and multi-domain statistics": "Environment and multi-domain statistics"
+                //},
                 "helper": "Sector(s) the resource refers to as specified in the selected codelist. The word \u0027Sector\u0027 indicates the subject area the resource refers to. These sectors can be institutional sectors, economic or other sectors (e.g. local government sector, agriculture, forestry, business services, etc.)."
             },
-            "demoStats": {
+            "111": {
                 "type": "select",
-                "dataSource": {
-                    "0103": "Health",
-                    "0104": "Labour",
-                    "0101": "Population",
-                    "0102": "Education"
-                },
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_CRS_purpose_codes_secondLevel_111.json",
                 "dependencies": {
-                    "sector": "Demographic and social statistics"
+                    "sector": "111"
+                }
+            },
+            "112": {
+                "type": "select",
+                "dataSource": "./submodules/fenix-ui-metadata-editor/config/CL/CL_CRS_purpose_codes_secondLevel_112.json",
+                "dependencies": {
+                    "sector": "112"
                 }
             },
             "ecoStats": {

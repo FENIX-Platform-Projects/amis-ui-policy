@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>AMIS Policy - Bulk Download/Upload Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Policy Admin Panel">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="author" content="Barbara Cintoli <Barbara.Cintoli[at]fao.org>">
+    <!-- Amis policy -->
+    <link href="css/amispolicy.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/bootstrap-theme.3.2.0.min.css">
+    <link rel="stylesheet" href="css/bootstrap.3.2.0.min.css">
+    <!-- JQwidgets  -->
+    <link rel="stylesheet" href='js/libs/jqwidgets-ver3.4.0/jqwidgets/styles/jqx.base.css'/>
+    <!--Jquery-ui-->
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <!--Policy Structure Css for Policy Web Site-->
+    <link href="css/ap_homepage.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/policy_grid_style.css">
+    <!--Qd Generic Component Css-->
+    <link rel="stylesheet" href="css/qd_component.css">
+    <!--jQAllRangeSliders-->
+    <link rel="stylesheet" href="css/iThing_Modified.css">
+    <link href="css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!--Nprogress-->
+    <link rel='stylesheet' href='css/nprogress.css'/>
+    <!--Webix-->
+    <link href="css/webix.css" media="all" rel="stylesheet" type="text/css" />
+
+    <link href='http://glyphicons.com/' rel='stylesheet' type='text/css'>
+    <link href="css/ap_queryAndDownload.css" rel="stylesheet" type="text/css">
+    <link href="css/amis_styling.css" rel="stylesheet" type="text/css">
+    <link href="css/amis_mediaq.css" rel="stylesheet" type="text/css">
+    <link href="css/amis-sass.css" rel="stylesheet" type="text/css">
+
+    <!--Feedback System-->
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5">
+    <link type="text/css" rel="stylesheet" href="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- iDangerous SWIPER-->
+    <link href='css/idangerous.swiper.css' rel='stylesheet' type='text/css'>
+
+    <!--For Map-->
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/css/jquery.power.tip/1.1.0/jquery.powertip.css" type="text/css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/leaflet/0.7.3/leaflet.css" />
+    <link href='http://fenixrepo.fao.org/cdn/js/chosen/1.0.0/chosen.min.css' rel='stylesheet'>
+    <!-- Fenix Map js -->
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/fenix-map-js/1.0/fenix-map-js.css" />
+    <link rel="stylesheet" href="http://fenixrepo.fao.org/cdn/js/fenix-map-js/1.0/leaflet-custom.css" />
+
+    <style>
+        /*applied to the columns.*/
+        .jqx-grid-column-header, .jqx-grid-columngroup-header {
+            border-style: solid;
+            border-width: 0px 1px 0px 0px;
+            border-color: transparent;
+            white-space: normal;
+            border-style: solid;
+            font-weight: normal;
+            overflow: hidden;
+            text-align: left;
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login Modal -->
+<div id='fx-login-modal' class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Login User</h4>
+            </div>
+            <div class="modal-body">
+                <form id="fx-login-form" class="form-signin" onsubmit="return false;">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <label for="fx-login-form-inputEmail" class="sr-only">Email address</label>
+                    <input type="email" id="fx-login-form-inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                    <br>
+                    <label for="fx-login-form-inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="fx-login-form-inputPassword" class="form-control" placeholder="Password" required="">
+                    <div class="checkbox">
+                    </div>
+                    <button id="fx-login-form-submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <div id="fx-login-form-error-container"></div>
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /Login Modal -->
+
+<!-- logout Modal -->
+<div id='fx-logout-modal' class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Logout User</h4>
+            </div>
+            <div class="modal-body">
+                <form id="fx-logout-form" class="form-signin" onsubmit="return false;">
+                    <h2 class="form-signin-heading">Are you sure to logout?</h2>
+                    <div class="checkbox">
+                    </div>
+                    <button id="fx-logout-form-cancel" class="btn btn-lg btn-primary btn-block" type="button">Cancel</button>
+                    <button id="fx-logout-form-submit" class="btn btn-lg btn-primary btn-block" type="button">Logout</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- /Login Modal -->
+
+<!-- Page Header-->
+<div class="container amis-header">
+    <div class="amis-tag pull-left"></div>
+
+    <div class="pull-right banner-links">
+        <a href="#" target='_self'> Send by email </a> |
+        <a href="#" target='_self'>Print this page</a>
+    </div>
+</div>
+
+<!-- Top menu-->
+<div class="container amis-menu">
+    <!-- Main menu-->
+    <nav class="navbar navbar-left">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href='../policy/index.html' target='_self'>POLICY HOME</a></li>
+            <li><a href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a></li>
+            <li><a href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a></li>
+            <!--<li><a href='../policy/analysis.html' target='_self'>ANALYSIS</a></li>-->
+            <!--<li><a href='../policy/statisticalNotes.html' target='_self'>STATISTICAL NOTES</a></li>-->
+            <li><a href='../policy/resources.html' target='_self'>RESOURCES</a></li>
+            <li class="dropdown protected">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA MANAGEMENT <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li id="dataentry_editPolicy"><a href="../policy/editPolicy.html">Edit Policy</a></li>
+                    <li id="dataentry_addPolicy"><a href="../policy/createPolicy.html">Add Policy</a></li>
+                    <li class="active" id="dataentry_bulkDownloadUploadPolicy"><a href="../policy/bulkDownloadUpload.html">Bulk Download/Upload</a></li>
+                </ul>
+            </li>
+            <li data-toggle="modal" data-target="#fx-login-modal" id="loginButtonId"><a class="amis-log-btn" id="loginLabel">Login</a></li>
+            <li data-toggle="modal" data-target="#fx-logout-modal" style="display: none" id="logoutButtonId"><a class="amis-log-btn" id="logoutLabel">Logout</a></li>
+        </ul>
+    </nav>
+    <nav class="navbar navbar-right">
+        <ul class="nav navbar-nav">
+            <li><a href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- CONTENT-->
+        <div class="col-lg-9">
+            <!--<h1 class='fx_header_title'>Bulk Download/Upload</h1>-->
+            <h1 class="fx_p_ico" style="color: red">Bulk Download/Upload</h1>
+
+            <p>In this section all data can be downloaded using the bulk download and can be imported using the bulk upload.<br>
+            In both cases either a zip file, containing the data, metadata and supplementary information, will be either downloaded/uploaded.
+            </p>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div style="border-color: red">
+                <!--<a href='../policy/policiesAtaGlance.html' target='_self'>DOWNLOAD</a>-->
+                <a target='_self'>DOWNLOAD</a>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div style="border-color: red">
+                <!--<a style="border-color: red" href='../policy/policiesAtaGlance.html' target='_self'>UPLOAD</a>-->
+                <a target='_self'>UPLOAD</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <!-- FOOTER -->
+    <div class="row amis-footer">
+        <div class="col-xs-2 amis-footer-sides">
+            <a href='#' class='amis-contact-us'>CONTACT US</a>
+        </div>
+        <div class="col-xs-8 amis-footer-menu">
+            <a class="amis-footer-menu" href="http://www.amis-outlook.org/home/en/" target='_self'>AMIS HOME</a> | <a
+                class="amis-footer-menu" href='../policy/index.html' target='_self'>POLICY HOME</a> | <a
+                class="amis-footer-menu" href='../policy/policiesAtaGlance.html' target='_self'>POLICIES AT A GLANCE</a>
+            | <a class="amis-footer-menu" href='../policy/queryAndDownload.html' target='_self'>QUERY AND DOWNLOAD</a> |
+             <a class="amis-footer-menu" href='../policy/resources.html' target='_self'>RESOURCES</a>
+        </div>
+        <div class="col-xs-2 amis-footer-sides">
+            <div id="faostat-feedback-system" class="feedback-system-icon" data-fancybox-type="iframe"
+                 href="http://statistics.amis-outlook.org/otherssites/feedbackAmis" target="myFanzy">
+                <p style="font-style: italic; font-size: 9px;"> Help us with your</p>
+                <p style="font: 900 19px/16px 'Open Sans Condensed',sans-serif;"> FEEDBACK </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- JQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- Bootstrap CDN -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type='text/javascript'
+        src='http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js'></script>
+<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jquery/1.0.9/jquery.i18n.properties-min.js'></script>
+<!-- Jqwidgets  -->
+<script type='text/javascript' src='http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all.js'></script>
+<!--[if lt IE 9] -->
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type='text/javascript'
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.js?v=2.1.4"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/jquery.fancybox.css?v=2.1.4"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript"
+        src="http://faostat3.fao.org/faostat-download-js/js/fanzybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+<script>
+    $(".feedback-system-icon").fancybox()
+</script>
+
+<script data-main="js/controllers/main_bulkAndDownload" src="js/libs/require.min.2.1.14.js"></script>
+<!--<script data-main="js/controllers/main_dataEntryEditPolicy" src="js/libs/require.min.2.1.14.js"></script>-->
+
+</body>
+</html>

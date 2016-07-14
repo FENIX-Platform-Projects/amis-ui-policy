@@ -16,3 +16,6 @@
 [submodule "src/main/webapp/submodules/fenix-ui-datamanagement-commons"]
 	path = src/main/webapp/submodules/fenix-ui-datamanagement-commons
 	url = ../../FENIX-Platform/fenix-ui-datamanagement-commons.git
+[submodule "src/main/webapp/submodules/fenix-ui-metadata-viewer"]
+	path = src/main/webapp/submodules/fenix-ui-metadata-viewer
+	url = ../../FENIX-Platform/fenix-ui-metadata-viewer.git
